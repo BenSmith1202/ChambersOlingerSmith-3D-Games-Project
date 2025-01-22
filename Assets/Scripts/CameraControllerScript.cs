@@ -34,7 +34,7 @@ public class CameraControllerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         cam = GetComponent<Camera>();
-        pm = player.GetComponent<PlayerMovementControllerScript>();
+        pm = player.GetComponent<PlayerControllerScript>();
         grappleAction = GetComponent<PlayerInput>().actions["Grapple"]; // Get the crouch input action
         ResetCameraEffects(false);
         
