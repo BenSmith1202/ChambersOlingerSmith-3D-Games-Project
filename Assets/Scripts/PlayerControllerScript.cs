@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Tracing;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -65,6 +67,8 @@ public class PlayerControllerScript : MonoBehaviour
     [Header("Grappling")]
     public bool isGrappled;
     public float grappleForce;
+    public float grappleStretch;
+    public float grappleYankPercentDistance;
     public Vector3 currentGrapplePoint;
     LineRenderer lineRenderer;
 
@@ -361,26 +365,30 @@ public class PlayerControllerScript : MonoBehaviour
 
     public IEnumerator GrappleCouroutine(Vector3 grapplePoint)
     {
-        lineRenderer.enabled = true;
+        lineRenderer.enabled = true; //turn on rope rendering
         lineRenderer.positionCount = 2;
         currentGrapplePoint = grapplePoint;
         Vector3 forceDirection;
-        float grappleLength = Vector3.Distance(transform.position, currentGrapplePoint);
-        while (isGrappled)
+
+        //goal length is set shorter than start length to give initial pull 
+        float grappleLength = Vector3.Distance(transform.position, currentGrapplePoint) * grappleYankPercentDistance; 
+
+        while (isGrappled) //while still grappling
         {
-            yield return new WaitForFixedUpdate();
-            forceDirection = (grapplePoint - transform.position).normalized;
+            yield return new WaitForFixedUpdate(); //every fixedupdate
+            forceDirection = (grapplePoint - transform.position).normalized; //get a direction pointing from player to grapple point
             Debug.Log("Grapple Point: " + grapplePoint);
 
-            float distanceFromProperLength = (grappleLength - Vector3.Distance(transform.position, currentGrapplePoint)); //WIP
+            float distanceFromProperLength = (grappleLength - Vector3.Distance(transform.position, currentGrapplePoint)); //calculate how far from proper length the grapple is
 
-            _rbody.AddForce(forceDirection * grappleForce * 100 * -distanceFromProperLength, ForceMode.Force);
+            _rbody.AddForce(forceDirection * grappleForce * 100 * -distanceFromProperLength / grappleStretch, ForceMode.Force); //apply a force to keep the player within that length
 
 
-            Debug.DrawLine(transform.position, grapplePoint, Color.black, Time.fixedDeltaTime);
+            //Debug.DrawLine(transform.position, grapplePoint, Color.black, Time.fixedDeltaTime);
 
             
         }
+        //when player stops grappling, turn off rope renderer.
         lineRenderer.positionCount = 0;
         lineRenderer.enabled = false;
 

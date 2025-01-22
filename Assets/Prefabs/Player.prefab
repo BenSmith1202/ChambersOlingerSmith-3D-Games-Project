@@ -328,6 +328,8 @@ MonoBehaviour:
   minJumpHeight: 1
   isGrappled: 0
   grappleForce: 1
+  grappleStretch: 3
+  grappleYankPercentDistance: 0.8
   currentGrapplePoint: {x: 0, y: 0, z: 0}
   orientation: {fileID: 450200701898310750}
   cam: {fileID: 0}
@@ -352,8 +354,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
-  - {fileID: 2100000, guid: 3e28eb5eec9c68a4c96a6b591f789e82, type: 2}
+  - {fileID: 2100000, guid: 7105febb41e378d4a837bdd882485fce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
