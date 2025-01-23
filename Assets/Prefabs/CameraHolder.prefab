@@ -188,8 +188,8 @@ MonoBehaviour:
   sensitivityY: 0.3
   orientation: {fileID: 0}
   fov: 73
-  sprintFOV: 80
-  wallrunFOV: 87
+  dashFOV: 90
+  wallrunFOV: 80
   wallrunTilt: -6
   fovSpeed: 13
   tiltSpeed: 5

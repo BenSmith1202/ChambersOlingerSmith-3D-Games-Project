@@ -52,12 +52,13 @@ public class PlayerControllerScript : MonoBehaviour
     [Header("Wallrunning")]
 
     public LayerMask wallLayer; // Layer used to determine what walls can be run on
-    public float wallRunForce;  // effectively wall run speed
+    public float wallrunForce;  // effectively wall run speed
     public float maxWallTime;   // Maximum time in seconds that a player can run on walls before touching the ground
     float wallRunTimer;         // Time counter for above
     public float wallJumpVerticalForce;    // Vertical component of wall jump force vector
     public float wallJumpHorizontalForce;  // Horizontal component of wall jump force vectors
     public float wallrunSpeed;   // Speed during wallrun
+    public float wallrunGravityCounter; // controls how much the player falls while wall running. if < 0: increase gravity, if < 1: reduce gravity, if > 1: reverse gravity
 
 
     [Header("Wall Detection")]
@@ -81,6 +82,15 @@ public class PlayerControllerScript : MonoBehaviour
     public float maxSwingVelocity;           // the speed cap for grappling.
     public Vector3 currentGrapplePoint;      // the location of the current grapple point
     LineRenderer lineRenderer; // Reference to the line Renderer for the grapple rope.
+    public AudioClip grappleSound;
+
+    [Header("Dash Slam")]
+    public float dashCooldown;
+    float dashCountdown = 0;
+    public float dashDuration;
+    public float dashSpeed;
+    public float postDashSpeedReduction;
+    public float minPostDashSpeed;
 
 
     [Header("References")]
@@ -91,10 +101,12 @@ public class PlayerControllerScript : MonoBehaviour
     private Vector2 moveVal;    // Stores movement input values
     //private InputAction sprintAction;  // Reference to the sprint input action
     private InputAction crouchAction;  // Reference to the crouch input action
+    private InputAction dashAction;
     Vector3 moveDirection;      // Calculated movement direction
     public Transform orientation; // Reference to your camera's orientation
     public GameObject cam;
     CameraControllerScript camScript;
+    AudioSource audioSource;
 
     [Header("Particles")]
     public ParticleSystem grappleParticles;
@@ -108,7 +120,8 @@ public class PlayerControllerScript : MonoBehaviour
         wallrunning,// Player is wallrunning
         crouching,  // Player is crouching
         freefall,       // Player is in the air
-        swinging   //player is on a grappling hook, or has just departed from a hook and yet to touch the ground or wall
+        swinging,   //player is on a grappling hook, or has just departed from a hook and yet to touch the ground or wall
+        dashing
     }
 
 
@@ -119,9 +132,11 @@ public class PlayerControllerScript : MonoBehaviour
         _rbody = GetComponent<Rigidbody>(); 
         //sprintAction = GetComponent<PlayerInput>().actions["Sprint"]; // Get the sprint input action
         crouchAction = GetComponent<PlayerInput>().actions["Crouch"]; // Get the crouch input action
+        dashAction = GetComponent<PlayerInput>().actions["Dash"]; // Get the crouch input action
         startYScale = transform.localScale.y; // Store the original Y scale of the player
         camScript = cam.GetComponent<CameraControllerScript>();
         lineRenderer.enabled = false;
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -136,7 +151,14 @@ public class PlayerControllerScript : MonoBehaviour
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, currentGrapplePoint);
         }
-        
+
+        dashCountdown -= Time.deltaTime;
+        if (dashAction.IsPressed() && dashCountdown < 0)
+        {
+            StartCoroutine(DashSlam());
+            dashCountdown = dashCooldown;
+        }
+
     }
 
 
@@ -209,12 +231,9 @@ public class PlayerControllerScript : MonoBehaviour
             else
             {
                 // Reset camera effects for air states, except when already swinging
-                if (movementState != MovementState.running && movementState != MovementState.swinging)
-                    camScript.ResetCameraEffects(true);
-
-                // Maintain swinging state if active, otherwise set to in-air
-                if (movementState != MovementState.swinging)
+                if (movementState != MovementState.swinging && movementState != MovementState.dashing)
                 {
+                    camScript.ResetCameraEffects(true);
                     movementState = MovementState.freefall;
                 }
             }
@@ -301,20 +320,21 @@ public class PlayerControllerScript : MonoBehaviour
             _rbody.AddForce(-wallNormal * 100, ForceMode.Force);
         }
 
-        _rbody.AddForce(wallForward * wallRunForce * 100, ForceMode.Force);
+        _rbody.AddForce(100f * wallrunForce * wallForward, ForceMode.Force);
+        _rbody.AddForce(25f * wallrunGravityCounter * transform.up, ForceMode.Force);
     }
 
 
     private void HandleFreefallMovement(Vector3 movementForce)
     {
-        Vector3 xzVel = new Vector3(_rbody.velocity.x, 0f, _rbody.velocity.z);
+        Vector3 xzVel = new(_rbody.velocity.x, 0f, _rbody.velocity.z);
 
         if (xzVel.magnitude > speed)
         {
-            _rbody.AddForce(RemovePositiveParallelComponent(movementForce * speed * 0.8f * airMultiplier, xzVel), ForceMode.Force);
+            _rbody.AddForce(RemovePositiveParallelComponent(0.8f * airMultiplier * speed * movementForce, xzVel), ForceMode.Force);
         } else
         {
-            _rbody.AddForce(movementForce * speed * 0.8f * airMultiplier, ForceMode.Force);
+            _rbody.AddForce(0.8f * airMultiplier * speed * movementForce, ForceMode.Force);
         }
         
     }
@@ -338,15 +358,15 @@ public class PlayerControllerScript : MonoBehaviour
         else // if in freefall after a grapple
         {
             // do the same thing only considering horizontal velocity
-            Vector3 xzVel = new Vector3(_rbody.velocity.x, 0f, _rbody.velocity.z); // Horizontal velocity
+            Vector3 xzVel = new(_rbody.velocity.x, 0f, _rbody.velocity.z); // Horizontal velocity
 
             if (xzVel.magnitude > maxSwingVelocity)
             {
-                _rbody.AddForce(RemovePositiveParallelComponent(movementForce * speed * 0.5f * airMultiplier, xzVel), ForceMode.Force);
+                _rbody.AddForce(RemovePositiveParallelComponent(0.5f * airMultiplier * speed * movementForce, xzVel), ForceMode.Force);
             }
             else
             {
-                _rbody.AddForce(movementForce * speed * 0.5f * airMultiplier, ForceMode.Force);
+                _rbody.AddForce(0.5f * airMultiplier * speed * movementForce, ForceMode.Force);
             }
         }
         
@@ -356,9 +376,9 @@ public class PlayerControllerScript : MonoBehaviour
     private void ControlMovementSpeed()
     {
 
-        Vector3 xzVel = new Vector3(_rbody.velocity.x, 0f, _rbody.velocity.z);
+        Vector3 xzVel = new(_rbody.velocity.x, 0f, _rbody.velocity.z);
 
-        if (xzVel.magnitude > speed && movementState != MovementState.swinging && movementState != MovementState.freefall) 
+        if (xzVel.magnitude > speed && movementState != MovementState.swinging && movementState != MovementState.freefall && movementState != MovementState.dashing) 
         {
             Vector3 cappedVel = xzVel.normalized * speed;
             _rbody.velocity = new Vector3(cappedVel.x, _rbody.velocity.y, cappedVel.z);
@@ -476,6 +496,7 @@ public class PlayerControllerScript : MonoBehaviour
         currentGrapplePoint = grapplePoint;
         Destroy(Instantiate(grappleParticles, currentGrapplePoint, Quaternion.identity), 1f);
         Vector3 forceDirection;
+        AudioSource.PlayClipAtPoint(grappleSound, grapplePoint);
 
         //Length of rope
         //goal length is set shorter than start length to give initial pull 
@@ -493,7 +514,7 @@ public class PlayerControllerScript : MonoBehaviour
             //apply a tensile force to keep the player within that length
             if (distanceBeyondMaxLength > 0)
             {
-                _rbody.AddForce(forceDirection * grappleForce * 100 * distanceBeyondMaxLength / grappleStretch, ForceMode.Force); 
+                _rbody.AddForce(100f * distanceBeyondMaxLength * grappleForce * forceDirection / grappleStretch, ForceMode.Force); 
             }
 
             // reel in grapple rope over time
@@ -502,6 +523,46 @@ public class PlayerControllerScript : MonoBehaviour
         //when player stops grappling, turn off rope renderer.
         lineRenderer.positionCount = 0;
         lineRenderer.enabled = false;
+        yield return null;
+    }
+
+    public IEnumerator DashSlam()
+        /** This dash logic is just a prototype of what i though would be cool. Feel free to comment it out or change it 
+         * -Ben
+         **/
+    {
+        MovementState prevMoveState = movementState; // save previous move state
+        movementState = MovementState.dashing;       // start dashing
+        float dashTime = dashDuration;               //start dash timer
+        Vector3 startVelocity = _rbody.velocity;     // save starting velocity
+        _rbody.velocity = Vector3.zero;              //kill velocity
+        Vector3 dashDirection = cam.transform.forward;
+        camScript.DashZoom();
+        _rbody.useGravity = false;
+
+        // as long as the time hasn't run out and the player hasnt caused another movement state (by grappling or hitting a wall/floor)
+        while (movementState == MovementState.dashing && dashTime > 0f)
+        {
+            _rbody.velocity = dashSpeed * dashDirection; //dash in the direction of the camera
+            dashTime -= Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        camScript.ResetCameraEffects(false);
+        _rbody.useGravity = true;
+
+        if (movementState == MovementState.dashing) //as long as the player didnt start a new movment state
+        {
+            movementState = prevMoveState; //return it to what it was
+        }
+        
+        // After a dash, go some fraction of your initial speed defined by postDash speed reduction
+        // but go no slower than minimum post dashVelocity
+        // and no greater than the mid-dash velocity
+        // hopefully this feels good
+        Vector3 newReducedVelocity = (Mathf.Max(Mathf.Min(postDashSpeedReduction * startVelocity.magnitude, dashSpeed), minPostDashSpeed) * dashDirection);
+        _rbody.velocity = newReducedVelocity;
+
         yield return null;
     }
 

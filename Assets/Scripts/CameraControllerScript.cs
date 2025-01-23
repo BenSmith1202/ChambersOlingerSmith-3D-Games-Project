@@ -15,7 +15,7 @@ public class CameraControllerScript : MonoBehaviour
     public Transform orientation;
     Camera cam;
     public float fov;
-    public float sprintFOV;
+    public float dashFOV;
     public float wallrunFOV;
     public float wallrunTilt;
     private float targetFOV;
@@ -100,11 +100,11 @@ public class CameraControllerScript : MonoBehaviour
         targetTilt = -wallrunTilt;
     }
 
-    public void SprintZoom()
+    public void DashZoom()
     {
-        Debug.Log("Sprint Fov");
+        Debug.Log("Dash Fov");
 
-        targetFOV = sprintFOV;
+        targetFOV = dashFOV;
     }
 
     private void UpdateCameraEffects()
