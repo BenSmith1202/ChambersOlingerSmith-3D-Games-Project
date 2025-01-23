@@ -195,5 +195,5 @@ MonoBehaviour:
   tiltSpeed: 5
   grappleLayer:
     serializedVersion: 2
-    m_Bits: 512
-  grappleRange: 50
+    m_Bits: 640
+  grappleRange: 40

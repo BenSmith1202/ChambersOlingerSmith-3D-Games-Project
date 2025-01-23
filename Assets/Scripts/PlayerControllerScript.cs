@@ -27,9 +27,6 @@ public class PlayerControllerScript : MonoBehaviour
     bool readyToJump = true;    // Whether the player can jump again
 
 
-    
-
-
     [Header("Crouching")]
 
     public float crouchSpeed;   // Speed during crouching
@@ -80,6 +77,8 @@ public class PlayerControllerScript : MonoBehaviour
     public float grappleStretch;    // divides the above, how stretchy the rope is
     public float grappleReelSpeed;  // how fast the max length of the grapple decreases (linearly)
     public float grappleYankPercentDistance; // percent of player's distance from the grapple point that the rope length is initialized to
+    public float swingSpeed;                 // The speed at which the player influences their momentum with the movement keys
+    public float maxSwingVelocity;           // the speed cap for grappling.
     public Vector3 currentGrapplePoint;      // the location of the current grapple point
     LineRenderer lineRenderer; // Reference to the line Renderer for the grapple rope.
 
@@ -97,15 +96,21 @@ public class PlayerControllerScript : MonoBehaviour
     public GameObject cam;
     CameraControllerScript camScript;
 
+    [Header("Particles")]
+    public ParticleSystem grappleParticles;
+
+
+    // State machine states
     public enum MovementState
     {
         running,    // Player is walking
         //sprinting,  // Player is sprinting
         wallrunning,// Player is wallrunning
         crouching,  // Player is crouching
-        inAir,       // Player is in the air
+        freefall,       // Player is in the air
         swinging   //player is on a grappling hook, or has just departed from a hook and yet to touch the ground or wall
     }
+
 
     void Start()
     {
@@ -118,6 +123,7 @@ public class PlayerControllerScript : MonoBehaviour
         camScript = cam.GetComponent<CameraControllerScript>();
         lineRenderer.enabled = false;
     }
+
 
     private void Update()
     {
@@ -132,6 +138,7 @@ public class PlayerControllerScript : MonoBehaviour
         }
         
     }
+
 
     void FixedUpdate()
     {
@@ -152,11 +159,20 @@ public class PlayerControllerScript : MonoBehaviour
         WallCheck();
     }
 
+
+    //Defines transitions between states
     private void StateHandler()
     {
-        // First, handle scale changes for crouching
-        if (crouchAction.IsPressed() && grounded)
+
+        // PRIORITY 0: Grappling - if on hook, no other state is possible than swinging
+        if (isGrappled)
         {
+            movementState = MovementState.swinging;
+        }
+        // PRIORITY 1: Crouching - Highest priority state when grounded
+        else if (crouchAction.IsPressed() && grounded)
+        {
+            // Modify player scale and apply downward force if entering crouch state
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             if (movementState != MovementState.crouching)
             {
@@ -167,11 +183,11 @@ public class PlayerControllerScript : MonoBehaviour
         }
         else
         {
-            // Reset scale when not crouching
+            // Reset player scale when not crouching
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
 
-            // Then handle other states
-            if ((wallLeft || wallRight) && moveVal.y > 0.1f && AboveGround())  // && sprintAction.IsPressed()
+            // PRIORITY 2: Wallrunning - Requires specific conditions
+            if ((wallLeft || wallRight) && moveVal.y > 0.1f && AboveGround())
             {
                 if (movementState != MovementState.wallrunning)
                 {
@@ -179,17 +195,7 @@ public class PlayerControllerScript : MonoBehaviour
                     speed = wallrunSpeed;
                 }
             }
-            // Then handle other states
-            //else if (grounded && sprintAction.IsPressed())
-            //{
-            //    if (movementState != MovementState.sprinting)
-            //    {
-            //        camScript.ResetCameraEffects(false);
-            //        camScript.SprintZoom();
-            //        movementState = MovementState.sprinting;
-            //        speed = sprintSpeed;
-            //    }
-            //}
+            // PRIORITY 3: Ground movement
             else if (grounded)
             {
                 if (movementState != MovementState.running)
@@ -199,19 +205,28 @@ public class PlayerControllerScript : MonoBehaviour
                     speed = runSpeed;
                 }
             }
+            // PRIORITY 4: Air movement
             else
             {
-                if (movementState != MovementState.running)
+                // Reset camera effects for air states, except when already swinging
+                if (movementState != MovementState.running && movementState != MovementState.swinging)
                     camScript.ResetCameraEffects(true);
-                movementState = MovementState.inAir;
+
+                // Maintain swinging state if active, otherwise set to in-air
+                if (movementState != MovementState.swinging)
+                {
+                    movementState = MovementState.freefall;
+                }
             }
         }
     }
 
-    void OnMove(InputValue value)
+
+   void OnMove(InputValue value)
     {
         moveVal = value.Get<Vector2>(); // Get movement input from the player
     }
+
 
     void OnJump(InputValue value)
     {
@@ -223,62 +238,131 @@ public class PlayerControllerScript : MonoBehaviour
         }
     }
 
+
+    // depending on what movment state the player is in, apply different movement
+    //Activates every fixed update
     private void HandleMovement()
     {
-        // ON SLOPE
+        // PRIORITY 1: Slope Movement - Special physics handling
         if (OnSlopeCheck())
         {
-            _rbody.AddForce(10f * speed * GetSlopeDirection(), ForceMode.Force); // Move along the slope direction
-            _rbody.AddForce(slopeCling * -slopeCast.normal, ForceMode.Force);   // Apply force to cling to slope
-            Debug.Log("ON SLOPE");
-        }
-        // CROUCHING
-        else if (movementState == MovementState.crouching)
-        {
-            _rbody.AddForce(10f * crouchSpeed * moveDirection.normalized, ForceMode.Force); // Apply crouch movement force
-        }
-        // running // OR SPRINTING
-        else if (movementState == MovementState.running) // || movementState == MovementState.sprinting
-        {
-            _rbody.AddForce(10f * speed * moveDirection.normalized, ForceMode.Force); // Apply movement force on the ground
-        }
-        // WALLRUNNING
-        else if (movementState == MovementState.wallrunning)
-        {
-
+            _rbody.AddForce(10f * speed * GetSlopeDirection(), ForceMode.Force);
+            _rbody.AddForce(slopeCling * -slopeCast.normal, ForceMode.Force);
             _rbody.useGravity = false;
-            Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
-            Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
-
-            if ((orientation.forward - wallForward).magnitude > (orientation.forward - -wallForward).magnitude)
-            {
-                wallForward = -wallForward;
-            }
-
-            if ((wallLeft && moveVal.x < 0) || (wallRight && moveVal.x > 0)) // Wall cling for convex walls
-            {
-                _rbody.AddForce(-wallNormal * 100, ForceMode.Force);
-            }
-
-            _rbody.AddForce(wallForward * wallRunForce * 100, ForceMode.Force);
-     
+            return;
         }
-        // IN AIR
-        else if (movementState == MovementState.inAir)
+
+        // Movement force application based on current state
+        Vector3 movementForce = 10f * moveDirection.normalized;
+        switch (movementState)
         {
-            _rbody.AddForce(10f * speed * airMultiplier * moveDirection.normalized, ForceMode.Force); // Apply movement force in the air
+            case MovementState.crouching:
+                _rbody.AddForce(movementForce * crouchSpeed, ForceMode.Force);
+                break;
+
+            case MovementState.running:
+                _rbody.AddForce(movementForce * speed, ForceMode.Force);
+                break;
+
+            case MovementState.wallrunning:
+                HandleWallrunMovement();
+                break;
+
+            case MovementState.freefall:
+                HandleFreefallMovement(movementForce);
+                break;
+
+            case MovementState.swinging:
+                HandleSwingingMovement(movementForce);
+                break;
         }
 
-        // SPEED CONTROL
-        Vector3 xzVel = new Vector3(_rbody.velocity.x, 0f, _rbody.velocity.z); // Get horizontal velocity
+        // Speed control
+        ControlMovementSpeed();
 
-        if (xzVel.magnitude > speed && !isGrappled)
+        // Restore gravity when not on slope
+        _rbody.useGravity = true;
+    }
+
+
+    private void HandleWallrunMovement()
+    {
+        _rbody.useGravity = false;
+        Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
+        Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
+
+        wallForward = (orientation.forward - wallForward).magnitude > (orientation.forward - -wallForward).magnitude
+            ? -wallForward
+            : wallForward;
+
+        // Wall cling for convex walls
+        if ((wallLeft && moveVal.x < 0) || (wallRight && moveVal.x > 0))
         {
-            Vector3 cappedVel = xzVel.normalized * speed; // Limit velocity to max speed
-            _rbody.velocity = new Vector3(cappedVel.x, _rbody.velocity.y, cappedVel.z); // Apply capped velocity
+            _rbody.AddForce(-wallNormal * 100, ForceMode.Force);
         }
 
-        _rbody.useGravity = !OnSlopeCheck(); // Disable gravity on slopes to stop sliding
+        _rbody.AddForce(wallForward * wallRunForce * 100, ForceMode.Force);
+    }
+
+
+    private void HandleFreefallMovement(Vector3 movementForce)
+    {
+        Vector3 xzVel = new Vector3(_rbody.velocity.x, 0f, _rbody.velocity.z);
+
+        if (xzVel.magnitude > speed)
+        {
+            _rbody.AddForce(RemovePositiveParallelComponent(movementForce * speed * 0.8f * airMultiplier, xzVel), ForceMode.Force);
+        } else
+        {
+            _rbody.AddForce(movementForce * speed * 0.8f * airMultiplier, ForceMode.Force);
+        }
+        
+    }
+
+
+    private void HandleSwingingMovement(Vector3 movementForce)
+    {        
+        if (isGrappled) //if currently grappled to an object
+        {               // we consider the full 3d velocity.
+            if (_rbody.velocity.magnitude > maxSwingVelocity) //if its greater than the max:
+            {
+                // apply movement while removing any component in the direction of velocity
+                _rbody.AddForce(RemovePositiveParallelComponent(movementForce * swingSpeed, _rbody.velocity), ForceMode.Force);
+            }
+            else //otherwise (if less than max)
+            {
+                //apply movment like normal
+                _rbody.AddForce(movementForce * swingSpeed, ForceMode.Force);
+            }
+        }
+        else // if in freefall after a grapple
+        {
+            // do the same thing only considering horizontal velocity
+            Vector3 xzVel = new Vector3(_rbody.velocity.x, 0f, _rbody.velocity.z); // Horizontal velocity
+
+            if (xzVel.magnitude > maxSwingVelocity)
+            {
+                _rbody.AddForce(RemovePositiveParallelComponent(movementForce * speed * 0.5f * airMultiplier, xzVel), ForceMode.Force);
+            }
+            else
+            {
+                _rbody.AddForce(movementForce * speed * 0.5f * airMultiplier, ForceMode.Force);
+            }
+        }
+        
+    }
+
+
+    private void ControlMovementSpeed()
+    {
+
+        Vector3 xzVel = new Vector3(_rbody.velocity.x, 0f, _rbody.velocity.z);
+
+        if (xzVel.magnitude > speed && movementState != MovementState.swinging && movementState != MovementState.freefall) 
+        {
+            Vector3 cappedVel = xzVel.normalized * speed;
+            _rbody.velocity = new Vector3(cappedVel.x, _rbody.velocity.y, cappedVel.z);
+        }
     }
 
 
@@ -301,10 +385,12 @@ public class PlayerControllerScript : MonoBehaviour
         
     }
 
+
     void ResetJump()
     {
         readyToJump = true; // Allow the player to jump again
     }
+
 
     private bool OnSlopeCheck()
     {
@@ -316,10 +402,12 @@ public class PlayerControllerScript : MonoBehaviour
         return false;
     }
 
+
     private Vector3 GetSlopeDirection()
     {
         return Vector3.ProjectOnPlane(moveDirection, slopeCast.normal).normalized; // Project movement direction onto the slope's plane
     }
+
 
     // WALLRUNNING
     void WallCheck()
@@ -349,6 +437,7 @@ public class PlayerControllerScript : MonoBehaviour
         return !Physics.Raycast(transform.position, Vector3.down, minJumpHeight, groundLayer);
     }
 
+
     void StartWallrunning()
     {
         Debug.Log("Start Wallrun");
@@ -364,6 +453,7 @@ public class PlayerControllerScript : MonoBehaviour
             camScript.WallrunTiltRight();
         }
     }
+
     void StopWallrunning()
     {
         Debug.Log("Stop Wallrun");
@@ -372,16 +462,19 @@ public class PlayerControllerScript : MonoBehaviour
         camScript.ResetCameraEffects(true);
     }
 
+
     public void StartGrapple(Vector3 grapplePoint)
     {
         StartCoroutine(GrappleCouroutine(grapplePoint));
     }
+
 
     public IEnumerator GrappleCouroutine(Vector3 grapplePoint)
     {
         lineRenderer.enabled = true; //turn on rope rendering
         lineRenderer.positionCount = 2;
         currentGrapplePoint = grapplePoint;
+        Destroy(Instantiate(grappleParticles, currentGrapplePoint, Quaternion.identity), 1f);
         Vector3 forceDirection;
 
         //Length of rope
@@ -392,6 +485,7 @@ public class PlayerControllerScript : MonoBehaviour
         {
             yield return new WaitForFixedUpdate(); //every fixedupdate
             forceDirection = (grapplePoint - transform.position).normalized; //get a direction pointing from player to grapple point
+            movementState = MovementState.swinging;
             Debug.Log("Grapple Point: " + grapplePoint);
 
             float distanceBeyondMaxLength = (Vector3.Distance(transform.position, currentGrapplePoint) - grappleLength); //Distance from grapple point further than the rope length
@@ -404,18 +498,38 @@ public class PlayerControllerScript : MonoBehaviour
 
             // reel in grapple rope over time
             grappleLength -= Time.fixedDeltaTime * grappleReelSpeed;
-
-
-            //Debug.DrawLine(transform.position, grapplePoint, Color.black, Time.fixedDeltaTime);
-
-
         }
         //when player stops grappling, turn off rope renderer.
         lineRenderer.positionCount = 0;
         lineRenderer.enabled = false;
-
-
         yield return null;
+    }
 
+
+    //UTILITIES
+
+    
+    Vector3 RemovePositiveParallelComponent(Vector3 vectorIn, Vector3 referenceVector)
+    /**Takes a vector input and a reference vector, and returns the input vector minus any positive 
+     ** parallel component to the reference vector.**/
+    {
+        // normalize the reference direction into a unit vector
+        Vector3 normalizedReference = referenceVector.normalized;
+
+        // project vectorToModify onto the reference direction
+        // this gives us the component of vectorToModify that is parallel to the reference
+        Vector3 parallelComponent = Vector3.Dot(vectorIn, normalizedReference) * normalizedReference;
+
+        // figure out if the parallel component is in the same or opposite direction as the reference
+        float parallelSign = Mathf.Sign(Vector3.Dot(parallelComponent, referenceVector));
+
+
+        if (parallelSign > 0) //if there is a positive component parallel to the reference
+        {
+            return vectorIn - parallelComponent; //remove it
+        } else //otherwise
+        {
+            return vectorIn; //return original
+        }
     }
 }

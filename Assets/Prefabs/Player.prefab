@@ -297,15 +297,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e929bf7799079fe47b28611aa788994b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 7
+  runSpeed: 12
   groundDrag: 3.5
-  airDrag: 0
+  airDrag: 0.3
   airMultiplier: 0.5
   airSpeedCap: 0
   movementState: 0
-  jumpForce: 12
+  jumpForce: 11
   jumpDelay: 0.2
-  sprintSpeed: 12
   crouchSpeed: 4
   startYScale: 0
   crouchYScale: 0.5
@@ -321,18 +320,22 @@ MonoBehaviour:
     m_Bits: 256
   wallRunForce: 3
   maxWallTime: 1.5
-  wallRunTimer: 0
   wallJumpVerticalForce: 10
   wallJumpHorizontalForce: 15
+  wallrunSpeed: 9
   wallCheckDist: 0.7
   minJumpHeight: 1
   isGrappled: 0
   grappleForce: 1
   grappleStretch: 3
+  grappleReelSpeed: 5
   grappleYankPercentDistance: 0.8
+  swingSpeed: 2
+  maxSwingVelocity: 30
   currentGrapplePoint: {x: 0, y: 0, z: 0}
   orientation: {fileID: 450200701898310750}
   cam: {fileID: 0}
+  grappleParticles: {fileID: 3023263562023115759, guid: f4fa6430958c141468ebaaa4dcf586aa, type: 3}
 --- !u!120 &406901067875648592
 LineRenderer:
   serializedVersion: 2
