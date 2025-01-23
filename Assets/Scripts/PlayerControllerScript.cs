@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 public class PlayerControllerScript : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float walkSpeed;     // Walking speed of the player
+    public float runSpeed;     // Walking speed of the player
     public float groundDrag;    // Drag applied when on the ground
     public float airDrag;       // Drag applied when in the air
     public float airMultiplier; // Multiplier for movement speed while in the air
@@ -21,63 +21,76 @@ public class PlayerControllerScript : MonoBehaviour
     public MovementState movementState;  // Tracks the player's current movement state
 
     [Header("Jumping")]
+
     public float jumpForce;     // Force applied when the player jumps
     public float jumpDelay;     // Delay between consecutive jumps
     bool readyToJump = true;    // Whether the player can jump again
 
-    [Header("Sprinting")]
-    public float sprintSpeed;   // Speed during sprinting
+
+    
+
 
     [Header("Crouching")]
+
     public float crouchSpeed;   // Speed during crouching
     public float startYScale;   // Original Y scale of the player
     public float crouchYScale;  // Y scale while crouching
     public float crouchForce;   // Downward force applied when crouching
 
+
     [Header("Slope Movement")]
+
     public float maxSlopeAngle; // Maximum angle of a slope the player can walk on
     RaycastHit slopeCast;       // Stores information about the slope being detected
     public float slopeCling = 5;  // Smoothing speed for aligning the player to the slope
 
+
     [Header("Ground Check")]
+
     public float playerHeight;  // Height of the player collider
     public LayerMask groundLayer;  // Layer mask used to determine what is considered ground
     bool grounded = false;      // Whether the player is on the ground
 
     
-
-
     [Header("Wallrunning")]
-    public LayerMask wallLayer;
-    public float wallRunForce;
-    public float maxWallTime;
-    public float wallRunTimer;
-    public float wallJumpVerticalForce;
-    public float wallJumpHorizontalForce;
+
+    public LayerMask wallLayer; // Layer used to determine what walls can be run on
+    public float wallRunForce;  // effectively wall run speed
+    public float maxWallTime;   // Maximum time in seconds that a player can run on walls before touching the ground
+    float wallRunTimer;         // Time counter for above
+    public float wallJumpVerticalForce;    // Vertical component of wall jump force vector
+    public float wallJumpHorizontalForce;  // Horizontal component of wall jump force vectors
+    public float wallrunSpeed;   // Speed during wallrun
+
 
     [Header("Wall Detection")]
-    public float wallCheckDist;
-    public float minJumpHeight;
-    private RaycastHit leftWallHit;
+
+    public float wallCheckDist; // Length of wall detection raycast
+    public float minJumpHeight; // Minimum heigh above the ground to start a wallrun
+    private RaycastHit leftWallHit;  // These two are to store the results of the above raycast
     private RaycastHit rightWallHit;
-    private bool wallLeft;
-    private bool wallRight;
+    private bool wallLeft;      // True if on a wall to the left
+    private bool wallRight;     // True if on a wall to the right
 
 
-    [Header("Grappling")]
-    public bool isGrappled;
-    public float grappleForce;
-    public float grappleStretch;
-    public float grappleYankPercentDistance;
-    public Vector3 currentGrapplePoint;
-    LineRenderer lineRenderer;
+    [Header("Grappling")] //DOES NOT WORK ON MOVING OBJECTS
+
+    public bool isGrappled;     // true iff grapple button is held down and a successful grapple is in progress
+    public float grappleForce;  // force of the ropes tension
+    public float grappleStretch;    // divides the above, how stretchy the rope is
+    public float grappleReelSpeed;  // how fast the max length of the grapple decreases (linearly)
+    public float grappleYankPercentDistance; // percent of player's distance from the grapple point that the rope length is initialized to
+    public Vector3 currentGrapplePoint;      // the location of the current grapple point
+    LineRenderer lineRenderer; // Reference to the line Renderer for the grapple rope.
+
 
     [Header("References")]
+
     //public GameObject player;
     private Rigidbody _rbody;   // Reference to the player's Rigidbody component
     private CapsuleCollider _collider;  // Reference to the player's CapsuleCollider component
     private Vector2 moveVal;    // Stores movement input values
-    private InputAction sprintAction;  // Reference to the sprint input action
+    //private InputAction sprintAction;  // Reference to the sprint input action
     private InputAction crouchAction;  // Reference to the crouch input action
     Vector3 moveDirection;      // Calculated movement direction
     public Transform orientation; // Reference to your camera's orientation
@@ -86,11 +99,12 @@ public class PlayerControllerScript : MonoBehaviour
 
     public enum MovementState
     {
-        walking,    // Player is walking
-        sprinting,  // Player is sprinting
+        running,    // Player is walking
+        //sprinting,  // Player is sprinting
         wallrunning,// Player is wallrunning
         crouching,  // Player is crouching
-        inAir       // Player is in the air
+        inAir,       // Player is in the air
+        swinging   //player is on a grappling hook, or has just departed from a hook and yet to touch the ground or wall
     }
 
     void Start()
@@ -98,7 +112,7 @@ public class PlayerControllerScript : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         _collider = GetComponent<CapsuleCollider>(); 
         _rbody = GetComponent<Rigidbody>(); 
-        sprintAction = GetComponent<PlayerInput>().actions["Sprint"]; // Get the sprint input action
+        //sprintAction = GetComponent<PlayerInput>().actions["Sprint"]; // Get the sprint input action
         crouchAction = GetComponent<PlayerInput>().actions["Crouch"]; // Get the crouch input action
         startYScale = transform.localScale.y; // Store the original Y scale of the player
         camScript = cam.GetComponent<CameraControllerScript>();
@@ -157,37 +171,37 @@ public class PlayerControllerScript : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
 
             // Then handle other states
-            if ((wallLeft || wallRight) && moveVal.y > 0.1f && sprintAction.IsPressed() && AboveGround())
+            if ((wallLeft || wallRight) && moveVal.y > 0.1f && AboveGround())  // && sprintAction.IsPressed()
             {
                 if (movementState != MovementState.wallrunning)
                 {
                     StartWallrunning();
-                    speed = sprintSpeed;
+                    speed = wallrunSpeed;
                 }
             }
             // Then handle other states
-            else if (grounded && sprintAction.IsPressed())
-            {
-                if (movementState != MovementState.sprinting)
-                {
-                    camScript.ResetCameraEffects(false);
-                    camScript.SprintZoom();
-                    movementState = MovementState.sprinting;
-                    speed = sprintSpeed;
-                }
-            }
+            //else if (grounded && sprintAction.IsPressed())
+            //{
+            //    if (movementState != MovementState.sprinting)
+            //    {
+            //        camScript.ResetCameraEffects(false);
+            //        camScript.SprintZoom();
+            //        movementState = MovementState.sprinting;
+            //        speed = sprintSpeed;
+            //    }
+            //}
             else if (grounded)
             {
-                if (movementState != MovementState.walking)
+                if (movementState != MovementState.running)
                 {
                     camScript.ResetCameraEffects(false);
-                    movementState = MovementState.walking;
-                    speed = walkSpeed;
+                    movementState = MovementState.running;
+                    speed = runSpeed;
                 }
             }
             else
             {
-                if (movementState != MovementState.walking)
+                if (movementState != MovementState.running)
                     camScript.ResetCameraEffects(true);
                 movementState = MovementState.inAir;
             }
@@ -223,8 +237,8 @@ public class PlayerControllerScript : MonoBehaviour
         {
             _rbody.AddForce(10f * crouchSpeed * moveDirection.normalized, ForceMode.Force); // Apply crouch movement force
         }
-        // WALKING OR SPRINTING
-        else if (movementState == MovementState.walking || movementState == MovementState.sprinting)
+        // running // OR SPRINTING
+        else if (movementState == MovementState.running) // || movementState == MovementState.sprinting
         {
             _rbody.AddForce(10f * speed * moveDirection.normalized, ForceMode.Force); // Apply movement force on the ground
         }
@@ -370,6 +384,7 @@ public class PlayerControllerScript : MonoBehaviour
         currentGrapplePoint = grapplePoint;
         Vector3 forceDirection;
 
+        //Length of rope
         //goal length is set shorter than start length to give initial pull 
         float grappleLength = Vector3.Distance(transform.position, currentGrapplePoint) * grappleYankPercentDistance; 
 
@@ -379,14 +394,21 @@ public class PlayerControllerScript : MonoBehaviour
             forceDirection = (grapplePoint - transform.position).normalized; //get a direction pointing from player to grapple point
             Debug.Log("Grapple Point: " + grapplePoint);
 
-            float distanceFromProperLength = (grappleLength - Vector3.Distance(transform.position, currentGrapplePoint)); //calculate how far from proper length the grapple is
+            float distanceBeyondMaxLength = (Vector3.Distance(transform.position, currentGrapplePoint) - grappleLength); //Distance from grapple point further than the rope length
 
-            _rbody.AddForce(forceDirection * grappleForce * 100 * -distanceFromProperLength / grappleStretch, ForceMode.Force); //apply a force to keep the player within that length
+            //apply a tensile force to keep the player within that length
+            if (distanceBeyondMaxLength > 0)
+            {
+                _rbody.AddForce(forceDirection * grappleForce * 100 * distanceBeyondMaxLength / grappleStretch, ForceMode.Force); 
+            }
+
+            // reel in grapple rope over time
+            grappleLength -= Time.fixedDeltaTime * grappleReelSpeed;
 
 
             //Debug.DrawLine(transform.position, grapplePoint, Color.black, Time.fixedDeltaTime);
 
-            
+
         }
         //when player stops grappling, turn off rope renderer.
         lineRenderer.positionCount = 0;
