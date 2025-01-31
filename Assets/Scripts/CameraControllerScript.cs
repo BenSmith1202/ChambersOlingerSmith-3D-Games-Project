@@ -5,13 +5,13 @@ using UnityEngine.InputSystem;
 public class CameraControllerScript : MonoBehaviour
 {
     public GameObject player;
-    PlayerControllerScript pm;
+    PlayerControllerScript playerControllerScript;
     public float sensitivityX = 2f;
     public float sensitivityY = 2f;
     float mouseX;
     float mouseY;
-    float xRotation;
-    float yRotation;
+    float yAngle;
+    float xAngle;
     public Transform orientation;
     Camera cam;
     public float fov;
@@ -27,15 +27,13 @@ public class CameraControllerScript : MonoBehaviour
     RaycastHit grappleRangeFinder;
     public LayerMask grappleLayer;
     public float grappleRange;
-    private InputAction grappleAction;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         cam = GetComponent<Camera>();
-        pm = player.GetComponent<PlayerControllerScript>();
-        grappleAction = GetComponent<PlayerInput>().actions["Grapple"]; // Get the crouch input action
+        playerControllerScript = player.GetComponent<PlayerControllerScript>();
         ResetCameraEffects(false);
         
     }
@@ -43,25 +41,18 @@ public class CameraControllerScript : MonoBehaviour
     private void Update()
     {
         // Apply mouse movement directly without deltaTime
-        xRotation -= mouseY * sensitivityY; // Negative because mouse Y moves camera X in opposite direction
-        yRotation += mouseX * sensitivityX;
+        yAngle -= mouseY * sensitivityY; // Negative because mouse Y moves camera y in opposite direction
+        xAngle += mouseX * sensitivityX;
 
         // Clamp the vertical rotation
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        yAngle = Mathf.Clamp(yAngle, -90f, 90f);
 
         // Apply rotations
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        player.transform.rotation = Quaternion.Euler(0, yRotation, 0);
-        orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
+        player.transform.rotation = Quaternion.Euler(0, xAngle, 0);
+        orientation.transform.rotation = Quaternion.Euler(0, xAngle, 0);
         UpdateCameraEffects();
-        if (grappleAction.IsPressed() && !pm.isGrappled)
-        {   
-            GrappleCheck();
-        }
-        if (!grappleAction.IsPressed() && pm.isGrappled)
-        {
-            pm.isGrappled = false;
-        }
+        
     }
 
     void OnLookX(InputValue value)
@@ -74,18 +65,6 @@ public class CameraControllerScript : MonoBehaviour
         mouseY = value.Get<float>();
     }
 
-    //void OnGrapple(InputValue value)
-    //{
-    //    if (value.isPressed)
-    //    {
-    //        print("Grapple");
-    //        grappling = true;
-    //    } else
-    //    {
-    //        print("ungrapple");
-    //        grappling = false;
-    //    }
-    //}
 
     // Then modify your tilt functions to set the targets
     public void WallrunTiltLeft()
@@ -116,7 +95,7 @@ public class CameraControllerScript : MonoBehaviour
         currentTilt = Mathf.Lerp(currentTilt, targetTilt, Time.deltaTime * tiltSpeed);
 
         // Apply tilt to the camera's local Z rotation
-        Quaternion baseRotation = Quaternion.Euler(xRotation, yRotation, 0);
+        Quaternion baseRotation = Quaternion.Euler(yAngle, xAngle, 0);
         Quaternion tiltRotation = Quaternion.Euler(0, 0, currentTilt);
         cam.transform.rotation = baseRotation * tiltRotation;
     }
@@ -131,7 +110,7 @@ public class CameraControllerScript : MonoBehaviour
         targetTilt = 0f;       // Reset tilt
     }
 
-    void GrappleCheck()
+    public void GrappleCheck()
     {
         Debug.Log("Grappling");
         Physics.Raycast(transform.position, transform.forward, out grappleRangeFinder, grappleRange, grappleLayer);
@@ -139,8 +118,8 @@ public class CameraControllerScript : MonoBehaviour
         {
             Debug.DrawLine(transform.position, grappleRangeFinder.point, Color.green);
             Debug.Log("Hit: " + grappleRangeFinder.collider.name);
-            pm.isGrappled = true;
-            pm.StartGrapple(grappleRangeFinder.point);
+            playerControllerScript.isGrappled = true;
+            playerControllerScript.StartGrapple(grappleRangeFinder.point);
             
         }
         else

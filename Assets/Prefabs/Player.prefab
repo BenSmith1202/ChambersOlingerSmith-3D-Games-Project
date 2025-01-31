@@ -45,8 +45,10 @@ GameObject:
   - component: {fileID: 6978153741441083175}
   - component: {fileID: 3965501295400511168}
   - component: {fileID: 6859129791334220650}
+  - component: {fileID: 4615724558920203278}
   - component: {fileID: 5577933587212121728}
   - component: {fileID: 406901067875648592}
+  - component: {fileID: 3840052860915665417}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -285,6 +287,21 @@ MonoBehaviour:
   m_DefaultActionMap: MainMap
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4615724558920203278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141110455235164122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49e43ddf0919c1040964c645d1ba959c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  maxHP: 100
+  healthBar: {fileID: 0}
 --- !u!114 &5577933587212121728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +343,7 @@ MonoBehaviour:
   wallrunGravityCounter: 0.5
   wallCheckDist: 0.7
   minJumpHeight: 1
+  grappleCooldownTime: 0
   isGrappled: 0
   grappleForce: 1
   grappleStretch: 3
@@ -335,11 +353,16 @@ MonoBehaviour:
   maxSwingVelocity: 30
   currentGrapplePoint: {x: 0, y: 0, z: 0}
   grappleSound: {fileID: 8300000, guid: 7387fca94790dd74aa39923e6aa085ec, type: 3}
-  dashCooldown: 1
+  dashCooldownTime: 0
   dashDuration: 0.15
   dashSpeed: 75
   postDashSpeedReduction: 0.77
   minPostDashSpeed: 27
+  shootIcon: {fileID: 0}
+  grappleIcon: {fileID: 0}
+  dashIcon: {fileID: 0}
+  shootCooldownTime: 0
+  shootCooldown: 0
   orientation: {fileID: 450200701898310750}
   cam: {fileID: 0}
   grappleParticles: {fileID: 3023263562023115759, guid: f4fa6430958c141468ebaaa4dcf586aa, type: 3}
@@ -447,6 +470,102 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!82 &3840052860915665417
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141110455235164122}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6859197254743463637
 GameObject:
   m_ObjectHideFlags: 0
