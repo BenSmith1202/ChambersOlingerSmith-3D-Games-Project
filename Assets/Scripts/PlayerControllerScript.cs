@@ -72,6 +72,8 @@ public class PlayerControllerScript : MonoBehaviour
 
 
     [Header("Grappling")] //DOES NOT WORK ON MOVING OBJECTS
+    public float grappleCooldownTime;
+    float grappleCooldown = 0;
 
     public bool isGrappled;     // true iff grapple button is held down and a successful grapple is in progress
     public float grappleForce;  // force of the ropes tension
@@ -85,8 +87,8 @@ public class PlayerControllerScript : MonoBehaviour
     public AudioClip grappleSound;
 
     [Header("Dash Slam")]
-    public float dashCooldown;
-    float dashCountdown = 0;
+    public float dashCooldownTime;
+    float dashCooldown = 0;
     public float dashDuration;
     public float dashSpeed;
     public float postDashSpeedReduction;
@@ -94,6 +96,13 @@ public class PlayerControllerScript : MonoBehaviour
 
 
     [Header("References")]
+    public GameObject shootIcon;
+    public GameObject grappleIcon;
+    public GameObject dashIcon;
+
+    //PLACEHOLDER PLEASE DELETE
+    public float shootCooldownTime;
+    public float shootCooldown = 0;
 
     //public GameObject player;
     private Rigidbody _rbody;   // Reference to the player's Rigidbody component
@@ -102,6 +111,7 @@ public class PlayerControllerScript : MonoBehaviour
     //private InputAction sprintAction;  // Reference to the sprint input action
     private InputAction crouchAction;  // Reference to the crouch input action
     private InputAction dashAction;
+    private InputAction grappleAction;
     Vector3 moveDirection;      // Calculated movement direction
     public Transform orientation; // Reference to your camera's orientation
     public GameObject cam;
@@ -132,6 +142,7 @@ public class PlayerControllerScript : MonoBehaviour
         _rbody = GetComponent<Rigidbody>(); 
         //sprintAction = GetComponent<PlayerInput>().actions["Sprint"]; // Get the sprint input action
         crouchAction = GetComponent<PlayerInput>().actions["Crouch"]; // Get the crouch input action
+        grappleAction = GetComponent<PlayerInput>().actions["Grapple"]; // Get the grapple input action
         dashAction = GetComponent<PlayerInput>().actions["Dash"]; // Get the crouch input action
         startYScale = transform.localScale.y; // Store the original Y scale of the player
         camScript = cam.GetComponent<CameraControllerScript>();
@@ -152,13 +163,6 @@ public class PlayerControllerScript : MonoBehaviour
             lineRenderer.SetPosition(1, currentGrapplePoint);
         }
 
-        dashCountdown -= Time.deltaTime;
-        if (dashAction.IsPressed() && dashCountdown < 0)
-        {
-            StartCoroutine(DashSlam());
-            dashCountdown = dashCooldown;
-        }
-
     }
 
 
@@ -177,8 +181,28 @@ public class PlayerControllerScript : MonoBehaviour
             _rbody.drag = airDrag;      // Apply air drag
         }
 
-        HandleMovement(); 
+        HandleMovement();
+        HandleCooldowns();
         WallCheck();
+        CheckGrapple();
+    }
+
+
+    private void HandleCooldowns()
+    {
+        shootCooldown -= Time.deltaTime; // Not Yet Implemented
+
+        grappleCooldown -= Time.deltaTime; //handled in the StartGrapple method
+
+        dashCooldown -= Time.deltaTime;
+
+        if (dashAction.IsPressed() && dashCooldown < 0)
+        {
+            StartCoroutine(DashSlam());
+            dashIcon.GetComponent<AbilityIconScript>().StartCooldown(dashCooldownTime);
+            dashCooldown = dashCooldownTime;
+        }
+
     }
 
 
@@ -482,10 +506,26 @@ public class PlayerControllerScript : MonoBehaviour
         camScript.ResetCameraEffects(true);
     }
 
+    void CheckGrapple()
+    {
+        if (grappleAction.IsPressed() && !isGrappled)
+        {
+            if (grappleCooldown < 0)
+            {
+                camScript.GrappleCheck();
+            }
+        }
+        if (!grappleAction.IsPressed() && isGrappled)
+        {
+            isGrappled = false;
+        }
 
+    }
     public void StartGrapple(Vector3 grapplePoint)
     {
-        StartCoroutine(GrappleCouroutine(grapplePoint));
+            grappleCooldown = grappleCooldownTime;
+            grappleIcon.GetComponent<AbilityIconScript>().StartCooldown(grappleCooldownTime);
+            StartCoroutine(GrappleCouroutine(grapplePoint));
     }
 
 
@@ -494,7 +534,8 @@ public class PlayerControllerScript : MonoBehaviour
         lineRenderer.enabled = true; //turn on rope rendering
         lineRenderer.positionCount = 2;
         currentGrapplePoint = grapplePoint;
-        Destroy(Instantiate(grappleParticles, currentGrapplePoint, Quaternion.identity), 1f);
+        ParticleSystem grappleParticleInstance = Instantiate(grappleParticles, currentGrapplePoint, Quaternion.identity);
+        Destroy(grappleParticleInstance, 1f);
         Vector3 forceDirection;
         AudioSource.PlayClipAtPoint(grappleSound, grapplePoint);
 
