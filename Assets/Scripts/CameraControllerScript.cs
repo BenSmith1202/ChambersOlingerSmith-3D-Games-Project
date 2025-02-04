@@ -40,19 +40,22 @@ public class CameraControllerScript : MonoBehaviour
 
     private void Update()
     {
-        // Apply mouse movement directly without deltaTime
-        yAngle -= mouseY * sensitivityY; // Negative because mouse Y moves camera y in opposite direction
-        xAngle += mouseX * sensitivityX;
+        if (Time.timeScale > 0)
+        {
+            // Apply mouse movement directly without deltaTime
+            yAngle -= mouseY * sensitivityY; // Negative because mouse Y moves camera y in opposite direction
+            xAngle += mouseX * sensitivityX;
 
-        // Clamp the vertical rotation
-        yAngle = Mathf.Clamp(yAngle, -90f, 90f);
+            // Clamp the vertical rotation
+            yAngle = Mathf.Clamp(yAngle, -90f, 90f);
 
-        // Apply rotations
-        transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
-        player.transform.rotation = Quaternion.Euler(0, xAngle, 0);
-        orientation.transform.rotation = Quaternion.Euler(0, xAngle, 0);
-        UpdateCameraEffects();
-        
+            // Apply rotations
+            transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
+            player.transform.rotation = Quaternion.Euler(0, xAngle, 0);
+            orientation.transform.rotation = Quaternion.Euler(0, xAngle, 0);
+            UpdateCameraEffects();
+        }
+
     }
 
     void OnLookX(InputValue value)
