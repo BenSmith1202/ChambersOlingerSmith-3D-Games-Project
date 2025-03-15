@@ -5510,6 +5510,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1069066902}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1858284032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1126632879927691600, guid: 97e822a5ddc320c4882255300e34492a, type: 3}
+  m_PrefabInstance: {fileID: 3761201017055125712}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1871062084
 GameObject:
   m_ObjectHideFlags: 0
@@ -7851,6 +7862,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3733278789408963920, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1924790277}
+    - target: {fileID: 3733278789408963920, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
+      propertyPath: reloadRing
+      value: 
+      objectReference: {fileID: 1858284032}
     - target: {fileID: 4615724558920203278, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: healthBar
       value: 
@@ -7886,6 +7905,18 @@ PrefabInstance:
     - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: shootCooldownTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859129791334220650, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859129791334220650, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859129791334220650, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.Component, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
