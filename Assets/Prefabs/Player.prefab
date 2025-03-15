@@ -52,7 +52,7 @@ GameObject:
   - component: {fileID: 4394491249280515169}
   m_Layer: 10
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -352,7 +352,7 @@ MonoBehaviour:
   wallrunGravityCounter: 0.5
   wallCheckDist: 0.7
   minJumpHeight: 1
-  grappleCooldownTime: 0
+  grappleCooldownTime: 1
   isGrappled: 0
   grappleForce: 1
   grappleStretch: 3
@@ -362,7 +362,7 @@ MonoBehaviour:
   maxSwingVelocity: 30
   currentGrapplePoint: {x: 0, y: 0, z: 0}
   grappleSound: {fileID: 8300000, guid: 7387fca94790dd74aa39923e6aa085ec, type: 3}
-  dashCooldownTime: 0
+  dashCooldownTime: 5
   dashDuration: 0.15
   dashSpeed: 75
   postDashSpeedReduction: 0.77
@@ -370,6 +370,7 @@ MonoBehaviour:
   shootIcon: {fileID: 0}
   grappleIcon: {fileID: 0}
   dashIcon: {fileID: 0}
+  _rbody: {fileID: 0}
   orientation: {fileID: 450200701898310750}
   cam: {fileID: 0}
   grappleParticles: {fileID: 3023263562023115759, guid: f4fa6430958c141468ebaaa4dcf586aa, type: 3}
@@ -481,13 +482,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ae349668387ab4781cf87fdc68e7d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   gunRange: 300
   isShooting: 0
   gunshot: {fileID: 8300000, guid: 808ce192330e8d848a4bf39dc422ee88, type: 3}
   reloadSound: {fileID: 8300000, guid: 5a17e84dcbc1c884f86fa0b20fb6a946, type: 3}
   bulletParticlePrefab: {fileID: 1671159810974329337, guid: c49fa370f85d6ae458acadf72309cc49, type: 3}
-  reloadRing: {fileID: 0}
   shootCooldownTime: 0.45
   shootCooldown: -1
   clipSize: 9
@@ -547,7 +546,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.32142925
+        value: 0.108530015
         inSlope: 0
         outSlope: 0
         tangentMode: 0

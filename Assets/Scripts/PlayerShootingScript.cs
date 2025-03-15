@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class PlayerShootingScript : MonoBehaviour
 {
     GameObject cam;
+    GameObject gun;
+    GameObject player;
+    PlayerControllerScript playerControllerScript;
     CameraControllerScript cameraControllerScript;
     public float gunRange = 100f;
     public bool isShooting;
@@ -15,7 +18,7 @@ public class PlayerShootingScript : MonoBehaviour
     [Header("Visuals")]
     public AudioClip gunshot;
     public AudioClip reloadSound;
-    Animator animator;
+    Animator gunAnimator;
     AudioSource audioSource;
     public GameObject bulletParticlePrefab;
     //public TMP_Text clipText;
@@ -31,11 +34,15 @@ public class PlayerShootingScript : MonoBehaviour
 
     public void Start()
     {
-        animator = GetComponent<Animator>();
+        
         audioSource = GetComponent<AudioSource>();
         cam = GameObject.FindWithTag("MainCamera");
+        gun = GameObject.FindWithTag("PlayerGun");
+        gunAnimator = gun.GetComponent<Animator>();
         reloadRing = GameObject.Find("Reload Ring").GetComponent<Image>();
         cameraControllerScript = cam.GetComponent<CameraControllerScript>();
+        player = GameObject.FindWithTag("Player");
+        playerControllerScript = player.GetComponent<PlayerControllerScript>();
         clip = clipSize;
         //clipText.SetText("" + clip);
     }
@@ -49,7 +56,9 @@ public class PlayerShootingScript : MonoBehaviour
         if (isShooting)
         {
             ShootingCheck();
+            
         }
+        AnimationCheck();
     }
 
     public void OnShoot(InputAction.CallbackContext context)
@@ -67,11 +76,11 @@ public class PlayerShootingScript : MonoBehaviour
 
     public void ShootingCheck()
     {
-        //Write a debug message that outputs the values of the conditions below
-        Debug.Log("Cooldown: " + shootCooldown + " Reloading: " + isReloading + " Clip: " + clip);
+        
+        
         if (shootCooldown < 0 && !isReloading && clip > 0)
         {
-            Debug.Log("Shooting");
+            
             Ray ray = new Ray(cam.transform.position, cam.transform.forward * gunRange);
             RaycastHit hitData;
             Physics.Raycast(ray, out hitData);
@@ -82,25 +91,47 @@ public class PlayerShootingScript : MonoBehaviour
             }
             else
             {
-                Debug.Log("Hit: " + hitData.collider.name);
+                
             }
 
-            ShootGun();
+            ShootGun(target);
             shootCooldown = shootCooldownTime;
         }
     }
 
-
-    public void ShootGun()
+    public void AnimationCheck()
     {
+        if (playerControllerScript.movementState == PlayerControllerScript.MovementState.wallrunning ||
+            playerControllerScript.movementState == PlayerControllerScript.MovementState.running)
+        {
+            if (playerControllerScript._rbody.velocity.magnitude > 0.1f)
+            {
+                gunAnimator.SetBool("running", true);
+            }
+            else
+            {
+                gunAnimator.SetBool("running", false);
+            }
+        }
+        else
+        {
+            gunAnimator.SetBool("running", false);
+        }
+    }
+
+    public void ShootGun(Vector3 target)
+    {
+        gunAnimator.SetTrigger("shoot");
         audioSource.PlayOneShot(gunshot, 0.15f);
 
+        // Calculate the direction to the target point
+        Vector3 directionToTarget = target - gun.transform.position;
+
         // Create bullet particle
-        Vector3 spawnOffset = cam.transform.right * 0.2f + cam.transform.up * - 0.25f + cam.transform.forward * -0.5f;
         GameObject bulletPart = Instantiate(
             bulletParticlePrefab,
-            cam.transform.position + spawnOffset,
-            Quaternion.LookRotation(cam.transform.forward, Vector3.up)
+            gun.transform.position,
+            Quaternion.LookRotation(directionToTarget)
         );
 
         Destroy(bulletPart.gameObject, 2f);
