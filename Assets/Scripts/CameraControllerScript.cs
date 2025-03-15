@@ -6,7 +6,7 @@ public class CameraControllerScript : MonoBehaviour
 {
     public GameObject player;
     PlayerControllerScript playerControllerScript;
-    PlayerShootingScript gunScript;
+
     public float sensitivityX = 2f;
     public float sensitivityY = 2f;
     float mouseX;
@@ -35,7 +35,7 @@ public class CameraControllerScript : MonoBehaviour
         Cursor.visible = false;
         cam = GetComponent<Camera>();
         playerControllerScript = player.GetComponent<PlayerControllerScript>();
-        gunScript = player.GetComponent<PlayerShootingScript>();
+        
         ResetCameraEffects(false);
         
     }
@@ -84,7 +84,7 @@ public class CameraControllerScript : MonoBehaviour
 
     public void DashZoom()
     {
-        Debug.Log("Dash Fov");
+        
 
         targetFOV = dashFOV;
     }
@@ -105,7 +105,7 @@ public class CameraControllerScript : MonoBehaviour
 
     public void ResetCameraEffects(bool onlyResetTilt)
     {
-        Debug.Log("reset camera");
+        
         if (!onlyResetTilt)
         {
             targetFOV = fov;       // Reset field of view
@@ -115,12 +115,12 @@ public class CameraControllerScript : MonoBehaviour
 
     public void GrappleCheck()
     {
-        Debug.Log("Grappling");
+        
         Physics.Raycast(transform.position, transform.forward, out grappleRangeFinder, grappleRange, grappleLayer);
         if (grappleRangeFinder.collider != null)
         {
             Debug.DrawLine(transform.position, grappleRangeFinder.point, Color.green);
-            Debug.Log("Hit: " + grappleRangeFinder.collider.name);
+            
             playerControllerScript.isGrappled = true;
             playerControllerScript.StartGrapple(grappleRangeFinder.point);
             

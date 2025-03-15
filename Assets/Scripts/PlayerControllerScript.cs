@@ -101,7 +101,7 @@ public class PlayerControllerScript : MonoBehaviour
     public GameObject dashIcon;
 
     //public GameObject player;
-    private Rigidbody _rbody;   // Reference to the player's Rigidbody component
+    public Rigidbody _rbody;   // Reference to the player's Rigidbody component
     private CapsuleCollider _collider;  // Reference to the player's CapsuleCollider component
     private Vector2 moveVal;    // Stores movement input values
     //private InputAction sprintAction;  // Reference to the sprint input action
@@ -112,6 +112,7 @@ public class PlayerControllerScript : MonoBehaviour
     public Transform orientation; // Reference to your camera's orientation
     public GameObject cam;
     CameraControllerScript camScript;
+    PlayerShootingScript gunScript;
     AudioSource audioSource;
 
     [Header("Particles")]
@@ -142,6 +143,7 @@ public class PlayerControllerScript : MonoBehaviour
         dashAction = GetComponent<PlayerInput>().actions["Dash"]; // Get the crouch input action
         startYScale = transform.localScale.y; // Store the original Y scale of the player
         camScript = cam.GetComponent<CameraControllerScript>();
+        gunScript = GameObject.FindWithTag("PlayerGun").GetComponent<PlayerShootingScript>();
         lineRenderer.enabled = false;
         audioSource = GetComponent<AudioSource>();
     }
@@ -427,7 +429,7 @@ public class PlayerControllerScript : MonoBehaviour
     {
         if (movementState == MovementState.wallrunning)
         {
-            Debug.Log("WallJump");
+            
             _rbody.velocity = new Vector3(_rbody.velocity.x, 0, _rbody.velocity.z); // Reset vertical velocity before jumping
             Vector3 wallNormal = wallLeft ? leftWallHit.normal : rightWallHit.normal;
 
@@ -504,23 +506,23 @@ public class PlayerControllerScript : MonoBehaviour
 
     void StartWallrunning()
     {
-        Debug.Log("Start Wallrun");
+        
         movementState = MovementState.wallrunning;
         ResetJump();
         if (wallLeft)
         {
-            Debug.Log("Tilt left");
+            
             camScript.WallrunTiltLeft();
         } else
         {
-            Debug.Log("Tilt right");
+            
             camScript.WallrunTiltRight();
         }
     }
 
     void StopWallrunning()
     {
-        Debug.Log("Stop Wallrun");
+        
 
         _rbody.useGravity = true;
         camScript.ResetCameraEffects(true);
@@ -571,7 +573,7 @@ public class PlayerControllerScript : MonoBehaviour
             yield return new WaitForFixedUpdate(); //every fixedupdate
             forceDirection = (grapplePoint - transform.position).normalized; //get a direction pointing from player to grapple point
             movementState = MovementState.swinging;
-            Debug.Log("Grapple Point: " + grapplePoint);
+            
 
             float distanceBeyondMaxLength = (Vector3.Distance(transform.position, currentGrapplePoint) - grappleLength); //Distance from grapple point further than the rope length
 
