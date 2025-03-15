@@ -46,6 +46,10 @@ public class PlayerShootingScript : MonoBehaviour
         {
             shootCooldown -= Time.deltaTime;
         }
+        if (isShooting)
+        {
+            ShootingCheck();
+        }
     }
 
     public void OnShoot(InputAction.CallbackContext context)
@@ -57,6 +61,32 @@ public class PlayerShootingScript : MonoBehaviour
         else if (context.canceled)
         {
             isShooting = false;
+        }
+    }
+
+
+    public void ShootingCheck()
+    {
+        //Write a debug message that outputs the values of the conditions below
+        Debug.Log("Cooldown: " + shootCooldown + " Reloading: " + isReloading + " Clip: " + clip);
+        if (shootCooldown < 0 && !isReloading && clip > 0)
+        {
+            Debug.Log("Shooting");
+            Ray ray = new Ray(cam.transform.position, cam.transform.forward * gunRange);
+            RaycastHit hitData;
+            Physics.Raycast(ray, out hitData);
+            Vector3 target = hitData.point;
+            if (target == Vector3.zero) //if we shoot into the void
+            {
+                target = cam.transform.forward * gunRange; //shoot to our max range forward
+            }
+            else
+            {
+                Debug.Log("Hit: " + hitData.collider.name);
+            }
+
+            ShootGun();
+            shootCooldown = shootCooldownTime;
         }
     }
 

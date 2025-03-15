@@ -55,11 +55,6 @@ public class CameraControllerScript : MonoBehaviour
         orientation.transform.rotation = Quaternion.Euler(0, xAngle, 0);
 
         UpdateCameraEffects();
-        //Shooting check
-        if (gunScript.isShooting)
-        {
-            ShootingCheck();
-        }
 
     }
 
@@ -136,28 +131,4 @@ public class CameraControllerScript : MonoBehaviour
         }
     }
 
-    public void ShootingCheck()
-    {
-        //Write a debug message that outputs the values of the conditions below
-        Debug.Log("Cooldown: " + gunScript.shootCooldown + " Reloading: " + gunScript.isReloading + " Clip: " + gunScript.clip);
-        if (gunScript.shootCooldown < 0 && !gunScript.isReloading && gunScript.clip > 0)
-        {
-            Debug.Log("Shooting");
-            Ray ray = new Ray(transform.position, transform.forward * gunScript.gunRange);
-            RaycastHit hitData;
-            Physics.Raycast(ray, out hitData);
-            Vector3 target = hitData.point;
-            if (target == Vector3.zero) //if we shoot into the void
-            {
-                target = transform.forward * gunScript.gunRange; //shoot to our max range forward
-            }
-            else
-            {
-                Debug.Log("Hit: " + hitData.collider.name);
-            }
-
-            gunScript.ShootGun();
-            gunScript.shootCooldown = gunScript.shootCooldownTime;
-        }
-    }
 }
