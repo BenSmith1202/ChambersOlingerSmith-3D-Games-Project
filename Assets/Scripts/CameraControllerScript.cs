@@ -6,6 +6,7 @@ public class CameraControllerScript : MonoBehaviour
 {
     public GameObject player;
     PlayerControllerScript playerControllerScript;
+
     public float sensitivityX = 2f;
     public float sensitivityY = 2f;
     float mouseX;
@@ -34,6 +35,7 @@ public class CameraControllerScript : MonoBehaviour
         Cursor.visible = false;
         cam = GetComponent<Camera>();
         playerControllerScript = player.GetComponent<PlayerControllerScript>();
+        
         ResetCameraEffects(false);
         
     }
@@ -51,8 +53,9 @@ public class CameraControllerScript : MonoBehaviour
         transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
         player.transform.rotation = Quaternion.Euler(0, xAngle, 0);
         orientation.transform.rotation = Quaternion.Euler(0, xAngle, 0);
+
         UpdateCameraEffects();
-        
+
     }
 
     void OnLookX(InputValue value)
@@ -81,7 +84,7 @@ public class CameraControllerScript : MonoBehaviour
 
     public void DashZoom()
     {
-        Debug.Log("Dash Fov");
+        
 
         targetFOV = dashFOV;
     }
@@ -102,7 +105,7 @@ public class CameraControllerScript : MonoBehaviour
 
     public void ResetCameraEffects(bool onlyResetTilt)
     {
-        Debug.Log("reset camera");
+        
         if (!onlyResetTilt)
         {
             targetFOV = fov;       // Reset field of view
@@ -112,12 +115,12 @@ public class CameraControllerScript : MonoBehaviour
 
     public void GrappleCheck()
     {
-        Debug.Log("Grappling");
+        
         Physics.Raycast(transform.position, transform.forward, out grappleRangeFinder, grappleRange, grappleLayer);
         if (grappleRangeFinder.collider != null)
         {
             Debug.DrawLine(transform.position, grappleRangeFinder.point, Color.green);
-            Debug.Log("Hit: " + grappleRangeFinder.collider.name);
+            
             playerControllerScript.isGrappled = true;
             playerControllerScript.StartGrapple(grappleRangeFinder.point);
             
@@ -127,4 +130,5 @@ public class CameraControllerScript : MonoBehaviour
             Debug.DrawRay(transform.position, transform.forward*grappleRange, Color.red);
         }
     }
+
 }

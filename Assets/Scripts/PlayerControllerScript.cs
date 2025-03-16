@@ -48,7 +48,7 @@ public class PlayerControllerScript : MonoBehaviour
     public LayerMask groundLayer;  // Layer mask used to determine what is considered ground
     bool grounded = false;      // Whether the player is on the ground
 
-    
+
     [Header("Wallrunning")]
 
     public LayerMask wallLayer; // Layer used to determine what walls can be run on
@@ -100,12 +100,8 @@ public class PlayerControllerScript : MonoBehaviour
     public GameObject grappleIcon;
     public GameObject dashIcon;
 
-    //PLACEHOLDER PLEASE DELETE
-    public float shootCooldownTime;
-    public float shootCooldown = 0;
-
     //public GameObject player;
-    private Rigidbody _rbody;   // Reference to the player's Rigidbody component
+    public Rigidbody _rbody;   // Reference to the player's Rigidbody component
     private CapsuleCollider _collider;  // Reference to the player's CapsuleCollider component
     private Vector2 moveVal;    // Stores movement input values
     //private InputAction sprintAction;  // Reference to the sprint input action
@@ -116,6 +112,7 @@ public class PlayerControllerScript : MonoBehaviour
     public Transform orientation; // Reference to your camera's orientation
     public GameObject cam;
     CameraControllerScript camScript;
+    PlayerShootingScript gunScript;
     AudioSource audioSource;
 
     [Header("Particles")]
@@ -138,18 +135,20 @@ public class PlayerControllerScript : MonoBehaviour
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        _collider = GetComponent<CapsuleCollider>(); 
-        _rbody = GetComponent<Rigidbody>(); 
+        _collider = GetComponent<CapsuleCollider>();
+        _rbody = GetComponent<Rigidbody>();
         //sprintAction = GetComponent<PlayerInput>().actions["Sprint"]; // Get the sprint input action
         crouchAction = GetComponent<PlayerInput>().actions["Crouch"]; // Get the crouch input action
         grappleAction = GetComponent<PlayerInput>().actions["Grapple"]; // Get the grapple input action
         dashAction = GetComponent<PlayerInput>().actions["Dash"]; // Get the crouch input action
         startYScale = transform.localScale.y; // Store the original Y scale of the player
         camScript = cam.GetComponent<CameraControllerScript>();
+        gunScript = GameObject.FindWithTag("PlayerGun").GetComponent<PlayerShootingScript>();
         lineRenderer.enabled = false;
         audioSource = GetComponent<AudioSource>();
     }
 
+    #region updateLoops
 
     private void Update()
     {
@@ -187,11 +186,12 @@ public class PlayerControllerScript : MonoBehaviour
         CheckGrapple();
     }
 
+    #endregion
 
+
+    #region updateChecks
     private void HandleCooldowns()
     {
-        shootCooldown -= Time.deltaTime; // Not Yet Implemented
-
         grappleCooldown -= Time.deltaTime; //handled in the StartGrapple method
 
         dashCooldown -= Time.deltaTime;
@@ -202,7 +202,6 @@ public class PlayerControllerScript : MonoBehaviour
             dashIcon.GetComponent<AbilityIconScript>().StartCooldown(dashCooldownTime);
             dashCooldown = dashCooldownTime;
         }
-
     }
 
 
@@ -264,23 +263,10 @@ public class PlayerControllerScript : MonoBehaviour
         }
     }
 
-
-   void OnMove(InputValue value)
-    {
-        moveVal = value.Get<Vector2>(); // Get movement input from the player
-    }
+    #endregion
 
 
-    void OnJump(InputValue value)
-    {
-        if (value.isPressed && readyToJump && (grounded || movementState == MovementState.wallrunning))
-        {
-            PlayerJump();  // Perform jump
-            readyToJump = false;  // Prevent immediate consecutive jumps
-            Invoke(nameof(ResetJump), jumpDelay);  // Reset jump after a delay
-        }
-    }
-
+    #region movementHandling
 
     // depending on what movment state the player is in, apply different movement
     //Activates every fixed update
@@ -356,16 +342,17 @@ public class PlayerControllerScript : MonoBehaviour
         if (xzVel.magnitude > speed)
         {
             _rbody.AddForce(RemovePositiveParallelComponent(0.8f * airMultiplier * speed * movementForce, xzVel), ForceMode.Force);
-        } else
+        }
+        else
         {
             _rbody.AddForce(0.8f * airMultiplier * speed * movementForce, ForceMode.Force);
         }
-        
+
     }
 
 
     private void HandleSwingingMovement(Vector3 movementForce)
-    {        
+    {
         if (isGrappled) //if currently grappled to an object
         {               // we consider the full 3d velocity.
             if (_rbody.velocity.magnitude > maxSwingVelocity) //if its greater than the max:
@@ -393,7 +380,7 @@ public class PlayerControllerScript : MonoBehaviour
                 _rbody.AddForce(0.5f * airMultiplier * speed * movementForce, ForceMode.Force);
             }
         }
-        
+
     }
 
 
@@ -402,19 +389,47 @@ public class PlayerControllerScript : MonoBehaviour
 
         Vector3 xzVel = new(_rbody.velocity.x, 0f, _rbody.velocity.z);
 
-        if (xzVel.magnitude > speed && movementState != MovementState.swinging && movementState != MovementState.freefall && movementState != MovementState.dashing) 
+        if (xzVel.magnitude > speed && movementState != MovementState.swinging && movementState != MovementState.freefall && movementState != MovementState.dashing)
         {
             Vector3 cappedVel = xzVel.normalized * speed;
             _rbody.velocity = new Vector3(cappedVel.x, _rbody.velocity.y, cappedVel.z);
         }
     }
 
+    #endregion
+
+
+    #region InputActions
+
+    //Dash is handled in HandleCooldowns
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        moveVal = context.ReadValue<Vector2>(); // Get movement input from the player
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.started && readyToJump && (grounded || movementState == MovementState.wallrunning))
+        {
+            PlayerJump();  // Perform jump
+            readyToJump = false;  // Prevent immediate consecutive jumps
+            Invoke(nameof(ResetJump), jumpDelay);  // Reset jump after a delay
+        }
+    }
+
+
+
+    #endregion
+
+
+    #region Jumping
 
     private void PlayerJump()
     {
         if (movementState == MovementState.wallrunning)
         {
-            Debug.Log("WallJump");
+            
             _rbody.velocity = new Vector3(_rbody.velocity.x, 0, _rbody.velocity.z); // Reset vertical velocity before jumping
             Vector3 wallNormal = wallLeft ? leftWallHit.normal : rightWallHit.normal;
 
@@ -426,7 +441,7 @@ public class PlayerControllerScript : MonoBehaviour
             _rbody.velocity = new Vector3(_rbody.velocity.x, 0, _rbody.velocity.z); // Reset vertical velocity before jumping
             _rbody.AddForce(orientation.up * jumpForce, ForceMode.Impulse);           // Apply jump force
         }
-        
+
     }
 
 
@@ -435,6 +450,10 @@ public class PlayerControllerScript : MonoBehaviour
         readyToJump = true; // Allow the player to jump again
     }
 
+    #endregion
+
+
+    #region slopeHandling
 
     private bool OnSlopeCheck()
     {
@@ -452,11 +471,14 @@ public class PlayerControllerScript : MonoBehaviour
         return Vector3.ProjectOnPlane(moveDirection, slopeCast.normal).normalized; // Project movement direction onto the slope's plane
     }
 
+    #endregion
 
+
+    #region Wallrunning
     // WALLRUNNING
     void WallCheck()
     {
-        wallLeft = Physics.Raycast(transform.position - new Vector3(0, playerHeight/4, 0),
+        wallLeft = Physics.Raycast(transform.position - new Vector3(0, playerHeight / 4, 0),
             -orientation.right, out leftWallHit, wallCheckDist, wallLayer);
 
         wallRight = Physics.Raycast(transform.position - new Vector3(0, playerHeight / 4, 0),
@@ -484,28 +506,31 @@ public class PlayerControllerScript : MonoBehaviour
 
     void StartWallrunning()
     {
-        Debug.Log("Start Wallrun");
+        
         movementState = MovementState.wallrunning;
         ResetJump();
         if (wallLeft)
         {
-            Debug.Log("Tilt left");
+            
             camScript.WallrunTiltLeft();
         } else
         {
-            Debug.Log("Tilt right");
+            
             camScript.WallrunTiltRight();
         }
     }
 
     void StopWallrunning()
     {
-        Debug.Log("Stop Wallrun");
+        
 
         _rbody.useGravity = true;
         camScript.ResetCameraEffects(true);
     }
+    #endregion
 
+
+    #region Grappling
     void CheckGrapple()
     {
         if (grappleAction.IsPressed() && !isGrappled)
@@ -523,9 +548,9 @@ public class PlayerControllerScript : MonoBehaviour
     }
     public void StartGrapple(Vector3 grapplePoint)
     {
-            grappleCooldown = grappleCooldownTime;
-            grappleIcon.GetComponent<AbilityIconScript>().StartCooldown(grappleCooldownTime);
-            StartCoroutine(GrappleCouroutine(grapplePoint));
+        grappleCooldown = grappleCooldownTime;
+        grappleIcon.GetComponent<AbilityIconScript>().StartCooldown(grappleCooldownTime);
+        StartCoroutine(GrappleCouroutine(grapplePoint));
     }
 
 
@@ -535,27 +560,27 @@ public class PlayerControllerScript : MonoBehaviour
         lineRenderer.positionCount = 2;
         currentGrapplePoint = grapplePoint;
         ParticleSystem grappleParticleInstance = Instantiate(grappleParticles, currentGrapplePoint, Quaternion.identity);
-        Destroy(grappleParticleInstance, 1f);
+        Destroy(grappleParticleInstance.gameObject, 1f);
         Vector3 forceDirection;
         AudioSource.PlayClipAtPoint(grappleSound, grapplePoint);
 
         //Length of rope
         //goal length is set shorter than start length to give initial pull 
-        float grappleLength = Vector3.Distance(transform.position, currentGrapplePoint) * grappleYankPercentDistance; 
+        float grappleLength = Vector3.Distance(transform.position, currentGrapplePoint) * grappleYankPercentDistance;
 
         while (isGrappled) //while still grappling
         {
             yield return new WaitForFixedUpdate(); //every fixedupdate
             forceDirection = (grapplePoint - transform.position).normalized; //get a direction pointing from player to grapple point
             movementState = MovementState.swinging;
-            Debug.Log("Grapple Point: " + grapplePoint);
+            
 
             float distanceBeyondMaxLength = (Vector3.Distance(transform.position, currentGrapplePoint) - grappleLength); //Distance from grapple point further than the rope length
 
             //apply a tensile force to keep the player within that length
             if (distanceBeyondMaxLength > 0)
             {
-                _rbody.AddForce(100f * distanceBeyondMaxLength * grappleForce * forceDirection / grappleStretch, ForceMode.Force); 
+                _rbody.AddForce(100f * distanceBeyondMaxLength * grappleForce * forceDirection / grappleStretch, ForceMode.Force);
             }
 
             // reel in grapple rope over time
@@ -567,10 +592,14 @@ public class PlayerControllerScript : MonoBehaviour
         yield return null;
     }
 
+    #endregion
+
+
+    #region Dashing
     public IEnumerator DashSlam()
-        /** This dash logic is just a prototype of what i though would be cool. Feel free to comment it out or change it 
-         * -Ben
-         **/
+    /** This dash logic is just a prototype of what i though would be cool. Feel free to comment it out or change it 
+     * -Ben
+     **/
     {
         MovementState prevMoveState = movementState; // save previous move state
         movementState = MovementState.dashing;       // start dashing
@@ -596,7 +625,7 @@ public class PlayerControllerScript : MonoBehaviour
         {
             movementState = prevMoveState; //return it to what it was
         }
-        
+
         // After a dash, go some fraction of your initial speed defined by postDash speed reduction
         // but go no slower than minimum post dashVelocity
         // and no greater than the mid-dash velocity
@@ -607,10 +636,13 @@ public class PlayerControllerScript : MonoBehaviour
         yield return null;
     }
 
+    #endregion
 
+
+    #region Utilities
     //UTILITIES
 
-    
+
     Vector3 RemovePositiveParallelComponent(Vector3 vectorIn, Vector3 referenceVector)
     /**Takes a vector input and a reference vector, and returns the input vector minus any positive 
      ** parallel component to the reference vector.**/
@@ -634,4 +666,6 @@ public class PlayerControllerScript : MonoBehaviour
             return vectorIn; //return original
         }
     }
+
+    #endregion
 }
