@@ -16,6 +16,7 @@ public class PlayerHealthScript : MonoBehaviour
     {
         forcesToRBScript = GetComponent<ForcesToRB>();
         healthBarScript = healthBar.GetComponent<HealthBarScript>();
+        SetPlayerMaxHP(maxHP);
         SetPlayerHP(maxHP);
     }
 

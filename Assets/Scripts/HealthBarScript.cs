@@ -6,24 +6,31 @@ using UnityEngine.UI;
 
 public class HealthBarScript : MonoBehaviour
 {
-    Slider healthBarSlider;
+    [SerializeField] Slider healthBarSlider;
     public Image sliderFill;
     public TMP_Text currentHealthText;
     public TMP_Text maxHealthText;
     public Gradient hpGradient;
 
-    
-
     // Start is called before the first frame update
     void Start()
     {
-        healthBarSlider = GetComponent<Slider>();
+        //I removed this line of code and manually set the slider because other code would run in start before getting the slider and would try to call slider methods
+        //healthBarSlider = GetComponent<Slider>();
     }
 
     public void SetHP(int hp)
     {
-        healthBarSlider.value = hp;
-        sliderFill.color = hpGradient.Evaluate(hp / healthBarSlider.maxValue);
+        if(healthBarSlider != null)
+        {
+            healthBarSlider.value = hp;
+            sliderFill.color = hpGradient.Evaluate(hp / healthBarSlider.maxValue);
+        }
+        else
+        {
+            print("health bar slider not found");
+        }
+        
         if (currentHealthText != null)
         {
             currentHealthText.SetText("" + hp);
@@ -32,8 +39,16 @@ public class HealthBarScript : MonoBehaviour
 
     public void SetMaxHP(int maxHP)
     {
-        healthBarSlider.maxValue = maxHP;
-        sliderFill.color = hpGradient.Evaluate(healthBarSlider.value / maxHP);
+        if (healthBarSlider != null)
+        {
+            healthBarSlider.maxValue = maxHP;
+            sliderFill.color = hpGradient.Evaluate(healthBarSlider.value / maxHP);
+        }
+        else
+        {
+            print("health bar slider not found");
+        }
+        
         if(maxHealthText != null)
         {
             maxHealthText.SetText("" + maxHP);
