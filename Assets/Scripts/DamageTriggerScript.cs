@@ -6,6 +6,6 @@ public class DamageTriggerScript : MonoBehaviour
 {
     [SerializeField] int damage = 0;
 
-    public int getDamage()
+    public int GetDamage()
     { return damage; }
 }

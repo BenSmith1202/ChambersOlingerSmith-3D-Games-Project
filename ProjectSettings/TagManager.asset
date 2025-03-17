@@ -8,6 +8,8 @@ TagManager:
   - LogicManager
   - SpawnDirector
   - DamageTrigger
+  - PlayerGun
+  - Enemy
   layers:
   - Default
   - TransparentFX

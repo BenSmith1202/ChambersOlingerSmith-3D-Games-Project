@@ -65,4 +65,12 @@ public class PlayerHealthScript : MonoBehaviour
         healthBarScript.SetMaxHP(newMaxHP); //update healthbar
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.GetComponent<DamageTriggerScript>())
+        {
+            SetPlayerHP(hp - other.gameObject.GetComponent<DamageTriggerScript>().GetDamage());
+        }
+    }
+
 }
