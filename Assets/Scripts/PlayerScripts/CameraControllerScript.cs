@@ -24,20 +24,21 @@ public class CameraControllerScript : MonoBehaviour
     public float fovSpeed;
     public float tiltSpeed;
     float currentTilt;
-
+    float grappleRange;
     RaycastHit grappleRangeFinder;
     public LayerMask grappleLayer;
-    public float grappleRange;
+    
 
     void Start()
     {
+        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         cam = GetComponent<Camera>();
         playerControllerScript = player.GetComponent<PlayerControllerScript>();
         
         ResetCameraEffects(false);
-        
+        grappleRange = player.GetComponent<EntityStats>().grappleRange;
     }
 
     private void Update()
