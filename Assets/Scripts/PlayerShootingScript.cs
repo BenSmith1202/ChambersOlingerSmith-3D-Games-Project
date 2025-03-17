@@ -32,6 +32,8 @@ public class PlayerShootingScript : MonoBehaviour
     public float reloadTime;
     public bool isReloading;
 
+    [SerializeField] int startingDamage;
+
     public void Start()
     {
         
@@ -91,7 +93,12 @@ public class PlayerShootingScript : MonoBehaviour
             }
             else
             {
-                
+                //not shooting into void so hitting something
+
+                if(hitData.collider.gameObject.CompareTag("Enemy"))
+                {
+                    hitData.collider.gameObject.GetComponent<Health>().DecreaseHealth(startingDamage);
+                }
             }
 
             ShootGun(target);

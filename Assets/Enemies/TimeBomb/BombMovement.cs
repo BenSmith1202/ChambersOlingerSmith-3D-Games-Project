@@ -8,6 +8,10 @@ public class BombMovement : MonoBehaviour
     [SerializeField] float launchForce;
     [SerializeField] float lifeTime;
 
+    Health healthScript;
+
+    [SerializeField] GameObject explosion;
+
     Rigidbody rb;
     GameObject player;
 
@@ -16,6 +20,7 @@ public class BombMovement : MonoBehaviour
 
     private void Start()
     {
+        healthScript = GetComponent<Health>();
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
         StartCoroutine(Behavior());
@@ -52,21 +57,21 @@ public class BombMovement : MonoBehaviour
         }
 
         yield return new WaitForSeconds(lifeTime);
-        Explode();
+        Die();
     }
 
-    public void Explode()
+    public void Die()
     {
         //create explosion object
-
+        Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(!collision.gameObject.CompareTag("Ground"))
         {
-            Explode();
+            Die();
         }
     }
 }

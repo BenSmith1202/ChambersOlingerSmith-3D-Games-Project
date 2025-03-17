@@ -24,14 +24,20 @@ public class HealthBarScript : MonoBehaviour
     {
         healthBarSlider.value = hp;
         sliderFill.color = hpGradient.Evaluate(hp / healthBarSlider.maxValue);
-        currentHealthText.SetText("" + hp);
+        if (currentHealthText != null)
+        {
+            currentHealthText.SetText("" + hp);
+        }
     }
 
     public void SetMaxHP(int maxHP)
     {
         healthBarSlider.maxValue = maxHP;
         sliderFill.color = hpGradient.Evaluate(healthBarSlider.value / maxHP);
-        maxHealthText.SetText("" + maxHP);
+        if(maxHealthText != null)
+        {
+            maxHealthText.SetText("" + maxHP);
+        }
     }
 
 }

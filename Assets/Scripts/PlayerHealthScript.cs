@@ -8,10 +8,13 @@ public class PlayerHealthScript : MonoBehaviour
     public int hp;
     public int maxHP = 100;
     public GameObject healthBar;
+
+    ForcesToRB forcesToRBScript;
     HealthBarScript healthBarScript;
     // Start is called before the first frame update
     void Start()
     {
+        forcesToRBScript = GetComponent<ForcesToRB>();
         healthBarScript = healthBar.GetComponent<HealthBarScript>();
         SetPlayerHP(maxHP);
     }
@@ -63,6 +66,18 @@ public class PlayerHealthScript : MonoBehaviour
         }
 
         healthBarScript.SetMaxHP(newMaxHP); //update healthbar
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.GetComponent<DamageTriggerScript>())
+        {
+            SetPlayerHP(hp - other.gameObject.GetComponent<DamageTriggerScript>().GetDamage());
+        }
+        if(other.gameObject.GetComponent<KnockBack>())
+        {
+            forcesToRBScript.KnockMeBack(other.gameObject.GetComponent<KnockBack>().GetKnockBack(transform.position));
+        }
     }
 
 }
