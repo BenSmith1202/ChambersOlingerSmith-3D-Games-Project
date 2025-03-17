@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] HealthBarScript healthBarScript;
     [SerializeField] int startHealth;
+    [SerializeField] HealthBarScript healthBarScript;
     int health;
 
     private void Start()
     {
         health = startHealth;
+        if(healthBarScript != null)
+        {
+            healthBarScript.SetMaxHP(startHealth);
+            healthBarScript.SetHP(health);
+        }
+        else
+        {
+            print("I never got a health bar script");
+        }
     }
 
     public void IncreaseHealth(int amount)

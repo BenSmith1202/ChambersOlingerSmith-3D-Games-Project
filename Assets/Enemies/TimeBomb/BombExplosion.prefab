@@ -4900,6 +4900,7 @@ GameObject:
   - component: {fileID: 5710689211745656311}
   - component: {fileID: 6372612674186484019}
   - component: {fileID: 8973864772685350644}
+  - component: {fileID: 7778726767244642708}
   m_Layer: 0
   m_Name: BombExplosion
   m_TagString: DamageTrigger
@@ -4973,6 +4974,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 1
+--- !u!114 &7778726767244642708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2515118805058980736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb37199e060a02419b4f2383167c3f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerArea: {fileID: 5710689211745656311}
+  knockBackForce: 10
 --- !u!1 &2720809126727961728
 GameObject:
   m_ObjectHideFlags: 0

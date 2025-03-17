@@ -8,9 +8,6 @@ public class BombMovement : MonoBehaviour
     [SerializeField] float launchForce;
     [SerializeField] float lifeTime;
 
-    [SerializeField] GameObject healthBarCanvas;
-    HealthBarScript healthBarScript;
-
     Health healthScript;
 
     [SerializeField] GameObject explosion;
@@ -23,13 +20,10 @@ public class BombMovement : MonoBehaviour
 
     private void Start()
     {
-        healthBarScript = healthBarCanvas.GetComponent<HealthBarScript>();
         healthScript = GetComponent<Health>();
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
         StartCoroutine(Behavior());
-        healthBarScript.SetMaxHP(healthScript.GetStartHealth());
-        healthBarScript.SetHP(healthScript.GetStartHealth());
     }
 
     IEnumerator Behavior()
