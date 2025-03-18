@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HealthBarScript : MonoBehaviour
 {
-    [SerializeField] Slider healthBarSlider;
+    public Slider healthBarSlider;
     public Image sliderFill;
     public TMP_Text currentHealthText;
     public TMP_Text maxHealthText;

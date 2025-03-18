@@ -38,7 +38,7 @@ public class BuffManager : MonoBehaviour
         allItems.Add(item);
         Debug.Log("Added " + item.itemName + " to inventory");
         Debug.Log("Item count: " + allItems.Count);
-        PrintInventory();
+        //PrintInventory();
 
         // Add to appropriate category list
         switch (item.TriggerCategory)
