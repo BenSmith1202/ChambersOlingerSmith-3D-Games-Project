@@ -31,6 +31,8 @@ public class Attack
     //constructor
     public Attack(GameObject owner, int damage, float critChance, float knockback, float procCoeff)
     {
+        debuffsToApply = new List<BuffInstance>();
+        blacklist = new List<ItemInstance>();
         this.owner = owner;
         this.damage = damage;
         this.critChance = critChance;
@@ -52,8 +54,13 @@ public class Attack
                 damage = Mathf.FloorToInt(damage * critMult); 
                 critLevel++;
                 Debug.Log("CRIT!!! LEVEL: " + critLevel);
-                critChance = -1f; //if crit chance is over 100%, subtract 100% to get chance for a hyper-crit
+                critChance -= 1f; //if crit chance is over 100%, subtract 100% to get chance for a hyper-crit
                 // TODO: in the future, some kind of feedback for hyper-crits would be nice
+            }
+            else
+            {
+                //if the crit fails, break the loop
+                break;
             }
         }
         

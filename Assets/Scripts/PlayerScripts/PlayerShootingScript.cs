@@ -108,6 +108,7 @@ public class PlayerShootingScript : MonoBehaviour
                     bman.TriggerOnHitEffects(hitData.collider.gameObject, bulletHit);
 
                     // apply damage
+                    Debug.Log("Damage: " + bulletHit.damage);
                     hitData.collider.gameObject.GetComponent<Health>().DecreaseHealth(bulletHit.damage);
 
                     //TODO: apply knockback
