@@ -360,7 +360,7 @@ public class SpawnDirector : MonoBehaviour
         if (!isValidPosition)
         {
             Debug.LogWarning("Failed to find a valid spawn position after " + maxAttempts + " attempts.");
-            return player.position; // Fallback to player position if no valid position is found
+            return randomPosition; // Fallback to player position if no valid position is found
         }
 
         return randomPosition;

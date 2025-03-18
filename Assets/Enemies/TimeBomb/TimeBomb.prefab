@@ -5864,6 +5864,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b69ab7dc4a09f094885bf950a65c44c3, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1368203466199457740}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b69ab7dc4a09f094885bf950a65c44c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4401849361817302130}
   m_SourcePrefab: {fileID: 100100000, guid: b69ab7dc4a09f094885bf950a65c44c3, type: 3}
 --- !u!4 &4703448632437160086 stripped
 Transform:
@@ -5935,7 +5938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175c7b7b14d812544867d9df3fc271a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialLift: 100
+  initialLift: 150
   lifeTime: 5
   explosion: {fileID: 2515118805058980736, guid: b35268c6ce1ab32449284796ac017c6b, type: 3}
 --- !u!114 &2487537752097150934
@@ -5970,8 +5973,8 @@ MonoBehaviour:
   clipSize: 0
   reloadTime: 0
   baseDamage: 0
-  runSpeed: 30
-  jumpForce: 10
+  runSpeed: 34.7
+  jumpForce: 20.72
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
@@ -5989,3 +5992,19 @@ MonoBehaviour:
   dashSpeed: 0
   postDashSpeedReduction: 0
   minPostDashSpeed: 0
+--- !u!114 &-4401849361817302130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5336151141367865900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  creditCost: 15
+  minStage: 0
+  isFlyer: 0
