@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -7,8 +9,26 @@ public class Health : MonoBehaviour
     EntityStats stats;
     [SerializeField] HealthBarScript healthBarScript;
 
+    [SerializeField] GameObject dmgCanvas;
+    [SerializeField] bool showDamage;
+
+    GameObject damageNumberCanvas;
+    DamageNumbersCanvas canvasScript;
+
     private void Start()
     {
+        if(showDamage)
+        {
+            damageNumberCanvas = Instantiate(dmgCanvas, transform.position, transform.rotation);
+            damageNumberCanvas.transform.SetParent(gameObject.transform);
+            damageNumberCanvas.GetComponent<UpdatePosition>().target = gameObject;
+            if(gameObject.GetComponent<Collider>())
+            {
+                print("new offset");
+                damageNumberCanvas.GetComponent<UpdatePosition>().offset = new Vector3(0, gameObject.GetComponent<Collider>().bounds.max.y + 1, 0);
+            }
+            canvasScript = damageNumberCanvas.GetComponent<DamageNumbersCanvas>();
+        }
         stats = GetComponent<EntityStats>();
         stats.hp = stats.maxHP;
         if(healthBarScript != null)
@@ -24,6 +44,11 @@ public class Health : MonoBehaviour
 
     public void IncreaseHealth(int amount)
     {
+        if(canvasScript != null)
+        {
+            canvasScript.ShowDamageNumber(amount);
+        }
+
         if(stats.hp + amount > stats.maxHP)
         {
             stats.hp = stats.maxHP;
@@ -41,7 +66,12 @@ public class Health : MonoBehaviour
 
     public void DecreaseHealth(int amount)
     {
-        if(stats.hp - amount < 1)
+        if (canvasScript != null)
+        {
+            canvasScript.ShowDamageNumber(-amount);
+        }
+
+        if (stats.hp - amount < 1)
         {
             //kill gameobject
             gameObject.BroadcastMessage("Die");

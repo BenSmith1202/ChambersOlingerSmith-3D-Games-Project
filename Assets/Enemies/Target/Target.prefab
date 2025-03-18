@@ -122,6 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarScript: {fileID: 2016567218394119688}
+  dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
+  showDamage: 0
 --- !u!114 &2824078712979864248
 MonoBehaviour:
   m_ObjectHideFlags: 0

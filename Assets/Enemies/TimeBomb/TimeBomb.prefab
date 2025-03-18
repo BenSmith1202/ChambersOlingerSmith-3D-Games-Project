@@ -5954,6 +5954,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarScript: {fileID: 4892327625391498504}
+  dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
+  showDamage: 0
 --- !u!114 &-1368203466199457740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5973,8 +5975,8 @@ MonoBehaviour:
   clipSize: 0
   reloadTime: 0
   baseDamage: 0
-  runSpeed: 34.7
-  jumpForce: 20.72
+  runSpeed: 45
+  jumpForce: 120
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
