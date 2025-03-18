@@ -19,12 +19,12 @@ public class AtkSpdBoostItem : ItemInstance
     public override void OnAcquire(EntityStats stats)
     {
         Debug.Log("Attack Speed increased");
-        stats.shootCooldownTime /= speedBoost; // 20% logarithmically increases the attack speed
+        stats.attackCooldownTime /= speedBoost; // 20% logarithmically increases the attack speed
     }
 
     // does the inverse of the method above
     public override void OnRemove(EntityStats stats)
     {
-        stats.shootCooldownTime *= speedBoost; // Reverses the 20% attack speed increase
+        stats.attackCooldownTime *= speedBoost; // Reverses the 20% attack speed increase
     }
 }

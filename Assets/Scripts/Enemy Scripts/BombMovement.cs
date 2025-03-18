@@ -25,6 +25,14 @@ public class BombMovement : MonoBehaviour
         StartCoroutine(Behavior());
     }
 
+    private void Update()
+    {
+        if (stats.isDead) //TODO: Replace with messages or something
+        {
+            Die();
+        }
+    }
+
     IEnumerator Behavior()
     {
         Vector3 direction = Vector3.zero;
@@ -50,7 +58,7 @@ public class BombMovement : MonoBehaviour
         //launch in that direction
         while (forceTimeCounter > 0)
         {
-            rb.AddForce(direction * stats.runSpeed);
+            rb.AddForce(direction * stats.baseSpeed);
             forceTimeCounter--;
             yield return new WaitForEndOfFrame();
         }

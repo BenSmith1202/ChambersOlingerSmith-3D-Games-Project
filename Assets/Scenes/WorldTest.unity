@@ -226,11 +226,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1368203466199457740, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
       propertyPath: hp
-      value: 10000
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: -1368203466199457740, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
       propertyPath: maxHP
-      value: 10000
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: -1368203466199457740, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
       propertyPath: runSpeed
@@ -258,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4703448632437160086, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.4000015
+      value: -4.89
       objectReference: {fileID: 0}
     - target: {fileID: 4703448632437160086, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5723,8 +5723,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 2078753704}
     m_Modifications:
     - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: critChance
-      value: 1.5
+      propertyPath: attackCooldownTime
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 1209897574916602287, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: m_LocalPosition.x

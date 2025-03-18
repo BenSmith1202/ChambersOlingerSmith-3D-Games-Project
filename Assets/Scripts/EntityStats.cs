@@ -1,26 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EntityStats : MonoBehaviour
 {
+    public bool isDead;
     public int hp;
     public int maxHP = 100;
 
-    public float gunRange = 100f;
-    public float shootCooldownTime;
+    public float baseSpeed;     // Walking speed of the entity
+    public float jumpForce;     // Force applied when the entity jumpss
+
+    public float attackCooldownTime;
+    public int baseDamage; //base damage (gun deals 100% base damage, dash punch probably deals 250% base damage)
+    public float critChance;
+    public float range = 100f;
+    public float baseKB; //base knockback
+
     public int clipSize;
     public float reloadTime;
-    public int baseDamage; //base damage (gun deals 100% base damage, dash punch probably deals 250% base damage)
-    public float baseKB; //base knockback
-    public float critChance;
-
-    public float runSpeed;     // Walking speed of the player
-    public float jumpForce;     // Force applied when the player jumpss
+    
     public float crouchSpeed;   // Speed during crouching
-
     public float wallrunForce;  // effectively wall run speed
     public float maxWallTime;   // Maximum time in seconds that a player can run on walls before touching the ground
     public float wallrunSpeed;   // Speed during wallrun
@@ -40,12 +43,14 @@ public class EntityStats : MonoBehaviour
     public float postDashSpeedReduction;
     public float minPostDashSpeed;
 
+    public BuffManager buffManager;
     public HealthBarScript healthBarScript;
     public DamageNumbers damageNumbers;
 
 
     private void Start()
     {
+        buffManager = GetComponent<BuffManager>();
         InitializeHealthBar();
 
         //It's ok if this is null
@@ -54,17 +59,25 @@ public class EntityStats : MonoBehaviour
         SetMaxHP(maxHP);
         SetHP(maxHP);
     }
-    //TODO: implement universal takeHit function that takes an attack object and applies the damage, knockback,
+
+
+    // Universal takeHit function that takes an attack object and applies the damage, knockback,
     // and correctly modifies any relevant health bar object 
     public void TakeHit(Attack atk)
     {
-        // hp - atk.damage
-        // if hp <= 0, die and call
-        //BuffManager attackerBuffManager = atk.owner.GetComponent<BuffManager>();
-        //if (attackerBuffManager != null)
-        //{
-        //    attackerBuffManager.TriggerOnKillEffects(gameObject, atk);
-        //}
+        //If the attak is lethal, trigger OnKill effects
+        if (atk.damage > hp)
+        {
+            BuffManager attackerBuffManager = atk.owner.GetComponent<BuffManager>();
+            if (attackerBuffManager != null)
+            {
+                attackerBuffManager.TriggerOnKillEffects(gameObject, atk);
+            }
+        }
+
+        InflictDamage(atk.damage);
+
+        //TODI: apply knockback
     }
 
 
@@ -99,6 +112,18 @@ public class EntityStats : MonoBehaviour
     {
         newHP = Mathf.Clamp(newHP, 0, maxHP); //prevents overfilling or negative HP
         hp = newHP;
+
+        //am i dead?
+        if (hp <= 0)
+        {
+            isDead = true;
+        }
+
+        // Trigger any on HP effects
+        if (buffManager != null)
+        {
+            buffManager.TriggerOnHPEffects(gameObject);
+        }
 
         //Debug.Log("Setting HP to " + newHP);
 
