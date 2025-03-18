@@ -16,6 +16,7 @@ public class PlayerHealthScript : MonoBehaviour
         stats = GetComponent<EntityStats>();
         forcesToRBScript = GetComponent<ForcesToRB>();
         healthBarScript = healthBar.GetComponent<HealthBarScript>();
+        SetPlayerMaxHP(stats.maxHP);
         SetPlayerHP(stats.maxHP);
     }
 

@@ -5,8 +5,9 @@ using UnityEngine;
 public class BombMovement : MonoBehaviour
 {
     [SerializeField] float initialLift;
-    [SerializeField] float launchForce;
     [SerializeField] float lifeTime;
+
+    EntityStats stats;
 
     Health healthScript;
 
@@ -20,6 +21,7 @@ public class BombMovement : MonoBehaviour
 
     private void Start()
     {
+        stats = GetComponent<EntityStats>();
         healthScript = GetComponent<Health>();
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
@@ -33,7 +35,7 @@ public class BombMovement : MonoBehaviour
         //start bouncing
         while(bounceTimeCounter > 0)
         {
-            rb.AddForce(new Vector3(0, initialLift, 0));
+            rb.AddForce(new Vector3(0, stats.jumpForce, 0));
             bounceTimeCounter--;
             yield return new WaitForEndOfFrame();
         }
@@ -51,7 +53,7 @@ public class BombMovement : MonoBehaviour
         //launch in that direction
         while (forceTimeCounter > 0)
         {
-            rb.AddForce(direction * launchForce);
+            rb.AddForce(direction * stats.runSpeed);
             forceTimeCounter--;
             yield return new WaitForEndOfFrame();
         }
