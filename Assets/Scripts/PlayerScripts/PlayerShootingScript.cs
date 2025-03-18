@@ -13,6 +13,7 @@ public class PlayerShootingScript : MonoBehaviour
     PlayerControllerScript playerControllerScript;
     CameraControllerScript cameraControllerScript;
     EntityStats stats;
+    BuffManager bman;
     public bool isShooting;
 
     [Header("Visuals")]
@@ -25,7 +26,7 @@ public class PlayerShootingScript : MonoBehaviour
     Image reloadRing;
 
     [Header("Shooting")]
-    
+    public float gunProcCoeff = 1.0f;
     float shootCooldown = -0.1f;
     
     int clip;
@@ -37,6 +38,7 @@ public class PlayerShootingScript : MonoBehaviour
     public void Start()
     {
         stats = GetComponent<EntityStats>();
+        bman = GetComponent<BuffManager>();
         audioSource = GetComponent<AudioSource>();
         cam = GameObject.FindWithTag("MainCamera");
         gun = GameObject.FindWithTag("PlayerGun");
@@ -62,6 +64,7 @@ public class PlayerShootingScript : MonoBehaviour
         }
         AnimationCheck();
     }
+
 
     public void OnShoot(InputAction.CallbackContext context)
     {
@@ -97,7 +100,18 @@ public class PlayerShootingScript : MonoBehaviour
 
                 if(hitData.collider.gameObject.CompareTag("Enemy"))
                 {
-                    hitData.collider.gameObject.GetComponent<Health>().DecreaseHealth(stats.baseDamage);
+                    // make a new attack object
+                    Attack bulletHit = new Attack(gameObject, stats.baseDamage, 
+                        stats.critChance, stats.baseKB, gunProcCoeff); //Proc Coefficient of 1 means use default item odds.
+
+                    // trigger on hit effects and multipliers
+                    bman.TriggerOnHitEffects(hitData.collider.gameObject, bulletHit);
+
+                    // apply damage
+                    hitData.collider.gameObject.GetComponent<Health>().DecreaseHealth(bulletHit.damage);
+
+                    //TODO: apply knockback
+
                 }
             }
 
@@ -106,6 +120,8 @@ public class PlayerShootingScript : MonoBehaviour
         }
     }
 
+
+    // Switch animation states
     public void AnimationCheck()
     {
         if (playerControllerScript.movementState == PlayerControllerScript.MovementState.wallrunning ||
@@ -126,6 +142,8 @@ public class PlayerShootingScript : MonoBehaviour
         }
     }
 
+
+    // plays gun Audio/Visual effects and handles ammo
     public void ShootGun(Vector3 target)
     {
         gunAnimator.SetTrigger("shoot");
@@ -150,15 +168,17 @@ public class PlayerShootingScript : MonoBehaviour
             StartCoroutine(ReloadCoroutine(stats.reloadTime));
         }
     }
+    
 
-    // ammo update function
-
+    // ammo amount change function
     public void ChangeClipAmmo(int deltaAmmo)
     {
         clip += deltaAmmo;
         //clipText.SetText("" + clip);
     }
 
+
+    // fills mag in [duration] seconds
     IEnumerator ReloadCoroutine(float duration)
     {
         audioSource.PlayOneShot(reloadSound);

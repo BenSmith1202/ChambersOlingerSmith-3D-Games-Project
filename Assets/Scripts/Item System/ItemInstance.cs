@@ -9,11 +9,17 @@ public abstract class ItemInstance : ScriptableObject
     public string itemName;
     public string description;
     public Sprite icon;
+    public int rarityIndex;
     public Rarity rarity;
 
 
     //Methods that all items should implement
     #region Abstract Methods
+
+    public void OnEnable()
+    {
+        rarity = Rarities.allRarities[rarityIndex];
+    }
 
     // every item has a trigger type that it must override this with
     public abstract TriggerType TriggerCategory { get; }
@@ -69,5 +75,6 @@ public class Rarities
     public static Rarity common = new Rarity { rarityName = "Common", rarityColor = Color.white, rarityDropChance = 0.75f };
     public static Rarity rare = new Rarity { rarityName = "Rare", rarityColor = Color.blue, rarityDropChance = 0.23f };
     public static Rarity legendary = new Rarity { rarityName = "Legendary", rarityColor = Color.yellow, rarityDropChance = 0.02f };
+    public static List<Rarity> allRarities = new List<Rarity> { common, rare, legendary };
 }
 #endregion

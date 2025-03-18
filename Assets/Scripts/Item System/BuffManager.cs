@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class BuffManager : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class BuffManager : MonoBehaviour
 
         allItems.Add(item);
         Debug.Log("Added " + item.itemName + " to inventory");
+        Debug.Log("Item count: " + allItems.Count);
+        PrintInventory();
 
         // Add to appropriate category list
         switch (item.TriggerCategory)
@@ -106,22 +109,24 @@ public class BuffManager : MonoBehaviour
     #region TriggerMethods
 
     //Triggered whenever an attack hits an enemy
-    public void TriggerOnHitEffects(GameObject myself, GameObject target, Attack atk) //TODO: may need some more parameters
+    public void TriggerOnHitEffects(GameObject target, Attack atk) //TODO: may need some more parameters
     {
-        var context = new TriggerContext {myself = myself, target = target, atk = atk };
+        var context = new TriggerContext {target = target, atk = atk };
         foreach (var item in onHitEffects)
         {
+            if (atk.blacklist.Contains(item)) continue; //skip this item if it's blacklisted
             item.OnTrigger(stats, context);
         }
     }
 
 
     //Triggered after an attack that hit an enemy kills it
-    public void TriggerOnKillEffects(GameObject myself, GameObject target, Attack atk) //atk is the attack that killed the target
+    public void TriggerOnKillEffects(GameObject target, Attack atk) //atk is the attack that killed the target
     {
-        var context = new TriggerContext { myself = myself, target = target, atk = atk };
-        foreach (var item in onHitEffects)
+        var context = new TriggerContext {target = target, atk = atk };
+        foreach (var item in onKillEffects)
         {
+            if (atk.blacklist.Contains(item)) continue; //skip this item if it's blacklisted
             item.OnTrigger(stats, context);
         }
     }
@@ -130,8 +135,8 @@ public class BuffManager : MonoBehaviour
     //triggered whenever an ability is used. As of right now, this likely only applies to the player's dash ability.
     public void TriggerOnAbilityEffects(GameObject myself) //Doesn't need an attack because it's not an attack
     {
-        var context = new TriggerContext {myself = myself};
-        foreach (var item in onHitEffects)
+        var context = new TriggerContext { myself = myself};
+        foreach (var item in onAbilityEffects)
         {
             item.OnTrigger(stats, context);
         }
@@ -142,7 +147,7 @@ public class BuffManager : MonoBehaviour
     public void TriggerOnHPEffects(GameObject myself) //TODO: may need some more parameters
     {
         var context = new TriggerContext { myself = myself};
-        foreach (var item in onHitEffects)
+        foreach (var item in onHPEffects)
         {
             item.OnTrigger(stats, context);
         }

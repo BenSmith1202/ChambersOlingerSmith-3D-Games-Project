@@ -11,7 +11,9 @@ public class EntityStats : MonoBehaviour
     public float shootCooldownTime;
     public int clipSize;
     public float reloadTime;
-    public int baseDamage;
+    public int baseDamage; //base damage (gun deals 100% base damage, dash punch probably deals 250% base damage)
+    public float baseKB; //base knockback
+    public float critChance;
 
     public float runSpeed;     // Walking speed of the player
     public float jumpForce;     // Force applied when the player jumpss
@@ -36,7 +38,18 @@ public class EntityStats : MonoBehaviour
     public float postDashSpeedReduction;
     public float minPostDashSpeed;
 
-
+    //TODO: implement universal takeHit function that takes an attack object and applies the damage, knockback,
+    // and correctly modifies any relevant health bar object 
+    public void TakeHit(Attack atk)
+    {
+        // hp - atk.damage
+        // if hp <= 0, die and call
+            //BuffManager attackerBuffManager = atk.owner.GetComponent<BuffManager>();
+            //if (attackerBuffManager != null)
+            //{
+            //    attackerBuffManager.TriggerOnKillEffects(gameObject, atk);
+            //}
+    }
 
 
 }
