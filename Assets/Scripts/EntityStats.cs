@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class EntityStats : MonoBehaviour
@@ -38,18 +39,79 @@ public class EntityStats : MonoBehaviour
     public float postDashSpeedReduction;
     public float minPostDashSpeed;
 
+    public HealthBarScript healthBarScript;
+
+
+    private void Start()
+    {
+        healthBarScript = GetComponent<HealthBarScript>();
+        SetMaxHP(maxHP);
+        SetHP(maxHP);
+    }
     //TODO: implement universal takeHit function that takes an attack object and applies the damage, knockback,
     // and correctly modifies any relevant health bar object 
     public void TakeHit(Attack atk)
     {
         // hp - atk.damage
         // if hp <= 0, die and call
-            //BuffManager attackerBuffManager = atk.owner.GetComponent<BuffManager>();
-            //if (attackerBuffManager != null)
-            //{
-            //    attackerBuffManager.TriggerOnKillEffects(gameObject, atk);
-            //}
+        //BuffManager attackerBuffManager = atk.owner.GetComponent<BuffManager>();
+        //if (attackerBuffManager != null)
+        //{
+        //    attackerBuffManager.TriggerOnKillEffects(gameObject, atk);
+        //}
     }
 
 
+    public void SetHP(int newHP)
+    {
+        newHP = Mathf.Clamp(newHP, 0, maxHP); //prevents overfilling or negative HP
+        hp = newHP;
+
+
+        if (healthBarScript != null)
+        {
+            healthBarScript.SetHP(newHP); //update healthbar
+        }
+        
+    }
+
+    public void SetMaxHP(int newMaxHP)
+    {
+        if (newMaxHP < 1) //prevents division by zero
+        {
+            newMaxHP = 1;
+        }
+        maxHP = newMaxHP;
+
+        if (newMaxHP < hp) //if max hp is set lower than the current hp, set the player's current hp to the new max
+        {
+            SetHP(newMaxHP);
+        }
+
+        if (healthBarScript != null)
+        {
+            healthBarScript.SetMaxHP(newMaxHP); //update healthbar
+        }
+        
+    }
+
+    public void IncreaseMaxHP(int amount)
+    {
+        SetMaxHP(maxHP + amount);
+    }
+
+    public void Heal(int amount)
+    {
+        SetHP(hp + amount);
+    }
+
+    public void DecreaseMaxHP(int amount)
+    {
+        SetMaxHP(maxHP - amount);
+    }
+
+    public void InflictDamage(int amount)
+    {
+        SetHP(hp - amount);
+    }
 }

@@ -109,7 +109,7 @@ public class PlayerShootingScript : MonoBehaviour
 
                     // apply damage
                     Debug.Log("Damage: " + bulletHit.damage);
-                    hitData.collider.gameObject.GetComponent<Health>().DecreaseHealth(bulletHit.damage);
+                    hitData.collider.gameObject.GetComponent<EntityStats>().InflictDamage(bulletHit.damage);
 
                     //TODO: apply knockback
 
