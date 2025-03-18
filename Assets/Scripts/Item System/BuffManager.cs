@@ -35,6 +35,8 @@ public class BuffManager : MonoBehaviour
             return;
         }
 
+        //TODO: Stacking logic
+
         allItems.Add(item);
         Debug.Log("Added " + item.itemName + " to inventory");
         Debug.Log("Item count: " + allItems.Count);

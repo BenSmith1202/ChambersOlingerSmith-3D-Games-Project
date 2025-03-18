@@ -564,17 +564,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2769da43178852e4b9a47cf1ec48d024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   hp: 100
   maxHP: 100
-  gunRange: 100
-  shootCooldownTime: 0.5
+  baseSpeed: 10
+  jumpForce: 11
+  attackCooldownTime: 0.65
+  baseDamage: 50
+  critChance: 0
+  range: 100
+  baseKB: 0
   clipSize: 12
   reloadTime: 1.3
-  baseDamage: 50
-  baseKB: 0
-  critChance: 0
-  runSpeed: 12
-  jumpForce: 11
   crouchSpeed: 4
   wallrunForce: 4
   maxWallTime: 1.5
@@ -592,6 +593,7 @@ MonoBehaviour:
   dashSpeed: 75
   postDashSpeedReduction: 0.77
   minPostDashSpeed: 27
+  buffManager: {fileID: 0}
   healthBarScript: {fileID: 0}
   damageNumbers: {fileID: 0}
 --- !u!114 &8355442499066621832

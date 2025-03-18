@@ -86,13 +86,13 @@ public class PlayerShootingScript : MonoBehaviour
         if (shootCooldown < 0 && !isReloading && clip > 0)
         {
             
-            Ray ray = new Ray(cam.transform.position, cam.transform.forward * stats.gunRange);
+            Ray ray = new Ray(cam.transform.position, cam.transform.forward * stats.range);
             RaycastHit hitData;
             Physics.Raycast(ray, out hitData);
             Vector3 target = hitData.point;
             if (target == Vector3.zero) //if we shoot into the void
             {
-                target = cam.transform.forward * stats.gunRange; //shoot to our max range forward
+                target = cam.transform.forward * stats.range; //shoot to our max range forward
             }
             else
             {
@@ -117,7 +117,7 @@ public class PlayerShootingScript : MonoBehaviour
             }
 
             ShootGun(target);
-            shootCooldown = stats.shootCooldownTime;
+            shootCooldown = stats.attackCooldownTime;
         }
     }
 
@@ -161,7 +161,7 @@ public class PlayerShootingScript : MonoBehaviour
         );
 
         Destroy(bulletPart.gameObject, 2f);
-        shootCooldown = stats.shootCooldownTime;
+        shootCooldown = stats.attackCooldownTime;
 
         ChangeClipAmmo(-1);
         if (clip <= 0)
