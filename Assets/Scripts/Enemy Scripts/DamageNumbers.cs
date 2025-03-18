@@ -8,7 +8,7 @@ public class DamageNumbers : MonoBehaviour
 {
 
     [SerializeField] GameObject dmgCanvas;
-    [SerializeField] bool showDamage;
+    public bool showDamage;
 
     GameObject damageNumberCanvas;
     public DamageNumbersCanvas canvasScript;
@@ -23,7 +23,7 @@ public class DamageNumbers : MonoBehaviour
             if(gameObject.GetComponent<Collider>())
             {
                 print("new offset");
-                damageNumberCanvas.GetComponent<UpdatePosition>().offset = new Vector3(0, gameObject.GetComponent<Collider>().bounds.max.y + 1, 0);
+                damageNumberCanvas.GetComponent<UpdatePosition>().offset = new Vector3(0, gameObject.GetComponent<Collider>().bounds.max.y + 7, 0);
             }
             canvasScript = damageNumberCanvas.GetComponent<DamageNumbersCanvas>();
         }

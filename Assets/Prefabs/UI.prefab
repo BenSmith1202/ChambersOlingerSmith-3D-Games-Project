@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 648770425999000022}
   m_Layer: 5
   m_Name: HealthBar Holder
-  m_TagString: Untagged
+  m_TagString: PlayerHealthBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -665,6 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346b5fff20e131644a64b3dd8be06f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBarSlider: {fileID: 0}
   sliderFill: {fileID: 6068886555838379474}
   currentHealthText: {fileID: 8355719061865365784}
   maxHealthText: {fileID: 7210871549353181468}

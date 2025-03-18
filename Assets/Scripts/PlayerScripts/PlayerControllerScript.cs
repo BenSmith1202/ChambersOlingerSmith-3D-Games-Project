@@ -475,17 +475,17 @@ public class PlayerControllerScript : MonoBehaviour
             orientation.right, out rightWallHit, wallCheckDist, wallLayer);
 
         //debug rays to visualize the wall checks
-        Debug.DrawRay(
-            transform.position - new Vector3(0, playerHeight / 4, 0),
-            -orientation.right * wallCheckDist,
-            wallLeft ? Color.green : Color.red
-        );
+        //Debug.DrawRay(
+        //    transform.position - new Vector3(0, playerHeight / 4, 0),
+        //    -orientation.right * wallCheckDist,
+        //    wallLeft ? Color.green : Color.red
+        //);
 
-        Debug.DrawRay(
-            transform.position - new Vector3(0, playerHeight / 4, 0),
-            orientation.right * wallCheckDist,
-            wallRight ? Color.green : Color.red
-        );
+        //Debug.DrawRay(
+        //    transform.position - new Vector3(0, playerHeight / 4, 0),
+        //    orientation.right * wallCheckDist,
+        //    wallRight ? Color.green : Color.red
+        //);
     }
 
     private bool AboveGround()

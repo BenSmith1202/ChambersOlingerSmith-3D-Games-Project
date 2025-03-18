@@ -240,6 +240,10 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2487537752097150934, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
+      propertyPath: showDamage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3272328292643009390, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
       propertyPath: lifeTime
       value: 200
@@ -5809,13 +5813,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5141110455235164122, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1643270533}
-    - targetCorrespondingSourceObject: {fileID: 5141110455235164122, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1643270547}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
 --- !u!1 &1643270530 stripped
 GameObject:
@@ -5832,46 +5830,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5141110455235164122, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
   m_PrefabInstance: {fileID: 1643270529}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1643270533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1643270532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ab4adb1319278443af910a077285966, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunDamage: 1
-  fireRate: 0.25
-  weaponRange: 100
-  hitForce: 0
-  shotSound: {fileID: 8300000, guid: 7387fca94790dd74aa39923e6aa085ec, type: 3}
 --- !u!4 &1643270535 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1209897574916602287, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
   m_PrefabInstance: {fileID: 1643270529}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1643270547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1643270532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allItems: []
-  statBoosts: []
-  onHitEffects: []
-  onKillEffects: []
-  onAbilityEffects: []
-  onHPEffects: []
 --- !u!1001 &1647336095
 PrefabInstance:
   m_ObjectHideFlags: 0

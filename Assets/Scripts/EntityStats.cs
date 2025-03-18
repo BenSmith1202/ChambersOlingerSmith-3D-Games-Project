@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EntityStats : MonoBehaviour
 {
@@ -45,8 +46,11 @@ public class EntityStats : MonoBehaviour
 
     private void Start()
     {
-        healthBarScript = GetComponent<HealthBarScript>();
+        InitializeHealthBar();
+
+        //It's ok if this is null
         damageNumbers = GetComponent<DamageNumbers>();
+
         SetMaxHP(maxHP);
         SetHP(maxHP);
     }
@@ -64,21 +68,53 @@ public class EntityStats : MonoBehaviour
     }
 
 
+    public void InitializeHealthBar()
+    {
+        //check if i have a health canvas child
+        Transform healthCanvas = transform.Find("HealthCanvas");
+        if (healthCanvas != null)
+        {
+            healthBarScript = healthCanvas.gameObject.GetComponent<HealthBarScript>();
+        }
+        else
+        {
+            //Debug.Log("No enemy healthbar found, checking player");
+            //check if i have a health bar myself
+            // am i a player?
+            PlayerHealthScript myhealth = GetComponent<PlayerHealthScript>();
+            if (myhealth != null)
+            {
+                //if so, i can use the UI health Bar
+                GameObject playerHealthBar = GameObject.FindWithTag("PlayerHealthBar");
+                healthBarScript = playerHealthBar.GetComponent<HealthBarScript>();
+                //Debug.Log("Player health bar found");
+                // Initialize player health bar slider
+                healthBarScript.healthBarSlider = playerHealthBar.GetComponent<Slider>();
+            }
+        }
+    }
+
+
     public void SetHP(int newHP)
     {
         newHP = Mathf.Clamp(newHP, 0, maxHP); //prevents overfilling or negative HP
         hp = newHP;
 
+        //Debug.Log("Setting HP to " + newHP);
 
         if (healthBarScript != null)
         {
             healthBarScript.SetHP(newHP); //update healthbar
+        } else
+        {
+            //Debug.Log("No health bar found");
         }
         
     }
 
     public void SetMaxHP(int newMaxHP)
     {
+        //Debug.Log("Setting HP to " + newMaxHP);
         if (newMaxHP < 1) //prevents division by zero
         {
             newMaxHP = 1;
@@ -90,11 +126,17 @@ public class EntityStats : MonoBehaviour
             SetHP(newMaxHP);
         }
 
+
         if (healthBarScript != null)
         {
             healthBarScript.SetMaxHP(newMaxHP); //update healthbar
         }
+        else
+        {
+            //Debug.Log("No health bar found");
+        }
         
+
     }
 
     public void IncreaseMaxHP(int amount)
@@ -105,8 +147,9 @@ public class EntityStats : MonoBehaviour
     public void Heal(int amount)
     {
         SetHP(hp + amount);
-        if (damageNumbers != null)
+        if (damageNumbers != null && damageNumbers.showDamage)
         {
+            
             damageNumbers.canvasScript.ShowDamageNumber(amount);
         }
     }
@@ -119,7 +162,7 @@ public class EntityStats : MonoBehaviour
     public void InflictDamage(int amount)
     {
         SetHP(hp - amount);
-        if (damageNumbers != null)
+        if (damageNumbers != null && damageNumbers.showDamage)
         {
             damageNumbers.canvasScript.ShowDamageNumber(-amount);
         }

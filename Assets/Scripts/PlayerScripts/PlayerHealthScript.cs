@@ -9,7 +9,7 @@ public class PlayerHealthScript : MonoBehaviour
     public GameObject healthBar;
 
     ForcesToRB forcesToRBScript;
-    HealthBarScript healthBarScript;
+    public HealthBarScript healthBarScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,14 +21,16 @@ public class PlayerHealthScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //DEBUG TOOLS
         if (Input.GetKeyDown(KeyCode.Minus))
         {
-            stats.Heal(5);
+            stats.InflictDamage(5);
         }
 
         if (Input.GetKeyDown(KeyCode.Equals))
         {
-            stats.InflictDamage(5);
+            stats.Heal(5);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftBracket))
