@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 public class PlayerControllerScript : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float runSpeed;     // Walking speed of the player
+    
     public float groundDrag;    // Drag applied when on the ground
     public float airDrag;       // Drag applied when in the air
     public float airMultiplier; // Multiplier for movement speed while in the air
@@ -21,14 +21,14 @@ public class PlayerControllerScript : MonoBehaviour
 
     [Header("Jumping")]
 
-    public float jumpForce;     // Force applied when the player jumps
+  
     public float jumpDelay;     // Delay between consecutive jumps
     bool readyToJump = true;    // Whether the player can jump again
 
 
     [Header("Crouching")]
 
-    public float crouchSpeed;   // Speed during crouching
+    
     public float startYScale;   // Original Y scale of the player
     public float crouchYScale;  // Y scale while crouching
     public float crouchForce;   // Downward force applied when crouching
@@ -51,12 +51,10 @@ public class PlayerControllerScript : MonoBehaviour
     [Header("Wallrunning")]
 
     public LayerMask wallLayer; // Layer used to determine what walls can be run on
-    public float wallrunForce;  // effectively wall run speed
-    public float maxWallTime;   // Maximum time in seconds that a player can run on walls before touching the ground
+    
     float wallRunTimer;         // Time counter for above
     public float wallJumpVerticalForce;    // Vertical component of wall jump force vector
     public float wallJumpHorizontalForce;  // Horizontal component of wall jump force vectors
-    public float wallrunSpeed;   // Speed during wallrun
     public float wallrunGravityCounter; // controls how much the player falls while wall running. if < 0: increase gravity, if < 1: reduce gravity, if > 1: reverse gravity
 
 
@@ -71,16 +69,10 @@ public class PlayerControllerScript : MonoBehaviour
 
 
     [Header("Grappling")] //DOES NOT WORK ON MOVING OBJECTS
-    public float grappleCooldownTime;
     float grappleCooldown = 0;
 
     public bool isGrappled;     // true iff grapple button is held down and a successful grapple is in progress
-    public float grappleForce;  // force of the ropes tension
-    public float grappleStretch;    // divides the above, how stretchy the rope is
-    public float grappleReelSpeed;  // how fast the max length of the grapple decreases (linearly)
-    public float grappleYankPercentDistance; // percent of player's distance from the grapple point that the rope length is initialized to
-    public float swingSpeed;                 // The speed at which the player influences their momentum with the movement keys
-    public float maxSwingVelocity;           // the speed cap for grappling.
+    
     public Vector3 currentGrapplePoint;      // the location of the current grapple point
     LineRenderer lineRenderer; // Reference to the line Renderer for the grapple rope.
     public AudioClip grappleSound;
@@ -88,13 +80,11 @@ public class PlayerControllerScript : MonoBehaviour
     [Header("Dash Slam")]
     public float dashCooldownTime;
     float dashCooldown = 0;
-    public float dashDuration;
-    public float dashSpeed;
-    public float postDashSpeedReduction;
-    public float minPostDashSpeed;
+
 
 
     [Header("References")]
+    EntityStats stats;          // Reference to the player's EntityStats component
     public GameObject shootIcon;
     public GameObject grappleIcon;
     public GameObject dashIcon;
@@ -133,6 +123,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     void Start()
     {
+        stats = GetComponent<EntityStats>();
         lineRenderer = GetComponent<LineRenderer>();
         _collider = GetComponent<CapsuleCollider>();
         _rbody = GetComponent<Rigidbody>();
@@ -223,7 +214,7 @@ public class PlayerControllerScript : MonoBehaviour
                 _rbody.AddForce(new Vector3(0, -crouchForce, 0), ForceMode.Impulse);
             }
             movementState = MovementState.crouching;
-            speed = crouchSpeed;
+            speed = stats.crouchSpeed;
         }
         else
         {
@@ -236,7 +227,7 @@ public class PlayerControllerScript : MonoBehaviour
                 if (movementState != MovementState.wallrunning)
                 {
                     StartWallrunning();
-                    speed = wallrunSpeed;
+                    speed = stats.wallrunSpeed;
                 }
             }
             // PRIORITY 3: Ground movement
@@ -246,7 +237,7 @@ public class PlayerControllerScript : MonoBehaviour
                 {
                     camScript.ResetCameraEffects(false);
                     movementState = MovementState.running;
-                    speed = runSpeed;
+                    speed = stats.runSpeed;
                 }
             }
             // PRIORITY 4: Air movement
@@ -285,7 +276,7 @@ public class PlayerControllerScript : MonoBehaviour
         switch (movementState)
         {
             case MovementState.crouching:
-                _rbody.AddForce(movementForce * crouchSpeed, ForceMode.Force);
+                _rbody.AddForce(movementForce * stats.crouchSpeed, ForceMode.Force);
                 break;
 
             case MovementState.running:
@@ -329,7 +320,7 @@ public class PlayerControllerScript : MonoBehaviour
             _rbody.AddForce(-wallNormal * 100, ForceMode.Force);
         }
 
-        _rbody.AddForce(100f * wallrunForce * wallForward, ForceMode.Force);
+        _rbody.AddForce(100f * stats.wallrunForce * wallForward, ForceMode.Force);
         _rbody.AddForce(25f * wallrunGravityCounter * transform.up, ForceMode.Force);
     }
 
@@ -354,15 +345,15 @@ public class PlayerControllerScript : MonoBehaviour
     {
         if (isGrappled) //if currently grappled to an object
         {               // we consider the full 3d velocity.
-            if (_rbody.velocity.magnitude > maxSwingVelocity) //if its greater than the max:
+            if (_rbody.velocity.magnitude > stats.maxSwingVelocity) //if its greater than the max:
             {
                 // apply movement while removing any component in the direction of velocity
-                _rbody.AddForce(RemovePositiveParallelComponent(movementForce * swingSpeed, _rbody.velocity), ForceMode.Force);
+                _rbody.AddForce(RemovePositiveParallelComponent(movementForce * stats.swingSpeed, _rbody.velocity), ForceMode.Force);
             }
             else //otherwise (if less than max)
             {
                 //apply movment like normal
-                _rbody.AddForce(movementForce * swingSpeed, ForceMode.Force);
+                _rbody.AddForce(movementForce * stats.swingSpeed, ForceMode.Force);
             }
         }
         else // if in freefall after a grapple
@@ -370,7 +361,7 @@ public class PlayerControllerScript : MonoBehaviour
             // do the same thing only considering horizontal velocity
             Vector3 xzVel = new(_rbody.velocity.x, 0f, _rbody.velocity.z); // Horizontal velocity
 
-            if (xzVel.magnitude > maxSwingVelocity)
+            if (xzVel.magnitude > stats.maxSwingVelocity)
             {
                 _rbody.AddForce(RemovePositiveParallelComponent(0.5f * airMultiplier * speed * movementForce, xzVel), ForceMode.Force);
             }
@@ -438,7 +429,7 @@ public class PlayerControllerScript : MonoBehaviour
         } else
         {
             _rbody.velocity = new Vector3(_rbody.velocity.x, 0, _rbody.velocity.z); // Reset vertical velocity before jumping
-            _rbody.AddForce(orientation.up * jumpForce, ForceMode.Impulse);           // Apply jump force
+            _rbody.AddForce(orientation.up * stats.jumpForce, ForceMode.Impulse);           // Apply jump force
         }
 
     }
@@ -547,8 +538,8 @@ public class PlayerControllerScript : MonoBehaviour
     }
     public void StartGrapple(Vector3 grapplePoint)
     {
-        grappleCooldown = grappleCooldownTime;
-        grappleIcon.GetComponent<AbilityIconScript>().StartCooldown(grappleCooldownTime);
+        grappleCooldown = stats.grappleCooldownTime;
+        grappleIcon.GetComponent<AbilityIconScript>().StartCooldown(stats.grappleCooldownTime);
         StartCoroutine(GrappleCouroutine(grapplePoint));
     }
 
@@ -565,7 +556,7 @@ public class PlayerControllerScript : MonoBehaviour
 
         //Length of rope
         //goal length is set shorter than start length to give initial pull 
-        float grappleLength = Vector3.Distance(transform.position, currentGrapplePoint) * grappleYankPercentDistance;
+        float grappleLength = Vector3.Distance(transform.position, currentGrapplePoint) * stats.grappleYankPercentDistance;
 
         while (isGrappled) //while still grappling
         {
@@ -579,11 +570,11 @@ public class PlayerControllerScript : MonoBehaviour
             //apply a tensile force to keep the player within that length
             if (distanceBeyondMaxLength > 0)
             {
-                _rbody.AddForce(100f * distanceBeyondMaxLength * grappleForce * forceDirection / grappleStretch, ForceMode.Force);
+                _rbody.AddForce(100f * distanceBeyondMaxLength * stats.grappleForce * forceDirection / stats.grappleStretch, ForceMode.Force);
             }
 
             // reel in grapple rope over time
-            grappleLength -= Time.fixedDeltaTime * grappleReelSpeed;
+            grappleLength -= Time.fixedDeltaTime * stats.grappleReelSpeed;
         }
         //when player stops grappling, turn off rope renderer.
         lineRenderer.positionCount = 0;
@@ -602,7 +593,7 @@ public class PlayerControllerScript : MonoBehaviour
     {
         MovementState prevMoveState = movementState; // save previous move state
         movementState = MovementState.dashing;       // start dashing
-        float dashTime = dashDuration;               //start dash timer
+        float dashTime = stats.dashDuration;               //start dash timer
         Vector3 startVelocity = _rbody.velocity;     // save starting velocity
         _rbody.velocity = Vector3.zero;              //kill velocity
         Vector3 dashDirection = cam.transform.forward;
@@ -612,7 +603,7 @@ public class PlayerControllerScript : MonoBehaviour
         // as long as the time hasn't run out and the player hasnt caused another movement state (by grappling or hitting a wall/floor)
         while (movementState == MovementState.dashing && dashTime > 0f)
         {
-            _rbody.velocity = dashSpeed * dashDirection; //dash in the direction of the camera
+            _rbody.velocity = stats.dashSpeed * dashDirection; //dash in the direction of the camera
             dashTime -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -629,7 +620,7 @@ public class PlayerControllerScript : MonoBehaviour
         // but go no slower than minimum post dashVelocity
         // and no greater than the mid-dash velocity
         // hopefully this feels good
-        Vector3 newReducedVelocity = (Mathf.Max(Mathf.Min(postDashSpeedReduction * startVelocity.magnitude, dashSpeed), minPostDashSpeed) * dashDirection);
+        Vector3 newReducedVelocity = (Mathf.Max(Mathf.Min(stats.postDashSpeedReduction * startVelocity.magnitude, stats.dashSpeed), stats.minPostDashSpeed) * dashDirection);
         _rbody.velocity = newReducedVelocity;
 
         yield return null;

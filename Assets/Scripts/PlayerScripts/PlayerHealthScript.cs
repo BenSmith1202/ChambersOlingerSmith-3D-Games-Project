@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerHealthScript : MonoBehaviour
 {
 
-    public int hp;
-    public int maxHP = 100;
+    EntityStats stats;
     public GameObject healthBar;
 
     ForcesToRB forcesToRBScript;
@@ -14,6 +13,7 @@ public class PlayerHealthScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        stats = GetComponent<EntityStats>();
         forcesToRBScript = GetComponent<ForcesToRB>();
         healthBarScript = healthBar.GetComponent<HealthBarScript>();
         SetPlayerMaxHP(maxHP);
@@ -25,30 +25,30 @@ public class PlayerHealthScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Minus))
         {
-            SetPlayerHP(hp - 5);
+            SetPlayerHP(stats.hp - 5);
         }
 
         if (Input.GetKeyDown(KeyCode.Equals))
         {
-            SetPlayerHP(hp + 5);
+            SetPlayerHP(stats.hp + 5);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
-            SetPlayerMaxHP(maxHP - 5);
+            SetPlayerMaxHP(stats.maxHP - 5);
         }
 
         if (Input.GetKeyDown(KeyCode.RightBracket))
         {
-            SetPlayerMaxHP(maxHP + 5);
+            SetPlayerMaxHP(stats.maxHP + 5);
         }
     }
 
     public void SetPlayerHP(int newHP)
     {
-        newHP = Mathf.Clamp(newHP, 0, maxHP); //prevents overfilling or negative HP
+        newHP = Mathf.Clamp(newHP, 0, stats.maxHP); //prevents overfilling or negative HP
 
-        hp = newHP;
+        stats.hp = newHP;
         healthBarScript.SetHP(newHP); //update healthbar
     }
 
@@ -59,9 +59,9 @@ public class PlayerHealthScript : MonoBehaviour
             newMaxHP = 1;
         }
 
-        maxHP = newMaxHP;
+        stats.maxHP = newMaxHP;
 
-        if (newMaxHP < hp) //if max hp is set lower than the current hp, set the player's current hp to the new max
+        if (newMaxHP < stats.hp) //if max hp is set lower than the current hp, set the player's current hp to the new max
         {
             SetPlayerHP(newMaxHP);
         }
@@ -73,7 +73,7 @@ public class PlayerHealthScript : MonoBehaviour
     {
         if(other.gameObject.GetComponent<DamageTriggerScript>())
         {
-            SetPlayerHP(hp - other.gameObject.GetComponent<DamageTriggerScript>().GetDamage());
+            SetPlayerHP(stats.hp - other.gameObject.GetComponent<DamageTriggerScript>().GetDamage());
         }
         if(other.gameObject.GetComponent<KnockBack>())
         {

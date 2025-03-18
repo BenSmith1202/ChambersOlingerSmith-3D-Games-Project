@@ -12,7 +12,7 @@ public class PlayerShootingScript : MonoBehaviour
     GameObject player;
     PlayerControllerScript playerControllerScript;
     CameraControllerScript cameraControllerScript;
-    public float gunRange = 100f;
+    EntityStats stats;
     public bool isShooting;
 
     [Header("Visuals")]
@@ -25,18 +25,18 @@ public class PlayerShootingScript : MonoBehaviour
     Image reloadRing;
 
     [Header("Shooting")]
-    public float shootCooldownTime;
-    public float shootCooldown = 0;
-    public int clipSize;
-    public int clip;
-    public float reloadTime;
+    
+    float shootCooldown = -0.1f;
+    
+    int clip;
+    
     public bool isReloading;
 
-    [SerializeField] int startingDamage;
+    
 
     public void Start()
     {
-        
+        stats = GetComponent<EntityStats>();
         audioSource = GetComponent<AudioSource>();
         cam = GameObject.FindWithTag("MainCamera");
         gun = GameObject.FindWithTag("PlayerGun");
@@ -45,7 +45,7 @@ public class PlayerShootingScript : MonoBehaviour
         cameraControllerScript = cam.GetComponent<CameraControllerScript>();
         player = GameObject.FindWithTag("Player");
         playerControllerScript = player.GetComponent<PlayerControllerScript>();
-        clip = clipSize;
+        clip = stats.clipSize;
         //clipText.SetText("" + clip);
     }
 
@@ -83,13 +83,13 @@ public class PlayerShootingScript : MonoBehaviour
         if (shootCooldown < 0 && !isReloading && clip > 0)
         {
             
-            Ray ray = new Ray(cam.transform.position, cam.transform.forward * gunRange);
+            Ray ray = new Ray(cam.transform.position, cam.transform.forward * stats.gunRange);
             RaycastHit hitData;
             Physics.Raycast(ray, out hitData);
             Vector3 target = hitData.point;
             if (target == Vector3.zero) //if we shoot into the void
             {
-                target = cam.transform.forward * gunRange; //shoot to our max range forward
+                target = cam.transform.forward * stats.gunRange; //shoot to our max range forward
             }
             else
             {
@@ -97,12 +97,12 @@ public class PlayerShootingScript : MonoBehaviour
 
                 if(hitData.collider.gameObject.CompareTag("Enemy"))
                 {
-                    hitData.collider.gameObject.GetComponent<Health>().DecreaseHealth(startingDamage);
+                    hitData.collider.gameObject.GetComponent<Health>().DecreaseHealth(stats.baseDamage);
                 }
             }
 
             ShootGun(target);
-            shootCooldown = shootCooldownTime;
+            shootCooldown = stats.shootCooldownTime;
         }
     }
 
@@ -142,12 +142,12 @@ public class PlayerShootingScript : MonoBehaviour
         );
 
         Destroy(bulletPart.gameObject, 2f);
-        shootCooldown = shootCooldownTime;
+        shootCooldown = stats.shootCooldownTime;
 
         ChangeClipAmmo(-1);
         if (clip <= 0)
         {
-            StartCoroutine(ReloadCoroutine(reloadTime));
+            StartCoroutine(ReloadCoroutine(stats.reloadTime));
         }
     }
 
@@ -162,7 +162,7 @@ public class PlayerShootingScript : MonoBehaviour
     IEnumerator ReloadCoroutine(float duration)
     {
         audioSource.PlayOneShot(reloadSound);
-        if (clip < clipSize)
+        if (clip < stats.clipSize)
         {
             isReloading = true;
            
@@ -174,7 +174,7 @@ public class PlayerShootingScript : MonoBehaviour
                 elapsedTime += Time.deltaTime;
             }
 
-            int amountToLoad = clipSize - clip;
+            int amountToLoad = stats.clipSize - clip;
             ChangeClipAmmo(amountToLoad);
 
             isReloading = false;

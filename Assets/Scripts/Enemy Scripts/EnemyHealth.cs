@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int startHealth;
+    EntityStats stats;
     [SerializeField] HealthBarScript healthBarScript;
-    int health;
 
     private void Start()
     {
-        health = startHealth;
+        stats = GetComponent<EntityStats>();
+        stats.hp = stats.maxHP;
         if(healthBarScript != null)
         {
-            healthBarScript.SetMaxHP(startHealth);
-            healthBarScript.SetHP(health);
+            healthBarScript.SetMaxHP(stats.maxHP);
+            healthBarScript.SetHP(stats.hp);
         }
         else
         {
@@ -24,41 +24,41 @@ public class Health : MonoBehaviour
 
     public void IncreaseHealth(int amount)
     {
-        if(health + amount > startHealth)
+        if(stats.hp + amount > stats.maxHP)
         {
-            health = startHealth;
+            stats.hp = stats.maxHP;
         }
         else
         {
-            health += amount;
+            stats.hp += amount;
         }
 
         if (healthBarScript != null)
         {
-            healthBarScript.SetHP(health);
+            healthBarScript.SetHP(stats.hp);
         }
     }
 
     public void DecreaseHealth(int amount)
     {
-        if(health - amount < 1)
+        if(stats.hp - amount < 1)
         {
             //kill gameobject
             gameObject.BroadcastMessage("Die");
         }
         else
         {
-            health -= amount;
+            stats.hp -= amount;
         }
 
         if (healthBarScript != null)
         {
-            healthBarScript.SetHP(health);
+            healthBarScript.SetHP(stats.hp);
         }
     }
 
     public int GetStartHealth()
     {
-        return startHealth;
+        return stats.maxHP;
     }
 }
