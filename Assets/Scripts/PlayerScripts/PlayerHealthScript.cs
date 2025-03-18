@@ -16,8 +16,8 @@ public class PlayerHealthScript : MonoBehaviour
         stats = GetComponent<EntityStats>();
         forcesToRBScript = GetComponent<ForcesToRB>();
         healthBarScript = healthBar.GetComponent<HealthBarScript>();
-        SetPlayerMaxHP(maxHP);
-        SetPlayerHP(maxHP);
+        SetPlayerMaxHP(stats.maxHP);
+        SetPlayerHP(stats.maxHP);
     }
 
     // Update is called once per frame
