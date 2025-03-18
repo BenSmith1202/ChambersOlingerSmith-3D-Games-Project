@@ -40,11 +40,13 @@ public class EntityStats : MonoBehaviour
     public float minPostDashSpeed;
 
     public HealthBarScript healthBarScript;
+    public DamageNumbers damageNumbers;
 
 
     private void Start()
     {
         healthBarScript = GetComponent<HealthBarScript>();
+        damageNumbers = GetComponent<DamageNumbers>();
         SetMaxHP(maxHP);
         SetHP(maxHP);
     }
@@ -103,6 +105,10 @@ public class EntityStats : MonoBehaviour
     public void Heal(int amount)
     {
         SetHP(hp + amount);
+        if (damageNumbers != null)
+        {
+            damageNumbers.canvasScript.ShowDamageNumber(amount);
+        }
     }
 
     public void DecreaseMaxHP(int amount)
@@ -113,5 +119,9 @@ public class EntityStats : MonoBehaviour
     public void InflictDamage(int amount)
     {
         SetHP(hp - amount);
+        if (damageNumbers != null)
+        {
+            damageNumbers.canvasScript.ShowDamageNumber(-amount);
+        }
     }
 }
