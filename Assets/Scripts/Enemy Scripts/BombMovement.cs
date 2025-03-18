@@ -9,8 +9,6 @@ public class BombMovement : MonoBehaviour
 
     EntityStats stats;
 
-    Health healthScript;
-
     [SerializeField] GameObject explosion;
 
     Rigidbody rb;
@@ -22,7 +20,6 @@ public class BombMovement : MonoBehaviour
     private void Start()
     {
         stats = GetComponent<EntityStats>();
-        healthScript = GetComponent<Health>();
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
         StartCoroutine(Behavior());

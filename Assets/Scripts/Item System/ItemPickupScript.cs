@@ -12,10 +12,10 @@ public class ItemPickupScript : MonoBehaviour
     public ItemInstance item; // currently each pickup only has one item inside
 
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        BuffManager bman = collision.gameObject.GetComponent<BuffManager>();
-        EntityStats stats = collision.gameObject.GetComponent<EntityStats>();
+        BuffManager bman = other.gameObject.GetComponent<BuffManager>();
+        EntityStats stats = other.gameObject.GetComponent<EntityStats>();
 
         if (bman != null && stats != null)
         {
