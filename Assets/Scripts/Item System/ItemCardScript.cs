@@ -15,6 +15,10 @@ public class ItemCardScript : MonoBehaviour
     public TMP_Text rarityText;
     public Image iconImage;
 
+    public Color commonCardColor;
+    public Color rareCardColor;
+    public Color legendaryCardColor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +43,22 @@ public class ItemCardScript : MonoBehaviour
         descriptionText.SetText(representedItem.description);
         rarityText.SetText(representedItem.rarity.ToString());
         iconImage.sprite = representedItem.icon;
+        Image cardImage = GetComponent<Image>();
+        switch (representedItem.rarityIndex)
+        {
+            case 0:
+                cardImage.color = commonCardColor;
+                break;
+            case 1:
+                cardImage.color = rareCardColor;
+                break;
+            case 2:
+                cardImage.color = legendaryCardColor;
+                break;
+            default:
+                Debug.LogError("Invalid rarity index");
+                break;
+        }
     }
     public void PickItem()
     {

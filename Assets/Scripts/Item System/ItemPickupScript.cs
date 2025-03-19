@@ -9,7 +9,7 @@ public class ItemPickupScript : MonoBehaviour
     public ParticleSystem glow;
     public ParticleSystem coreLight;
 
-    public ItemInstance item; // currently each pickup only has one item inside
+    public int rarity = 0;
     ItemWindowScript itemWindowScript;
 
 
@@ -32,7 +32,6 @@ public class ItemPickupScript : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("attempting to pick up Item: " + item.name);
             itemWindowScript.OpenWindow(0);
             Destroy(gameObject);
         }

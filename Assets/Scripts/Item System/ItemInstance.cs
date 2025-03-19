@@ -67,6 +67,7 @@ public class Rarity
     public string rarityName;
     public Color rarityColor;
     public float rarityDropChance;
+    public int rarityIndex;
 
     public override string ToString()
     {
@@ -77,9 +78,9 @@ public class Rarity
 
 public class Rarities
 {
-    public static Rarity common = new Rarity { rarityName = "COMMON", rarityColor = Color.white, rarityDropChance = 0.75f };
-    public static Rarity rare = new Rarity { rarityName = "RARE", rarityColor = Color.cyan, rarityDropChance = 0.23f };
-    public static Rarity legendary = new Rarity { rarityName = "LEGENDARY", rarityColor = Color.yellow, rarityDropChance = 0.02f };
+    public static Rarity common = new Rarity { rarityName = "COMMON", rarityColor = Color.white, rarityDropChance = 0.75f, rarityIndex = 0};
+    public static Rarity rare = new Rarity { rarityName = "RARE", rarityColor = Color.cyan, rarityDropChance = 0.23f, rarityIndex = 1};
+    public static Rarity legendary = new Rarity { rarityName = "LEGENDARY", rarityColor = Color.yellow, rarityDropChance = 0.02f, rarityIndex = 2};
     public static List<Rarity> allRarities = new List<Rarity> { common, rare, legendary };
 }
 #endregion
