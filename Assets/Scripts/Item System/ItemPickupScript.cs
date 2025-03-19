@@ -9,20 +9,42 @@ public class ItemPickupScript : MonoBehaviour
     public ParticleSystem glow;
     public ParticleSystem coreLight;
 
-    public ItemInstance item; // currently each pickup only has one item inside
+    public int rarity = 0;
+    ItemWindowScript itemWindowScript;
 
 
     private void OnTriggerEnter(Collider other)
     {
-        BuffManager bman = other.gameObject.GetComponent<BuffManager>();
-        EntityStats stats = other.gameObject.GetComponent<EntityStats>();
-
-        if (bman != null && stats != null)
+        GameObject itemWindow = GameObject.Find("ItemWindow");
+        if (itemWindow == null)
         {
-            Debug.Log("attempting to pick up Item: " + item.name);
-            bman.AddItem(item);
+            Debug.LogWarning("ItemWindow not found");
+            return;
+        }
+
+        itemWindowScript = itemWindow.GetComponent<ItemWindowScript>();
+
+        if (itemWindowScript == null)
+        {
+            Debug.LogWarning("ItemWindowScript not found");
+            return;
+        }
+
+        if (other.gameObject.CompareTag("Player"))
+        {
+            itemWindowScript.OpenWindow(rarity);
             Destroy(gameObject);
         }
+
+        //BuffManager bman = other.gameObject.GetComponent<BuffManager>();
+        //EntityStats stats = other.gameObject.GetComponent<EntityStats>();
+
+        //if (bman != null && stats != null)
+        //{
+        //    Debug.Log("attempting to pick up Item: " + item.name);
+        //    bman.AddItem(item);
+        //    Destroy(gameObject);
+        //}
     }
 
 }

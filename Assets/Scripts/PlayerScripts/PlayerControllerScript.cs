@@ -11,7 +11,8 @@ using UnityEngine.InputSystem;
 public class PlayerControllerScript : MonoBehaviour
 {
     [Header("Movement Settings")]
-    
+    public bool inputPaused = false;
+
     public float groundDrag;    // Drag applied when on the ground
     public float airDrag;       // Drag applied when in the air
     public float airMultiplier; // Multiplier for movement speed while in the air
@@ -188,7 +189,7 @@ public class PlayerControllerScript : MonoBehaviour
 
         dashCooldown -= Time.deltaTime;
 
-        if (dashAction.IsPressed() && dashCooldown < 0)
+        if (dashAction.IsPressed() && dashCooldown < 0 && !inputPaused)
         {
             StartCoroutine(DashSlam());
             dashIcon.GetComponent<AbilityIconScript>().StartCooldown(dashCooldownTime);
@@ -207,7 +208,7 @@ public class PlayerControllerScript : MonoBehaviour
             movementState = MovementState.swinging;
         }
         // PRIORITY 1: Crouching - Highest priority state when grounded
-        else if (crouchAction.IsPressed() && grounded)
+        else if (crouchAction.IsPressed() && grounded && !inputPaused)
         {
             // Modify player scale and apply downward force if entering crouch state
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
@@ -402,7 +403,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && readyToJump && (grounded || movementState == MovementState.wallrunning))
+        if (context.started && readyToJump && (grounded || movementState == MovementState.wallrunning) && !inputPaused)
         {
             PlayerJump();  // Perform jump
             readyToJump = false;  // Prevent immediate consecutive jumps
@@ -594,6 +595,7 @@ public class PlayerControllerScript : MonoBehaviour
      **/
     {
         //trigger on ability use effects
+        Debug.Log("Triggering Ability Use Effects");
         buffManager.TriggerOnAbilityEffects(gameObject);
 
         MovementState prevMoveState = movementState; // save previous move state

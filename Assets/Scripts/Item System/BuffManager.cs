@@ -52,13 +52,13 @@ public class BuffManager : MonoBehaviour
                 onHitEffects.Add(item);
                 break;
             case TriggerType.OnKill:
-                onHitEffects.Add(item);
+                onKillEffects.Add(item);
                 break;
             case TriggerType.OnAbilityUse:
-                onHitEffects.Add(item);
+                onAbilityEffects.Add(item);
                 break;
             case TriggerType.OnHP:
-                onHitEffects.Add(item);
+                onHPEffects.Add(item);
                 break;
 
                 // Add other cases
