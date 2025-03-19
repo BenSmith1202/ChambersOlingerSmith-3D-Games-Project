@@ -18,24 +18,26 @@ public class ItemWindowScript : MonoBehaviour
 
     public List<GameObject> itemCards = new List<GameObject>(); //should be 3 of these
 
+    public GameObject tint;
     GameObject cam;
     GameObject player;
 
-    void OnEnable()
+    void Start()
     {
-        
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void OpenWindow(int rarity)
     {
+        Time.timeScale = 0;
         //UnlockMouse
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        tint.SetActive(true);
 
         // PAUSE INPUTS (TODO: make a universal input pause)
-        cam = GameObject.FindGameObjectWithTag("MainCamera");
         cam.GetComponent<CameraControllerScript>().camLock = true;
-        player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<PlayerControllerScript>().inputPaused = true;
 
         // Add up the union of the different rarities lists int allItems:
@@ -48,6 +50,8 @@ public class ItemWindowScript : MonoBehaviour
 
     public void CloseWindow()
     {
+        Time.timeScale = 1;
+        tint.SetActive(false);
         //LockMouse
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

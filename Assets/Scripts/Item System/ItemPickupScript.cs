@@ -32,7 +32,7 @@ public class ItemPickupScript : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            itemWindowScript.OpenWindow(0);
+            itemWindowScript.OpenWindow(rarity);
             Destroy(gameObject);
         }
 

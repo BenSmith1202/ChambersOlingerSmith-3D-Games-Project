@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Example On-Hit Item
   description: 33% chance to print message on hit.
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 87f023c7f1c185a4bb0d1007fe8a686b, type: 3}
   rarityIndex: 1
   chance: 0.33
