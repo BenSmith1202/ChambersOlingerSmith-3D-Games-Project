@@ -13,6 +13,7 @@ public class PlayerShootingScript : MonoBehaviour
     PlayerControllerScript playerControllerScript;
     CameraControllerScript cameraControllerScript;
     EntityStats stats;
+    BuffManager bman;
     public bool isShooting;
 
     [Header("Visuals")]
@@ -25,7 +26,7 @@ public class PlayerShootingScript : MonoBehaviour
     Image reloadRing;
 
     [Header("Shooting")]
-    
+    public float gunProcCoeff = 1.0f;
     float shootCooldown = -0.1f;
     
     int clip;
@@ -37,6 +38,7 @@ public class PlayerShootingScript : MonoBehaviour
     public void Start()
     {
         stats = GetComponent<EntityStats>();
+        bman = GetComponent<BuffManager>();
         audioSource = GetComponent<AudioSource>();
         cam = GameObject.FindWithTag("MainCamera");
         gun = GameObject.FindWithTag("PlayerGun");
@@ -63,6 +65,7 @@ public class PlayerShootingScript : MonoBehaviour
         AnimationCheck();
     }
 
+
     public void OnShoot(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -83,13 +86,13 @@ public class PlayerShootingScript : MonoBehaviour
         if (shootCooldown < 0 && !isReloading && clip > 0)
         {
             
-            Ray ray = new Ray(cam.transform.position, cam.transform.forward * stats.gunRange);
+            Ray ray = new Ray(cam.transform.position, cam.transform.forward * stats.range);
             RaycastHit hitData;
             Physics.Raycast(ray, out hitData);
             Vector3 target = hitData.point;
             if (target == Vector3.zero) //if we shoot into the void
             {
-                target = cam.transform.forward * stats.gunRange; //shoot to our max range forward
+                target = cam.transform.forward * stats.range; //shoot to our max range forward
             }
             else
             {
@@ -97,15 +100,29 @@ public class PlayerShootingScript : MonoBehaviour
 
                 if(hitData.collider.gameObject.CompareTag("Enemy"))
                 {
-                    hitData.collider.gameObject.GetComponent<Health>().DecreaseHealth(stats.baseDamage);
+                    // make a new attack object
+                    Attack bulletHit = new Attack(gameObject, stats.baseDamage, 
+                        stats.critChance, stats.baseKB, gunProcCoeff); //Proc Coefficient of 1 means use default item odds.
+
+                    // trigger on hit effects and multipliers
+                    bman.TriggerOnHitEffects(hitData.collider.gameObject, bulletHit);
+
+                    // apply damage
+                    Debug.Log("Damage: " + bulletHit.damage);
+                    hitData.collider.gameObject.GetComponent<EntityStats>().InflictDamage(bulletHit.damage);
+
+                    //TODO: apply knockback
+
                 }
             }
 
             ShootGun(target);
-            shootCooldown = stats.shootCooldownTime;
+            shootCooldown = stats.attackCooldownTime;
         }
     }
 
+
+    // Switch animation states
     public void AnimationCheck()
     {
         if (playerControllerScript.movementState == PlayerControllerScript.MovementState.wallrunning ||
@@ -126,6 +143,8 @@ public class PlayerShootingScript : MonoBehaviour
         }
     }
 
+
+    // plays gun Audio/Visual effects and handles ammo
     public void ShootGun(Vector3 target)
     {
         gunAnimator.SetTrigger("shoot");
@@ -142,7 +161,7 @@ public class PlayerShootingScript : MonoBehaviour
         );
 
         Destroy(bulletPart.gameObject, 2f);
-        shootCooldown = stats.shootCooldownTime;
+        shootCooldown = stats.attackCooldownTime;
 
         ChangeClipAmmo(-1);
         if (clip <= 0)
@@ -150,15 +169,17 @@ public class PlayerShootingScript : MonoBehaviour
             StartCoroutine(ReloadCoroutine(stats.reloadTime));
         }
     }
+    
 
-    // ammo update function
-
+    // ammo amount change function
     public void ChangeClipAmmo(int deltaAmmo)
     {
         clip += deltaAmmo;
         //clipText.SetText("" + clip);
     }
 
+
+    // fills mag in [duration] seconds
     IEnumerator ReloadCoroutine(float duration)
     {
         audioSource.PlayOneShot(reloadSound);

@@ -52,7 +52,7 @@ public class CameraControllerScript : MonoBehaviour
 
         // Apply rotations
         transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
-        player.transform.rotation = Quaternion.Euler(0, xAngle, 0);
+        //player.transform.rotation = Quaternion.Euler(0, xAngle, 0);
         orientation.transform.rotation = Quaternion.Euler(0, xAngle, 0);
 
         UpdateCameraEffects();

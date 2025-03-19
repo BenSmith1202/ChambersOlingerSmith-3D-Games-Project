@@ -85,6 +85,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     [Header("References")]
     EntityStats stats;          // Reference to the player's EntityStats component
+    BuffManager buffManager;
     public GameObject shootIcon;
     public GameObject grappleIcon;
     public GameObject dashIcon;
@@ -123,6 +124,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     void Start()
     {
+        buffManager = GetComponent<BuffManager>();
         stats = GetComponent<EntityStats>();
         lineRenderer = GetComponent<LineRenderer>();
         _collider = GetComponent<CapsuleCollider>();
@@ -237,7 +239,7 @@ public class PlayerControllerScript : MonoBehaviour
                 {
                     camScript.ResetCameraEffects(false);
                     movementState = MovementState.running;
-                    speed = stats.runSpeed;
+                    speed = stats.baseSpeed;
                 }
             }
             // PRIORITY 4: Air movement
@@ -475,17 +477,17 @@ public class PlayerControllerScript : MonoBehaviour
             orientation.right, out rightWallHit, wallCheckDist, wallLayer);
 
         //debug rays to visualize the wall checks
-        Debug.DrawRay(
-            transform.position - new Vector3(0, playerHeight / 4, 0),
-            -orientation.right * wallCheckDist,
-            wallLeft ? Color.green : Color.red
-        );
+        //Debug.DrawRay(
+        //    transform.position - new Vector3(0, playerHeight / 4, 0),
+        //    -orientation.right * wallCheckDist,
+        //    wallLeft ? Color.green : Color.red
+        //);
 
-        Debug.DrawRay(
-            transform.position - new Vector3(0, playerHeight / 4, 0),
-            orientation.right * wallCheckDist,
-            wallRight ? Color.green : Color.red
-        );
+        //Debug.DrawRay(
+        //    transform.position - new Vector3(0, playerHeight / 4, 0),
+        //    orientation.right * wallCheckDist,
+        //    wallRight ? Color.green : Color.red
+        //);
     }
 
     private bool AboveGround()
@@ -591,6 +593,9 @@ public class PlayerControllerScript : MonoBehaviour
      * -Ben
      **/
     {
+        //trigger on ability use effects
+        buffManager.TriggerOnAbilityEffects(gameObject);
+
         MovementState prevMoveState = movementState; // save previous move state
         movementState = MovementState.dashing;       // start dashing
         float dashTime = stats.dashDuration;               //start dash timer

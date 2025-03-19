@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 3733278789408963920}
   - component: {fileID: 4394491249280515169}
   - component: {fileID: 67139383068182319}
+  - component: {fileID: 8355442499066621832}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -286,6 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
+  healthBarScript: {fileID: 0}
 --- !u!114 &5577933587212121728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +446,7 @@ MonoBehaviour:
   gunshot: {fileID: 8300000, guid: 808ce192330e8d848a4bf39dc422ee88, type: 3}
   reloadSound: {fileID: 8300000, guid: 5a17e84dcbc1c884f86fa0b20fb6a946, type: 3}
   bulletParticlePrefab: {fileID: 1671159810974329337, guid: c49fa370f85d6ae458acadf72309cc49, type: 3}
+  gunProcCoeff: 1
   isReloading: 0
 --- !u!120 &4394491249280515169
 LineRenderer:
@@ -561,15 +564,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2769da43178852e4b9a47cf1ec48d024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   hp: 100
   maxHP: 100
-  gunRange: 100
-  shootCooldownTime: 0.5
+  baseSpeed: 10
+  jumpForce: 11
+  attackCooldownTime: 0.65
+  baseDamage: 50
+  critChance: 0
+  range: 100
+  baseKB: 0
   clipSize: 12
   reloadTime: 1.3
-  baseDamage: 50
-  runSpeed: 12
-  jumpForce: 11
   crouchSpeed: 4
   wallrunForce: 4
   maxWallTime: 1.5
@@ -587,6 +593,27 @@ MonoBehaviour:
   dashSpeed: 75
   postDashSpeedReduction: 0.77
   minPostDashSpeed: 27
+  buffManager: {fileID: 0}
+  healthBarScript: {fileID: 0}
+  damageNumbers: {fileID: 0}
+--- !u!114 &8355442499066621832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141110455235164122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allItems: []
+  statBoosts: []
+  onHitEffects: []
+  onKillEffects: []
+  onAbilityEffects: []
+  onHPEffects: []
 --- !u!1 &6859197254743463637
 GameObject:
   m_ObjectHideFlags: 0

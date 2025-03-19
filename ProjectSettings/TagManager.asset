@@ -10,6 +10,7 @@ TagManager:
   - DamageTrigger
   - PlayerGun
   - Enemy
+  - PlayerHealthBar
   layers:
   - Default
   - TransparentFX

@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a14e53f3d54b4ef4b931c6020eeb31a6, type: 3}
-  m_Name: HealthBoost
+  m_Script: {fileID: 11500000, guid: ddc69e9b5c5c89141be409eb3d0ea84c, type: 3}
+  m_Name: AtkSpdBoost
   m_EditorClassIdentifier: 
-  itemName: 
-  description: 
+  itemName: AtkSpdBoost
+  description: Increases attack speed by 50%
   icon: {fileID: 0}
-  hpBoost: 20
+  rarityIndex: 1
+  speedBoost: 1.5

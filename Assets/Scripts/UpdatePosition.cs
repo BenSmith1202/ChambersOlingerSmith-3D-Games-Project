@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class UpdatePosition : MonoBehaviour
 {
-    [SerializeField] GameObject target;
-    [SerializeField] Vector3 offset;
+    public GameObject target;
+    public Vector3 offset;
 
     private void Update()
     {
-        transform.position = target.transform.position + offset;
+        if(target != null)
+        {
+            transform.position = target.transform.position + offset;
+        }
     }
 }

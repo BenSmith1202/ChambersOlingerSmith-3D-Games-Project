@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 06a1a1f7248159247a0ffa7ba240b402
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healthBarScript: {instanceID: 0}
+  - dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

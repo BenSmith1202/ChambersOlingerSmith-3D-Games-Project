@@ -9,8 +9,6 @@ public class BombMovement : MonoBehaviour
 
     EntityStats stats;
 
-    Health healthScript;
-
     [SerializeField] GameObject explosion;
 
     Rigidbody rb;
@@ -22,10 +20,17 @@ public class BombMovement : MonoBehaviour
     private void Start()
     {
         stats = GetComponent<EntityStats>();
-        healthScript = GetComponent<Health>();
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
         StartCoroutine(Behavior());
+    }
+
+    private void Update()
+    {
+        if (stats.isDead) //TODO: Replace with messages or something
+        {
+            Die();
+        }
     }
 
     IEnumerator Behavior()
@@ -53,7 +58,7 @@ public class BombMovement : MonoBehaviour
         //launch in that direction
         while (forceTimeCounter > 0)
         {
-            rb.AddForce(direction * stats.runSpeed);
+            rb.AddForce(direction * stats.baseSpeed);
             forceTimeCounter--;
             yield return new WaitForEndOfFrame();
         }
