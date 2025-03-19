@@ -7,6 +7,7 @@ public class CameraControllerScript : MonoBehaviour
     public GameObject player;
     PlayerControllerScript playerControllerScript;
 
+    public bool camLock = false;
     public float sensitivityX = 2f;
     public float sensitivityY = 2f;
     float mouseX;
@@ -43,6 +44,10 @@ public class CameraControllerScript : MonoBehaviour
 
     private void Update()
     {
+        if (camLock)
+        {
+            return;
+        }
         // Apply mouse movement directly without deltaTime
         yAngle -= mouseY * sensitivityY; // Negative because mouse Y moves camera y in opposite direction
         xAngle += mouseX * sensitivityX;

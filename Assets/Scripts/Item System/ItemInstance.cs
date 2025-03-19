@@ -36,11 +36,11 @@ public abstract class ItemInstance : ScriptableObject
 }
 
 
-//Class Definitions like trigger types, rarities, etc.
-#region ClassDefinitions
+    //Class Definitions like trigger types, rarities, etc.
+    #region ClassDefinitions
 
-// Enum to define trigger types
-public enum TriggerType
+    // Enum to define trigger types
+    public enum TriggerType
 {
     StatBoost,
     OnHit,
@@ -67,14 +67,19 @@ public class Rarity
     public string rarityName;
     public Color rarityColor;
     public float rarityDropChance;
+
+    public override string ToString()
+    {
+        return rarityName;
+    }
 }
 
 
 public class Rarities
 {
-    public static Rarity common = new Rarity { rarityName = "Common", rarityColor = Color.white, rarityDropChance = 0.75f };
-    public static Rarity rare = new Rarity { rarityName = "Rare", rarityColor = Color.blue, rarityDropChance = 0.23f };
-    public static Rarity legendary = new Rarity { rarityName = "Legendary", rarityColor = Color.yellow, rarityDropChance = 0.02f };
+    public static Rarity common = new Rarity { rarityName = "COMMON", rarityColor = Color.white, rarityDropChance = 0.75f };
+    public static Rarity rare = new Rarity { rarityName = "RARE", rarityColor = Color.cyan, rarityDropChance = 0.23f };
+    public static Rarity legendary = new Rarity { rarityName = "LEGENDARY", rarityColor = Color.yellow, rarityDropChance = 0.02f };
     public static List<Rarity> allRarities = new List<Rarity> { common, rare, legendary };
 }
 #endregion
