@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "HealthBoost", menuName = "Items/StatBoosts/HealthBoost")]
-public class HealthBoostItem : ItemInstance
+[CreateAssetMenu(fileName = "CritBoost", menuName = "Items/StatBoosts/CritBoost")]
+public class CritBoostItem : ItemInstance
 {
     //20% atk speed increase
-    public int hpBoost = 20;
+    public float critBoost = 0.2f;
 
     public override TriggerType TriggerCategory => TriggerType.StatBoost;
 
@@ -18,13 +17,13 @@ public class HealthBoostItem : ItemInstance
 
     public override void OnAcquire(EntityStats stats)
     {
-        Debug.Log("Max Health increased");
-        stats.maxHP += hpBoost; // increases max hp by 20
+        stats.critChance += critBoost; // increases crit chance
+        Debug.Log("Crit chance increased to " + stats.critChance);
     }
 
     // does the inverse of the method above
     public override void OnRemove(EntityStats stats)
     {
-        stats.maxHP -= hpBoost; ; // Reverses the 20 hp increase
+        stats.critChance -= critBoost; ; // Reverses the crit chance increase
     }
 }

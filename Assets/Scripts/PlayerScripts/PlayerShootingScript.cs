@@ -68,7 +68,7 @@ public class PlayerShootingScript : MonoBehaviour
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && !playerControllerScript.inputPaused)
         {
             isShooting = true;
         }

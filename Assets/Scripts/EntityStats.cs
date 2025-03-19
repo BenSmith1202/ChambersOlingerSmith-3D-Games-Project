@@ -144,11 +144,15 @@ public class EntityStats : MonoBehaviour
         {
             newMaxHP = 1;
         }
+        int oldMax = maxHP;
         maxHP = newMaxHP;
 
         if (newMaxHP < hp) //if max hp is set lower than the current hp, set the player's current hp to the new max
         {
             SetHP(newMaxHP);
+        } else
+        {
+            Heal(newMaxHP - oldMax); // heal for the amount gained.
         }
 
 

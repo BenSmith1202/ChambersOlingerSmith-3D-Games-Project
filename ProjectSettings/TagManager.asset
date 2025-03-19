@@ -11,6 +11,7 @@ TagManager:
   - PlayerGun
   - Enemy
   - PlayerHealthBar
+  - ItemWindow
   layers:
   - Default
   - TransparentFX
