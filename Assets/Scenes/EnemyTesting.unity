@@ -410,7 +410,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4d86c505240867046bcaf4735344820d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
-  showDamage: 0
+  showDamage: 1
   canvasScript: {fileID: 0}
 --- !u!114 &795761054
 MonoBehaviour:
@@ -588,6 +588,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  angleCheckDelta: 30
+  minWalkTimeLimit: 2
+  maxWalkTimeLimit: 5
+  visibilityDistance: 40
   meleeRange: 5
 --- !u!1 &983333270
 GameObject:
