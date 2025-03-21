@@ -5116,7 +5116,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -5974,8 +5974,8 @@ MonoBehaviour:
   isDead: 0
   hp: 100
   maxHP: 100
-  baseSpeed: 12
-  jumpForce: 120
+  baseSpeed: 45
+  jumpForce: 110
   attackCooldownTime: 0
   baseDamage: 0
   critChance: 0

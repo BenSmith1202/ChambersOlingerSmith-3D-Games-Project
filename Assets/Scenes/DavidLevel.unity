@@ -3539,7 +3539,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1017047621}
+  m_Mesh: {fileID: 1421117419}
 --- !u!33 &1501294195
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -4781,6 +4781,14 @@ PrefabInstance:
       propertyPath: orientation
       value: 
       objectReference: {fileID: 931609902}
+    - target: {fileID: 8654784005577945313, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
+      propertyPath: sensitivityX
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654784005577945313, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
+      propertyPath: sensitivityY
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

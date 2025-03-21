@@ -176,7 +176,7 @@ public class EntityStats : MonoBehaviour
     public void Heal(int amount)
     {
         SetHP(hp + amount);
-        if (damageNumbers != null && damageNumbers.showDamage)
+        if (damageNumbers != null && damageNumbers.canvasScript != null && damageNumbers.showDamage)
         {
             
             damageNumbers.canvasScript.ShowDamageNumber(amount);
@@ -191,7 +191,7 @@ public class EntityStats : MonoBehaviour
     public void InflictDamage(int amount)
     {
         SetHP(hp - amount);
-        if (damageNumbers != null && damageNumbers.showDamage)
+        if (damageNumbers != null && damageNumbers.canvasScript != null && damageNumbers.showDamage)
         {
             damageNumbers.canvasScript.ShowDamageNumber(-amount);
         }
