@@ -136,7 +136,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &2900878975449064682
 MonoBehaviour:
@@ -193,9 +193,9 @@ MonoBehaviour:
   commonItems:
   - {fileID: 11400000, guid: df8da8b04e33cac4bb51afb958ab0152, type: 2}
   - {fileID: 11400000, guid: 38f7237ba30116144b947cea8405bc81, type: 2}
+  - {fileID: 11400000, guid: cade566d47c7b1047b17cf3b164cf330, type: 2}
   rareItems:
   - {fileID: 11400000, guid: 3600ff5ffecc86b4ab2240444b9d4ad3, type: 2}
-  - {fileID: 11400000, guid: cade566d47c7b1047b17cf3b164cf330, type: 2}
   legendaryItems:
   - {fileID: 11400000, guid: 6d5bc7922b5de1c498f42c2c0517f034, type: 2}
   itemCardPrefab: {fileID: 2447454014904539629, guid: 10e23a0efce3a2d44a9e7e576d16fad2, type: 3}
