@@ -5132,8 +5132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 0
-  creditCost: 0
+  weight: 2
+  creditCost: 20
   minStage: 0
   isFlyer: 0
 --- !u!114 &5561189664416607071
@@ -5167,7 +5167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
-  showDamage: 1
+  showDamage: 0
   canvasScript: {fileID: 0}
 --- !u!54 &384954532295088957
 Rigidbody:

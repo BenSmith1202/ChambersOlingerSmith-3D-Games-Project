@@ -1175,6 +1175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefabs:
   - {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
+  - {fileID: 7430792615694330842, guid: eea26f991ccf66b4eae5f5f9feb403b9, type: 3}
   player: {fileID: 931609901}
   innerSpawnRadius: 20
   outerSpawnRadius: 45
