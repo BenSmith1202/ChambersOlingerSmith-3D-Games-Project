@@ -19,6 +19,7 @@ public class EntityStats : MonoBehaviour
     public float critChance;
     public float range = 100f;
     public float baseKB; //base knockback
+    public float attackRange; //a value used to scale the range of melee enemy attacks (could be used for other stuff)
 
     public int clipSize;
     public float reloadTime;

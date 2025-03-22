@@ -16,9 +16,16 @@ public class MeleeOfficerScript : MonoBehaviour
     [SerializeField] float visibilityDistance = 30;
     [SerializeField] float meleeRange = 1;
 
+    [SerializeField] ParticleSystem debugAttackParticle;
+    [SerializeField] bool showDebugAttackParticle = true;
+
+    [SerializeField] Transform attackPosition;
+
     Rigidbody rb;
     Vector3 directionToTarget;
     EntityStats es;
+
+    Quaternion targetRotation;
 
     enum Range
     {
@@ -41,7 +48,9 @@ public class MeleeOfficerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(Vector3.Distance(target.transform.position, transform.position) > visibilityDistance)
+        directionToTarget = (target.transform.position - transform.position).normalized;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 200 * Time.fixedDeltaTime);
+        if (Vector3.Distance(target.transform.position, transform.position) > visibilityDistance)
         {
             decisionRange = Range.unaware;
         }
@@ -53,39 +62,111 @@ public class MeleeOfficerScript : MonoBehaviour
         {
             decisionRange = Range.inRange;
         }
+
+        if(es.isDead)
+        {
+            Die();
+        }
+    }
+
+    void AttackSphere()
+    {
+        if(showDebugAttackParticle)
+        {
+            debugAttackParticle.Play();
+        }
+        Collider[] colliders = Physics.OverlapSphere(attackPosition.position, es.attackRange);
+
+        foreach (Collider col in colliders)
+        {
+            Debug.Log($"checking: {col.gameObject.name}");
+            if (col.gameObject != gameObject && col.gameObject.CompareTag("Player")) // Exclude self
+            {
+                col.gameObject.GetComponent<EntityStats>().InflictDamage(es.baseDamage);
+            }
+        }
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
     }
 
     IEnumerator Behavior()
     {
         while(true)
         {
-            yield return StartCoroutine(Meander());
+            if (decisionRange == Range.unaware)
+            {
+                yield return StartCoroutine(Meander());
+            }
+
+            else if (decisionRange == Range.aware)
+            {
+                yield return StartCoroutine(WalkTowardsPlayer());
+            }
+
+            else if (decisionRange == Range.inRange)
+            {
+                yield return StartCoroutine(Attacking());
+            }
+
+            yield return null;
         }
     }
 
-    IEnumerator Meander()
+    IEnumerator Attacking() // 3
     {
-        yield return StartCoroutine(RotateTowardsDirection(GetFarthestDistanceDirection()));
+        while (decisionRange == Range.inRange)
+        {
+            targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
+            yield return new WaitForSeconds(es.attackCooldownTime);
+
+            AttackSphere();
+            yield return null;
+        }
+    }
+
+    IEnumerator WalkTowardsPlayer()
+    {
+        //print("Walking");
+        while(decisionRange == Range.aware)
+        {
+            if(decisionRange != Range.aware)
+            {
+                yield break;
+            }
+
+            //Quaternion targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
+            //StartCoroutine(RotateTowardsDirection(GetXZDirectionToPlayer()));
+
+            targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 500 * Time.deltaTime);
+
+            rb.velocity = new Vector3(directionToTarget.normalized.x * es.baseSpeed, rb.velocity.y, directionToTarget.normalized.z * es.baseSpeed);
+            yield return null;
+        }
+    }
+
+    Vector3 GetXZDirectionToPlayer()
+    {
+        Vector3 dir = (target.transform.position - transform.position).normalized;
+
+        return new Vector3(dir.x, 0, dir.z);
+    }
+
+    IEnumerator Meander() // 1
+    {
+        //print("Meandering");
+        targetRotation = Quaternion.LookRotation(GetFarthestDistanceDirection());
         while(decisionRange == Range.unaware)
         {
             yield return StartCoroutine(MoveForward());
-        }
-    }
-
-    IEnumerator RotateTowardsDirection(Vector3 direction)
-    {
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-
-        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.01f)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 500 * Time.deltaTime);
             yield return null;
         }
-
-        transform.rotation = targetRotation;
     }
 
-    IEnumerator MoveForward()
+    IEnumerator MoveForward() // 2
     {
         float wallCheckDistance = 3;
         RaycastHit hit;
@@ -98,11 +179,12 @@ public class MeleeOfficerScript : MonoBehaviour
             {
                 yield break;
             }
-            Debug.DrawRay(transform.position, forward * wallCheckDistance, Color.blue, 0.1f);
+            Debug.DrawRay(transform.position, forward * wallCheckDistance, Color.white, 0.1f);
             rb.velocity = new Vector3(transform.forward.normalized.x * es.baseSpeed, rb.velocity.y, transform.forward.normalized.z * es.baseSpeed);
+            forward = transform.forward;
             yield return null;
         }
-        yield return StartCoroutine(RotateTowardsDirection(GetFarthestDistanceDirection()));
+        targetRotation = Quaternion.LookRotation(GetFarthestDistanceDirection());
     }
 
     /*
@@ -122,7 +204,7 @@ public class MeleeOfficerScript : MonoBehaviour
         Vector3 bestDirection = forward;
         float maxDistanceFound;
 
-        Debug.DrawRay(origin, forward * maxDistance, Color.red, 10f);
+        Debug.DrawRay(origin, forward * maxDistance, Color.green, 3f);
         if (Physics.Raycast(origin, forward, out hit, maxDistance))
         {
             maxDistanceFound = hit.distance;
@@ -135,7 +217,7 @@ public class MeleeOfficerScript : MonoBehaviour
 
         for(int i = angleCheckDelta; i <= 360; i += angleCheckDelta)
         {
-            Debug.DrawRay(origin, Quaternion.Euler(0, i, 0) * forward * maxDistance, Color.red, 10f);
+            Debug.DrawRay(origin, Quaternion.Euler(0, i, 0) * forward * maxDistance, Color.green, 10f);
             if (Physics.Raycast(origin, Quaternion.Euler(0, i, 0) * forward, out hit, maxDistance))
             {
                 if(hit.distance > maxDistanceFound)
@@ -144,7 +226,7 @@ public class MeleeOfficerScript : MonoBehaviour
                     bestDirection = Quaternion.Euler(0, i, 0) * forward;
                 }
             }
-            else
+            else if(Random.Range(0, 3) == 0)
             {
                 maxDistanceFound = maxDistance;
                 bestDirection = Quaternion.Euler(0, i, 0) * forward;
