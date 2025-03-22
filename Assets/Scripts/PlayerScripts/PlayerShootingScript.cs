@@ -86,13 +86,13 @@ public class PlayerShootingScript : MonoBehaviour
         if (shootCooldown < 0 && !isReloading && clip > 0)
         {
             
-            Ray ray = new Ray(cam.transform.position, cam.transform.forward * stats.range);
+            Ray ray = new Ray(cam.transform.position, cam.transform.forward * stats.getRange());
             RaycastHit hitData;
             Physics.Raycast(ray, out hitData);
             Vector3 target = hitData.point;
             if (target == Vector3.zero) //if we shoot into the void
             {
-                target = cam.transform.forward * stats.range; //shoot to our max range forward
+                target = cam.transform.forward * stats.getRange(); //shoot to our max range forward
             }
             else
             {
@@ -101,8 +101,8 @@ public class PlayerShootingScript : MonoBehaviour
                 if(hitData.collider.gameObject.CompareTag("Enemy"))
                 {
                     // make a new attack object
-                    Attack bulletHit = new Attack(gameObject, stats.baseDamage, 
-                        stats.critChance, stats.baseKB, gunProcCoeff); //Proc Coefficient of 1 means use default item odds.
+                    Attack bulletHit = new Attack(gameObject, stats.getDamage(), 
+                        stats.getCritChance(), stats.getKnockback(), gunProcCoeff); //Proc Coefficient of 1 means use default item odds.
 
                     // trigger on hit effects and multipliers
                     bman.TriggerOnHitEffects(hitData.collider.gameObject, bulletHit);
@@ -117,7 +117,7 @@ public class PlayerShootingScript : MonoBehaviour
             }
 
             ShootGun(target);
-            shootCooldown = stats.attackCooldownTime;
+            
         }
     }
 
@@ -161,12 +161,12 @@ public class PlayerShootingScript : MonoBehaviour
         );
 
         Destroy(bulletPart.gameObject, 2f);
-        shootCooldown = stats.attackCooldownTime;
+        shootCooldown = stats.getAtkDelay();
 
         ChangeClipAmmo(-1);
         if (clip <= 0)
         {
-            StartCoroutine(ReloadCoroutine(stats.reloadTime));
+            StartCoroutine(ReloadCoroutine(stats.getReloadTime()));
         }
     }
     
