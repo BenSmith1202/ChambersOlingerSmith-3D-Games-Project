@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AtkSpdBoost
   m_EditorClassIdentifier: 
   itemName: AtkSpdBoost
-  description: Increases attack speed by 50%
+  description: Increases attack speed by 10%
   icon: {fileID: 21300000, guid: 8cd46fd348dfbf94f8723c1e52e21a37, type: 3}
-  rarityIndex: 1
-  speedBoost: 1.5
+  rarityIndex: 0
+  speedBoost: 1.1

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ItemWindowScript : MonoBehaviour
 {
-
+    private const string ITEMS_PATH = "Items/ActiveItems";
     List<ItemInstance> allItems = new List<ItemInstance>();
-    [SerializeField] public List<ItemInstance> commonItems = new List<ItemInstance>();
-    [SerializeField] public List<ItemInstance> rareItems = new List<ItemInstance>();
-    [SerializeField] public List<ItemInstance> legendaryItems = new List<ItemInstance>();
+    [SerializeField] public List<ItemInstance> commonItems;
+    [SerializeField] public List<ItemInstance> rareItems;
+    [SerializeField] public List<ItemInstance> legendaryItems;
 
     public GameObject itemCardPrefab;
 
@@ -24,6 +24,13 @@ public class ItemWindowScript : MonoBehaviour
 
     void Start()
     {
+        
+        allItems = new List<ItemInstance>();
+        commonItems = new List<ItemInstance>();
+        rareItems = new List<ItemInstance>();
+        legendaryItems = new List<ItemInstance>();
+        LoadAllItems();
+
         cam = GameObject.FindGameObjectWithTag("MainCamera");
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -81,19 +88,19 @@ public class ItemWindowScript : MonoBehaviour
         }
 
         itemCards.Clear();
-        List<ItemInstance> itemPool = new List<ItemInstance>();
+        List<ItemInstance> allItems = new List<ItemInstance>();
 
         // Select item pool based on rarity
         switch (rarity)
             {
             case 0:
-                itemPool = commonItems;
+                allItems = commonItems;
                 break;
             case 1:
-                itemPool = rareItems;
+                allItems = rareItems;
                 break;
             case 2:
-                itemPool = legendaryItems;
+                allItems = legendaryItems;
                 break;
             default:
                 Debug.LogError("Invalid rarity index");
@@ -102,17 +109,17 @@ public class ItemWindowScript : MonoBehaviour
 
         // Create Card 1, Adding it to the list, picking an item for it, and setting its position
         itemCards.Add(Instantiate(itemCardPrefab, transform));
-        itemCards[0].GetComponent<ItemCardScript>().SetItem(itemPool[Random.Range(0, itemPool.Count)]);
+        itemCards[0].GetComponent<ItemCardScript>().SetItem(allItems[Random.Range(0, allItems.Count)]);
         itemCards[0].GetComponent<RectTransform>().anchoredPosition = card1pos;
 
         // Create Card 2
         itemCards.Add(Instantiate(itemCardPrefab, transform));
-        itemCards[1].GetComponent<ItemCardScript>().SetItem(itemPool[Random.Range(0, itemPool.Count)]);
+        itemCards[1].GetComponent<ItemCardScript>().SetItem(allItems[Random.Range(0, allItems.Count)]);
         itemCards[1].GetComponent<RectTransform>().anchoredPosition = card2pos;
 
         //Create Card 3
         itemCards.Add(Instantiate(itemCardPrefab, transform));
-        itemCards[2].GetComponent<ItemCardScript>().SetItem(itemPool[Random.Range(0, itemPool.Count)]);
+        itemCards[2].GetComponent<ItemCardScript>().SetItem(allItems[Random.Range(0, allItems.Count)]);
         itemCards[2].GetComponent<RectTransform>().anchoredPosition = card3pos;
 
     }
@@ -126,4 +133,69 @@ public class ItemWindowScript : MonoBehaviour
         }
         itemCards.Clear();
     }
+
+    public void LoadAllItems()
+    {
+        // Clear the current pool to avoid duplicates if reloading
+        allItems.Clear();
+
+        // Resources.LoadAll works in both editor and builds
+        ItemInstance[] items = Resources.LoadAll<ItemInstance>(ITEMS_PATH);
+
+        foreach (ItemInstance item in items)
+        {
+            if (item != null)
+            {
+                allItems.Add(item);
+                Debug.Log("Loaded item: " + item.name);
+            }
+        }
+
+        // for each item in total pool
+        foreach (ItemInstance item in allItems)
+        {
+            // load item into it's respective loot pool
+            switch (item.rarityIndex)
+            {
+                case 0:
+                    commonItems.Add(item);
+                    break;
+
+                case 1:
+                    rareItems.Add(item);
+                    break;
+
+                case 2:
+                    legendaryItems.Add(item);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        Debug.Log($"Total items loaded: {allItems.Count}");
+    }
+
+    // Helper method to get a random item from the pool
+    public ItemInstance GetRandomItem()
+    {
+        if (allItems.Count == 0)
+            return null;
+
+        int randomIndex = Random.Range(0, allItems.Count);
+        return (ItemInstance)allItems[randomIndex];
+    }
+
+    // Optional: Method to get an item by name
+    public ItemInstance GetItemByName(string itemName)
+    {
+        foreach (ItemInstance item in allItems)
+        {
+            if (item.name == itemName)
+                return item;
+        }
+        return null;
+    }
+
 }
