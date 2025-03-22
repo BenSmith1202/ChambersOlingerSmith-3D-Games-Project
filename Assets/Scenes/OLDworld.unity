@@ -294,7 +294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
       propertyPath: m_Name
-      value: TimeBomb
+      value: Invincibomb
       objectReference: {fileID: 0}
     - target: {fileID: 8563694179711816976, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
       propertyPath: m_AnchorMax.y
