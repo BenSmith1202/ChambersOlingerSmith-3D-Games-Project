@@ -62,21 +62,21 @@ public class ItemCardScript : MonoBehaviour
                 cardImage.color = commonCardColor;
                 iconImage.color = commonCardImageColor;
                 nameText.color = commonCardTextColor;
-                descriptionText.color = commonCardTextColor;
+                //descriptionText.color = commonCardTextColor; //Keeping descriptions white for now
                 rarityText.color = commonCardTextColor;
                 break;
             case 1:
                 cardImage.color = rareCardColor;
                 iconImage.color = rareCardImageColor;
                 nameText.color = rareCardTextColor;
-                descriptionText.color = rareCardTextColor;
+                //descriptionText.color = rareCardTextColor;
                 rarityText.color = rareCardTextColor;
                 break;
             case 2:
                 cardImage.color = legendaryCardColor;
                 iconImage.color = legendaryCardImageColor;
                 nameText.color = legendaryCardTextColor;
-                descriptionText.color = legendaryCardTextColor;
+                //descriptionText.color = legendaryCardTextColor;
                 rarityText.color = legendaryCardTextColor;
                 break;
             default:

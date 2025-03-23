@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc69e9b5c5c89141be409eb3d0ea84c, type: 3}
   m_Name: AtkSpdBoost
   m_EditorClassIdentifier: 
-  itemName: AtkSpdBoost
-  description: Increases attack speed by 15%
+  itemName: Attack Speed Boost
+  description: +20% Attack Speed
   icon: {fileID: 21300000, guid: 8cd46fd348dfbf94f8723c1e52e21a37, type: 3}
   rarityIndex: 0
-  speedBoost: 0.85
+  speedBoost: 0.8

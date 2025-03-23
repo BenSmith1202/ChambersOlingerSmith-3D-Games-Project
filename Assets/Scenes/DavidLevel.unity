@@ -2639,20 +2639,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: maxWallTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: wallrunSpeed
-      value: 9.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: minPostDashSpeed
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: postDashSpeedReduction
-      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 1209897574916602287, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: m_LocalPosition.x

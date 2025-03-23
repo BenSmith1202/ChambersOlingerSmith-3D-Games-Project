@@ -579,8 +579,8 @@ MonoBehaviour:
   baseReloadTime: 1.5
   crouchSpeed: 4
   wallrunForce: 4
-  maxWallTime: 1.5
-  wallrunSpeed: 9
+  maxWallTime: 1.02
+  wallrunSpeed: 9.5
   grappleRange: 40
   baseGrappleCooldownTime: 2
   grappleForce: 1
@@ -591,9 +591,9 @@ MonoBehaviour:
   maxSwingVelocity: 30
   baseDashCooldownTime: 5
   dashDuration: 0.15
-  dashSpeed: 75
-  postDashSpeedReduction: 0.77
-  minPostDashSpeed: 27
+  midDashSpeed: 0
+  postDashSpeedReduction: 0.85
+  dashLaunchSpeed: 15
   maxHPMult: 1
   speedMult: 1
   jumpMult: 1

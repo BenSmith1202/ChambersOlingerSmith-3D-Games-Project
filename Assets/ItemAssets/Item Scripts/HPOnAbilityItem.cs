@@ -14,8 +14,8 @@ public class HPOnAbilityItem : ItemInstance
     public override void OnTrigger(EntityStats stats, TriggerContext context)
     {
         // Heal the entity by a percentage of their max HP
-        Debug.Log(stats.name + "Dash Healed for " + (int)(stats.maxHP * healPercent));
-        stats.Heal((int)(stats.maxHP * healPercent));
+        Debug.Log(stats.name + "Dash Healed for " + (int)(stats.getMaxHP() * healPercent));
+        stats.Heal((int)(stats.getMaxHP() * healPercent));
     }
 
     public override void OnAcquire(EntityStats stats)

@@ -7,7 +7,7 @@ using UnityEngine;
 public class AtkSpdBoostItem : ItemInstance
 {
     //20% atk speed increase
-    public float speedBoost = 1.5f;
+    public float speedBoost = 0.8f;
 
     public override TriggerType TriggerCategory => TriggerType.StatBoost;
 
@@ -19,12 +19,12 @@ public class AtkSpdBoostItem : ItemInstance
     public override void OnAcquire(EntityStats stats)
     {
         Debug.Log("Attack Speed increased");
-        stats.attackCooldownTime /= speedBoost; // 20% logarithmically increases the attack speed
+        stats.attackDelayMult *= speedBoost; // 20% logarithmically increases the attack speed
     }
 
     // does the inverse of the method above
     public override void OnRemove(EntityStats stats)
     {
-        stats.attackCooldownTime *= speedBoost; // Reverses the 20% attack speed increase
+        stats.attackDelayMult /= speedBoost; // Reverses the 20% attack speed increase
     }
 }
