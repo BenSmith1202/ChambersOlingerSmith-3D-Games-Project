@@ -2724,7 +2724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: dashCooldownTime
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: wallLayer.m_Bits
