@@ -9,15 +9,27 @@ public class ItemCardScript : MonoBehaviour
     GameObject player;
     BuffManager playerBuffManager;
     ItemWindowScript itemWindowScript;
+    [Header("Card Item")]
     public ItemInstance representedItem;
-    public TMP_Text nameText;
-    public TMP_Text descriptionText;
-    public TMP_Text rarityText;
-    public Image iconImage;
 
+    [Header("Card Background")]
     public Color commonCardColor;
     public Color rareCardColor;
     public Color legendaryCardColor;
+
+    [Header("Card Text")]
+    public TMP_Text nameText;
+    public TMP_Text descriptionText;
+    public TMP_Text rarityText;
+    public Color commonCardTextColor;
+    public Color rareCardTextColor;
+    public Color legendaryCardTextColor;
+
+    [Header("Card Image")]
+    public Image iconImage;
+    public Color commonCardImageColor;
+    public Color rareCardImageColor;
+    public Color legendaryCardImageColor;
 
     // Start is called before the first frame update
     void Start()
@@ -48,12 +60,24 @@ public class ItemCardScript : MonoBehaviour
         {
             case 0:
                 cardImage.color = commonCardColor;
+                iconImage.color = commonCardImageColor;
+                nameText.color = commonCardTextColor;
+                descriptionText.color = commonCardTextColor;
+                rarityText.color = commonCardTextColor;
                 break;
             case 1:
                 cardImage.color = rareCardColor;
+                iconImage.color = rareCardImageColor;
+                nameText.color = rareCardTextColor;
+                descriptionText.color = rareCardTextColor;
+                rarityText.color = rareCardTextColor;
                 break;
             case 2:
                 cardImage.color = legendaryCardColor;
+                iconImage.color = legendaryCardImageColor;
+                nameText.color = legendaryCardTextColor;
+                descriptionText.color = legendaryCardTextColor;
+                rarityText.color = legendaryCardTextColor;
                 break;
             default:
                 Debug.LogError("Invalid rarity index");
