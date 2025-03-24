@@ -6,7 +6,7 @@ using UnityEngine;
 // Class to store the information of an attack
 public class Attack
 {
-    public float critMult = 1.5f; // critical hit damage multiplier
+    public float critMult = 2f; // critical hit damage multiplier
     public GameObject owner; //the entity that owns this attack
     public float procCoef = 0f; //multiplier for chance based item effects (0.0-1.0)
 
