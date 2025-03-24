@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
@@ -25,6 +26,6 @@ public class HealthBoostItem : ItemInstance
     // does the inverse of the method above
     public override void OnRemove(EntityStats stats)
     {
-        stats.maxHP -= hpBoost; ; // Reverses the 20 hp increase
+        stats.DecreaseMaxHP(hpBoost); // Reverses the 20 hp increase
     }
 }

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CritBoost", menuName = "Items/StatBoosts/CritBoost")]
-public class CritBoostItem : ItemInstance
+[CreateAssetMenu(fileName = "SpeedBoost", menuName = "Items/StatBoosts/SpeedBoost")]
+public class SpeedBoostItem : ItemInstance
 {
-    //20% crit chance increase
-    public float critBoost = 0.2f;
+    //20% move speed increase
+    public float speedBoost = 0.2f;
 
     public override TriggerType TriggerCategory => TriggerType.StatBoost;
 
@@ -17,13 +18,13 @@ public class CritBoostItem : ItemInstance
 
     public override void OnAcquire(EntityStats stats)
     {
-        stats.critChanceMult += critBoost; // increases crit chance linearly
-        Debug.Log("Crit chance increased to " + stats.critChanceMult);
+        Debug.Log("Move Speed increased");
+        stats.speedMult += speedBoost; // 20% linear increases the move speed
     }
 
     // does the inverse of the method above
     public override void OnRemove(EntityStats stats)
     {
-        stats.critChanceMult -= critBoost; ; // Reverses the crit chance increase
+        stats.speedMult -= speedBoost; // Reverses the 20% move speed increase
     }
 }

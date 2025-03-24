@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e8b371a0e0f50e4fa63d1430599b0b3, type: 3}
   m_Name: ExampleOnHit
   m_EditorClassIdentifier: 
-  itemName: Example On-Hit Item
-  description: 33% chance to print message on hit.
+  itemName: Example On Hit
+  description: +33% Chance to print a message on hit.
   icon: {fileID: 21300000, guid: 87f023c7f1c185a4bb0d1007fe8a686b, type: 3}
   rarityIndex: 1
   chance: 0.33

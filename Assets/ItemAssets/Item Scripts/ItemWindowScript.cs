@@ -182,7 +182,7 @@ public class ItemWindowScript : MonoBehaviour
     {
         if (allItems.Count == 0)
             return null;
-
+        
         int randomIndex = Random.Range(0, allItems.Count);
         return (ItemInstance)allItems[randomIndex];
     }

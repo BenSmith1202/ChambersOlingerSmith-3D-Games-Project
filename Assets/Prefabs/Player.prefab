@@ -327,7 +327,7 @@ MonoBehaviour:
   isGrappled: 0
   currentGrapplePoint: {x: 0, y: 0, z: 0}
   grappleSound: {fileID: 8300000, guid: 7387fca94790dd74aa39923e6aa085ec, type: 3}
-  dashCooldownTime: 5
+  dashCooldownTime: 0
   shootIcon: {fileID: 0}
   grappleIcon: {fileID: 0}
   dashIcon: {fileID: 0}
@@ -573,14 +573,14 @@ MonoBehaviour:
   baseJumpForce: 11
   baseAttackDelay: 0.6
   baseDamage: 30
-  baseCritChance: 0
+  baseCritChance: 0.01
   baseRange: 100
   baseKB: 0
   baseReloadTime: 1.5
   crouchSpeed: 4
   wallrunForce: 4
-  maxWallTime: 1.5
-  wallrunSpeed: 9
+  maxWallTime: 1.02
+  wallrunSpeed: 9.5
   grappleRange: 40
   baseGrappleCooldownTime: 2
   grappleForce: 1
@@ -590,10 +590,10 @@ MonoBehaviour:
   swingSpeed: 2
   maxSwingVelocity: 30
   baseDashCooldownTime: 5
-  dashDuration: 0.15
-  dashSpeed: 75
-  postDashSpeedReduction: 0.77
-  minPostDashSpeed: 27
+  dashDuration: 0.21
+  midDashSpeed: 60
+  postDashSpeedReduction: 0.85
+  dashLaunchSpeed: 20
   maxHPMult: 1
   speedMult: 1
   jumpMult: 1
