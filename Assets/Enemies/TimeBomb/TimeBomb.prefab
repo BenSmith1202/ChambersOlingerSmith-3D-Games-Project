@@ -5942,7 +5942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialLift: 150
-  lifeTime: 12
+  lifeTime: 18
   explosion: {fileID: 2515118805058980736, guid: b35268c6ce1ab32449284796ac017c6b, type: 3}
 --- !u!114 &2487537752097150934
 MonoBehaviour:
@@ -5972,18 +5972,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  hp: 100
-  maxHP: 100
-  baseSpeed: 45
-  jumpForce: 110
-  attackCooldownTime: 0
-  baseDamage: 0
-  critChance: 0
-  range: 100
-  baseKB: 0
+  currentHP: 15
   clipSize: 0
-  baseMaxHP: 100
-  baseSpeed: 12
+  baseMaxHP: 15
+  baseSpeed: 16
   baseJumpForce: 10
   baseAttackDelay: 0.5
   baseDamage: 20
@@ -5991,6 +5983,7 @@ MonoBehaviour:
   baseRange: 100
   baseKB: 10
   baseReloadTime: 1
+  baseAttackRange: 0
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
@@ -6005,9 +5998,9 @@ MonoBehaviour:
   maxSwingVelocity: 0
   baseDashCooldownTime: 0
   dashDuration: 0
-  dashSpeed: 0
+  midDashSpeed: 0
   postDashSpeedReduction: 0
-  minPostDashSpeed: 0
+  dashLaunchSpeed: 0
   maxHPMult: 1
   speedMult: 1
   jumpMult: 1

@@ -1593,17 +1593,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefabs:
   - {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
+  - {fileID: 7430792615694330842, guid: eea26f991ccf66b4eae5f5f9feb403b9, type: 3}
   player: {fileID: 931609901}
   innerSpawnRadius: 20
   outerSpawnRadius: 45
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
-  currentCredits: 5
+  currentCredits: 0
   creditMultiplier: 3
   difficultyCoefficient: 1
-  minSpawnInterval: 7
-  maxSpawnInterval: 15
+  minSpawnInterval: 5
+  maxSpawnInterval: 8
 --- !u!4 &311453048
 Transform:
   m_ObjectHideFlags: 0
@@ -4173,8 +4174,12 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
+      propertyPath: baseDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: crouchSpeed
-      value: 8.5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: maxWallTime
@@ -6605,7 +6610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStage: 1
   difficultyLevel: 1
-  timePerDifficultyIncrease: 300
+  timePerDifficultyIncrease: 5
   gameOverDelay: 3
 --- !u!4 &1764405189
 Transform:
@@ -33695,8 +33700,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 795880418}
   - {fileID: 1089903839}
-  - {fileID: 1764405189}
   - {fileID: 556533453}
+  - {fileID: 1764405189}
   - {fileID: 311453048}
   - {fileID: 931609899}
   - {fileID: 1718885637}
