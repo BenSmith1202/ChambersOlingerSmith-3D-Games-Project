@@ -294,7 +294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
       propertyPath: m_Name
-      value: TimeBomb
+      value: Invincibomb
       objectReference: {fileID: 0}
     - target: {fileID: 8563694179711816976, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7425,10 +7425,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2078753704}
     m_Modifications:
-    - target: {fileID: 1425605861604184855, guid: 62b0a7bdb4ff7d542adc19b6efbefddb, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 2471333791926447466, guid: 62b0a7bdb4ff7d542adc19b6efbefddb, type: 3}
+      propertyPath: rareItems.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3600ff5ffecc86b4ab2240444b9d4ad3, type: 2}
     - target: {fileID: 6428172652026220565, guid: 62b0a7bdb4ff7d542adc19b6efbefddb, type: 3}
       propertyPath: m_Pivot.x
       value: 0

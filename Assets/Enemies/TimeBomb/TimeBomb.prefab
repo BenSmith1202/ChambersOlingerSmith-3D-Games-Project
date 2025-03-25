@@ -5982,24 +5982,45 @@ MonoBehaviour:
   range: 100
   baseKB: 0
   clipSize: 0
-  reloadTime: 0
+  baseMaxHP: 100
+  baseSpeed: 12
+  baseJumpForce: 10
+  baseAttackDelay: 0.5
+  baseDamage: 20
+  baseCritChance: 0
+  baseRange: 100
+  baseKB: 10
+  baseReloadTime: 1
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
   wallrunSpeed: 0
   grappleRange: 0
-  grappleCooldownTime: 0
+  baseGrappleCooldownTime: 0
   grappleForce: 0
   grappleStretch: 0
   grappleReelSpeed: 0
   grappleYankPercentDistance: 0
   swingSpeed: 0
   maxSwingVelocity: 0
-  dashCooldownTime: 0
+  baseDashCooldownTime: 0
   dashDuration: 0
   dashSpeed: 0
   postDashSpeedReduction: 0
   minPostDashSpeed: 0
+  maxHPMult: 1
+  speedMult: 1
+  jumpMult: 1
+  attackDelayMult: 1
+  damageMult: 1
+  critChanceMult: 1
+  rangeMult: 1
+  knockbackMult: 1
+  reloadTimeMult: 1
+  healingMult: 1
+  damageReductionMult: 1
+  dashDelayMult: 1
+  grappleDelayMult: 1
   buffManager: {fileID: 0}
   healthBarScript: {fileID: 0}
   damageNumbers: {fileID: 0}
