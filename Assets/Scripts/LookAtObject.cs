@@ -10,7 +10,7 @@ public class LookAtObject : MonoBehaviour
     {
         if(target == null)
         {
-            target = GameObject.Find("Player");
+            target = GameObject.Find("Main Camera");
         }
     }
 

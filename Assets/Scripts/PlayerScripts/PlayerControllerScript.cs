@@ -240,7 +240,7 @@ public class PlayerControllerScript : MonoBehaviour
                 {
                     camScript.ResetCameraEffects(false);
                     movementState = MovementState.running;
-                    speed = stats.baseSpeed;
+                    speed = stats.getSpeed();
                 }
             }
             // PRIORITY 4: Air movement
@@ -432,7 +432,7 @@ public class PlayerControllerScript : MonoBehaviour
         } else
         {
             _rbody.velocity = new Vector3(_rbody.velocity.x, 0, _rbody.velocity.z); // Reset vertical velocity before jumping
-            _rbody.AddForce(orientation.up * stats.jumpForce, ForceMode.Impulse);           // Apply jump force
+            _rbody.AddForce(orientation.up * stats.getJumpForce(), ForceMode.Impulse);           // Apply jump force
         }
 
     }
@@ -541,8 +541,8 @@ public class PlayerControllerScript : MonoBehaviour
     }
     public void StartGrapple(Vector3 grapplePoint)
     {
-        grappleCooldown = stats.grappleCooldownTime;
-        grappleIcon.GetComponent<AbilityIconScript>().StartCooldown(stats.grappleCooldownTime);
+        grappleCooldown = stats.getGrappleDelay();
+        grappleIcon.GetComponent<AbilityIconScript>().StartCooldown(stats.getGrappleDelay());
         StartCoroutine(GrappleCouroutine(grapplePoint));
     }
 
@@ -610,7 +610,7 @@ public class PlayerControllerScript : MonoBehaviour
         // as long as the time hasn't run out and the player hasnt caused another movement state (by grappling or hitting a wall/floor)
         while (movementState == MovementState.dashing && dashTime > 0f)
         {
-            _rbody.velocity = stats.dashSpeed * dashDirection; //dash in the direction of the camera
+            _rbody.velocity = stats.midDashSpeed * dashDirection; //dash in the direction of the camera
             dashTime -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -627,7 +627,7 @@ public class PlayerControllerScript : MonoBehaviour
         // but go no slower than minimum post dashVelocity
         // and no greater than the mid-dash velocity
         // hopefully this feels good
-        Vector3 newReducedVelocity = (Mathf.Max(Mathf.Min(stats.postDashSpeedReduction * startVelocity.magnitude, stats.dashSpeed), stats.minPostDashSpeed) * dashDirection);
+        Vector3 newReducedVelocity = (Mathf.Max(Mathf.Min(stats.postDashSpeedReduction * startVelocity.magnitude, stats.midDashSpeed), stats.getDashLaunchSpeed()) * dashDirection);
         _rbody.velocity = newReducedVelocity;
 
         yield return null;

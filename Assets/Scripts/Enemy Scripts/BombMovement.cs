@@ -40,7 +40,7 @@ public class BombMovement : MonoBehaviour
         //start bouncing
         while(bounceTimeCounter > 0)
         {
-            rb.AddForce(new Vector3(0, stats.jumpForce, 0));
+            rb.AddForce(new Vector3(0, stats.getJumpForce(), 0));
             bounceTimeCounter--;
             yield return new WaitForEndOfFrame();
         }
@@ -58,7 +58,7 @@ public class BombMovement : MonoBehaviour
         //launch in that direction
         while (forceTimeCounter > 0)
         {
-            rb.AddForce(direction * stats.baseSpeed);
+            rb.AddForce(direction * stats.getSpeed());
             forceTimeCounter--;
             yield return new WaitForEndOfFrame();
         }
@@ -71,12 +71,14 @@ public class BombMovement : MonoBehaviour
     {
         //create explosion object
         Instantiate(explosion, transform.position, Quaternion.identity);
+
+        //TODO: fix this to remove from pool rather than destroying
         Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(!collision.gameObject.CompareTag("Ground"))
+        if(!collision.gameObject.CompareTag("Ground") && !collision.gameObject.CompareTag("Enemy"))
         {
             Die();
         }
