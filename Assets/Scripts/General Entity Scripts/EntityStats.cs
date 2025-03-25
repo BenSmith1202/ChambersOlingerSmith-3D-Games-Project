@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +23,8 @@ public class EntityStats : MonoBehaviour
     [SerializeField] private float baseRange = 100f;
     [SerializeField] private float baseKB; //base knockback
     [SerializeField] private float baseReloadTime;
+
+    [SerializeField] private float baseAttackRange;
 
 
 
@@ -204,6 +205,11 @@ public class EntityStats : MonoBehaviour
     public float getDashLaunchSpeed()
     {
         return dashLaunchSpeed * speedMult;
+    }
+
+    public float getAttackRange()
+    {
+        return baseAttackRange;
     }
     #endregion
 

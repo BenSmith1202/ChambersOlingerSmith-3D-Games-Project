@@ -75,14 +75,14 @@ public class MeleeOfficerScript : MonoBehaviour
         {
             debugAttackParticle.Play();
         }
-        Collider[] colliders = Physics.OverlapSphere(attackPosition.position, es.attackRange);
+        Collider[] colliders = Physics.OverlapSphere(attackPosition.position, es.getAttackRange());
 
         foreach (Collider col in colliders)
         {
             Debug.Log($"checking: {col.gameObject.name}");
             if (col.gameObject != gameObject && col.gameObject.CompareTag("Player")) // Exclude self
             {
-                col.gameObject.GetComponent<EntityStats>().InflictDamage(es.baseDamage);
+                col.gameObject.GetComponent<EntityStats>().InflictDamage(es.getDamage());
             }
         }
     }
@@ -120,7 +120,7 @@ public class MeleeOfficerScript : MonoBehaviour
         while (decisionRange == Range.inRange)
         {
             targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
-            yield return new WaitForSeconds(es.attackCooldownTime);
+            yield return new WaitForSeconds(es.getAtkDelay());
 
             AttackSphere();
             yield return null;
@@ -143,7 +143,7 @@ public class MeleeOfficerScript : MonoBehaviour
             targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 500 * Time.deltaTime);
 
-            rb.velocity = new Vector3(directionToTarget.normalized.x * es.baseSpeed, rb.velocity.y, directionToTarget.normalized.z * es.baseSpeed);
+            rb.velocity = new Vector3(directionToTarget.normalized.x * es.getSpeed(), rb.velocity.y, directionToTarget.normalized.z * es.getSpeed());
             yield return null;
         }
     }
@@ -180,7 +180,7 @@ public class MeleeOfficerScript : MonoBehaviour
                 yield break;
             }
             Debug.DrawRay(transform.position, forward * wallCheckDistance, Color.white, 0.1f);
-            rb.velocity = new Vector3(transform.forward.normalized.x * es.baseSpeed, rb.velocity.y, transform.forward.normalized.z * es.baseSpeed);
+            rb.velocity = new Vector3(transform.forward.normalized.x * es.getSpeed(), rb.velocity.y, transform.forward.normalized.z * es.getSpeed());
             forward = transform.forward;
             yield return null;
         }

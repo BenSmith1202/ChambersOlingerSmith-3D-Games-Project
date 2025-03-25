@@ -5088,35 +5088,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  hp: 200
-  maxHP: 200
-  baseSpeed: 8
-  jumpForce: 0
-  attackCooldownTime: 1
-  baseDamage: 10
-  critChance: 0
-  range: 100
-  baseKB: 0
-  attackRange: 2
+  currentHP: 200
   clipSize: 0
-  reloadTime: 0
+  baseMaxHP: 200
+  baseSpeed: 8
+  baseJumpForce: 0
+  baseAttackDelay: 1
+  baseDamage: 10
+  baseCritChance: 0
+  baseRange: 100
+  baseKB: 0
+  baseReloadTime: 0
+  baseAttackRange: 1
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
   wallrunSpeed: 0
   grappleRange: 0
-  grappleCooldownTime: 0
+  baseGrappleCooldownTime: 0
   grappleForce: 0
   grappleStretch: 0
   grappleReelSpeed: 0
   grappleYankPercentDistance: 0
   swingSpeed: 0
   maxSwingVelocity: 0
-  dashCooldownTime: 0
+  baseDashCooldownTime: 0
   dashDuration: 0
-  dashSpeed: 0
+  midDashSpeed: 0
   postDashSpeedReduction: 0
-  minPostDashSpeed: 0
+  dashLaunchSpeed: 0
+  maxHPMult: 1
+  speedMult: 1
+  jumpMult: 1
+  attackDelayMult: 1
+  damageMult: 1
+  critChanceMult: 1
+  rangeMult: 1
+  knockbackMult: 1
+  reloadTimeMult: 1
+  healingMult: 1
+  damageReductionMult: 1
+  dashDelayMult: 1
+  grappleDelayMult: 1
   buffManager: {fileID: 5561189664416607071}
   healthBarScript: {fileID: 3738868999279338097}
   damageNumbers: {fileID: 7792867487973447617}
