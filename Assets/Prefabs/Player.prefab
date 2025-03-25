@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e929bf7799079fe47b28611aa788994b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputPaused: 0
   groundDrag: 3.5
   airDrag: 0.3
   airMultiplier: 0.5
@@ -326,7 +327,7 @@ MonoBehaviour:
   isGrappled: 0
   currentGrapplePoint: {x: 0, y: 0, z: 0}
   grappleSound: {fileID: 8300000, guid: 7387fca94790dd74aa39923e6aa085ec, type: 3}
-  dashCooldownTime: 5
+  dashCooldownTime: 0
   shootIcon: {fileID: 0}
   grappleIcon: {fileID: 0}
   dashIcon: {fileID: 0}
@@ -565,34 +566,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  hp: 100
-  maxHP: 100
-  baseSpeed: 10
-  jumpForce: 11
-  attackCooldownTime: 0.65
-  baseDamage: 50
-  critChance: 0
-  range: 100
-  baseKB: 0
+  currentHP: 100
   clipSize: 12
-  reloadTime: 1.3
+  baseMaxHP: 100
+  baseSpeed: 10
+  baseJumpForce: 11
+  baseAttackDelay: 0.6
+  baseDamage: 30
+  baseCritChance: 0.01
+  baseRange: 100
+  baseKB: 0
+  baseReloadTime: 1.5
   crouchSpeed: 4
   wallrunForce: 4
-  maxWallTime: 1.5
-  wallrunSpeed: 9
+  maxWallTime: 1.02
+  wallrunSpeed: 9.5
   grappleRange: 40
-  grappleCooldownTime: 3
+  baseGrappleCooldownTime: 2
   grappleForce: 1
   grappleStretch: 3
   grappleReelSpeed: 5
   grappleYankPercentDistance: 0.8
   swingSpeed: 2
   maxSwingVelocity: 30
-  dashCooldownTime: 5
-  dashDuration: 0.15
-  dashSpeed: 75
-  postDashSpeedReduction: 0.77
-  minPostDashSpeed: 27
+  baseDashCooldownTime: 5
+  dashDuration: 0.21
+  midDashSpeed: 60
+  postDashSpeedReduction: 0.85
+  dashLaunchSpeed: 20
+  maxHPMult: 1
+  speedMult: 1
+  jumpMult: 1
+  attackDelayMult: 1
+  damageMult: 1
+  critChanceMult: 1
+  rangeMult: 1
+  knockbackMult: 1
+  reloadTimeMult: 1
+  healingMult: 1
+  damageReductionMult: 1
+  dashDelayMult: 1
+  grappleDelayMult: 1
   buffManager: {fileID: 0}
   healthBarScript: {fileID: 0}
   damageNumbers: {fileID: 0}
