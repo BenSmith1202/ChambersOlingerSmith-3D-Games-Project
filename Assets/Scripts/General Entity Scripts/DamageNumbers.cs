@@ -27,6 +27,10 @@ public class DamageNumbers : MonoBehaviour
                 {
                     tallPoint = gameObject.GetComponent<MeshFilter>().mesh.bounds.size.y * gameObject.transform.localScale.y;
                 }
+                else if(gameObject.GetComponent<Collider>())
+                {
+                    tallPoint = gameObject.GetComponent<Collider>().bounds.size.y * gameObject.transform.localScale.y;
+                }
                 else
                 {
                     tallPoint = gameObject.transform.localScale.y + 5;

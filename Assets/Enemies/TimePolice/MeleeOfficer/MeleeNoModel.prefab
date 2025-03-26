@@ -4979,7 +4979,7 @@ GameObject:
   - component: {fileID: 384954532295088957}
   - component: {fileID: 5357851801848059974}
   m_Layer: 0
-  m_Name: MeleePolice
+  m_Name: MeleeNoModel
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
