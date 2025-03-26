@@ -79,7 +79,7 @@ public class MeleeOfficerScript : MonoBehaviour
 
         foreach (Collider col in colliders)
         {
-            Debug.Log($"checking: {col.gameObject.name}");
+            //Debug.Log($"checking: {col.gameObject.name}");
             if (col.gameObject != gameObject && col.gameObject.CompareTag("Player")) // Exclude self
             {
                 col.gameObject.GetComponent<EntityStats>().InflictDamage(es.getDamage());
