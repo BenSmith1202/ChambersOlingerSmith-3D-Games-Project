@@ -22,7 +22,20 @@ public class DamageNumbers : MonoBehaviour
             damageNumberCanvas.GetComponent<UpdatePosition>().target = gameObject;
             if(gameObject.GetComponent<Collider>())
             {
-                float tallPoint = gameObject.GetComponent<MeshFilter>().mesh.bounds.size.y * gameObject.transform.localScale.y;
+                float tallPoint;
+                if(gameObject.GetComponent<MeshFilter>())
+                {
+                    tallPoint = gameObject.GetComponent<MeshFilter>().mesh.bounds.size.y * gameObject.transform.localScale.y;
+                }
+                else if(gameObject.GetComponent<Collider>())
+                {
+                    tallPoint = gameObject.GetComponent<Collider>().bounds.size.y * gameObject.transform.localScale.y;
+                }
+                else
+                {
+                    tallPoint = gameObject.transform.localScale.y + 5;
+                }
+
                 print("Offset: " + tallPoint);
                 damageNumberCanvas.GetComponent<UpdatePosition>().offset = new Vector3(0, tallPoint * 1.5f, 0);
             }

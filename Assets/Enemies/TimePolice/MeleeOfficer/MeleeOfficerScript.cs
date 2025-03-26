@@ -21,6 +21,14 @@ public class MeleeOfficerScript : MonoBehaviour
 
     [SerializeField] Transform attackPosition;
 
+    Animator animator;
+
+    [SerializeField] AudioSource footSteps;
+    [SerializeField] AudioSource oneShotSounds;
+
+    [SerializeField] AudioClip whoosh;
+    [SerializeField] AudioClip impact;
+
     Rigidbody rb;
     Vector3 directionToTarget;
     EntityStats es;
@@ -31,10 +39,20 @@ public class MeleeOfficerScript : MonoBehaviour
     {
         unaware, aware, inRange
     }
+
+    enum AnimState
+    {
+        idle = 0,
+        running = 1,
+        attack = 2
+    }
+
     Range decisionRange;
 
     private void Start()
     {
+        footSteps.Stop();
+        animator = GetComponent<Animator>();
         es = GetComponent<EntityStats>();
         rb = GetComponent<Rigidbody>();
         if (target == null)
@@ -44,6 +62,7 @@ public class MeleeOfficerScript : MonoBehaviour
 
         decisionRange = Range.unaware;
         StartCoroutine(Behavior());
+        animator.SetInteger("State", (int)AnimState.idle);
     }
 
     private void FixedUpdate()
@@ -69,8 +88,9 @@ public class MeleeOfficerScript : MonoBehaviour
         }
     }
 
-    void AttackSphere()
+    public void AttackSphere()
     {
+        oneShotSounds.PlayOneShot(whoosh);
         if(showDebugAttackParticle)
         {
             debugAttackParticle.Play();
@@ -79,12 +99,18 @@ public class MeleeOfficerScript : MonoBehaviour
 
         foreach (Collider col in colliders)
         {
-            Debug.Log($"checking: {col.gameObject.name}");
+            //Debug.Log($"checking: {col.gameObject.name}");
             if (col.gameObject != gameObject && col.gameObject.CompareTag("Player")) // Exclude self
             {
+                Invoke("PlayImpact", 0.2f);
                 col.gameObject.GetComponent<EntityStats>().InflictDamage(es.getDamage());
             }
         }
+    }
+
+    void PlayImpact()
+    {
+        oneShotSounds.PlayOneShot(impact);
     }
 
     void Die()
@@ -117,12 +143,15 @@ public class MeleeOfficerScript : MonoBehaviour
 
     IEnumerator Attacking() // 3
     {
+        footSteps.Stop();
         while (decisionRange == Range.inRange)
         {
+            animator.SetInteger("State", (int)AnimState.idle);
             targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
             yield return new WaitForSeconds(es.getAtkDelay());
 
-            AttackSphere();
+            animator.SetInteger("State", (int)AnimState.attack);
+            //AttackSphere();
             yield return null;
         }
     }
@@ -130,7 +159,9 @@ public class MeleeOfficerScript : MonoBehaviour
     IEnumerator WalkTowardsPlayer()
     {
         //print("Walking");
-        while(decisionRange == Range.aware)
+        footSteps.Play();
+        animator.SetInteger("State", (int)AnimState.running);
+        while (decisionRange == Range.aware)
         {
             if(decisionRange != Range.aware)
             {
@@ -168,6 +199,8 @@ public class MeleeOfficerScript : MonoBehaviour
 
     IEnumerator MoveForward() // 2
     {
+        footSteps.Play();
+        animator.SetInteger("State", (int)AnimState.running);
         float wallCheckDistance = 3;
         RaycastHit hit;
         Vector3 forward = transform.forward;
