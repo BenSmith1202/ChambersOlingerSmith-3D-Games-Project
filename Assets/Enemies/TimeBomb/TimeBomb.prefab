@@ -5944,8 +5944,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175c7b7b14d812544867d9df3fc271a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialLift: 150
-  lifeTime: 18
+  initialLift: 200
+  lifeTime: 25
   explosion: {fileID: 2515118805058980736, guid: b35268c6ce1ab32449284796ac017c6b, type: 3}
 --- !u!114 &2487537752097150934
 MonoBehaviour:
@@ -5960,7 +5960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
-  showDamage: 0
+  showDamage: 1
   canvasScript: {fileID: 0}
 --- !u!114 &-1368203466199457740
 MonoBehaviour:
@@ -5978,8 +5978,8 @@ MonoBehaviour:
   currentHP: 15
   clipSize: 0
   baseMaxHP: 15
-  baseSpeed: 16
-  baseJumpForce: 10
+  baseSpeed: 25
+  baseJumpForce: 20
   baseAttackDelay: 0.5
   baseDamage: 20
   baseCritChance: 0
@@ -6036,6 +6036,8 @@ MonoBehaviour:
   creditCost: 15
   minStage: 0
   isFlyer: 0
+  innerSpawnRadius: 10
+  outerSpawnRadius: 30
 --- !u!114 &-980023486028482642
 MonoBehaviour:
   m_ObjectHideFlags: 0

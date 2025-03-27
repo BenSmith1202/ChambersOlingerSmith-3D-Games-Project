@@ -8808,9 +8808,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 200
+  currentHP: 40
   clipSize: 0
-  baseMaxHP: 200
+  baseMaxHP: 40
   baseSpeed: 8
   baseJumpForce: 0
   baseAttackDelay: 1
@@ -8865,10 +8865,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 2
-  creditCost: 20
+  weight: 1
+  creditCost: 18
   minStage: 0
   isFlyer: 0
+  innerSpawnRadius: 15
+  outerSpawnRadius: 60
 --- !u!114 &2982147887397403111
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,8 +17,12 @@ public class BombMovement : MonoBehaviour
     int bounceTimeCounter = 10;
     int forceTimeCounter = 10;
 
+    private SpawnDirector spawnDirector;
+
     private void Start()
     {
+        spawnDirector = GameObject.FindWithTag("SpawnDirector").GetComponent<SpawnDirector>();
+
         stats = GetComponent<EntityStats>();
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
@@ -73,7 +77,7 @@ public class BombMovement : MonoBehaviour
         Instantiate(explosion, transform.position, Quaternion.identity);
 
         //TODO: fix this to remove from pool rather than destroying
-        Destroy(gameObject);
+        spawnDirector.RegisterKill(gameObject, 1);
     }
 
     private void OnCollisionEnter(Collision collision)

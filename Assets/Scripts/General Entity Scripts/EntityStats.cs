@@ -283,11 +283,11 @@ public class EntityStats : MonoBehaviour
     {
         int scaledHealing = Mathf.FloorToInt(amount * healingMult);
         SetHP(currentHP + scaledHealing);
-        if (damageNumbers != null && damageNumbers.showDamage)
-        {
+        //if (damageNumbers != null && damageNumbers.showDamage)
+        //{
             
-            damageNumbers.canvasScript.ShowDamageNumber(amount);
-        }
+        //    damageNumbers.canvasScript.ShowDamageNumber(amount);
+        //}
     }
 
     public void DecreaseMaxHP(int amount)
