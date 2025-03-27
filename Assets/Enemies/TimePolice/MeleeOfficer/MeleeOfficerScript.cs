@@ -55,17 +55,22 @@ public class MeleeOfficerScript : MonoBehaviour
 
     private void Start()
     {
-        spawnDirector = GameObject.FindWithTag("SpawnDirector").GetComponent<SpawnDirector>();
+        if (target == null)
+        {
+            target = GameObject.Find("Player");
+        }
+
+        if(GameObject.FindWithTag("SpawnDirector"))
+        {
+            spawnDirector = GameObject.FindWithTag("SpawnDirector").GetComponent<SpawnDirector>();
+        }
 
 
         footSteps.Stop();
         animator = GetComponent<Animator>();
         es = GetComponent<EntityStats>();
         rb = GetComponent<Rigidbody>();
-        if (target == null)
-        {
-            target = GameObject.Find("Player");
-        }
+
 
         decisionRange = Range.unaware;
         StartCoroutine(Behavior());
@@ -89,7 +94,7 @@ public class MeleeOfficerScript : MonoBehaviour
             decisionRange = Range.inRange;
         }
 
-        if(es.isDead)
+        if(es != null && es.isDead)
         {
             Die();
         }
@@ -122,9 +127,15 @@ public class MeleeOfficerScript : MonoBehaviour
 
     void Die()
     {
-        //Destroy(gameObject);
 
-        spawnDirector.RegisterKill(gameObject, 2);
+        if(spawnDirector != null)
+        {
+            spawnDirector.RegisterKill(gameObject, 2);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
     }
 

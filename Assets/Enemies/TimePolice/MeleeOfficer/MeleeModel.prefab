@@ -8902,7 +8902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
-  showDamage: 1
+  showDamage: 0
   canvasScript: {fileID: 0}
 --- !u!114 &1142737465254858358
 MonoBehaviour:
@@ -8923,7 +8923,7 @@ MonoBehaviour:
   visibilityDistance: 40
   meleeRange: 5
   debugAttackParticle: {fileID: 1230382879999549865}
-  showDebugAttackParticle: 1
+  showDebugAttackParticle: 0
   attackPosition: {fileID: 6407634530901927382}
   footSteps: {fileID: 7577492155138620524}
   oneShotSounds: {fileID: 7094566122066683257}
