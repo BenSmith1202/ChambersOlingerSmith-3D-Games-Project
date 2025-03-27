@@ -569,7 +569,7 @@ MonoBehaviour:
   currentHP: 100
   clipSize: 12
   baseMaxHP: 100
-  baseSpeed: 10
+  baseSpeed: 7.5
   baseJumpForce: 11
   baseAttackDelay: 0.6
   baseDamage: 10
