@@ -4162,52 +4162,12 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: baseSpeed
-      value: 7.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: dashSpeed
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: jumpForce
       value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: baseDamage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: crouchSpeed
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: maxWallTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: wallrunSpeed
-      value: 9.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: grappleStretch
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: grappleReelSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: maxSwingVelocity
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: postDashSpeedReduction
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 67139383068182319, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: grappleYankPercentDistance
-      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 1209897574916602287, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4282,10 +4242,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1089903841}
     - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: groundDrag
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: grappleIcon
       value: 
       objectReference: {fileID: 1089903840}
@@ -4294,32 +4250,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: dashCooldownTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: shootCooldownTime
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: wallJumpVerticalForce
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: wallrunGravityCounter
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      propertyPath: wallJumpHorizontalForce
-      value: 220
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5141110455235164122, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 931609904}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
 --- !u!1 &931609900 stripped
 GameObject:
@@ -4341,23 +4278,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5141110455235164122, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
   m_PrefabInstance: {fileID: 931609899}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &931609904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 931609903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ab4adb1319278443af910a077285966, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunDamage: 1
-  fireRate: 0.25
-  weaponRange: 100
-  hitForce: 0
-  shotSound: {fileID: 8300000, guid: 7387fca94790dd74aa39923e6aa085ec, type: 3}
 --- !u!1001 &1089903839
 PrefabInstance:
   m_ObjectHideFlags: 0
