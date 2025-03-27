@@ -5,13 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/FPS TEST 1.unity
-    guid: c50d673ff1326d34bb6629ac0b7a09ae
-  - enabled: 0
-    path: Assets/Scenes/EnemyTesting.unity
-    guid: 34e25f9c2dedf004faced084b782ce80
   - enabled: 1
-    path: Assets/Scenes/FULL_LEVEL.unity
-    guid: bd6f7e2020d520a40913177ca62a43c4
+    path: Assets/Scenes/Title.unity
+    guid: 65b1a80738beccf47a4fbd994ca179e7
+  - enabled: 1
+    path: Assets/Scenes/DavidLevel.unity
+    guid: d93ec6292a13d2a45a00e681fc4e1715
   m_configObjects: {}
