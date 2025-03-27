@@ -13,8 +13,6 @@ public class SpawnDirector : MonoBehaviour
     private List<GameObject> allMonsters = new List<GameObject>();
 
     public Transform player; // Reference to the player object
-    public float innerSpawnRadius = 5f; // Minimum spawn distance from player
-    public float outerSpawnRadius = 20f; // Maximum spawn distance from player
     public LayerMask groundLayer; // LayerMask to detect the ground
 
     [Header("Object Pools")]
@@ -236,7 +234,7 @@ public class SpawnDirector : MonoBehaviour
     float GetRandomSpawnInterval()
     {
         float interval = Random.Range(minSpawnInterval, maxSpawnInterval);
-        interval /= difficultyCoefficient; // Decrease interval as difficulty increases
+       // interval /= difficultyCoefficient; // Decrease interval as difficulty increases
         return Mathf.Clamp(interval, minSpawnInterval, maxSpawnInterval); // Ensure it stays within bounds
     }
 
@@ -245,7 +243,7 @@ public class SpawnDirector : MonoBehaviour
     // Attempt to spawn a monster
     void AttemptSpawn()
     {
-        if (allMonsters.Count >= 40)
+        if (allMonsters.Count >= 80)
         {
             Debug.Log("Overcrowded! Cannot spawn more monsters.");
             return;
@@ -271,10 +269,6 @@ public class SpawnDirector : MonoBehaviour
 
 
 
-
-
-    // HARDEST THING IS THIS
-    // AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 
     // Spawn a monster using the selected spawn card
     void SpawnMonster(SpawnCard card)
@@ -321,15 +315,17 @@ public class SpawnDirector : MonoBehaviour
         do
         {
             // Generate a random position within the spawn radius
-            Vector2 randomCircle = Random.insideUnitCircle.normalized * Random.Range(innerSpawnRadius, outerSpawnRadius);
-            randomPosition = new Vector3(player.position.x + randomCircle.x, player.position.y + (Mathf.Abs( randomCircle.y) / 2), player.position.z + randomCircle.y);
+            Vector2 randomCircle = Random.insideUnitCircle.normalized * Random.Range(card.innerSpawnRadius, card.outerSpawnRadius);
+            randomPosition = new Vector3(player.position.x + randomCircle.x, player.position.y + 10, player.position.z + randomCircle.y);
+
+            //might have to add to the player position thingy
 
 
 
 
             // Ensure the position is within the spawn radius
             float distance = Vector3.Distance(player.position, randomPosition);
-            if (distance < innerSpawnRadius)
+            if (distance < card.innerSpawnRadius)
             {
                 continue; // Skip this position if it's too close to the player
             }
@@ -346,11 +342,12 @@ public class SpawnDirector : MonoBehaviour
                 {
                     noGround = true;
                     print("tried to spawn over void");
+                    print("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
                 }
             }
 
 
-            // Check if the position is surrounded by GroundLayer objects
+            //Check if the position is surrounded by GroundLayer objects
             isValidPosition = IsPositionSurroundedByGround(randomPosition);
 
 
@@ -363,11 +360,43 @@ public class SpawnDirector : MonoBehaviour
             return randomPosition; // Fallback to player position if no valid position is found
         }
 
+
+        // move it up slightly
+
+        randomPosition = new Vector3(randomPosition.x, randomPosition.y + offset, randomPosition.z);
+
+        Vector3 diff = randomPosition - player.transform.position;
+
+        if(diff.x > 0)
+        {
+            //move left
+            randomPosition.x -= 3;
+        }
+        else
+        {
+            // move right
+            randomPosition.x += 3;
+        }
+
+
+        if(diff.z > 0)
+        {
+            //move back
+            randomPosition.z -= 3;
+        }
+        else
+        {
+            //move foward
+            randomPosition.z += 3;
+
+        }
+
+
         return randomPosition;
     }
 
 
-
+    public float offset;
 
 
 
@@ -382,7 +411,6 @@ public class SpawnDirector : MonoBehaviour
     // Check if a position is surrounded by GroundLayer objects using raycasts
     bool IsPositionSurroundedByGround(Vector3 position)
     {
-        // Define directions to check (up, down, left, right, forward, backward)
         Vector3[] directions = new Vector3[]
         {
         Vector3.up,
@@ -395,7 +423,6 @@ public class SpawnDirector : MonoBehaviour
 
         int counter = 0;
 
-        // Check each direction
         foreach (Vector3 direction in directions)
         {
             if (Physics.Raycast(position, direction, out RaycastHit hit, 3f, groundLayer))
@@ -404,13 +431,13 @@ public class SpawnDirector : MonoBehaviour
             }
         }
 
-        if (counter < 5){
+        if (counter > 5)
+        {
             print("spawn inside wall cancled");
         }
 
 
-        // If all directions have ground, the position is valid
-        return counter < 5 && counter > 1;
+        return counter <= 5;
     }
 
 
@@ -479,7 +506,13 @@ public class SpawnDirector : MonoBehaviour
     public void RegisterKill(GameObject monster, int type)
     {
         allMonsters.Remove(monster);
-        StartCoroutine(MonsterDies(monster, type));
+
+        monster.SetActive(false);
+        print("DEAD MONSTER");
+      //  monsterPools[type].Enqueue(monster); // this part is wrong rn
+
+
+     //   StartCoroutine(MonsterDies(monster, type));
     }
 
 
@@ -489,12 +522,15 @@ public class SpawnDirector : MonoBehaviour
     // Coroutine to deactivate and return a monster to the pool
     public IEnumerator MonsterDies(GameObject monster, int type)
     {
-        yield return new WaitForSeconds(2f);
+       // yield return new WaitForSeconds(0.01f); // if we had die animation, make this longer
         monster.SetActive(false);
-        if (allMonsters.Count < monsterPools.Count)
-        {
-            monsterPools[type].Enqueue(monster); // may have to alter for multiple scenes lol
-        }
+        print("DEAD MONSTER");
+        monsterPools[type].Enqueue(monster); // may have to alter for multiple scenes lol
+       
+
+
+        yield return new WaitForEndOfFrame();
+
     }
 
 

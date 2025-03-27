@@ -18,6 +18,10 @@ public class SpawnCard : MonoBehaviour
     public bool isFlyer;
 
 
+    public float innerSpawnRadius;
+    public float outerSpawnRadius;
+
+
 
 
     void Start()

@@ -49,8 +49,15 @@ public class MeleeOfficerScript : MonoBehaviour
 
     Range decisionRange;
 
+
+
+    private SpawnDirector spawnDirector;
+
     private void Start()
     {
+        spawnDirector = GameObject.FindWithTag("SpawnDirector").GetComponent<SpawnDirector>();
+
+
         footSteps.Stop();
         animator = GetComponent<Animator>();
         es = GetComponent<EntityStats>();
@@ -115,7 +122,10 @@ public class MeleeOfficerScript : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+
+        spawnDirector.RegisterKill(gameObject, 2);
+
     }
 
     IEnumerator Behavior()
