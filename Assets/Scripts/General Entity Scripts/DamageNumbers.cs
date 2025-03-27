@@ -22,8 +22,26 @@ public class DamageNumbers : MonoBehaviour
             damageNumberCanvas.GetComponent<UpdatePosition>().target = gameObject;
             if(gameObject.GetComponent<Collider>())
             {
-                print("new offset");
-                damageNumberCanvas.GetComponent<UpdatePosition>().offset = new Vector3(0, gameObject.GetComponent<Collider>().bounds.max.y + 7, 0);
+                float tallPoint;
+                if(gameObject.GetComponent<MeshFilter>())
+                {
+                    tallPoint = gameObject.GetComponent<MeshFilter>().mesh.bounds.size.y * gameObject.transform.localScale.y;
+                }
+                else if(gameObject.GetComponent<Collider>())
+                {
+                    tallPoint = gameObject.GetComponent<Collider>().bounds.size.y * gameObject.transform.localScale.y;
+                }
+                else
+                {
+                    tallPoint = gameObject.transform.localScale.y + 5;
+                }
+
+                print("Offset: " + tallPoint);
+                damageNumberCanvas.GetComponent<UpdatePosition>().offset = new Vector3(0, tallPoint * 1.5f, 0);
+            }
+            else
+            {
+                print("no collider");
             }
             canvasScript = damageNumberCanvas.GetComponent<DamageNumbersCanvas>();
         }

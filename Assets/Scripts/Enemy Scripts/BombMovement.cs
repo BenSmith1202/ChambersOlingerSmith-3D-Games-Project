@@ -71,12 +71,14 @@ public class BombMovement : MonoBehaviour
     {
         //create explosion object
         Instantiate(explosion, transform.position, Quaternion.identity);
+
+        //TODO: fix this to remove from pool rather than destroying
         Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(!collision.gameObject.CompareTag("Ground"))
+        if(!collision.gameObject.CompareTag("Ground") && !collision.gameObject.CompareTag("Enemy"))
         {
             Die();
         }
