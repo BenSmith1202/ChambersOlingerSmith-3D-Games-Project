@@ -239,7 +239,7 @@ public class SpawnDirector : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPosition = GetRandomSpawnPosition(card);
+        Vector3 spawnPosition = GetRandomSpawnPosition(card, monster);
 
         monster.transform.position = spawnPosition;
         monster.transform.rotation = Quaternion.identity;
@@ -257,7 +257,7 @@ public class SpawnDirector : MonoBehaviour
 
     public int maxAttempts = 20; // Maximum attempts to find a valid position
 
-    Vector3 GetRandomSpawnPosition(SpawnCard card)
+    Vector3 GetRandomSpawnPosition(SpawnCard card, GameObject monster)
     {
         Vector3 randomPosition;
         bool isValidPosition = false;
@@ -298,11 +298,19 @@ public class SpawnDirector : MonoBehaviour
 
         // move it up slightly
 
-        print(randomPosition);
+        //print(randomPosition);
 
-        randomPosition = new Vector3(randomPosition.x, randomPosition.y + offset, randomPosition.z);
+        if (monster.GetComponent<Collider>())
+        {
+            float distanceToGround = monster.GetComponent<Collider>().bounds.extents.y;
+            randomPosition = new Vector3(randomPosition.x, randomPosition.y + distanceToGround, randomPosition.z);
+        }
+        else
+        {
+            randomPosition = new Vector3(randomPosition.x, randomPosition.y + offset, randomPosition.z);
+        }
 
-        print(randomPosition);
+        //print(randomPosition);
 
         Vector3 diff = randomPosition - player.transform.position;
 
