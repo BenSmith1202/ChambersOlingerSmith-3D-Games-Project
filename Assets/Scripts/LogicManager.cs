@@ -8,6 +8,8 @@ public class LogicManager : MonoBehaviour
     // Singleton instance
     public static LogicManager Instance { get; private set; }
 
+    public bool objectiveComplete = false;
+
     [Header("Game State")]
     public int currentStage = 1; // Current stage of the game
     public float difficultyLevel = 1f; // Current difficulty level
