@@ -8866,11 +8866,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 1
-  creditCost: 18
+  creditCost: 20
   minStage: 0
   isFlyer: 0
-  innerSpawnRadius: 15
-  outerSpawnRadius: 60
+  innerSpawnRadius: 28
+  outerSpawnRadius: 75
 --- !u!114 &2982147887397403111
 MonoBehaviour:
   m_ObjectHideFlags: 0

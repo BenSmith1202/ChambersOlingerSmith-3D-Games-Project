@@ -36,7 +36,7 @@ public class DamageNumbers : MonoBehaviour
                     tallPoint = gameObject.transform.localScale.y + 5;
                 }
 
-                print("Offset: " + tallPoint);
+                //print("Offset: " + tallPoint);
                 damageNumberCanvas.GetComponent<UpdatePosition>().offset = new Vector3(0, tallPoint * 1.5f, 0);
             }
             else

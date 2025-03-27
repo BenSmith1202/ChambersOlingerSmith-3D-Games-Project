@@ -34,6 +34,8 @@ public class SpawnDirector : MonoBehaviour
 
     [Header("Other")]
     private LogicManager logicMan;
+    private bool noGround;
+    public float offset;
 
 
 
@@ -79,7 +81,7 @@ public class SpawnDirector : MonoBehaviour
         for (int i = 0; i < monsterPrefabs.Length; i++)
         {
             Queue<GameObject> newPool = new Queue<GameObject>();
-            for (int j = 0; j < 50; j++) // Each pool gets 50 monsters
+            for (int j = 0; j < 200; j++) // j = how many monsters each pool will have
             {
                 GameObject monster = Instantiate(monsterPrefabs[i]);
                 monster.SetActive(false);
@@ -97,28 +99,11 @@ public class SpawnDirector : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // CREDITS
 
     #region
 
     
-
-
-
 
     // Accumulate credits over time based on difficulty and credit multiplier
     void AccumulateCreditsOverTime()
@@ -133,30 +118,16 @@ public class SpawnDirector : MonoBehaviour
         if (currentCredits >= amount)
         {
             currentCredits -= amount;
-            Debug.Log("Spent " + amount + " credits. Remaining: " + currentCredits);
+           // Debug.Log("Spent " + amount + " credits. Remaining: " + currentCredits);
         }
         else
         {
-            Debug.Log("Not enough credits to spawn monster. Required: " + amount + ", Available: " + currentCredits);
+          //  Debug.Log("Not enough credits to spawn monster. Required: " + amount + ", Available: " + currentCredits);
         }
     }
 
 
     #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -185,7 +156,6 @@ public class SpawnDirector : MonoBehaviour
 
 
 
-    // Select a spawn card based on weighted probability
     SpawnCard SelectSpawnCard()
     {
         float totalWeight = 0f;
@@ -218,10 +188,6 @@ public class SpawnDirector : MonoBehaviour
 
 
 
-
-
-
-    // Check if a spawn card is valid for the current stage and credits
     bool IsSpawnCardValid(SpawnCard card)
     {
         return card.minStage <= logicMan.currentStage && card.creditCost <= currentCredits;
@@ -230,7 +196,6 @@ public class SpawnDirector : MonoBehaviour
 
 
 
-    // Calculate a random spawn interval within bounds influenced by difficulty
     float GetRandomSpawnInterval()
     {
         float interval = Random.Range(minSpawnInterval, maxSpawnInterval);
@@ -240,10 +205,9 @@ public class SpawnDirector : MonoBehaviour
 
 
 
-    // Attempt to spawn a monster
     void AttemptSpawn()
     {
-        if (allMonsters.Count >= 80)
+        if (allMonsters.Count >= 40)
         {
             Debug.Log("Overcrowded! Cannot spawn more monsters.");
             return;
@@ -266,11 +230,6 @@ public class SpawnDirector : MonoBehaviour
     }
 
 
-
-
-
-
-    // Spawn a monster using the selected spawn card
     void SpawnMonster(SpawnCard card)
     {
         GameObject monster = GetMonsterFromPool(card);
@@ -296,27 +255,19 @@ public class SpawnDirector : MonoBehaviour
 
     }
 
+    public int maxAttempts = 20; // Maximum attempts to find a valid position
 
-
-
-
-
-    private bool noGround;
-
-
-    // Get a random spawn position that is valid (on the ground and surrounded by GroundLayer objects)
     Vector3 GetRandomSpawnPosition(SpawnCard card)
     {
         Vector3 randomPosition;
         bool isValidPosition = false;
-        int maxAttempts = 20; // Maximum attempts to find a valid position
         int attempts = 0;
 
         do
         {
             // Generate a random position within the spawn radius
             Vector2 randomCircle = Random.insideUnitCircle.normalized * Random.Range(card.innerSpawnRadius, card.outerSpawnRadius);
-            randomPosition = new Vector3(player.position.x + randomCircle.x, player.position.y + 10, player.position.z + randomCircle.y);
+            randomPosition = new Vector3(player.position.x + randomCircle.x, player.position.y, player.position.z + randomCircle.y);
 
             //might have to add to the player position thingy
 
@@ -331,154 +282,83 @@ public class SpawnDirector : MonoBehaviour
             }
 
 
-            if (!card.isFlyer)
-            {
-                if (Physics.Raycast(randomPosition, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundLayer))
-                {
-                    randomPosition = hit.point; // Adjust the position to the ground level
-                    noGround = false;
-                }
-                else
-                {
-                    noGround = true;
-                    print("tried to spawn over void");
-                    print("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-                }
-            }
-
-
             //Check if the position is surrounded by GroundLayer objects
             isValidPosition = IsPositionSurroundedByGround(randomPosition);
 
 
             attempts++;
-        } while (!isValidPosition && attempts < maxAttempts && noGround);
+        } while (!isValidPosition && attempts < maxAttempts);
 
         if (!isValidPosition)
         {
             Debug.LogWarning("Failed to find a valid spawn position after " + maxAttempts + " attempts.");
-            return randomPosition; // Fallback to player position if no valid position is found
+            return randomPosition; 
         }
 
 
         // move it up slightly
 
+        print(randomPosition);
+
         randomPosition = new Vector3(randomPosition.x, randomPosition.y + offset, randomPosition.z);
+
+        print(randomPosition);
 
         Vector3 diff = randomPosition - player.transform.position;
 
         if(diff.x > 0)
         {
             //move left
-            randomPosition.x -= 3;
+            randomPosition.x -= spawnOffset2;
         }
         else
         {
             // move right
-            randomPosition.x += 3;
+            randomPosition.x += spawnOffset2;
         }
 
 
         if(diff.z > 0)
         {
             //move back
-            randomPosition.z -= 3;
+            randomPosition.z -= spawnOffset2;
         }
         else
         {
             //move foward
-            randomPosition.z += 3;
+            randomPosition.z += spawnOffset2;
 
         }
+
+        print(randomPosition);
 
 
         return randomPosition;
     }
 
 
-    public float offset;
+    public float spawnOffset2;
 
 
-
-
-
-
-
-
-
-
-
-    // Check if a position is surrounded by GroundLayer objects using raycasts
     bool IsPositionSurroundedByGround(Vector3 position)
     {
-        Vector3[] directions = new Vector3[]
-        {
-        Vector3.up,
-        Vector3.down,
-        Vector3.left,
-        Vector3.right,
-        Vector3.forward,
-        Vector3.back
-        };
+       
 
-        int counter = 0;
-
-        foreach (Vector3 direction in directions)
+        if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, float.PositiveInfinity, groundLayer))
         {
-            if (Physics.Raycast(position, direction, out RaycastHit hit, 3f, groundLayer))
-            {
-                counter++;
-            }
-        }
+            print("YAY");
+            return true;
 
-        if (counter > 5)
-        {
-            print("spawn inside wall cancled");
         }
 
 
-        return counter <= 5;
+        return false;
     }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -505,10 +385,14 @@ public class SpawnDirector : MonoBehaviour
     // Register a monster kill and return it to the pool
     public void RegisterKill(GameObject monster, int type)
     {
-        allMonsters.Remove(monster);
 
-        monster.SetActive(false);
-        print("DEAD MONSTER");
+        Destroy(monster); //quick fix for now
+
+
+        //allMonsters.Remove(monster);
+
+        //monster.SetActive(false);
+        //print("DEAD MONSTER");
       //  monsterPools[type].Enqueue(monster); // this part is wrong rn
 
 
@@ -536,24 +420,6 @@ public class SpawnDirector : MonoBehaviour
 
 
     #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -6036,8 +6036,8 @@ MonoBehaviour:
   creditCost: 15
   minStage: 0
   isFlyer: 0
-  innerSpawnRadius: 10
-  outerSpawnRadius: 30
+  innerSpawnRadius: 18
+  outerSpawnRadius: 35
 --- !u!114 &-980023486028482642
 MonoBehaviour:
   m_ObjectHideFlags: 0
