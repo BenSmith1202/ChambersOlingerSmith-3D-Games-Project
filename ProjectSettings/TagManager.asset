@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - PlayerHealthBar
   - ItemWindow
+  - ExitPortal
   layers:
   - Default
   - TransparentFX
