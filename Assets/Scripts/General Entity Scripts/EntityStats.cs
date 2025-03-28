@@ -12,9 +12,14 @@ public class EntityStats : MonoBehaviour
     public int currentHP;
     public int clipSize; //does not really need a multiplier lol
 
+
+    //stats and modifiers initialized here
+    #region Stat Initialization
+
     //Private Base Stats:
     // Should not be modified from outside of this class (except perhaps during a level up)
     [SerializeField] private int baseMaxHP = 100;
+    [SerializeField] private float baseRegen = 0f; //health regen per second
     [SerializeField] private float baseSpeed;     // Walking speed of the entity
     [SerializeField] private float baseJumpForce;     // Force applied when the entity jumpss
     [SerializeField] private float baseAttackDelay;
@@ -54,27 +59,31 @@ public class EntityStats : MonoBehaviour
     [SerializeField] private float dashLaunchSpeed;
     #endregion
 
-    //Stat Multipliers:
+    //Stat Modifiers:
+    
     // Used for getters, changed by buffs and items.
     [Header("Stat Multipliers")]
-    public float maxHPMult = 1f;
+    public StatModifier maxHPMod =          new StatModifier();
+    public StatModifier regenMod =          new StatModifier();
 
-    public float speedMult = 1f;
-    public float jumpMult = 1f;
+    public StatModifier speedMod =          new StatModifier();
+    public StatModifier jumpMod =           new StatModifier();
 
-    public float attackDelayMult = 1f;
-    public float damageMult = 1f;
-    public float critChanceMult = 1f;
+    public StatModifier attackDelayMod =    new StatModifier();
+    public StatModifier damageMod =         new StatModifier();
+    public StatModifier critChanceMod =     new StatModifier();
 
-    public float rangeMult = 1f;
-    public float knockbackMult = 1f;
-    public float reloadTimeMult = 1f;
+    public StatModifier rangeMod =          new StatModifier();
+    public StatModifier knockbackMod =      new StatModifier();
+    public StatModifier reloadTimeMod =     new StatModifier();
 
-    public float healingMult = 1f;
-    public float damageReductionMult = 1f;
+    public StatModifier healingMod =        new StatModifier();
+    public StatModifier damageReductionMod= new StatModifier();
 
-    public float dashDelayMult = 1f;
-    public float grappleDelayMult = 1f;
+    public StatModifier dashDelayMod =      new StatModifier();
+    public StatModifier grappleDelayMod =   new StatModifier();
+
+    #endregion
 
 
     //References
@@ -97,6 +106,8 @@ public class EntityStats : MonoBehaviour
     }
 
 
+    //functions specific to combat
+    #region combat
     // Universal takeHit function that takes an attack object and applies the damage, knockback,
     // and correctly modifies any relevant health bar object 
     public void TakeHit(Attack atk)
@@ -115,6 +126,85 @@ public class EntityStats : MonoBehaviour
 
         //TODI: apply knockback
     }
+    #endregion
+
+    // These are used to get the scaled versions of stats mid game.
+    #region Stat Getters:
+
+    public int getMaxHP()
+    {
+        return Mathf.FloorToInt(maxHPMod.ApplyModifier(baseMaxHP));
+    }
+
+    public int getRegen()
+    {
+        return Mathf.FloorToInt(regenMod.ApplyModifier(baseRegen));
+    }
+
+    public float getSpeed()
+    {
+        return speedMod.ApplyModifier(baseSpeed);
+    }
+
+    public float getJumpForce()
+    {
+        return jumpMod.ApplyModifier(baseJumpForce);
+    }
+
+    public float getAtkDelay()
+    {
+        return attackDelayMod.ApplyModifier(baseAttackDelay);
+    }
+
+    public int getDamage()
+    {
+        return Mathf.FloorToInt(damageMod.ApplyModifier(baseDamage));
+    }
+
+    public float getCritChance()
+    {
+        return critChanceMod.ApplyModifier(baseCritChance);
+    }
+
+    public float getRange()
+    {
+        return rangeMod.ApplyModifier(baseRange);
+    }
+
+    public float getKnockback()
+    {
+        return knockbackMod.ApplyModifier(baseKB);
+    }
+
+    public float getReloadTime()
+    {
+        return reloadTimeMod.ApplyModifier(baseReloadTime);
+    }
+
+    public float getGrappleDelay()
+    {
+        return grappleDelayMod.ApplyModifier(baseGrappleCooldownTime);
+    }
+
+    public float getDashDelay()
+    {
+        return dashDelayMod.ApplyModifier(baseDashCooldownTime);
+    }
+
+    public float getDashLaunchSpeed()
+    { 
+        return speedMod.ApplyModifier(dashLaunchSpeed);
+    }
+
+    public float getAttackRange()
+    {
+        return rangeMod.ApplyModifier(baseAttackRange);
+    }
+    #endregion
+
+
+    //health initialization, getters, and setters
+    #region Health Management
 
 
     public void InitializeHealthBar()
@@ -143,75 +233,6 @@ public class EntityStats : MonoBehaviour
 
         }
     }
-
-    // These are used to get the scaled versions of stats mid game.
-    #region Stat Getters:
-
-    public int getMaxHP()
-    {
-        return Mathf.FloorToInt(baseMaxHP * maxHPMult);
-    }
-
-    public float getSpeed()
-    {
-        return baseSpeed * speedMult;
-    }
-
-    public float getJumpForce()
-    {
-        return baseJumpForce * jumpMult;
-    }
-
-    public float getAtkDelay()
-    {
-        return baseAttackDelay * attackDelayMult;
-    }
-
-    public int getDamage()
-    {
-        return Mathf.FloorToInt(baseDamage * damageMult);
-    }
-
-    public float getCritChance()
-    {
-        return baseCritChance * critChanceMult;
-    }
-
-    public float getRange()
-    {
-        return baseRange * rangeMult;
-    }
-
-    public float getKnockback()
-    {
-        return baseKB * knockbackMult;
-    }
-
-    public float getReloadTime()
-    {
-        return baseReloadTime * reloadTimeMult;
-    }
-
-    public float getGrappleDelay()
-    {
-        return baseGrappleCooldownTime * grappleDelayMult;
-    }
-
-    public float getDashDelay()
-    {
-        return baseDashCooldownTime * dashDelayMult;
-    }
-
-    public float getDashLaunchSpeed()
-    {
-        return dashLaunchSpeed * speedMult;
-    }
-
-    public float getAttackRange()
-    {
-        return baseAttackRange;
-    }
-    #endregion
 
 
     public void SetHP(int newHP)
@@ -274,14 +295,16 @@ public class EntityStats : MonoBehaviour
 
     }
 
+
     public void IncreaseMaxHP(int amount)
     {
         SetMaxHP(getMaxHP() + amount);
     }
 
+
     public void Heal(int amount)
     {
-        int scaledHealing = Mathf.FloorToInt(amount * healingMult);
+        int scaledHealing = Mathf.FloorToInt(healingMod.ApplyModifier(amount));
         SetHP(currentHP + scaledHealing);
         //if (damageNumbers != null && damageNumbers.showDamage)
         //{
@@ -290,18 +313,78 @@ public class EntityStats : MonoBehaviour
         //}
     }
 
+
     public void DecreaseMaxHP(int amount)
     {
         SetMaxHP(getMaxHP() - amount);
     }
 
+
     public void InflictDamage(int amount)
     {
-        int scaledDamage = Mathf.FloorToInt(amount * damageReductionMult);
+        int scaledDamage = Mathf.FloorToInt(damageReductionMod.ApplyModifier(amount));
         SetHP(currentHP - scaledDamage);
         if (damageNumbers != null && damageNumbers.showDamage)
         {
             damageNumbers.canvasScript.ShowDamageNumber(-scaledDamage);
         }
     }
+
+    #endregion
+
+
+    // LEVEL UP
+    #region Leveling Up
+    [Header("Level Scaling")]
+    public int levelUpHealth = 35;
+    public int levelUpDamage = 3;
+    public float levelUpRegen = 0f;
+    public void LevelUp(int amountOfLevels)
+    {
+        for (int i = 0; i < amountOfLevels; i++)
+        {
+            baseDamage += levelUpDamage;
+            baseMaxHP += levelUpHealth;
+            baseRegen += levelUpRegen;
+        }
+    }
+    #endregion
+}
+
+
+/**
+     *
+     * Stores a flat, percent, and multiplicative damage boost.
+     * for non-scaling linear growth, use flat
+     * for scaling linear growth, use percent
+     * for exponential or logarithmic growth, use mult
+     *
+     **/
+public class StatModifier
+{
+    public float flat = 0f;
+    public float percent = 0f;
+    public float mult = 1f;
+
+    public StatModifier(float flat, float percent, float mult)
+    {
+        this.flat = flat;
+        this.percent = percent;
+        this.mult = mult;
+    }
+
+    public StatModifier()
+    {
+        //empty constructor for now
+    }
+
+    // applies modifiers like so:
+    public float ApplyModifier(float baseStat)
+    {
+        float totalStat = (baseStat + flat); //apply flat bonuses first
+        totalStat += percent * totalStat; //apply percent bonuses second
+        totalStat *= mult; //apply multiplicative bonuses last
+        return totalStat;
+    }
+
 }
