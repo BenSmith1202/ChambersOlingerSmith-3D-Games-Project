@@ -20,7 +20,7 @@ public class Attack
     public int critLevel = 0;  //This is the number of times this attack has crit.
 
     //The debuffs (aka status effects) that this attack inflicts
-    public List<BuffInstance> debuffsToApply; //technically these will usually be debuffs, even though the class is called BuffInstance
+    public List<GameObject> debuffsToApply; //technically these will usually be debuffs, even though the class is called BuffInstance
 
     //items that cannot apply to this attack. Used to avoid infinite loops and for balancing purposes.
     public List<ItemInstance> blacklist; 
@@ -31,7 +31,7 @@ public class Attack
     //constructor
     public Attack(GameObject owner, int damage, float critChance, float knockback, float procCoeff)
     {
-        debuffsToApply = new List<BuffInstance>();
+        debuffsToApply = new List<GameObject>();
         blacklist = new List<ItemInstance>();
         this.owner = owner;
         this.damage = damage;

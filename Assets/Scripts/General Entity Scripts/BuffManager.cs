@@ -5,7 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BuffManager : MonoBehaviour
 {
-    private EntityStats stats;
+    public EntityStats stats;
 
     // Lists for each trigger category
     public List<ItemInstance> allItems = new List<ItemInstance>();
@@ -16,14 +16,66 @@ public class BuffManager : MonoBehaviour
     public List<ItemInstance> onHPEffects = new List<ItemInstance>();
     //public List<ItemInstance> constantEffects = new List<ItemInstance>();
 
+
     //Buffs list
-    //public List<Buffs> buffs = new List<Buffs>();
+    public List<BuffInstance> buffs = new List<BuffInstance>();
 
     private void Awake()
     {
         stats = GetComponent<EntityStats>();
     }
 
+    //Update method and buff management
+    #region Update and Buffs
+
+    private void Update()
+    {
+        List<BuffInstance> deadBuffs = new List<BuffInstance>();
+        foreach (var buff in buffs)
+        {
+            //count up this buff's time
+            buff.currentDuration += Time.deltaTime;
+            buff.currentTickDelay += Time.deltaTime;
+
+            //call tick method once every [tickdelay]
+            if (buff.currentTickDelay > buff.maxTickDelay)
+            {
+                buff.currentTickDelay = 0;
+                buff.OnTick();
+            }
+            //remove buff when it's time is up
+            if (buff.currentDuration > buff.maxDuration)
+            {
+                deadBuffs.Add(buff);
+            }
+        }
+        foreach (var buff in deadBuffs)
+        {
+            RemoveBuff(buff);
+        }
+        deadBuffs.Clear();
+
+    }
+
+    //applies a buff prefab to this entity
+    public void AddBuff(GameObject buffObject)
+    {
+        //Attatch the buff to the entity
+        GameObject instantiatedBuff = Instantiate(buffObject, gameObject.transform);
+        instantiatedBuff.transform.localPosition = Vector3.zero;
+        //get a reference to the buff script
+        BuffInstance buffInstance = instantiatedBuff.GetComponent<BuffInstance>();
+        //add it to the list and trigger application effects.
+        buffs.Add(buffInstance);
+        buffInstance.OnApply();
+    }
+
+    public void RemoveBuff(BuffInstance buff)
+    {
+        buffs.Remove(buff);
+        buff.OnRemove();
+    }
+#endregion
 
     //Methods to add/Remove items from the inventory
     #region ItemManagement
