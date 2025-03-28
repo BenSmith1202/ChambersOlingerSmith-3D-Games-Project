@@ -122,6 +122,13 @@ public class EntityStats : MonoBehaviour
             }
         }
 
+
+        // apply each debuff
+        foreach (var buffObject in atk.debuffsToApply)
+        {
+            buffManager.AddBuff(buffObject);
+        }
+
         InflictDamage(atk.damage);
 
         //TODI: apply knockback
