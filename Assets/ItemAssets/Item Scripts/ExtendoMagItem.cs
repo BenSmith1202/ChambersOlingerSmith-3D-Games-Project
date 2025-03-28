@@ -9,7 +9,7 @@ public class ExtendoMagItem : ItemInstance
     //Clip size up
     public int clipSizeBoost = 6;
     //but reloads take longer
-    public float reloadTimeMult = 1.4f;
+    public float reloadTimeMult = 0.4f;
 
     public override TriggerType TriggerCategory => TriggerType.StatBoost;
 
@@ -21,14 +21,14 @@ public class ExtendoMagItem : ItemInstance
     public override void OnAcquire(EntityStats stats)
     {
         Debug.Log("Clip size increased");
-        stats.clipSize += clipSizeBoost; // increases max hp by 20
-        stats.reloadTimeMult *= this.reloadTimeMult;
+        stats.clipSize += clipSizeBoost; // increases clip size
+        stats.reloadTimeMod.percent += this.reloadTimeMult; //+40% reload time stacking linearly
     }
 
     // does the inverse of the method above
     public override void OnRemove(EntityStats stats)
     {
-        stats.clipSize -= clipSizeBoost; // increases max hp by 20
-        stats.reloadTimeMult /= this.reloadTimeMult;
+        stats.clipSize -= clipSizeBoost; // decreases clip size
+        stats.reloadTimeMod.percent -= this.reloadTimeMult;
     }
 }
