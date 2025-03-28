@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpeedBoost", menuName = "Items/StatBoosts/SpeedBoost")]
 public class SpeedBoostItem : ItemInstance
 {
-    //20% move speed increase
+    //% move speed increase
     public float speedBoost = 0.2f;
 
     public override TriggerType TriggerCategory => TriggerType.StatBoost;
@@ -19,12 +19,12 @@ public class SpeedBoostItem : ItemInstance
     public override void OnAcquire(EntityStats stats)
     {
         Debug.Log("Move Speed increased");
-        stats.speedMult += speedBoost; // 20% linear increases the move speed
+        stats.speedMod.percent += speedBoost; //linearly increases the move speed
     }
 
     // does the inverse of the method above
     public override void OnRemove(EntityStats stats)
     {
-        stats.speedMult -= speedBoost; // Reverses the 20% move speed increase
+        stats.speedMod.percent -= speedBoost;// Reverses the move speed increase
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealthScript : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class PlayerHealthScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (stats.currentHP <= 0)
+        {
+            SceneManager.LoadScene(2);
+        }
 
         //DEBUG TOOLS
         if (Input.GetKeyDown(KeyCode.Minus))
