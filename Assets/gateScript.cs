@@ -10,9 +10,13 @@ public class gateScript : MonoBehaviour
     // Array of switches attached to this door
     public SwitchScript[] switches;
 
+    // Audio source and clip
+    private AudioSource audioSource;
+
     void Start()
     {
-        // Ensure switches are assigned in the inspector or find them dynamically if needed
+        // Get the AudioSource component
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void OpenDoor()
@@ -26,10 +30,15 @@ public class gateScript : MonoBehaviour
             }
         }
 
-        // If all switches are hit, play the Open animation
+        // If all switches are hit, play the Open animation and sound
         if (myDoor != null)
         {
             myDoor.SetBool("Open", true);
+        }
+
+        if (audioSource != null)
+        {
+            audioSource.Play(); // Play the audio clip
         }
     }
 }
