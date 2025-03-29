@@ -12,10 +12,6 @@ PrefabInstance:
       propertyPath: m_Range
       value: 30
       objectReference: {fileID: 0}
-    - target: {fileID: 324964319671433821, guid: 5fbfbee0f9885764383291c4c5e18668, type: 3}
-      propertyPath: m_Intensity
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 3726740952248020482, guid: 5fbfbee0f9885764383291c4c5e18668, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.5
