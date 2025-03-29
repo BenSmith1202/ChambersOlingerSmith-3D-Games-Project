@@ -9,9 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1577609632647162967}
-  m_Layer: 0
+  - component: {fileID: 8582481657540049107}
+  - component: {fileID: 8576670714101168655}
+  - component: {fileID: 5644925721173198520}
+  m_Layer: 7
   m_Name: Lever_Prefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,6 +36,92 @@ Transform:
   - {fileID: 9078037237241554317}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8582481657540049107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2575938327731363396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9bc0f71e04ffd644abb6d46759b5b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHit: 0
+  door: {fileID: 0}
+  stats: {fileID: 0}
+  leverAnim: {fileID: 0}
+--- !u!114 &8576670714101168655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2575938327731363396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2769da43178852e4b9a47cf1ec48d024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDead: 0
+  currentHP: 1
+  clipSize: 0
+  baseMaxHP: 1
+  baseRegen: 0
+  baseSpeed: 0
+  baseJumpForce: 0
+  baseAttackDelay: 0
+  baseDamage: 0
+  baseCritChance: 0
+  baseRange: 100
+  baseKB: 0
+  baseReloadTime: 0
+  baseAttackRange: 0
+  crouchSpeed: 0
+  wallrunForce: 0
+  maxWallTime: 0
+  wallrunSpeed: 0
+  grappleRange: 0
+  baseGrappleCooldownTime: 0
+  grappleForce: 0
+  grappleStretch: 0
+  grappleReelSpeed: 0
+  grappleYankPercentDistance: 0
+  swingSpeed: 0
+  maxSwingVelocity: 0
+  baseDashCooldownTime: 0
+  dashDuration: 0
+  midDashSpeed: 0
+  postDashSpeedReduction: 0
+  dashLaunchSpeed: 0
+  buffManager: {fileID: 0}
+  healthBarScript: {fileID: 0}
+  damageNumbers: {fileID: 0}
+  levelUpHealth: 0
+  levelUpDamage: 0
+  levelUpRegen: 0
+--- !u!65 &5644925721173198520
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2575938327731363396}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.35, y: 1.12, z: 0.24}
+  m_Center: {x: 0, y: 0.65, z: 0}
 --- !u!1 &7727883797297684363
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,9 +133,9 @@ GameObject:
   - component: {fileID: 506214209605000422}
   - component: {fileID: 2851979512042423321}
   - component: {fileID: 7066963040038473936}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Lever_main
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,11 +218,10 @@ GameObject:
   - component: {fileID: 9078037237241554317}
   - component: {fileID: 6744138384960208247}
   - component: {fileID: 5240167562397193625}
-  - component: {fileID: 5809220570440302440}
-  - component: {fileID: 5809220570440302438}
-  m_Layer: 0
+  - component: {fileID: 6890041081231960125}
+  m_Layer: 7
   m_Name: Lever
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,13 +234,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8547448563377378517}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0038933088, y: 0.99769384, z: 0.12363574}
+  m_LocalRotation: {x: -0.40274665, y: 0, z: 0, w: 0.9153115}
+  m_LocalPosition: {x: 0.0038928986, y: 0.9539428, z: 0.1652565}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1577609632647162967}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -47.5, y: 0, z: 0}
 --- !u!33 &6744138384960208247
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -205,7 +293,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &5809220570440302440
+--- !u!95 &6890041081231960125
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -215,7 +303,7 @@ Animator:
   m_GameObject: {fileID: 8547448563377378517}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 814fe2e2057e6fa46a620478d50b403c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 795c247d08157744f9aaee0ca50faf3c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -226,29 +314,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5809220570440302438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8547448563377378517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 354a378e82f9d224d8c66706ecf4f493, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isValve: 0
-  ValveSpeed: 1
-  isLever: 1
-  Locked: 0
-  DoorObject: {fileID: 0}
-  RampObject: {fileID: 0}
-  CanOpen: 1
-  CanClose: 1
-  isOpened: 0
-  xRotation: 1
-  yPosition: 0
-  max: 90
-  min: 0
-  speed: 5

@@ -12,10 +12,18 @@ public class SwitchScript : MonoBehaviour
 
     public GameObject door;
 
+    public EntityStats stats;
+
+
+    public Animator leverAnim;
+
 
     private void Start()
     {
         linkedDoor = door.GetComponent<gateScript>();
+        stats = gameObject.GetComponent<EntityStats>();
+
+        leverAnim = GetComponentInChildren<Animator>();
     }
 
     // Call this method when the switch is activated
@@ -36,9 +44,10 @@ public class SwitchScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if(stats.currentHP <= 0)
         {
             ActivateSwitch();
+            leverAnim.SetBool("isHit", true);
         }
     }
 

@@ -113,7 +113,7 @@ public class EntityStats : MonoBehaviour
     public void TakeHit(Attack atk)
     {
         //If the attak is lethal, trigger OnKill effects
-        if (atk.damage > currentHP)
+        if (atk.damage >= currentHP)
         {
             BuffManager attackerBuffManager = atk.owner.GetComponent<BuffManager>();
             if (attackerBuffManager != null)
