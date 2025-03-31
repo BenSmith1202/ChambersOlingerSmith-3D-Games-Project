@@ -87,7 +87,19 @@ public class MeleeOfficerScript : MonoBehaviour
         }
         else if(Vector3.Distance(target.transform.position, transform.position) > meleeRange)
         {
-            decisionRange = Range.aware;
+
+            //raycast for visibility
+            RaycastHit hit;
+            Vector3 directionToPlayer = target.transform.position - transform.position;
+            Physics.Raycast(transform.position, directionToPlayer, out hit, visibilityDistance);
+            if (hit.collider && hit.collider.gameObject.CompareTag("Player"))
+            {
+                decisionRange = Range.aware;
+            }
+            else
+            {
+                decisionRange = Range.unaware;
+            }
         }
         else
         {
