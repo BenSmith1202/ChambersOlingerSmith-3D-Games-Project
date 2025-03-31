@@ -48,13 +48,6 @@ public class LogicManager : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-
     // TIME
     #region
 
@@ -118,21 +111,6 @@ public class LogicManager : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Difficulty
     #region
 
@@ -145,6 +123,7 @@ public class LogicManager : MonoBehaviour
             {
                 IncreaseDifficulty();
                 timeSinceLastDifficultyIncrease = 0f; // Reset the timer
+                timePerDifficultyIncrease += 5;
             }
             yield return null; // Wait for the next frame
         }
