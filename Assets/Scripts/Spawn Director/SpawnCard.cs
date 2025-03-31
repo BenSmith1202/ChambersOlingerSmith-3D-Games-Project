@@ -22,21 +22,4 @@ public class SpawnCard : MonoBehaviour
     public float outerSpawnRadius;
 
 
-
-
-    void Start()
-    {
-        
-    }
-
-
-
-
-
-
-
-    void Update()
-    {
-        
-    }
 }

@@ -76,7 +76,6 @@ public class BombMovement : MonoBehaviour
         //create explosion object
         Instantiate(explosion, transform.position, Quaternion.identity);
 
-        //TODO: fix this to remove from pool rather than destroying
         spawnDirector.RegisterKill(gameObject, 1);
     }
 

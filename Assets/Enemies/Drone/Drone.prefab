@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 840060521601207515}
   - component: {fileID: 5079617600797667170}
   - component: {fileID: -6108611441506963918}
+  - component: {fileID: 5387360811667910792}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Enemy
@@ -126,9 +127,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 25
+  currentHP: 22
   clipSize: 0
-  baseMaxHP: 25
+  baseMaxHP: 22
   baseRegen: 0
   baseSpeed: 5
   baseJumpForce: 0
@@ -174,12 +175,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 2
-  creditCost: 4
+  weight: 1.1
+  creditCost: 10
   minStage: 0
   isFlyer: 1
-  innerSpawnRadius: 40
-  outerSpawnRadius: 100
+  innerSpawnRadius: 25
+  outerSpawnRadius: 70
 --- !u!114 &9051510777984339412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  desiredHeight: 8
+  desiredHeight: 7
   awarenessDistance: 40
   tooCloseDistance: 15
   deathExplosion: {fileID: 2515118805058980736, guid: 3dbaed66e8a6a4d4eb54b88d8963a561, type: 3}
@@ -274,6 +275,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   maxDistance: 100
+--- !u!114 &5387360811667910792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8141647055147497149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b2ff0ae6cdafc04aa8606ae25e490f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commonPickup: {fileID: 651290665991317019, guid: 03246238f195a90438eb18cf434d93e9, type: 3}
+  rarePickup: {fileID: 8762643131521024311, guid: cc2bece9588a69b479dd6e6379944730, type: 3}
+  legendaryPickup: {fileID: 444668434626985569, guid: c26ff3b520b99824391dc92d89e0422f, type: 3}
+  commonDropChance: 0.15
+  rareDropChance: 0.05
+  legendaryDropChance: 0.02
 --- !u!1001 &7408710745164634392
 PrefabInstance:
   m_ObjectHideFlags: 0

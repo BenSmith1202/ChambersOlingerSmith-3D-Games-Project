@@ -5,7 +5,7 @@ using UnityEngine;
 public class TemporaryEnemyDespawnFix : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    [SerializeField] float maxDistance = 100;
+    [SerializeField] float maxDistance = 500;
 
     private void Start()
     {
@@ -15,11 +15,15 @@ public class TemporaryEnemyDespawnFix : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if(Vector3.Distance(transform.position, player.transform.position) > maxDistance)
-        {
-            Destroy(gameObject);
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Vector3.Distance(transform.position, player.transform.position) > maxDistance)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
+
+
+    //grab the script and call Die()
+
 }

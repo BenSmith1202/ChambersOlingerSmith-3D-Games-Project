@@ -245,7 +245,7 @@ public class MeleeOfficerScript : MonoBehaviour
             {
                 yield break;
             }
-            Debug.DrawRay(transform.position, forward * wallCheckDistance, Color.white, 0.1f);
+           // Debug.DrawRay(transform.position, forward * wallCheckDistance, Color.white, 0.1f);
             rb.velocity = new Vector3(transform.forward.normalized.x * es.getSpeed(), rb.velocity.y, transform.forward.normalized.z * es.getSpeed());
             forward = transform.forward;
             yield return null;
@@ -270,7 +270,7 @@ public class MeleeOfficerScript : MonoBehaviour
         Vector3 bestDirection = forward;
         float maxDistanceFound;
 
-        Debug.DrawRay(origin, forward * maxDistance, Color.green, 3f);
+        //Debug.DrawRay(origin, forward * maxDistance, Color.green, 3f);
         if (Physics.Raycast(origin, forward, out hit, maxDistance))
         {
             maxDistanceFound = hit.distance;
@@ -283,7 +283,7 @@ public class MeleeOfficerScript : MonoBehaviour
 
         for(int i = angleCheckDelta; i <= 360; i += angleCheckDelta)
         {
-            Debug.DrawRay(origin, Quaternion.Euler(0, i, 0) * forward * maxDistance, Color.green, 10f);
+           // Debug.DrawRay(origin, Quaternion.Euler(0, i, 0) * forward * maxDistance, Color.green, 10f);
             if (Physics.Raycast(origin, Quaternion.Euler(0, i, 0) * forward, out hit, maxDistance))
             {
                 if(hit.distance > maxDistanceFound)

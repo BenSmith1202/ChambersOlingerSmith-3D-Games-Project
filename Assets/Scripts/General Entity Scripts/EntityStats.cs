@@ -93,8 +93,13 @@ public class EntityStats : MonoBehaviour
     public DamageNumbers damageNumbers;
 
 
+    private LootPool loot;
+
+
     private void Start()
     {
+        loot = gameObject.GetComponent<LootPool>();
+
         buffManager = GetComponent<BuffManager>();
         InitializeHealthBar();
 
@@ -250,6 +255,10 @@ public class EntityStats : MonoBehaviour
         //am i dead?
         if (currentHP <= 0)
         {
+            if(loot != null)
+            {
+                loot.AttemptLootDrop();
+            }
             isDead = true;
         }
 
@@ -296,7 +305,7 @@ public class EntityStats : MonoBehaviour
         }
         else
         {
-            Debug.Log("No health bar found");
+           // Debug.Log("No health bar found");
         }
         
 

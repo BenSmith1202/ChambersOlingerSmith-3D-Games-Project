@@ -27,6 +27,7 @@ public class SpawnDirector : MonoBehaviour
     public float minSpawnInterval = 1f; // Minimum time between spawns
     public float maxSpawnInterval = 5f; // Maximum time between spawns
     private float spawnTimer;
+    public int maxEnemies;
 
     [Header("Spawn Cards")]
     private List<SpawnCard> spawnCards = new List<SpawnCard>(); // List of all spawn cards from monster prefabs
@@ -58,9 +59,29 @@ public class SpawnDirector : MonoBehaviour
         InitializeSpawnCards(); // Grab all SpawnCard scripts from monster prefabs
         spawnTimer = GetRandomSpawnInterval(); // Initialize the first spawn timer
     }
-
+    bool doItOnce = false;
     void Update()
     {
+        if (logicMan.objectiveComplete)
+        {
+            if(doItOnce == false)
+            {
+                Light[] allLights = FindObjectsOfType<Light>();
+
+                // Iterate through each light and check if it's a Point Light
+                foreach (Light light in allLights)
+                {
+                    if (light.type == LightType.Point) // Ensure it's a Point Light
+                    {
+                        light.color = Color.red; // Change color to red
+                    }
+                }
+            }
+        }
+
+        difficultyCoefficient = 1 + (logicMan.difficultyLevel / 10);
+
+
         // Handle continuous credit income for continuous Directors
         AccumulateCreditsOverTime();
 
@@ -103,12 +124,17 @@ public class SpawnDirector : MonoBehaviour
 
     #region
 
-    
+    public float EscapeCreditIncreaseCoefficient = 1.5f;
+
 
     // Accumulate credits over time based on difficulty and credit multiplier
     void AccumulateCreditsOverTime()
     {
         float creditsPerSecond = creditMultiplier * (1 + 0.4f * difficultyCoefficient);
+        if (logicMan.objectiveComplete)
+        {
+            creditsPerSecond = creditsPerSecond * EscapeCreditIncreaseCoefficient;
+        }
         currentCredits += creditsPerSecond * Time.deltaTime;
     }
 
@@ -152,10 +178,6 @@ public class SpawnDirector : MonoBehaviour
     }
 
 
-
-
-
-
     SpawnCard SelectSpawnCard()
     {
         float totalWeight = 0f;
@@ -186,28 +208,30 @@ public class SpawnDirector : MonoBehaviour
     }
 
 
-
-
     bool IsSpawnCardValid(SpawnCard card)
     {
         return card.minStage <= logicMan.currentStage && card.creditCost <= currentCredits;
     }
 
 
-
+    public float EscapeSpawnIntervalCoefficient = 1.5f;
 
     float GetRandomSpawnInterval()
     {
         float interval = Random.Range(minSpawnInterval, maxSpawnInterval);
-       // interval /= difficultyCoefficient; // Decrease interval as difficulty increases
-        return Mathf.Clamp(interval, minSpawnInterval, maxSpawnInterval); // Ensure it stays within bounds
+        interval = interval - (difficultyCoefficient - 1f);
+        if (logicMan.objectiveComplete)
+        {
+            interval = interval / EscapeSpawnIntervalCoefficient;
+        }
+        return Mathf.Clamp(interval, 1, maxSpawnInterval); // Ensure it stays within bounds
     }
 
 
-
+    
     void AttemptSpawn()
     {
-        if (allMonsters.Count >= 40)
+        if (allMonsters.Count >= maxEnemies)
         {
             Debug.Log("Overcrowded! Cannot spawn more monsters.");
             return;
@@ -221,7 +245,7 @@ public class SpawnDirector : MonoBehaviour
         }
 
         // Keep spawning monsters using the selected card until it's no longer valid
-        while (IsSpawnCardValid(selectedCard) && allMonsters.Count < 40)
+        while (IsSpawnCardValid(selectedCard) && allMonsters.Count < maxEnemies)
         {
             SpawnMonster(selectedCard);
         }
@@ -247,6 +271,7 @@ public class SpawnDirector : MonoBehaviour
 
         monster.SetActive(true);
         allMonsters.Add(monster);
+        print(allMonsters.Count);
 
 
         SpendCredits(card.creditCost);
@@ -267,7 +292,7 @@ public class SpawnDirector : MonoBehaviour
         {
             // Generate a random position within the spawn radius
             Vector2 randomCircle = Random.insideUnitCircle.normalized * Random.Range(card.innerSpawnRadius, card.outerSpawnRadius);
-            randomPosition = new Vector3(player.position.x + randomCircle.x, player.position.y, player.position.z + randomCircle.y);
+            randomPosition = new Vector3(player.position.x + randomCircle.x, player.position.y + Mathf.Abs( Random.Range(-5 , 25)), player.position.z + randomCircle.y);
 
             //might have to add to the player position thingy
 
@@ -289,56 +314,73 @@ public class SpawnDirector : MonoBehaviour
             attempts++;
         } while (!isValidPosition && attempts < maxAttempts);
 
-        if (!isValidPosition)
+
+
+        if (Physics.Raycast(randomPosition, Vector3.down, out RaycastHit hit, float.PositiveInfinity, groundLayer))
         {
-            Debug.LogWarning("Failed to find a valid spawn position after " + maxAttempts + " attempts.");
-            return randomPosition; 
+            randomPosition = hit.point;
+            print(randomPosition);
+
         }
+
+
 
 
         // move it up slightly
 
         //print(randomPosition);
 
-        if (monster.GetComponent<Collider>())
-        {
-            float distanceToGround = monster.GetComponent<Collider>().bounds.extents.y;
-            randomPosition = new Vector3(randomPosition.x, randomPosition.y + distanceToGround, randomPosition.z);
-        }
-        else
-        {
-            randomPosition = new Vector3(randomPosition.x, randomPosition.y + offset, randomPosition.z);
-        }
+        //if (monster.GetComponent<Collider>())
+        //{
+        //    float distanceToGround = monster.GetComponent<Collider>().bounds.extents.y;
+        //    randomPosition = new Vector3(randomPosition.x, randomPosition.y + distanceToGround, randomPosition.z);
+        //}
+        //else
+        //{
+        //    randomPosition = new Vector3(randomPosition.x, randomPosition.y + offset, randomPosition.z);
+        //}
+
+        randomPosition = new Vector3(randomPosition.x, randomPosition.y + offset, randomPosition.z);
+
+
+        ////print(randomPosition);
+
+        //Vector3 diff = randomPosition - player.transform.position;
+
+        //if(diff.x > 0)
+        //{
+        //    //move left
+        //    randomPosition.x -= spawnOffset2;
+        //}
+        //else
+        //{
+        //    // move right
+        //    randomPosition.x += spawnOffset2;
+        //}
+
+
+        //if(diff.z > 0)
+        //{
+        //    //move back
+        //    randomPosition.z -= spawnOffset2;
+        //}
+        //else
+        //{
+        //    //move foward
+        //    randomPosition.z += spawnOffset2;
+
+        //}
 
         //print(randomPosition);
 
-        Vector3 diff = randomPosition - player.transform.position;
-
-        if(diff.x > 0)
+        if (!isValidPosition)
         {
-            //move left
-            randomPosition.x -= spawnOffset2;
-        }
-        else
-        {
-            // move right
-            randomPosition.x += spawnOffset2;
+            Debug.LogWarning("Failed to find a valid spawn position after " + maxAttempts + " attempts.");
         }
 
 
-        if(diff.z > 0)
-        {
-            //move back
-            randomPosition.z -= spawnOffset2;
-        }
-        else
-        {
-            //move foward
-            randomPosition.z += spawnOffset2;
 
-        }
-
-        print(randomPosition);
+        
 
 
         return randomPosition;
@@ -379,10 +421,29 @@ public class SpawnDirector : MonoBehaviour
     GameObject GetMonsterFromPool(SpawnCard card)
     {
         int index = System.Array.IndexOf(monsterPrefabs, card.gameObject);
-        if (index >= 0 && index < monsterPools.Count && monsterPools[index].Count > 0)
+
+        int attempts = 0;
+        do
         {
-            return monsterPools[index].Dequeue();
+            if (index >= 0 && index < monsterPools.Count && monsterPools[index].Count > 0)
+            {
+                GameObject monster = monsterPools[index].Dequeue();
+                return monster;
+                if (monster.activeInHierarchy)
+                {
+                    monsterPools[index].Enqueue(monster);
+                    attempts++;
+                }
+                else
+                {
+                    return monster;
+                }
+
+
+            }
         }
+        while (attempts < 20);
+        
         return null; // No available monsters in the pool
     }
 
@@ -394,17 +455,12 @@ public class SpawnDirector : MonoBehaviour
     public void RegisterKill(GameObject monster, int type)
     {
 
-        Destroy(monster); //quick fix for now
+        //  Destroy(monster); //quick fix for now       
+
+       
 
 
-        //allMonsters.Remove(monster);
-
-        //monster.SetActive(false);
-        //print("DEAD MONSTER");
-      //  monsterPools[type].Enqueue(monster); // this part is wrong rn
-
-
-     //   StartCoroutine(MonsterDies(monster, type));
+        StartCoroutine(MonsterDies(monster, type));
     }
 
 
@@ -414,10 +470,19 @@ public class SpawnDirector : MonoBehaviour
     // Coroutine to deactivate and return a monster to the pool
     public IEnumerator MonsterDies(GameObject monster, int type)
     {
-       // yield return new WaitForSeconds(0.01f); // if we had die animation, make this longer
+        // yield return new WaitForSeconds(0.01f); // if we had die animation, make this longer
+
+
+
+        //  print(allMonsters.Count);
+        allMonsters.Remove(monster);
+        // print("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+        // print(allMonsters.Count);
+
+
         monster.SetActive(false);
-        print("DEAD MONSTER");
-        monsterPools[type].Enqueue(monster); // may have to alter for multiple scenes lol
+       // print("DEAD MONSTER");
+        monsterPools[type - 1].Enqueue(monster); // may have to alter for multiple scenes lol
        
 
 

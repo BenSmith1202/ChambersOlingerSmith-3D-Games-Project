@@ -5947,7 +5947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175c7b7b14d812544867d9df3fc271a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialLift: 200
+  initialLift: 100
   lifeTime: 25
   explosion: {fileID: 2515118805058980736, guid: b35268c6ce1ab32449284796ac017c6b, type: 3}
 --- !u!114 &2487537752097150934
@@ -5982,8 +5982,8 @@ MonoBehaviour:
   clipSize: 0
   baseMaxHP: 15
   baseRegen: 0
-  baseSpeed: 40
-  baseJumpForce: 60
+  baseSpeed: 60
+  baseJumpForce: 30
   baseAttackDelay: 0.5
   baseDamage: 20
   baseCritChance: 0
@@ -6026,12 +6026,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 1
-  creditCost: 15
+  weight: 0.8
+  creditCost: 10
   minStage: 0
   isFlyer: 0
-  innerSpawnRadius: 18
-  outerSpawnRadius: 35
+  innerSpawnRadius: 25
+  outerSpawnRadius: 60
 --- !u!114 &-980023486028482642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6068,8 +6068,8 @@ MonoBehaviour:
   rarePickup: {fileID: 8762643131521024311, guid: cc2bece9588a69b479dd6e6379944730, type: 3}
   legendaryPickup: {fileID: 444668434626985569, guid: c26ff3b520b99824391dc92d89e0422f, type: 3}
   commonDropChance: 0.09
-  rareDropChance: 0.04
-  legendaryDropChance: 0.01
+  rareDropChance: 0.025
+  legendaryDropChance: 0.005
 --- !u!114 &1590601941428235192
 MonoBehaviour:
   m_ObjectHideFlags: 0

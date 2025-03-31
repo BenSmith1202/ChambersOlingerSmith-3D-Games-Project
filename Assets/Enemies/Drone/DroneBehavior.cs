@@ -21,8 +21,13 @@ public class DroneBehavior : MonoBehaviour
 
     BuffManager bman;
 
+
+    SpawnDirector spawnDirector;
+
     private void Start()
     {
+        spawnDirector = GameObject.FindWithTag("SpawnDirector").GetComponent<SpawnDirector>();
+
         bman = GetComponent<BuffManager>();
         es = GetComponent<EntityStats>();
         if(player == null)
@@ -46,7 +51,8 @@ public class DroneBehavior : MonoBehaviour
     void Die()
     {
         Instantiate(deathExplosion, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        spawnDirector.RegisterKill(gameObject, 3);
+        //Destroy(gameObject);
     }
 
     void Shoot(Vector3 shootDir)

@@ -10,7 +10,7 @@ public class LootPool : MonoBehaviour
     public GameObject legendaryPickup;
 
     [Header("Drop chances (must sum to < 1.0)")]
-    public float commonDropChance = 0.09f;
+    public float commonDropChance = 0.15f;
     public float rareDropChance = 0.04f;
     public float legendaryDropChance = 0.01f;
     // Start is called before the first frame update
@@ -18,27 +18,23 @@ public class LootPool : MonoBehaviour
     public void AttemptLootDrop()
     {
         //make Cumulative distribution function
-        float commonThresh = commonDropChance;
-        float rareThresh = commonThresh + rareDropChance;
-        float legendaryThresh = rareThresh + legendaryDropChance;
-        
-        //pick a random float
-        float val = Random.value;
-        if (val < commonThresh)
+        //float commonThresh = commonDropChance;
+        //float rareThresh = commonThresh + rareDropChance;
+        //float legendaryThresh = rareThresh + legendaryDropChance;
+
+        float roll = Random.value; // Rolls a number between 0 and 1
+
+        if (roll < legendaryDropChance)
         {
-            Instantiate(commonPickup, transform.position, Quaternion.identity);
+            Instantiate(legendaryPickup, transform.position, Quaternion.identity);
         }
-        else if (val < rareThresh)
+        else if (roll < legendaryDropChance + rareDropChance)
         {
             Instantiate(rarePickup, transform.position, Quaternion.identity);
         }
-        else if (val > legendaryThresh)
+        else if (roll < legendaryDropChance + rareDropChance + commonDropChance)
         {
-            Instantiate(legendaryPickup, transform.position, Quaternion.identity);
-        } 
-        else
-        {
-            //drop nothing
+            Instantiate(commonPickup, transform.position, Quaternion.identity);
         }
 
     }

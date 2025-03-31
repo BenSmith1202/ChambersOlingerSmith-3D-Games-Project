@@ -12,15 +12,15 @@ public class LogicManager : MonoBehaviour
 
     [Header("Game State")]
     public int currentStage = 1; // Current stage of the game
-    public float difficultyLevel = 1f; // Current difficulty level
+    public float difficultyLevel = 1; // Current difficulty level
 
     [Header("Playtime Tracking")]
-    private float playtime = 0f; // Total playtime in seconds
-    private bool isPlaytimePaused = false; // Whether the playtime counter is paused
+    public float playtime = 0f; // Total playtime in seconds
+    public bool isPlaytimePaused = false; // Whether the playtime counter is paused
 
     [Header("Difficulty Scaling")]
     public float timePerDifficultyIncrease = 300f; // Time (in seconds) before difficulty increases
-    private float timeSinceLastDifficultyIncrease = 0f; // Tracks time since last difficulty increase
+    public float timeSinceLastDifficultyIncrease = 0f; // Tracks time since last difficulty increase
 
     [Header("Game Over")]
     public float gameOverDelay = 3f; // Time to wait before loading the game over screen
@@ -62,6 +62,7 @@ public class LogicManager : MonoBehaviour
             if (!isPlaytimePaused)
             {
                 playtime += Time.deltaTime; // Increment playtime
+                timeSinceLastDifficultyIncrease += Time.deltaTime;
             }
             yield return null; // Wait for the next frame
         }
@@ -114,6 +115,8 @@ public class LogicManager : MonoBehaviour
     // Difficulty
     #region
 
+    public int numTimeIncreaseEachTime;
+
     // Coroutine to check for difficulty increases
     private IEnumerator CheckDifficultyIncrease()
     {
@@ -123,7 +126,8 @@ public class LogicManager : MonoBehaviour
             {
                 IncreaseDifficulty();
                 timeSinceLastDifficultyIncrease = 0f; // Reset the timer
-                timePerDifficultyIncrease += 5;
+                timePerDifficultyIncrease += numTimeIncreaseEachTime;
+               // print("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHh");
             }
             yield return null; // Wait for the next frame
         }
