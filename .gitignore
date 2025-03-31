@@ -86,3 +86,4 @@ crashlytics-build.properties
 *.prefab
 *.asset
 Assets/Scenes/DavidLevel/LightingData.asset
+Assets/Scenes/DavidLevel/LightingData.asset
