@@ -30,6 +30,8 @@ public class EntityStats : MonoBehaviour
     [SerializeField] private float baseReloadTime;
 
     [SerializeField] private float baseAttackRange;
+    public float regenDelay = 3f;
+    private float regenCountdown = 0f;
 
 
 
@@ -108,6 +110,18 @@ public class EntityStats : MonoBehaviour
 
         SetMaxHP(baseMaxHP);
         SetHP(baseMaxHP);
+    }
+
+    private void Update()
+    {
+        if (regenCountdown > regenDelay)
+        {
+            regenCountdown = 0;
+            Heal(getRegen());
+        } else
+        {
+            regenCountdown += Time.deltaTime;
+        }
     }
 
 
