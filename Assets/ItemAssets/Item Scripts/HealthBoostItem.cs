@@ -19,7 +19,7 @@ public class HealthBoostItem : ItemInstance
 
     public override void OnAcquire(EntityStats stats)
     {
-        Debug.Log("Max Health increased");
+        
         stats.IncreaseMaxHP(20); // increases max hp by 20
     }
 

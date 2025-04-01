@@ -47,13 +47,13 @@ public class Attack
         while (critChance > 0) //while theres a chance for a crit to happen
         {
             //attempt a crit
-            //Debug.Log("Attempting Crit. Chance: " + critChance);
+            Debug.Log("Attempting Crit. Chance: " + critChance);
             if (UnityEngine.Random.value < critChance)
             {
                 //on success, multiply the damage, increment the crit level, and lower the crit chance
                 damage = Mathf.FloorToInt(damage * critMult); 
                 critLevel++;
-                //Debug.Log("CRIT!!! LEVEL: " + critLevel);
+                Debug.Log("CRIT!!! LEVEL: " + critLevel);
                 critChance -= 1f; //if crit chance is over 100%, subtract 100% to get chance for a hyper-crit
                 // TODO: in the future, some kind of feedback for hyper-crits would be nice
             }

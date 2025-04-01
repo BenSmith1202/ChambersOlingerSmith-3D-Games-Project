@@ -14,7 +14,7 @@ public class FreezeItem : ItemInstance
         Attack atk = context.atk;
         if (Random.value < chance*atk.procCoef)
         {
-            Debug.Log("\"Freeze!\" triggered!");
+            
             atk.debuffsToApply.Add(frozenDebuff);
         }
     }

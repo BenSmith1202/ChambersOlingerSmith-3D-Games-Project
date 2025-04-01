@@ -56,10 +56,10 @@ public class PlayerHealthScript : MonoBehaviour
         {
             stats.InflictDamage(other.gameObject.GetComponent<DamageTriggerScript>().GetDamage());
         }
-        if(other.gameObject.GetComponent<KnockBack>())
-        {
-            forcesToRBScript.KnockMeBack(other.gameObject.GetComponent<KnockBack>().GetKnockBack(transform.position));
-        }
+        //if(other.gameObject.GetComponent<KnockBack>())
+        //{
+        //    forcesToRBScript.KnockMeBack(other.gameObject.GetComponent<KnockBack>().GetKnockBack(transform.position));
+        //}
     }
 
 }

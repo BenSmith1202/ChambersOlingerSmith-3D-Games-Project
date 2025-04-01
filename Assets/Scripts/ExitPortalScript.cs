@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitPortalScript : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class ExitPortalScript : MonoBehaviour
     {
         if (logicManager.objectiveComplete && collision.gameObject.GetComponent<PlayerControllerScript>() != null)
         {
-            Debug.Log("You win!!");
+            SceneManager.LoadScene("WinScreen");
         }
 
     }

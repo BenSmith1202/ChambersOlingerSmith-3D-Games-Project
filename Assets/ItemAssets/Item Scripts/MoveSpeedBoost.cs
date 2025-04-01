@@ -18,7 +18,7 @@ public class SpeedBoostItem : ItemInstance
 
     public override void OnAcquire(EntityStats stats)
     {
-        Debug.Log("Move Speed increased");
+        
         stats.speedMod.percent += speedBoost; //linearly increases the move speed
     }
 

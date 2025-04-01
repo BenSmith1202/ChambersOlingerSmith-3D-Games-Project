@@ -271,11 +271,11 @@ public class SpawnDirector : MonoBehaviour
 
         monster.SetActive(true);
         allMonsters.Add(monster);
-        print(allMonsters.Count);
+        //print(allMonsters.Count);
 
 
         SpendCredits(card.creditCost);
-        Debug.Log("Spawned " + monster.name + " for " + card.creditCost + " credits.");
+        //Debug.Log("Spawned " + monster.name + " for " + card.creditCost + " credits.");
 
 
     }
@@ -319,7 +319,7 @@ public class SpawnDirector : MonoBehaviour
         if (Physics.Raycast(randomPosition, Vector3.down, out RaycastHit hit, float.PositiveInfinity, groundLayer))
         {
             randomPosition = hit.point;
-            print(randomPosition);
+            //print(randomPosition);
 
         }
 
@@ -396,7 +396,7 @@ public class SpawnDirector : MonoBehaviour
 
         if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, float.PositiveInfinity, groundLayer))
         {
-            print("YAY");
+            //print("YAY");
             return true;
 
         }

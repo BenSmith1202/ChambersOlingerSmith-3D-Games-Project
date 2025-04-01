@@ -20,7 +20,7 @@ public class ExtendoMagItem : ItemInstance
 
     public override void OnAcquire(EntityStats stats)
     {
-        Debug.Log("Clip size increased");
+       
         stats.clipSize += clipSizeBoost; // increases clip size
         stats.reloadTimeMod.percent += this.reloadTimeMult; //+40% reload time stacking linearly
     }

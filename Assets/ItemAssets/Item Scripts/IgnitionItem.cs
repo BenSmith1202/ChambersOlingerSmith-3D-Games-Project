@@ -14,7 +14,7 @@ public class IgnitionItem : ItemInstance
         Attack atk = context.atk;
         if (Random.value < chance*atk.procCoef)
         {
-            Debug.Log("Ignition triggered!");
+            
             atk.debuffsToApply.Add(burningDebuff);
         }
     }

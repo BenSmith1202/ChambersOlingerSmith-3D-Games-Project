@@ -18,7 +18,7 @@ public class AtkSpdBoostItem : ItemInstance
 
     public override void OnAcquire(EntityStats stats)
     {
-        Debug.Log("Attack Speed increased");
+       
         stats.attackDelayMod.mult *= speedBoost; // 20% logarithmically increases the attack speed
     }
 
