@@ -29,7 +29,7 @@ public class DamageNumbers : MonoBehaviour
                 }
                 else if(gameObject.GetComponent<Collider>())
                 {
-                    tallPoint = gameObject.GetComponent<Collider>().bounds.size.y * gameObject.transform.localScale.y;
+                    tallPoint = gameObject.GetComponent<Collider>().bounds.size.y * 2;
                 }
                 else
                 {
