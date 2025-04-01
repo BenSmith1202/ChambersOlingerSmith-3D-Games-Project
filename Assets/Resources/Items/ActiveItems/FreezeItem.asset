@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: FreezeItem
   m_EditorClassIdentifier: 
   itemName: Freeze!
-  description: x% chance to freeze and enemy on hit
+  description: 20% chance to freeze and enemy on hit
   icon: {fileID: 21300000, guid: 06365e3fce7b8384b955421de2ca9638, type: 3}
   rarityIndex: 1
   frozenDebuff: {fileID: 5373008418051070434, guid: f25055a391a4e8c409c6776c04bcd201, type: 3}
-  chance: 0.5
+  chance: 0.2

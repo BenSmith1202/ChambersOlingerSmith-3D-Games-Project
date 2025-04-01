@@ -4879,7 +4879,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   maxDuration: 5
   currentDuration: 0
-  maxTickDelay: 0.5
+  maxTickDelay: 0.4
   currentTickDelay: 0
   inflictSound: {fileID: 8300000, guid: 48bd4a3cc0c2d904bb3c0d18db6b5bbe, type: 3}
   soundVolume: 0.8
