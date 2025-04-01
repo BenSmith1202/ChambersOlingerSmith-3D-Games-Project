@@ -24,7 +24,7 @@ public class PlayerHealthScript : MonoBehaviour
     {
         if (stats.currentHP <= 0)
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene("DeathScreen");
         }
 
         //DEBUG TOOLS

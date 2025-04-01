@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ExtendoMag
   m_EditorClassIdentifier: 
   itemName: Extendo-Mag
-  description: +6 bullets per magazine\n but  1.4x reload time.
+  description: +6 bullets per magazine
   icon: {fileID: 21300000, guid: 0fe3c52667542a74086bacb64a2a1a7a, type: 3}
   rarityIndex: 0
   clipSizeBoost: 6
-  reloadTimeMult: 1.4
+  reloadTimeMult: 1

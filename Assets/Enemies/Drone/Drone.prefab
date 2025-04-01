@@ -169,6 +169,7 @@ Transform:
   - {fileID: 3683108127143098891}
   - {fileID: 6942356041907739287}
   - {fileID: 5622422782550636877}
+  - {fileID: 5694129219694511675}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &714912989665284162
@@ -607,6 +608,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dba2178498fc78e419f075ba82290932, type: 3}
   m_PrefabInstance: {fileID: 3789706718868053472}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5228438538540622288
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 398422534711872804}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+      propertyPath: m_Name
+      value: Mini_Drone_Set_1_Red_00
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+--- !u!4 &5694129219694511675 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b811922f47a01e9479c9a47c3db6b4e1, type: 3}
+  m_PrefabInstance: {fileID: 5228438538540622288}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8670262489557092793
 PrefabInstance:

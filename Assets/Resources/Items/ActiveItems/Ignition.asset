@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Ignition
   m_EditorClassIdentifier: 
   itemName: Ignition
-  description: 8% chance to ignite targets.
+  description: 20% chance to ignite targets.
   icon: {fileID: 21300000, guid: 709ae7fffa1b8114d9d480f8311295a8, type: 3}
   rarityIndex: 1
   burningDebuff: {fileID: 8867730340774451478, guid: d5edf5f7cbf1c6a42ad1cc1480a214c4, type: 3}
-  chance: 0.33
+  chance: 0.2

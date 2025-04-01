@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DeathBlast
   m_EditorClassIdentifier: 
   itemName: Death Blast
-  description: On kill, chance to create an explosion dealing 60% of the fatal damage.
+  description: On kill, chance to create an explosion dealing 85% of the fatal damage.
   icon: {fileID: 21300000, guid: ffdb4b1178b1d194b9e6e7e8a9728dc0, type: 3}
   rarityIndex: 1
-  chance: 0.33
+  chance: 0.25
   radius: 6
-  totalDamagePercent: 0.6
+  totalDamagePercent: 0.85
   explosionEffect: {fileID: 2546277938415727522, guid: 1afeb9574308fc74d8966cc9b80979e8, type: 3}
