@@ -13,6 +13,9 @@ public class DroneBehavior : MonoBehaviour
     [SerializeField] float tooCloseDistance;
     [SerializeField] GameObject deathExplosion;
 
+    [SerializeField] AudioClip laser;
+    AudioSource audSource;
+
     [SerializeField] GameObject droneBulletPrefab;
 
     EntityStats es;
@@ -26,8 +29,12 @@ public class DroneBehavior : MonoBehaviour
 
     private void Start()
     {
-        spawnDirector = GameObject.FindWithTag("SpawnDirector").GetComponent<SpawnDirector>();
+        if(GameObject.FindWithTag("SpawnDirector"))
+        {
+            spawnDirector = GameObject.FindWithTag("SpawnDirector").GetComponent<SpawnDirector>();
+        }
 
+        audSource = gameObject.GetComponent<AudioSource>();
         bman = GetComponent<BuffManager>();
         es = GetComponent<EntityStats>();
         if(player == null)
@@ -38,6 +45,7 @@ public class DroneBehavior : MonoBehaviour
         StartCoroutine(SustainFlight());
         StartCoroutine(HorzMovement());
         StartCoroutine(TryShooting());
+        StartCoroutine(FacePlayer());
     }
 
     private void FixedUpdate()
@@ -51,14 +59,23 @@ public class DroneBehavior : MonoBehaviour
     void Die()
     {
         Instantiate(deathExplosion, transform.position, Quaternion.identity);
-        spawnDirector.RegisterKill(gameObject, 3);
-        //Destroy(gameObject);
+        if(spawnDirector != null)
+        {
+            spawnDirector.RegisterKill(gameObject, 3);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Shoot(Vector3 shootDir)
     {
 
         // Create bullet particle
+
+        audSource.PlayOneShot(laser);
+
         GameObject bulletPart = Instantiate(
             droneBulletPrefab,
             transform.position + shootDir.normalized,
@@ -85,6 +102,16 @@ public class DroneBehavior : MonoBehaviour
         }
 
         Destroy(bulletPart.gameObject, 2f);
+    }
+
+    IEnumerator FacePlayer()
+    {
+        while(true)
+        {
+            Vector3 directionToTarget = player.transform.position - transform.position;
+            transform.rotation = Quaternion.LookRotation(new Vector3(directionToTarget.x, 0, directionToTarget.z), Vector3.up);
+            yield return null;
+        }
     }
 
     IEnumerator TryShooting()
@@ -166,16 +193,16 @@ public class DroneBehavior : MonoBehaviour
             Debug.DrawRay(transform.position, transform.up * 2, Color.green, 0.1f);
             Debug.DrawRay(transform.position, -transform.up * (desiredHeight + 1), Color.green, 0.1f);
 
-            if (hit.collider)
+            if (hitUp.collider)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, -es.getSpeed(), rb.velocity.z);
+            }
+            else if (hit.collider)
             {
                 //needs to go up
                 rb.velocity = new Vector3(rb.velocity.x, es.getSpeed(), rb.velocity.z);
             }
             else if(!reach.collider)
-            {
-                rb.velocity = new Vector3(rb.velocity.x, -es.getSpeed(), rb.velocity.z);
-            }
-            else if(hitUp.collider)
             {
                 rb.velocity = new Vector3(rb.velocity.x, -es.getSpeed(), rb.velocity.z);
             }
