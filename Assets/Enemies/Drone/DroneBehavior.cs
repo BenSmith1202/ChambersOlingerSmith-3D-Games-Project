@@ -125,7 +125,7 @@ public class DroneBehavior : MonoBehaviour
                 //Warn player of shooting
                 Vector3 directionToTarget = player.transform.position - transform.position;
 
-                yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(0.25f);
                 Shoot(directionToTarget);
             }
             yield return new WaitForSeconds(Random.Range(es.getAtkDelay(), es.getAtkDelay() + 1));

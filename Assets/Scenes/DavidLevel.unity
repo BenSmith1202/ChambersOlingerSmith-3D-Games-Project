@@ -7387,7 +7387,7 @@ MonoBehaviour:
   monsterPrefabs:
   - {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
   - {fileID: 7799675103629853881, guid: c75bfdeff461e6a4383bbd377d40caec, type: 3}
-  - {fileID: 8262415954816589675, guid: 443546e4c7634074d990679e9d6145fe, type: 3}
+  - {fileID: 4797563026775887576, guid: 443546e4c7634074d990679e9d6145fe, type: 3}
   player: {fileID: 931609901}
   groundLayer:
     serializedVersion: 2

@@ -8816,13 +8816,14 @@ MonoBehaviour:
   baseRegen: 0
   baseSpeed: 8
   baseJumpForce: 0
-  baseAttackDelay: 1
+  baseAttackDelay: 0.8
   baseDamage: 10
   baseCritChance: 0
   baseRange: 100
   baseKB: 0
   baseReloadTime: 0
   baseAttackRange: 2
+  regenDelay: 3
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
