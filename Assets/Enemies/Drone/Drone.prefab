@@ -340,7 +340,7 @@ MonoBehaviour:
   awarenessDistance: 40
   tooCloseDistance: 15
   deathExplosion: {fileID: 2515118805058980736, guid: 3dbaed66e8a6a4d4eb54b88d8963a561, type: 3}
-  laser: {fileID: 8300000, guid: c50a064a92ed3b2498a82c0e3d085f96, type: 3}
+  laser: {fileID: 8300000, guid: 20c291dc9f6f5fa4aadefe3e3bb0d476, type: 3}
   droneBulletPrefab: {fileID: 1671159810974329337, guid: 7f1cd11ceccb5ee44bd7c8e3979a9e2c, type: 3}
 --- !u!114 &6139391425327367890
 MonoBehaviour:
