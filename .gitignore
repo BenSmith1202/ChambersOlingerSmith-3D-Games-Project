@@ -87,3 +87,15 @@ crashlytics-build.properties
 *.asset
 Assets/Scenes/DavidLevel/LightingData.asset
 Assets/Scenes/DavidLevel/LightingData.asset
+Assets/Scenes/DavidLevel/LightingData.asset
+Assets/Scenes/DavidLevel/LightingData.asset.meta
+Assets/Scenes/DavidLevel/Lightmap-0_comp_dir.png
+Assets/Scenes/DavidLevel/Lightmap-1_comp_dir.png
+Assets/Scenes/DavidLevel/Lightmap-2_comp_dir.png
+Assets/Scenes/DavidLevel/Lightmap-3_comp_dir.png
+Assets/Scenes/DavidLevel/Lightmap-4_comp_dir.png
+Assets/Scenes/DavidLevel/Lightmap-5_comp_dir.png
+Assets/Scenes/DavidLevel/Lightmap-6_comp_dir.png
+Assets/Scenes/DavidLevel/Lightmap-7_comp_dir.png
+Assets/Scenes/DavidLevel/ReflectionProbe-0.exr
+Assets/Scenes/DavidLevel/ReflectionProbe-0.exr.meta
