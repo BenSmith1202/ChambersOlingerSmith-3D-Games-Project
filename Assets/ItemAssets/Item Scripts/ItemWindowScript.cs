@@ -147,7 +147,7 @@ public class ItemWindowScript : MonoBehaviour
             if (item != null)
             {
                 allItems.Add(item);
-                Debug.Log("Loaded item: " + item.name);
+                //Debug.Log("Loaded item: " + item.name);
             }
         }
 

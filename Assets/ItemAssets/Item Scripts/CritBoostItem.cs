@@ -17,8 +17,8 @@ public class CritBoostItem : ItemInstance
 
     public override void OnAcquire(EntityStats stats)
     {
-        stats.critChanceMod.percent += critBoost; // increases crit chance linearly
-        Debug.Log("Crit chance increased to " + stats.critChanceMod);
+        stats.critChanceMod.flat += critBoost; // increases crit chance linearly
+        Debug.Log("Crit chance increased to " + stats.getCritChance());
     }
 
     // does the inverse of the method above

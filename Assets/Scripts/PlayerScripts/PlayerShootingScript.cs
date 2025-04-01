@@ -101,6 +101,7 @@ public class PlayerShootingScript : MonoBehaviour
                 if(hitData.collider.gameObject.CompareTag("Enemy"))
                 {
                     // make a new attack object
+                    Debug.Log("Current Crit Chance: " + stats.getCritChance());
                     Attack bulletHit = new Attack(gameObject, stats.getDamage(), 
                         stats.getCritChance(), stats.getKnockback(), gunProcCoeff); //Proc Coefficient of 1 means use default item odds.
 
@@ -108,7 +109,7 @@ public class PlayerShootingScript : MonoBehaviour
                     bman.TriggerOnHitEffects(hitData.collider.gameObject, bulletHit);
 
                     // apply damage
-                    Debug.Log("Damage: " + bulletHit.damage);
+                    //Debug.Log("Damage: " + bulletHit.damage);
                     hitData.collider.gameObject.GetComponent<EntityStats>().TakeHit(bulletHit);
 
                     //TODO: apply knockback

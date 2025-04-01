@@ -10,9 +10,9 @@ public class LootPool : MonoBehaviour
     public GameObject legendaryPickup;
 
     [Header("Drop chances (must sum to < 1.0)")]
-    public float commonDropChance = 0.15f;
-    public float rareDropChance = 0.04f;
-    public float legendaryDropChance = 0.01f;
+    public float commonDropChance = 0.2f;
+    public float rareDropChance = 0.07f;
+    public float legendaryDropChance = 0.02f;
     // Start is called before the first frame update
 
     public void AttemptLootDrop()

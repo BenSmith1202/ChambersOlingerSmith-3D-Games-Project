@@ -13,7 +13,7 @@ public class ExampleOnHitItem : ItemInstance
         Attack atk = context.atk;
         if (Random.value < chance*atk.procCoef)
         {
-            Debug.Log("ExampleOnHit triggered!");
+            
             // Do something here
         }
     }

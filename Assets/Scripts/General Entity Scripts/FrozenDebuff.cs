@@ -24,7 +24,11 @@ public class FrozenDebuff : BuffInstance
             Debug.LogWarning("There is an Orphaned Buff!");
             Destroy(gameObject);
         }
-        stats = bmanager.stats;
+        stats = parent.GetComponent<EntityStats>();
+        if (stats == null)
+        {
+            OnRemove();
+        }
     }
 
     public override void OnApply()
@@ -32,19 +36,32 @@ public class FrozenDebuff : BuffInstance
         AudioSource.PlayClipAtPoint(inflictSound, transform.position, soundVolume);
         float prevSpeed = stats.speedMod.mult;
         stats.speedMod.mult = 0f;
-        rb.velocity = Vector3.zero;
+        if (rb != null) 
+        {
+            rb.velocity = Vector3.zero;
+            rb.drag = 10f;
+        }
+
+        
         // Ow im frozen. play a sound effect
     }
     public override void OnTick()
     {
 
-        rb.velocity = Vector3.zero;
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+        }
 
     }
     public override void OnRemove()
     {
         //DESTROY! IMPORTANT!
-        stats.speedMod.mult += prevSpeed;
+        if (rb != null)
+        {
+            rb.drag = 0;
+        }
+        stats.speedMod.mult = 1; //TODO: Fix later
         Destroy(gameObject);
     }
 

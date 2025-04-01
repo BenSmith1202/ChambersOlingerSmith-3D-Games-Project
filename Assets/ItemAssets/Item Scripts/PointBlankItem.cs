@@ -21,7 +21,7 @@ public class PointBlankItem : ItemInstance
         //if target is within [radius] meters of the player, multiply damage by [damageMult].
         if (Vector3.Distance(myself.transform.position, target.transform.position) < radius)
         {
-            Debug.Log("Point Blank!");
+            
             atk.damage = Mathf.FloorToInt(atk.damage * damageMult);
         }
 

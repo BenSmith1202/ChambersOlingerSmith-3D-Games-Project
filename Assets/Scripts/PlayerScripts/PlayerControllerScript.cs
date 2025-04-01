@@ -595,7 +595,7 @@ public class PlayerControllerScript : MonoBehaviour
      **/
     {
         //trigger on ability use effects
-        Debug.Log("Triggering Ability Use Effects");
+        //Debug.Log("Triggering Ability Use Effects");
         buffManager.TriggerOnAbilityEffects(gameObject);
 
         MovementState prevMoveState = movementState; // save previous move state
