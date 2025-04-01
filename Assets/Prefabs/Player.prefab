@@ -579,12 +579,13 @@ MonoBehaviour:
   baseKB: 0
   baseReloadTime: 1.5
   baseAttackRange: 0
+  regenDelay: 2
   crouchSpeed: 3
   wallrunForce: 4
   maxWallTime: 1.5
   wallrunSpeed: 10
   grappleRange: 40
-  baseGrappleCooldownTime: 2
+  baseGrappleCooldownTime: 4
   grappleForce: 1
   grappleStretch: 3
   grappleReelSpeed: 5
