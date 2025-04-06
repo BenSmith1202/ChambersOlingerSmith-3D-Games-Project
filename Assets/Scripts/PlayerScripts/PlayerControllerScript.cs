@@ -17,7 +17,7 @@ public class PlayerControllerScript : MonoBehaviour
     public float airDrag;       // Drag applied when in the air
     public float airMultiplier; // Multiplier for movement speed while in the air
     public float airSpeedCap;
-    float speed = 5f;           // Base movement speed
+    public float speed = 5f;           // Base movement speed
     public MovementState movementState;  // Tracks the player's current movement state
 
     [Header("Jumping")]
@@ -25,14 +25,6 @@ public class PlayerControllerScript : MonoBehaviour
   
     public float jumpDelay;     // Delay between consecutive jumps
     bool readyToJump = true;    // Whether the player can jump again
-
-
-    [Header("Crouching")]
-
-    
-    public float startYScale;   // Original Y scale of the player
-    public float crouchYScale;  // Y scale while crouching
-    public float crouchForce;   // Downward force applied when crouching
 
 
     [Header("Slope Movement")]
@@ -46,7 +38,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     public float playerHeight;  // Height of the player collider
     public LayerMask groundLayer;  // Layer mask used to determine what is considered ground
-    bool grounded = false;      // Whether the player is on the ground
+    public bool grounded = false;      // Whether the player is on the ground
 
 
     [Header("Wallrunning")]
@@ -71,6 +63,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     [Header("Grappling")] //DOES NOT WORK ON MOVING OBJECTS
     float grappleCooldown = 0;
+    public float minimumGrappleLen = 1f;
 
     public bool isGrappled;     // true iff grapple button is held down and a successful grapple is in progress
     
@@ -96,7 +89,7 @@ public class PlayerControllerScript : MonoBehaviour
     private CapsuleCollider _collider;  // Reference to the player's CapsuleCollider component
     private Vector2 moveVal;    // Stores movement input values
     //private InputAction sprintAction;  // Reference to the sprint input action
-    private InputAction crouchAction;  // Reference to the crouch input action
+    
     private InputAction dashAction;
     private InputAction grappleAction;
     Vector3 moveDirection;      // Calculated movement direction
@@ -104,6 +97,7 @@ public class PlayerControllerScript : MonoBehaviour
     public GameObject cam;
     CameraControllerScript camScript;
     PlayerShootingScript gunScript;
+    SlidingScript slidingScript;
     AudioSource audioSource;
 
     [Header("Particles")]
@@ -131,10 +125,9 @@ public class PlayerControllerScript : MonoBehaviour
         _collider = GetComponent<CapsuleCollider>();
         _rbody = GetComponent<Rigidbody>();
         //sprintAction = GetComponent<PlayerInput>().actions["Sprint"]; // Get the sprint input action
-        crouchAction = GetComponent<PlayerInput>().actions["Crouch"]; // Get the crouch input action
         grappleAction = GetComponent<PlayerInput>().actions["Grapple"]; // Get the grapple input action
         dashAction = GetComponent<PlayerInput>().actions["Dash"]; // Get the crouch input action
-        startYScale = transform.localScale.y; // Store the original Y scale of the player
+        slidingScript = GetComponent<SlidingScript>();
         camScript = cam.GetComponent<CameraControllerScript>();
         gunScript = GameObject.FindWithTag("PlayerGun").GetComponent<PlayerShootingScript>();
         lineRenderer.enabled = false;
@@ -208,21 +201,13 @@ public class PlayerControllerScript : MonoBehaviour
             movementState = MovementState.swinging;
         }
         // PRIORITY 1: Crouching - Highest priority state when grounded
-        else if (crouchAction.IsPressed() && grounded && !inputPaused)
+        else if (slidingScript.isCrouching)
         {
-            // Modify player scale and apply downward force if entering crouch state
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            if (movementState != MovementState.crouching)
-            {
-                _rbody.AddForce(new Vector3(0, -crouchForce, 0), ForceMode.Impulse);
-            }
-            movementState = MovementState.crouching;
-            speed = stats.crouchSpeed;
+            
+            // im crouching
         }
         else
         {
-            // Reset player scale when not crouching
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
 
             // PRIORITY 2: Wallrunning - Requires specific conditions
             if ((wallLeft || wallRight) && moveVal.y > 0.1f && AboveGround())
@@ -279,7 +264,8 @@ public class PlayerControllerScript : MonoBehaviour
         switch (movementState)
         {
             case MovementState.crouching:
-                _rbody.AddForce(movementForce * stats.crouchSpeed, ForceMode.Force);
+                //handled in sliding script
+                slidingScript.HandleCrouching(movementForce);
                 break;
 
             case MovementState.running:
@@ -380,9 +366,11 @@ public class PlayerControllerScript : MonoBehaviour
     private void ControlMovementSpeed()
     {
 
+
         Vector3 xzVel = new(_rbody.velocity.x, 0f, _rbody.velocity.z);
 
-        if (xzVel.magnitude > speed && movementState != MovementState.swinging && movementState != MovementState.freefall && movementState != MovementState.dashing)
+        if (xzVel.magnitude > speed && movementState != MovementState.swinging && movementState != MovementState.freefall && 
+            movementState != MovementState.dashing && movementState != MovementState.crouching)
         {
             Vector3 cappedVel = xzVel.normalized * speed;
             _rbody.velocity = new Vector3(cappedVel.x, _rbody.velocity.y, cappedVel.z);
@@ -576,8 +564,18 @@ public class PlayerControllerScript : MonoBehaviour
                 _rbody.AddForce(100f * distanceBeyondMaxLength * stats.grappleForce * forceDirection / stats.grappleStretch, ForceMode.Force);
             }
 
-            // reel in grapple rope over time
-            grappleLength -= Time.fixedDeltaTime * stats.grappleReelSpeed;
+            // reel in grapple rope over time (auto reel if the player approaches the grapple point) up to the minimum distance
+            float currentDistance = Vector3.Distance(transform.position, currentGrapplePoint);
+            if (grappleLength > minimumGrappleLen)
+            {
+                if (Vector3.Distance(transform.position, currentGrapplePoint) < grappleLength)
+                {
+                    grappleLength = Vector3.Distance(transform.position, currentGrapplePoint);
+                }
+                grappleLength -= Time.fixedDeltaTime * stats.grappleReelSpeed;
+            }
+            
+
         }
         //when player stops grappling, turn off rope renderer.
         lineRenderer.positionCount = 0;
@@ -607,14 +605,16 @@ public class PlayerControllerScript : MonoBehaviour
         camScript.DashZoom();
         _rbody.useGravity = false;
 
+        float oldGroundDrag = groundDrag;
         // as long as the time hasn't run out and the player hasnt caused another movement state (by grappling or hitting a wall/floor)
         while (movementState == MovementState.dashing && dashTime > 0f)
         {
+            groundDrag = airDrag;
             _rbody.velocity = stats.midDashSpeed * dashDirection; //dash in the direction of the camera
             dashTime -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
-
+        groundDrag = oldGroundDrag;
         camScript.ResetCameraEffects(false);
         _rbody.useGravity = true;
 
