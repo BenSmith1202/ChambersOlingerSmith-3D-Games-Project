@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 67139383068182319}
   - component: {fileID: 8355442499066621832}
   - component: {fileID: 4495783194088618276}
+  - component: {fileID: 3393732724641709508}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -306,17 +307,16 @@ MonoBehaviour:
   airDrag: 0.3
   airMultiplier: 0.6
   airSpeedCap: 0
+  speed: 5
   movementState: 0
   jumpDelay: 0.2
-  startYScale: 0
-  crouchYScale: 0.5
-  crouchForce: 10
   maxSlopeAngle: 30
   slopeCling: 20
   playerHeight: 2.6
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  grounded: 0
   wallLayer:
     serializedVersion: 2
     m_Bits: 384
@@ -325,6 +325,7 @@ MonoBehaviour:
   wallrunGravityCounter: 0.9
   wallCheckDist: 0.7
   minJumpHeight: 2
+  minimumGrappleLen: 2.5
   isGrappled: 0
   currentGrapplePoint: {x: 0, y: 0, z: 0}
   grappleSound: {fileID: 8300000, guid: 7387fca94790dd74aa39923e6aa085ec, type: 3}
@@ -585,13 +586,13 @@ MonoBehaviour:
   wallrunForce: 4
   maxWallTime: 1.5
   wallrunSpeed: 10
-  grappleRange: 40
+  grappleRange: 50
   baseGrappleCooldownTime: 4
   grappleForce: 1
   grappleStretch: 3
-  grappleReelSpeed: 5
-  grappleYankPercentDistance: 0.8
-  swingSpeed: 2
+  grappleReelSpeed: 11
+  grappleYankPercentDistance: 0.87
+  swingSpeed: 2.5
   maxSwingVelocity: 25
   baseDashCooldownTime: 5
   dashDuration: 0.21
@@ -645,6 +646,24 @@ MonoBehaviour:
   mantleSpeedReduction: 0.8
   mantleHeight: 2
   isMantleing: 0
+--- !u!114 &3393732724641709508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141110455235164122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd78a5b9702dd64c93ba35fdf41bc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startYScale: 2
+  crouchYScale: 0.5
+  crouchForce: 4
+  slideBoost: 15
+  slideDrag: 0.5
+  isCrouching: 0
 --- !u!1 &6859197254743463637
 GameObject:
   m_ObjectHideFlags: 0
