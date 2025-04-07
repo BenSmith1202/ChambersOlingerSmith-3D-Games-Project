@@ -25,6 +25,16 @@ public class MantleingScript : MonoBehaviour
 
     void Start()
     {
+        if (cam == null && GameObject.Find("Main Camera").GetComponent<Camera>())
+        {
+            print("Found main camera");
+            cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        }
+        else
+        {
+            Debug.LogError("The player cannot find a camera for it's manteling script.");
+        }
+
         rb = GetComponent<Rigidbody>();
         maxSlopeAngle = GetComponent<PlayerControllerScript>().maxSlopeAngle;
         playerHeight = GetComponent<CapsuleCollider>().height;

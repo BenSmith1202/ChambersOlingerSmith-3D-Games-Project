@@ -6,6 +6,8 @@ using UnityEngine.InputSystem.HID;
 
 public class MeleeOfficerScript : MonoBehaviour
 {
+    [SerializeField] bool debug = false;
+
     [SerializeField] GameObject target;
 
     [SerializeField] int angleCheckDelta = 30;
@@ -79,8 +81,12 @@ public class MeleeOfficerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        directionToTarget = (target.transform.position - transform.position).normalized;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 200 * Time.fixedDeltaTime);
+        if (decisionRange == Range.aware || decisionRange == Range.inRange)
+        {
+            directionToTarget = (target.transform.position - transform.position).normalized;
+            targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
+            transform.rotation = targetRotation;
+        }
         if (Vector3.Distance(target.transform.position, transform.position) > visibilityDistance)
         {
             decisionRange = Range.unaware;
@@ -180,7 +186,7 @@ public class MeleeOfficerScript : MonoBehaviour
         while (decisionRange == Range.inRange)
         {
             animator.SetInteger("State", (int)AnimState.idle);
-            targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
+            //targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
             yield return new WaitForSeconds(es.getAtkDelay());
 
             animator.SetInteger("State", (int)AnimState.attack);
@@ -204,8 +210,8 @@ public class MeleeOfficerScript : MonoBehaviour
             //Quaternion targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
             //StartCoroutine(RotateTowardsDirection(GetXZDirectionToPlayer()));
 
-            targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 500 * Time.deltaTime);
+            //targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 500 * Time.deltaTime);
 
             rb.velocity = new Vector3(directionToTarget.normalized.x * es.getSpeed(), rb.velocity.y, directionToTarget.normalized.z * es.getSpeed());
             yield return null;
@@ -245,12 +251,25 @@ public class MeleeOfficerScript : MonoBehaviour
             {
                 yield break;
             }
-           // Debug.DrawRay(transform.position, forward * wallCheckDistance, Color.white, 0.1f);
+            if(debug) Debug.DrawRay(transform.position, forward * wallCheckDistance, Color.white, 0.1f);
+
             rb.velocity = new Vector3(transform.forward.normalized.x * es.getSpeed(), rb.velocity.y, transform.forward.normalized.z * es.getSpeed());
             forward = transform.forward;
             yield return null;
         }
+
+        yield return StartCoroutine(RotateForTime());
+    }
+
+    IEnumerator RotateForTime()
+    {
         targetRotation = Quaternion.LookRotation(GetFarthestDistanceDirection());
+        while(Mathf.Abs(transform.rotation.y - targetRotation.y) > 0.0001f)
+        {
+            //wait
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 200 * Time.deltaTime);
+            yield return null;
+        }
     }
 
     /*
@@ -270,7 +289,8 @@ public class MeleeOfficerScript : MonoBehaviour
         Vector3 bestDirection = forward;
         float maxDistanceFound;
 
-        //Debug.DrawRay(origin, forward * maxDistance, Color.green, 3f);
+        if(debug) Debug.DrawRay(origin, forward * maxDistance, Color.green, 3f);
+
         if (Physics.Raycast(origin, forward, out hit, maxDistance))
         {
             maxDistanceFound = hit.distance;
@@ -283,7 +303,7 @@ public class MeleeOfficerScript : MonoBehaviour
 
         for(int i = angleCheckDelta; i <= 360; i += angleCheckDelta)
         {
-           // Debug.DrawRay(origin, Quaternion.Euler(0, i, 0) * forward * maxDistance, Color.green, 10f);
+            if(debug) Debug.DrawRay(origin, Quaternion.Euler(0, i, 0) * forward * maxDistance, Color.green, 10f);
             if (Physics.Raycast(origin, Quaternion.Euler(0, i, 0) * forward, out hit, maxDistance))
             {
                 if(hit.distance > maxDistanceFound)
@@ -300,7 +320,7 @@ public class MeleeOfficerScript : MonoBehaviour
             }
         }
 
-        //Debug.DrawRay(origin, forward * maxDistance, Color.red, 10f);
+        if(debug) Debug.DrawRay(origin, forward * maxDistance, Color.red, 10f);
 
         return bestDirection;
     }

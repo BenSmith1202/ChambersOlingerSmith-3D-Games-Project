@@ -52,8 +52,8 @@ GameObject:
   - component: {fileID: 4394491249280515169}
   - component: {fileID: 67139383068182319}
   - component: {fileID: 8355442499066621832}
-  - component: {fileID: 4495783194088618276}
-  - component: {fileID: 3393732724641709508}
+  - component: {fileID: 8962055895653135598}
+  - component: {fileID: 270715978429910888}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -625,7 +625,7 @@ MonoBehaviour:
   onAbilityEffects: []
   onHPEffects: []
   buffs: []
---- !u!114 &4495783194088618276
+--- !u!114 &8962055895653135598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -634,36 +634,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 5141110455235164122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0e3b070bafb13f4f8359d528669b007, type: 3}
+  m_Script: {fileID: 11500000, guid: c0f3e82e724f0364db804fe4fb99e82f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startYScale: 0
+  crouchYScale: 0
+  crouchForce: 0
+  slideBoost: 0
+  slideDrag: 0
+  isCrouching: 0
+--- !u!114 &270715978429910888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141110455235164122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5600829f42ab19d4db52825ba8ec36b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mantleLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   cam: {fileID: 0}
   mantleCastLength: 1.5
-  mantleForce: 7
+  mantleForce: 0.2
   mantleSpeedReduction: 0.8
-  mantleHeight: 2
+  mantleHeight: 0.5
   isMantleing: 0
---- !u!114 &3393732724641709508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5141110455235164122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bd78a5b9702dd64c93ba35fdf41bc57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startYScale: 2
-  crouchYScale: 0.5
-  crouchForce: 4
-  slideBoost: 15
-  slideDrag: 0.5
-  isCrouching: 0
 --- !u!1 &6859197254743463637
 GameObject:
   m_ObjectHideFlags: 0
