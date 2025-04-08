@@ -251,13 +251,7 @@ public class PlayerControllerScript : MonoBehaviour
     private void HandleMovement()
     {
         // PRIORITY 1: Slope Movement - Special physics handling
-        if (OnSlopeCheck())
-        {
-            _rbody.AddForce(10f * speed * GetSlopeDirection(), ForceMode.Force);
-            _rbody.AddForce(slopeCling * -slopeCast.normal, ForceMode.Force);
-            _rbody.useGravity = false;
-            return;
-        }
+        
 
         // Movement force application based on current state
         Vector3 movementForce = 10f * moveDirection.normalized;
@@ -269,7 +263,15 @@ public class PlayerControllerScript : MonoBehaviour
                 break;
 
             case MovementState.running:
-                _rbody.AddForce(movementForce * speed, ForceMode.Force);
+                if (OnSlopeCheck())
+                {
+                    _rbody.AddForce(10 * speed * GetSlopeDirection().normalized, ForceMode.Force);
+                    _rbody.AddForce(slopeCling * -slopeCast.normal, ForceMode.Force);
+                    _rbody.useGravity = false;
+                } else
+                {
+                    _rbody.AddForce(movementForce * speed, ForceMode.Force);
+                }
                 break;
 
             case MovementState.wallrunning:
