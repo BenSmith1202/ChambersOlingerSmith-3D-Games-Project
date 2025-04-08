@@ -44161,13 +44161,7 @@ PrefabInstance:
     - {fileID: 270715978429910888, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5141110455235164122, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 931609920}
-    - targetCorrespondingSourceObject: {fileID: 5141110455235164122, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 931609919}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
 --- !u!1 &931609900 stripped
 GameObject:
@@ -44189,45 +44183,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5141110455235164122, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
   m_PrefabInstance: {fileID: 931609899}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &931609919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 931609903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75150fcb024e9f14aabd4fb8fb4b4fc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startYScale: 0
-  crouchYScale: 0
-  crouchForce: 0
-  slideBoost: 0
-  slideDrag: 0
-  isCrouching: 0
---- !u!114 &931609920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 931609903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f45b1436078e9e4d874475f3ba2ba9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mantleLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  cam: {fileID: 0}
-  mantleCastLength: 1.5
-  mantleForce: 0.2
-  mantleSpeedReduction: 0.8
-  mantleHeight: 0.5
-  isMantleing: 0
 --- !u!43 &937526826
 Mesh:
   m_ObjectHideFlags: 0
