@@ -29,8 +29,7 @@
 [Aa]ssets/[Ll]ight[Mm]apping/
 *.lighting
 *.gilightmap
-*.exr
-*.meta
+*.exrs
 
 # Visual Studio cache directory
 .vs/
