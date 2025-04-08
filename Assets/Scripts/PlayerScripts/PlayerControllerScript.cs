@@ -598,6 +598,11 @@ public class PlayerControllerScript : MonoBehaviour
         //Debug.Log("Triggering Ability Use Effects");
         buffManager.TriggerOnAbilityEffects(gameObject);
 
+        float oldGroundDrag = groundDrag; // save old drag
+        float oldAirDrag = airDrag;
+        airDrag = 0; // kill air drag
+        groundDrag = 0; // kill ground drag
+
         MovementState prevMoveState = movementState; // save previous move state
         movementState = MovementState.dashing;       // start dashing
         float dashTime = stats.dashDuration;               //start dash timer
@@ -607,7 +612,7 @@ public class PlayerControllerScript : MonoBehaviour
         camScript.DashZoom();
         _rbody.useGravity = false;
 
-        float oldGroundDrag = groundDrag;
+        
         // as long as the time hasn't run out and the player hasnt caused another movement state (by grappling or hitting a wall/floor)
         while (movementState == MovementState.dashing && dashTime > 0f)
         {
@@ -617,6 +622,7 @@ public class PlayerControllerScript : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         groundDrag = oldGroundDrag;
+        airDrag = oldAirDrag;
         camScript.ResetCameraEffects(false);
         _rbody.useGravity = true;
 

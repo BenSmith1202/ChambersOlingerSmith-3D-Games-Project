@@ -44164,6 +44164,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1089903841}
     - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
+      propertyPath: slopeCling
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577933587212121728, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
       propertyPath: grappleIcon
       value: 
       objectReference: {fileID: 1089903840}

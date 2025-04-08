@@ -449,6 +449,7 @@ MonoBehaviour:
   gunshot: {fileID: 8300000, guid: 808ce192330e8d848a4bf39dc422ee88, type: 3}
   reloadSound: {fileID: 8300000, guid: 5a17e84dcbc1c884f86fa0b20fb6a946, type: 3}
   bulletParticlePrefab: {fileID: 1671159810974329337, guid: c49fa370f85d6ae458acadf72309cc49, type: 3}
+  clipText: {fileID: 0}
   gunProcCoeff: 1
   isReloading: 0
 --- !u!120 &4394491249280515169
@@ -595,8 +596,8 @@ MonoBehaviour:
   swingSpeed: 2.5
   maxSwingVelocity: 25
   baseDashCooldownTime: 5
-  dashDuration: 0.21
-  midDashSpeed: 60
+  dashDuration: 0.25
+  midDashSpeed: 50
   postDashSpeedReduction: 0.85
   dashLaunchSpeed: 15
   buffManager: {fileID: 0}
@@ -640,7 +641,7 @@ MonoBehaviour:
   startYScale: 2
   crouchYScale: 0.5
   crouchForce: 4
-  slideBoost: 15
+  slideBoost: 1.7
   slideDrag: 0.4
   isCrouching: 0
 --- !u!114 &3463934358757673736
@@ -657,7 +658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mantleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   cam: {fileID: 0}
   mantleCastLength: 1.5
   mantleForce: 7.5
