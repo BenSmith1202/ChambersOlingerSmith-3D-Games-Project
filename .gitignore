@@ -80,11 +80,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-*.lighting
-*.meta
-*.asset
-*.prefab
-*.asset
 Assets/Scenes/DavidLevel/LightingData.asset
 Assets/Scenes/DavidLevel/LightingData.asset
 Assets/Scenes/DavidLevel/LightingData.asset
