@@ -15,8 +15,9 @@ public class SlidingScript : MonoBehaviour
     public float startYScale;   // Original Y scale of the player
     public float crouchYScale;  // Y scale while crouching
     public float crouchForce;   // Downward force applied when crouching
-    public float slideBoost;
-    public float slideDrag;
+    float slideForce;
+    public float slideBoost;//what fraction of movement speed is applied as a boost on slide
+    public float slideDrag; 
     private float groundDrag;
     private InputAction crouchAction;  // Reference to the crouch input action
     public bool isCrouching;
@@ -32,6 +33,7 @@ public class SlidingScript : MonoBehaviour
         pcs = GetComponent<PlayerControllerScript>();
         stats = GetComponent<EntityStats>();
         rb = GetComponent<Rigidbody>();
+        slideForce = stats.getSpeed() * slideBoost;
     }
 
     private void Update()
@@ -53,7 +55,7 @@ public class SlidingScript : MonoBehaviour
                 if (pcs.grounded)  //push player into the ground
                 {
                     rb.AddForce(new Vector3(0, -crouchForce, 0), ForceMode.Impulse);
-                    rb.AddForce(pcs.orientation.transform.forward * slideBoost, ForceMode.VelocityChange);
+                    rb.AddForce(pcs.orientation.transform.forward * slideForce, ForceMode.VelocityChange);
                 }
                 groundDrag  = pcs.groundDrag; //save old drag
                 pcs.groundDrag = slideDrag; //use new drag
