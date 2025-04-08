@@ -660,9 +660,9 @@ MonoBehaviour:
     m_Bits: 0
   cam: {fileID: 0}
   mantleCastLength: 1.5
-  mantleForce: 0.2
+  mantleForce: 7.5
   mantleSpeedReduction: 0.8
-  mantleHeight: 0.5
+  mantleHeight: 1.9
   isMantleing: 0
 --- !u!1 &6859197254743463637
 GameObject:
