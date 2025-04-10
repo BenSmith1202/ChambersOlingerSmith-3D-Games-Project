@@ -22,7 +22,7 @@ public class PlayerShootingScript : MonoBehaviour
     Animator gunAnimator;
     AudioSource audioSource;
     public GameObject bulletParticlePrefab;
-    //public TMP_Text clipText;
+    public TMP_Text clipText;
     Image reloadRing;
 
     [Header("Shooting")]
@@ -37,6 +37,7 @@ public class PlayerShootingScript : MonoBehaviour
 
     public void Start()
     {
+        
         stats = GetComponent<EntityStats>();
         bman = GetComponent<BuffManager>();
         audioSource = GetComponent<AudioSource>();
@@ -48,7 +49,8 @@ public class PlayerShootingScript : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerControllerScript = player.GetComponent<PlayerControllerScript>();
         clip = stats.clipSize;
-        //clipText.SetText("" + clip);
+        clipText.SetText("" + clip);
+      
     }
 
     public void Update()
@@ -176,7 +178,7 @@ public class PlayerShootingScript : MonoBehaviour
     public void ChangeClipAmmo(int deltaAmmo)
     {
         clip += deltaAmmo;
-        //clipText.SetText("" + clip);
+        clipText.SetText("" + clip);
     }
 
 
@@ -201,6 +203,14 @@ public class PlayerShootingScript : MonoBehaviour
 
             isReloading = false;
             reloadRing.fillAmount = 0;
+        }
+    }
+
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        if (context.started && clip < stats.clipSize && !isReloading && shootCooldown < 0)
+        {
+            StartCoroutine(ReloadCoroutine(stats.getReloadTime()));
         }
     }
 
