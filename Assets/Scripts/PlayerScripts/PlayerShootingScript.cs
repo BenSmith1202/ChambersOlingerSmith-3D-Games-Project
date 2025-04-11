@@ -49,7 +49,14 @@ public class PlayerShootingScript : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerControllerScript = player.GetComponent<PlayerControllerScript>();
         clip = stats.clipSize;
-        clipText.SetText("" + clip);
+        if(clipText != null)
+        {
+            clipText.SetText("" + clip);
+        }
+        else
+        {
+            Debug.LogError("clipText object on player shooting script has not been set.");
+        }
       
     }
 
@@ -178,7 +185,8 @@ public class PlayerShootingScript : MonoBehaviour
     public void ChangeClipAmmo(int deltaAmmo)
     {
         clip += deltaAmmo;
-        clipText.SetText("" + clip);
+        if(clipText != null)
+            clipText.SetText("" + clip);
     }
 
 
