@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
-  showDamage: 0
+  showDamage: 1
   canvasScript: {fileID: 0}
 --- !u!54 &6942083557541399246
 Rigidbody:
@@ -343,6 +343,7 @@ MonoBehaviour:
   deathExplosion: {fileID: 2515118805058980736, guid: 3dbaed66e8a6a4d4eb54b88d8963a561, type: 3}
   laser: {fileID: 0}
   droneBulletPrefab: {fileID: 1671159810974329337, guid: 7f1cd11ceccb5ee44bd7c8e3979a9e2c, type: 3}
+  shootDelay: 0.1
 --- !u!114 &5964090296251258794
 MonoBehaviour:
   m_ObjectHideFlags: 0

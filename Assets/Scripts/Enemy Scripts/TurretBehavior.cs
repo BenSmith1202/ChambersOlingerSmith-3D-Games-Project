@@ -4,11 +4,10 @@ using UnityEngine;
 public class TurretBehavior : MonoBehaviour
 {
     [Header("Targeting Settings")]
-    [SerializeField] private Transform player;
+    [SerializeField] private GameObject player;
     [SerializeField] private float awarenessDistance = 30f;
     [SerializeField] private LayerMask obstructionLayers;
-    [SerializeField] private Color aimingColor = Color.red;
-    [SerializeField] private Color lockedOnColor = Color.green;
+    [SerializeField] private Color laserSightColor = new Color(1f, 0f, 0f, 0.6f); // Reduced opacity to 0.6
 
     [Header("Attack Settings")]
     [SerializeField] private float aimTime = 1.5f;
@@ -16,74 +15,58 @@ public class TurretBehavior : MonoBehaviour
     [SerializeField] private float fireRate = 10f;
     [SerializeField] private float attackDuration = 3f;
 
-    [Header("Visuals")]
-    [SerializeField] private LineRenderer aimLine;
+    [Header("Effects")]
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private AudioClip shootingSound;
+    [SerializeField] private GameObject deathExplosion;
     [SerializeField] private Transform muzzlePoint;
 
-    private EntityStats stats;
+    // Component references
+    private EntityStats entityStats;
     private BuffManager buffManager;
+    private AudioSource audioSource;
+    private SpawnDirector spawnDirector;
+    private LineRenderer laserSight;
+
+    // State tracking
     private Coroutine attackRoutine;
     private bool isAttacking = false;
     private bool hasLineOfSight = false;
 
-
-    public GameObject deathExplosion;
-    private SpawnDirector spawnDirector;
-
     private void Start()
     {
-        spawnDirector = GameObject.FindWithTag("SpawnDirector").GetComponent<SpawnDirector>();
-
-        stats = GetComponent<EntityStats>();
+        entityStats = GetComponent<EntityStats>();
         buffManager = GetComponent<BuffManager>();
+        audioSource = GetComponent<AudioSource>();
 
-        if (player == null)
+        if (player == null) player = GameObject.FindWithTag("Player");
+
+        GameObject spawnDirectorObj = GameObject.FindWithTag("SpawnDirector");
+        if (spawnDirectorObj != null)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            spawnDirector = spawnDirectorObj.GetComponent<SpawnDirector>();
         }
 
-        InitializeAimLine();
+        // Setup laser sight
+        laserSight = gameObject.AddComponent<LineRenderer>();
+        laserSight.startWidth = 0.05f;
+        laserSight.endWidth = 0.05f;
+        laserSight.material = new Material(Shader.Find("Unlit/Color"))
+        {
+            color = laserSightColor,
+            renderQueue = 3000 // Make it render on top
+        };
+        laserSight.positionCount = 2;
+        laserSight.enabled = false;
+
         StartCoroutine(TargetingRoutine());
     }
 
-
-
-    private void Update()
+    private void FixedUpdate()
     {
-        if (stats.isDead) //TODO: Replace with messages or something
+        if (entityStats != null && entityStats.isDead)
         {
             Die();
-        }
-    }
-
-
-
-    void Die()
-    {
-        Instantiate(deathExplosion, transform.position, Quaternion.identity);
-
-        if (spawnDirector != null)
-        {
-            spawnDirector.RegisterKill(gameObject, 3);
-
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-
-
-    private void InitializeAimLine()
-    {
-        if (aimLine == null)
-        {
-            aimLine = gameObject.AddComponent<LineRenderer>();
-            aimLine.startWidth = 0.05f;
-            aimLine.endWidth = 0.05f;
-            aimLine.material = new Material(Shader.Find("Unlit/Color")) { color = aimingColor };
-            aimLine.positionCount = 2;
         }
     }
 
@@ -91,87 +74,65 @@ public class TurretBehavior : MonoBehaviour
     {
         while (true)
         {
-            if (player == null || stats.isDead)
+            if (player == null || entityStats.isDead)
             {
-                aimLine.enabled = false;
+                laserSight.enabled = false;
                 yield return null;
                 continue;
             }
 
-            // Calculate direction to player
-            Vector3 directionToPlayer = (player.position - transform.position).normalized;
-            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            bool playerInRange = distanceToPlayer <= awarenessDistance;
 
-            // Face the player (y-axis only)
-            transform.rotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
-
-            // Perform raycast check
-            RaycastHit hit;
-            bool canSeePlayer = Physics.Raycast(
-                muzzlePoint.position,
-                directionToPlayer,
-                out hit,
-                distanceToPlayer,
-                obstructionLayers
-            );
-
-            // Update line of sight status
-            hasLineOfSight = !canSeePlayer || hit.collider.transform == player;
-
-            // Update aim line visuals
-            UpdateAimLineVisuals(directionToPlayer, distanceToPlayer);
-
-            // Handle attack state
-            if (distanceToPlayer <= awarenessDistance && hasLineOfSight)
+            if (playerInRange)
             {
+                // Always face the player, whether attacking or not
+                Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+                Quaternion targetRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+
                 if (!isAttacking)
                 {
-                    attackRoutine = StartCoroutine(AttackSequence());
+                    // Check line of sight only when not attacking
+                    RaycastHit hit;
+                    bool canSeePlayer = Physics.Raycast(
+                        muzzlePoint.position,
+                        directionToPlayer,
+                        out hit,
+                        distanceToPlayer,
+                        obstructionLayers
+                    );
+
+                    hasLineOfSight = !canSeePlayer || hit.collider.gameObject == player;
+
+                    // Update laser sight
+                    laserSight.enabled = hasLineOfSight;
+                    if (hasLineOfSight)
+                    {
+                        laserSight.SetPosition(0, muzzlePoint.position);
+                        laserSight.SetPosition(1, player.transform.position);
+                    }
+
+                    // Start attack if we have line of sight
+                    if (hasLineOfSight)
+                    {
+                        attackRoutine = StartCoroutine(AttackSequence());
+                    }
                 }
             }
             else
             {
-                if (isAttacking)
-                {
-                    StopCoroutine(attackRoutine);
-                    isAttacking = false;
-                }
+                laserSight.enabled = false;
             }
 
             yield return null;
         }
     }
 
-    private void UpdateAimLineVisuals(Vector3 direction, float distance)
-    {
-        if (aimLine == null) return;
-
-        aimLine.enabled = true;
-        aimLine.SetPosition(0, muzzlePoint.position);
-
-        if (hasLineOfSight)
-        {
-            aimLine.material.color = lockedOnColor;
-            aimLine.SetPosition(1, muzzlePoint.position + direction * distance);
-        }
-        else
-        {
-            aimLine.material.color = aimingColor;
-            RaycastHit hit;
-            if (Physics.Raycast(muzzlePoint.position, direction, out hit, distance, obstructionLayers))
-            {
-                aimLine.SetPosition(1, hit.point);
-            }
-            else
-            {
-                aimLine.SetPosition(1, muzzlePoint.position + direction * distance);
-            }
-        }
-    }
-
     private IEnumerator AttackSequence()
     {
         isAttacking = true;
+        laserSight.enabled = false; // Disable laser when attacking
 
         // Aiming phase
         float aimTimer = 0f;
@@ -209,28 +170,60 @@ public class TurretBehavior : MonoBehaviour
     {
         if (player == null) return;
 
+        // Create visual effect
+        if (bulletPrefab != null)
+        {
+            Vector3 directionToPlayer = (player.transform.position - muzzlePoint.position).normalized;
+            GameObject bullet = Instantiate(
+                bulletPrefab,
+                muzzlePoint.position + directionToPlayer,
+                Quaternion.LookRotation(directionToPlayer)
+            );
+            Destroy(bullet, 2f);
+        }
+
+        // Play sound
+        if (shootingSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(shootingSound);
+        }
+
         // Create attack instance
         Attack turretAttack = new Attack(
             gameObject,
             Mathf.FloorToInt(damagePerShot),
-            stats.getCritChance(),
-            stats.getKnockback(),
+            entityStats.getCritChance(),
+            entityStats.getKnockback(),
             1f
         );
 
         // Apply damage
         player.GetComponent<EntityStats>().TakeHit(turretAttack);
-        buffManager.TriggerOnHitEffects(player.gameObject, turretAttack);
+        buffManager.TriggerOnHitEffects(player, turretAttack);
+    }
 
-        // Visual feedback
-        Debug.DrawLine(muzzlePoint.position, player.position, Color.yellow, 0.1f);
+    private void Die()
+    {
+        if (deathExplosion != null)
+        {
+            Instantiate(deathExplosion, transform.position, Quaternion.identity);
+        }
+
+        if (spawnDirector != null)
+        {
+            spawnDirector.RegisterKill(gameObject, 3);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnDisable()
     {
-        if (aimLine != null)
+        if (laserSight != null)
         {
-            aimLine.enabled = false;
+            laserSight.enabled = false;
         }
     }
 }

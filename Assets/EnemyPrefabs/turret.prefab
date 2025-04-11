@@ -345,15 +345,15 @@ MonoBehaviour:
   obstructionLayers:
     serializedVersion: 2
     m_Bits: 128
-  aimingColor: {r: 0, g: 0.16467714, b: 1, a: 1}
-  lockedOnColor: {r: 1, g: 0.04307412, b: 0, a: 1}
-  aimTime: 3
-  damagePerShot: 1
-  fireRate: 5
+  laserSightColor: {r: 1, g: 0, b: 0, a: 1}
+  aimTime: 4
+  damagePerShot: 5
+  fireRate: 1.4
   attackDuration: 3
-  aimLine: {fileID: 0}
-  muzzlePoint: {fileID: 5546841162574955639}
+  bulletPrefab: {fileID: 1671159810974329337, guid: 7f1cd11ceccb5ee44bd7c8e3979a9e2c, type: 3}
+  shootingSound: {fileID: 8300000, guid: 20c291dc9f6f5fa4aadefe3e3bb0d476, type: 3}
   deathExplosion: {fileID: 2515118805058980736, guid: 3dbaed66e8a6a4d4eb54b88d8963a561, type: 3}
+  muzzlePoint: {fileID: 5546841162574955639}
 --- !u!114 &779963817666718991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  stats: {fileID: 779963817666718991}
   allItems: []
   statBoosts: []
   onHitEffects: []
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 1
-  creditCost: 1
+  creditCost: 29
   minStage: 0
   isFlyer: 0
   isRanged: 1
@@ -455,9 +455,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b2ff0ae6cdafc04aa8606ae25e490f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commonPickup: {fileID: 0}
-  rarePickup: {fileID: 0}
-  legendaryPickup: {fileID: 0}
+  commonPickup: {fileID: 651290665991317019, guid: 03246238f195a90438eb18cf434d93e9, type: 3}
+  rarePickup: {fileID: 8762643131521024311, guid: cc2bece9588a69b479dd6e6379944730, type: 3}
+  legendaryPickup: {fileID: 444668434626985569, guid: c26ff3b520b99824391dc92d89e0422f, type: 3}
   commonDropChance: 0.2
   rareDropChance: 0.07
   legendaryDropChance: 0.02
@@ -595,7 +595,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
