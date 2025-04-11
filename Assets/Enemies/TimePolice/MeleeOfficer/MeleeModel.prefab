@@ -8690,7 +8690,6 @@ GameObject:
   - component: {fileID: 2982147887397403111}
   - component: {fileID: 7143408101704081279}
   - component: {fileID: 1142737465254858358}
-  - component: {fileID: -4167227849657637475}
   - component: {fileID: -1327113750644742347}
   m_Layer: 0
   m_Name: MeleeModel
@@ -8927,20 +8926,6 @@ MonoBehaviour:
   oneShotSounds: {fileID: 7094566122066683257}
   whoosh: {fileID: 8300000, guid: 34a5f28f7d19fac4c9673d6ce4959361, type: 3}
   impact: {fileID: 8300000, guid: 9c30ed9155791964bac3be77854b13bb, type: 3}
---- !u!114 &-4167227849657637475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7799675103629853881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17870704cc73b3447a0358f650ed9aa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  maxDistance: 100
 --- !u!114 &-1327113750644742347
 MonoBehaviour:
   m_ObjectHideFlags: 0

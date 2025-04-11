@@ -30,7 +30,7 @@ public class MantleingScript : MonoBehaviour
             print("Found main camera");
             cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         }
-        else
+        else if(cam == null)
         {
             Debug.LogError("The player cannot find a camera for it's manteling script.");
         }
