@@ -8859,10 +8859,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 1.5
-  creditCost: 15
+  weight: 1
+  creditCost: 16
   minStage: 0
   isFlyer: 0
+  isRanged: 0
   innerSpawnRadius: 18
   outerSpawnRadius: 70
 --- !u!114 &2982147887397403111
@@ -8912,6 +8913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d783230d50f7840b8de4c3c91617fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   target: {fileID: 0}
   angleCheckDelta: 30
   minWalkTimeLimit: 2

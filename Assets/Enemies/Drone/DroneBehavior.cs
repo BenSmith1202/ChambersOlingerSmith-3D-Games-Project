@@ -59,9 +59,11 @@ public class DroneBehavior : MonoBehaviour
     void Die()
     {
         Instantiate(deathExplosion, transform.position, Quaternion.identity);
-        if(spawnDirector != null)
+
+        if (spawnDirector != null)
         {
             spawnDirector.RegisterKill(gameObject, 3);
+
         }
         else
         {
