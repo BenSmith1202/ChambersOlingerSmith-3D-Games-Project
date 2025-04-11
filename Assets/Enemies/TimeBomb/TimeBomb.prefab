@@ -5873,9 +5873,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b69ab7dc4a09f094885bf950a65c44c3, type: 3}
       insertIndex: -1
       addedObject: {fileID: -6648205672862305287}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b69ab7dc4a09f094885bf950a65c44c3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1590601941428235192}
   m_SourcePrefab: {fileID: 100100000, guid: b69ab7dc4a09f094885bf950a65c44c3, type: 3}
 --- !u!4 &4703448632437160086 stripped
 Transform:
@@ -5991,6 +5988,7 @@ MonoBehaviour:
   baseKB: 10
   baseReloadTime: 1
   baseAttackRange: 0
+  regenDelay: 3
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
@@ -6070,17 +6068,3 @@ MonoBehaviour:
   commonDropChance: 0.09
   rareDropChance: 0.025
   legendaryDropChance: 0.005
---- !u!114 &1590601941428235192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5336151141367865900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17870704cc73b3447a0358f650ed9aa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  maxDistance: 100
