@@ -30,7 +30,7 @@ public class ItemPickupScript : MonoBehaviour
             return;
         }
 
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && Time.timeScale == 1f)
         {
             itemWindowScript.OpenWindow(rarity);
             Destroy(gameObject);

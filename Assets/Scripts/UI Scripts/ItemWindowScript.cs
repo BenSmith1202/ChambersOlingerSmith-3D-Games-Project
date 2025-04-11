@@ -19,12 +19,14 @@ public class ItemWindowScript : MonoBehaviour
     public List<GameObject> itemCards = new List<GameObject>(); //should be 3 of these
 
     public GameObject tint;
+    LogicManager logicManager;
+    InventoryDisplayUI inventoryDisplay;
     GameObject cam;
     GameObject player;
 
     void Start()
     {
-        
+        inventoryDisplay = GameObject.FindGameObjectWithTag("InventoryDisplay").GetComponent<InventoryDisplayUI>();
         allItems = new List<ItemInstance>();
         commonItems = new List<ItemInstance>();
         rareItems = new List<ItemInstance>();
@@ -33,11 +35,18 @@ public class ItemWindowScript : MonoBehaviour
 
         cam = GameObject.FindGameObjectWithTag("MainCamera");
         player = GameObject.FindGameObjectWithTag("Player");
+        logicManager = GameObject.FindGameObjectWithTag("LogicManager").GetComponent<LogicManager>();
     }
 
     public void OpenWindow(int rarity)
     {
-        Time.timeScale = 0;
+        ItemTooltipSystem.HideTooltip();
+        if (inventoryDisplay != null)
+        {
+            inventoryDisplay.HideItemDisplay();
+        }
+
+        logicManager.StartTimeSlowdown();
         //UnlockMouse
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -57,7 +66,7 @@ public class ItemWindowScript : MonoBehaviour
 
     public void CloseWindow()
     {
-        Time.timeScale = 1;
+        logicManager.StartTimeSpeedUp();
         tint.SetActive(false);
         //LockMouse
         Cursor.lockState = CursorLockMode.Locked;
