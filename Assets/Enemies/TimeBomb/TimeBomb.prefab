@@ -6025,9 +6025,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 0.8
-  creditCost: 10
+  creditCost: 14
   minStage: 0
   isFlyer: 0
+  isRanged: 0
   innerSpawnRadius: 25
   outerSpawnRadius: 60
 --- !u!114 &-980023486028482642
