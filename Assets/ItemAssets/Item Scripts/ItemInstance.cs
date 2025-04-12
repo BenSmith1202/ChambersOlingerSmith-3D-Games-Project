@@ -78,9 +78,16 @@ public class Rarity
 
 public class Rarities
 {
-    public static Rarity common = new Rarity { rarityName = "COMMON", rarityColor = Color.white, rarityDropChance = 0.75f, rarityIndex = 0};
-    public static Rarity rare = new Rarity { rarityName = "RARE", rarityColor = Color.cyan, rarityDropChance = 0.23f, rarityIndex = 1};
-    public static Rarity legendary = new Rarity { rarityName = "LEGENDARY", rarityColor = Color.yellow, rarityDropChance = 0.02f, rarityIndex = 2};
+    [SerializeField]
+    public static Color commonColor = new Color(0.62f, 0.62f, 0.6f);
+    [SerializeField]
+    public static Color rareColor = new Color(0.2f, 0.9f, 0.6f);
+    [SerializeField]
+    public static Color legendaryColor = new Color(0.8f, 0f, 0f);
+
+    public static Rarity common = new Rarity { rarityName = "COMMON", rarityColor = commonColor, rarityDropChance = 0.75f, rarityIndex = 0};
+    public static Rarity rare = new Rarity { rarityName = "RARE", rarityColor = rareColor, rarityDropChance = 0.23f, rarityIndex = 1};
+    public static Rarity legendary = new Rarity { rarityName = "LEGENDARY", rarityColor = legendaryColor, rarityDropChance = 0.02f, rarityIndex = 2};
     public static List<Rarity> allRarities = new List<Rarity> { common, rare, legendary };
 }
 #endregion

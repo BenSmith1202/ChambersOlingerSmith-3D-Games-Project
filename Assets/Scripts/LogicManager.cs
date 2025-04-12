@@ -21,9 +21,24 @@ public class LogicManager : MonoBehaviour
     [Header("Difficulty Scaling")]
     public float timePerDifficultyIncrease = 300f; // Time (in seconds) before difficulty increases
     public float timeSinceLastDifficultyIncrease = 0f; // Tracks time since last difficulty increase
+    public int numTimeIncreaseEachTime;
 
     [Header("Game Over")]
     public float gameOverDelay = 3f; // Time to wait before loading the game over screen
+
+    [Header("Slowdown Settings")]
+    [SerializeField] private float slowdownDuration = 2f; // Time taken to slow to a stop
+    [SerializeField] private float targetTimeScale = 0.1f; // Minimum time scale (0 = full stop, 0.1 = very slow)
+
+    [Header("Speed-Up Settings")]
+    [SerializeField] private float speedUpDuration = 1f; // Time taken to return to normal speed
+
+    [SerializeField] GameObject pauseMenu;
+    [SerializeField] ItemWindowScript itemWindowScript; // Reference to the item window script
+    InventoryDisplayUI inventoryDisplayUI; // Reference to the inventory display UI
+
+    private Coroutine currentTimeCoroutine;
+    public bool isTimeSlowed = false; // Whether time is currently slowed
 
 
     private void Awake()
@@ -45,14 +60,13 @@ public class LogicManager : MonoBehaviour
         StartCoroutine(CountPlaytime()); // Start tracking playtime
         StartCoroutine(CheckDifficultyIncrease()); // Start checking for difficulty increases
 
+        inventoryDisplayUI = GameObject.FindGameObjectWithTag("InventoryDisplay").GetComponent<InventoryDisplayUI>();
+
     }
 
 
     // TIME
     #region
-
-
-
 
     // Coroutine to count playtime
     private IEnumerator CountPlaytime()
@@ -107,6 +121,50 @@ public class LogicManager : MonoBehaviour
     }
 
 
+    //TIME SCALING
+
+    // Call this to start slowing time
+    public void StartTimeSlowdown()
+    {
+        isTimeSlowed = true; // Set the flag to indicate time is slowed
+        if (currentTimeCoroutine != null)
+            StopCoroutine(currentTimeCoroutine);
+
+        currentTimeCoroutine = StartCoroutine(SmoothTimeScale(Time.timeScale, targetTimeScale, slowdownDuration));
+    }
+
+    // Call this to start speeding time back up
+    public void StartTimeSpeedUp()
+    {
+        isTimeSlowed = false; // Reset the flag
+        if (currentTimeCoroutine != null)
+            StopCoroutine(currentTimeCoroutine);
+
+        currentTimeCoroutine = StartCoroutine(SmoothTimeScale(Time.timeScale, 1f, speedUpDuration));
+    }
+
+    // Smoothly transitions timeScale from `start` to `end` over `duration` seconds
+    private IEnumerator SmoothTimeScale(float start, float end, float duration)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime; // Use unscaledDeltaTime since Time.timeScale is changing
+            float t = Mathf.Clamp01(elapsed / duration);
+            Time.timeScale = Mathf.Lerp(start, end, t);
+            yield return null;
+        }
+
+        Time.timeScale = end; // Ensure exact target
+    }
+
+    // Optional: Reset time scale when disabled (prevents accidental slowdowns)
+    private void OnDisable()
+    {
+        //Time.timeScale = 1f;
+    }
+
 
     #endregion
 
@@ -115,7 +173,6 @@ public class LogicManager : MonoBehaviour
     // Difficulty
     #region
 
-    public int numTimeIncreaseEachTime;
 
     // Coroutine to check for difficulty increases
     private IEnumerator CheckDifficultyIncrease()
@@ -143,11 +200,47 @@ public class LogicManager : MonoBehaviour
 
     #endregion
 
+    // THIS CODE IS HORRIFYING!!!!!!!!!!!!!!
+    //I KNOW IT IS
+    // IT WORKS FOR NOW BUT SOON WE WILL NEED A STATE MACHINE FOR WINDOWS
+    public void PauseGame(bool pause) 
+    {
+        if (pause)
+        {
+            isTimeSlowed = true;
+            Time.timeScale = 0f; // Pause the game
+            pauseMenu.SetActive(true); // Show the pause menu
+            PausePlaytime(); // Pause playtime tracking
+            ItemTooltipSystem.HideTooltip(); // Hide any active tooltips
+            inventoryDisplayUI.ShowItemDisplay(); ;// show the inventory UI
 
+        }
+        else
+        {
+            
+            inventoryDisplayUI.HideItemDisplay(); // Hide the inventory UI
+            ItemTooltipSystem.HideTooltip(); // Hide any active tooltips
+            pauseMenu.SetActive(false); // Hide the pause menu
+            ResumePlaytime(); // Resume playtime tracking
 
+            if (itemWindowScript == null || !itemWindowScript.isOpen)
+            {
+                Cursor.lockState = CursorLockMode.Locked; // Lock the cursor
+                Cursor.visible = false; // Hide the cursor
+                inventoryDisplayUI.cam.GetComponent<CameraControllerScript>().camLock = false;
+                
+                Time.timeScale = 1f; // Resume the game
+                if (isTimeSlowed) 
+                { 
+                    isTimeSlowed = false;
 
+                    StartTimeSpeedUp(); // Speed up time if it was slowed
+                }
+            }
+            
 
-
+        }
+    }
 
 
 
