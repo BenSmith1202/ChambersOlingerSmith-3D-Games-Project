@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8576670714101168655}
   - component: {fileID: 5644925721173198520}
   - component: {fileID: 8428936196465124107}
+  - component: {fileID: 4553139396513177995}
   m_Layer: 7
   m_Name: Lever_Prefab
   m_TagString: Enemy
@@ -116,7 +117,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -220,6 +221,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &4553139396513177995
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2575938327731363396}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.37, y: 1, z: 1.81}
+  m_Center: {x: 0, y: 1.26, z: 0}
 --- !u!1 &7727883797297684363
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +339,6 @@ GameObject:
   - component: {fileID: 6744138384960208247}
   - component: {fileID: 5240167562397193625}
   - component: {fileID: 6890041081231960125}
-  - component: {fileID: 3047661622204197992}
   m_Layer: 7
   m_Name: Lever
   m_TagString: Enemy
@@ -413,24 +434,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &3047661622204197992
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8547448563377378517}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.12, y: 0.1, z: 0.36}
-  m_Center: {x: 0.000000007450581, y: 0.0000009597462, z: 0.14874427}
