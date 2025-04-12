@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 
@@ -53,6 +54,7 @@ public class MantleingScript : MonoBehaviour
         {
             Debug.Log("Applying mantle force");
             rb.velocity = new Vector3(rb.velocity.x, mantleForce, rb.velocity.z);
+            rb.AddForce(transform.forward * 2, ForceMode.VelocityChange); //pushes the player onto the ledge to avoid hovering
         }
     }
 
@@ -60,30 +62,36 @@ public class MantleingScript : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space)) //TODO: Turn this into a new input system based approach
         {
-            //fire out a raycast from your toes to see if you are standing in front of a wall
-            Vector3 mantleDirection = Quaternion.Euler(maxSlopeAngle, 0 , 0) * cam.transform.forward ;
-            Vector3 toesPosition = transform.position - new Vector3(0, 0.5f * playerHeight, 0);
+            // Get the forward direction based on camera rotation (on the horizontal plane)
+            Vector3 flatForward = Quaternion.Euler(0, cam.transform.rotation.eulerAngles.y, 0) * Vector3.forward;
 
-            if (Physics.Raycast(toesPosition, mantleDirection, out var firstHit, 1f, mantleLayer))
+            // Apply a consistent upward angle to the forward direction
+            // This creates a direction that points up at the maxSlopeAngle from the horizontal plane
+            Vector3 mantleDirection = Quaternion.AngleAxis(maxSlopeAngle, Vector3.Cross(flatForward, Vector3.up).normalized) * flatForward;
+
+            Vector3 toesPosition = transform.position - new Vector3(0, 0.5f * playerHeight, 0); //assumes player's center is in the middle
+
+            if (Physics.Raycast(toesPosition, mantleDirection, out var firstHit, mantleCastLength, mantleLayer))
             {
-                Debug.DrawRay(toesPosition, mantleDirection, Color.green, 0.02f);
-                if (!Physics.Raycast(toesPosition + new Vector3(0, mantleHeight, 0), cam.transform.forward, 1f, mantleLayer))
-                {
-                    Debug.DrawRay(toesPosition + new Vector3(0, mantleHeight, 0), cam.transform.forward, Color.green, 0.02f);
-                    isMantleing = true;
+                Debug.DrawRay(toesPosition, mantleDirection * mantleCastLength, Color.green, 0.02f);
 
+                // Second check is there clearance above?
+                if (!Physics.Raycast(toesPosition + new Vector3(0, mantleHeight, 0), flatForward, mantleCastLength, mantleLayer))
+                {
+                    Debug.DrawRay(toesPosition + new Vector3(0, mantleHeight, 0), flatForward * mantleCastLength, Color.green, 0.02f);
+                    isMantleing = true;
                 }
                 else
                 {
                     isMantleing = false;
+                    Debug.DrawRay(toesPosition + new Vector3(0, mantleHeight, 0), flatForward * mantleCastLength, Color.red, 0.02f);
                 }
-                Debug.DrawRay(toesPosition + new Vector3(0, mantleHeight, 0), cam.transform.forward, Color.red, 0.02f);
                 return;
             }
             else
             {
                 isMantleing = false;
-                Debug.DrawRay(toesPosition, mantleDirection, Color.red, 0.02f);
+                Debug.DrawRay(toesPosition, mantleDirection * mantleCastLength, Color.red, 0.02f);
             }
         }
         else
@@ -91,5 +99,5 @@ public class MantleingScript : MonoBehaviour
             isMantleing = false;
         }
     }
-   
+
 }

@@ -18,7 +18,7 @@ public class InventoryDisplayUI : MonoBehaviour
 
     private BuffManager playerBuffManager;
     private Dictionary<string, ItemDisplay> activeItemDisplays = new Dictionary<string, ItemDisplay>();
-    CameraControllerScript cam;
+    public CameraControllerScript cam;
     LogicManager logicManager;
 
     private void Start()
@@ -47,14 +47,14 @@ public class InventoryDisplayUI : MonoBehaviour
             
             ShowItemDisplay();
         }
-        else if (Input.GetKeyUp(toggleKey))
+        else if (Input.GetKeyUp(toggleKey) && !logicManager.isTimeSlowed)
         {
             
             HideItemDisplay();
         }
     }
 
-    private void ShowItemDisplay()
+    public void ShowItemDisplay()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

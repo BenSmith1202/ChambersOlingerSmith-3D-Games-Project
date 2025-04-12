@@ -18,6 +18,7 @@ public class ItemWindowScript : MonoBehaviour
 
     public List<GameObject> itemCards = new List<GameObject>(); //should be 3 of these
 
+    public bool isOpen = false; //is the window open?
     public GameObject tint;
     LogicManager logicManager;
     InventoryDisplayUI inventoryDisplay;
@@ -40,6 +41,7 @@ public class ItemWindowScript : MonoBehaviour
 
     public void OpenWindow(int rarity)
     {
+        isOpen = true;
         ItemTooltipSystem.HideTooltip();
         if (inventoryDisplay != null)
         {
@@ -66,6 +68,7 @@ public class ItemWindowScript : MonoBehaviour
 
     public void CloseWindow()
     {
+        isOpen = false;
         logicManager.StartTimeSpeedUp();
         tint.SetActive(false);
         //LockMouse
@@ -84,7 +87,7 @@ public class ItemWindowScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            CloseWindow();
+            //CloseWindow();
         }
     }
 

@@ -33,6 +33,10 @@ public class LogicManager : MonoBehaviour
     [Header("Speed-Up Settings")]
     [SerializeField] private float speedUpDuration = 1f; // Time taken to return to normal speed
 
+    [SerializeField] GameObject pauseMenu;
+    [SerializeField] ItemWindowScript itemWindowScript; // Reference to the item window script
+    InventoryDisplayUI inventoryDisplayUI; // Reference to the inventory display UI
+
     private Coroutine currentTimeCoroutine;
     public bool isTimeSlowed = false; // Whether time is currently slowed
 
@@ -55,6 +59,8 @@ public class LogicManager : MonoBehaviour
     {
         StartCoroutine(CountPlaytime()); // Start tracking playtime
         StartCoroutine(CheckDifficultyIncrease()); // Start checking for difficulty increases
+
+        inventoryDisplayUI = GameObject.FindGameObjectWithTag("InventoryDisplay").GetComponent<InventoryDisplayUI>();
 
     }
 
@@ -156,7 +162,7 @@ public class LogicManager : MonoBehaviour
     // Optional: Reset time scale when disabled (prevents accidental slowdowns)
     private void OnDisable()
     {
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
     }
 
 
@@ -194,11 +200,47 @@ public class LogicManager : MonoBehaviour
 
     #endregion
 
+    // THIS CODE IS HORRIFYING!!!!!!!!!!!!!!
+    //I KNOW IT IS
+    // IT WORKS FOR NOW BUT SOON WE WILL NEED A STATE MACHINE FOR WINDOWS
+    public void PauseGame(bool pause) 
+    {
+        if (pause)
+        {
+            isTimeSlowed = true;
+            Time.timeScale = 0f; // Pause the game
+            pauseMenu.SetActive(true); // Show the pause menu
+            PausePlaytime(); // Pause playtime tracking
+            ItemTooltipSystem.HideTooltip(); // Hide any active tooltips
+            inventoryDisplayUI.ShowItemDisplay(); ;// show the inventory UI
 
+        }
+        else
+        {
+            
+            inventoryDisplayUI.HideItemDisplay(); // Hide the inventory UI
+            ItemTooltipSystem.HideTooltip(); // Hide any active tooltips
+            pauseMenu.SetActive(false); // Hide the pause menu
+            ResumePlaytime(); // Resume playtime tracking
 
+            if (itemWindowScript == null || !itemWindowScript.isOpen)
+            {
+                Cursor.lockState = CursorLockMode.Locked; // Lock the cursor
+                Cursor.visible = false; // Hide the cursor
+                inventoryDisplayUI.cam.GetComponent<CameraControllerScript>().camLock = false;
+                
+                Time.timeScale = 1f; // Resume the game
+                if (isTimeSlowed) 
+                { 
+                    isTimeSlowed = false;
 
+                    StartTimeSpeedUp(); // Speed up time if it was slowed
+                }
+            }
+            
 
-
+        }
+    }
 
 
 
