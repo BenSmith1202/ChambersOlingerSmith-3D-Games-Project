@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 215892271920807305}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.73, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 8355442499066621832}
   - component: {fileID: 1360714789371395468}
   - component: {fileID: 3463934358757673736}
+  - component: {fileID: 7193935576231406905}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -272,21 +273,13 @@ MonoBehaviour:
     m_ActionId: 6188307f-91c3-48fb-b971-7d89eb760568
     m_ActionName: MainMap/Shoot[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3733278789408963920}
-        m_TargetAssemblyTypeName: PlayerShootingScript, Assembly-CSharp
-        m_MethodName: OnReload
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 45dbdae1-da1c-48b2-bc7b-0697f52df1a6
     m_ActionName: MainMap/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 356ac775-8cc4-4315-9f25-122c8586d762
+    m_ActionName: MainMap/Pause[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: MainMap
@@ -373,7 +366,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0.7251296
+  MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -608,7 +601,7 @@ MonoBehaviour:
   grappleForce: 1
   grappleStretch: 3
   grappleReelSpeed: 11
-  grappleYankPercentDistance: 0.87
+  grappleYankPercentDistance: 0.95
   swingSpeed: 2.5
   maxSwingVelocity: 25
   baseDashCooldownTime: 5
@@ -676,11 +669,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   cam: {fileID: 0}
-  mantleCastLength: 1.5
+  mantleCastLength: 1
   mantleForce: 7.5
   mantleSpeedReduction: 0.8
   mantleHeight: 1.9
   isMantleing: 0
+--- !u!114 &7193935576231406905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141110455235164122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2b4d34d548d574fa2a26a627b85181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6859197254743463637
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,10 +710,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6859197254743463637}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1209897574916602287}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

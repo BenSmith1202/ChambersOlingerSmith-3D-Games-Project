@@ -589,58 +589,123 @@ public class PlayerControllerScript : MonoBehaviour
 
 
     #region Dashing
+    //Old Dash
+
+    //public IEnumerator DashSlam()
+    ///** This dash logic is just a prototype of what i though would be cool. Feel free to comment it out or change it 
+    // * -Ben
+    // **/
+    //{
+    //    //trigger on ability use effects
+    //    //Debug.Log("Triggering Ability Use Effects");
+    //    buffManager.TriggerOnAbilityEffects(gameObject);
+
+    //    float oldGroundDrag = groundDrag; // save old drag
+    //    float oldAirDrag = airDrag;
+    //    airDrag = 0; // kill air drag
+    //    groundDrag = 0; // kill ground drag
+
+    //    MovementState prevMoveState = movementState; // save previous move state
+    //    movementState = MovementState.dashing;       // start dashing
+    //    float dashTime = stats.dashDuration;               //start dash timer
+    //    Vector3 startVelocity = _rbody.velocity;     // save starting velocity
+    //    _rbody.velocity = Vector3.zero;              //kill velocity
+    //    Vector3 dashDirection = cam.transform.forward;
+    //    camScript.DashZoom();
+    //    _rbody.useGravity = false;
+
+
+    //    // as long as the time hasn't run out and the player hasnt caused another movement state (by grappling or hitting a wall/floor)
+    //    while (movementState == MovementState.dashing && dashTime > 0f)
+    //    {
+    //        groundDrag = airDrag;
+    //        _rbody.velocity = stats.midDashSpeed * dashDirection; //dash in the direction of the camera
+    //        dashTime -= Time.fixedDeltaTime;
+    //        yield return new WaitForFixedUpdate();
+    //    }
+    //    groundDrag = oldGroundDrag;
+    //    airDrag = oldAirDrag;
+    //    camScript.ResetCameraEffects(false);
+    //    _rbody.useGravity = true;
+
+    //    if (movementState == MovementState.dashing) //as long as the player didnt start a new movment state
+    //    {
+    //        movementState = prevMoveState; //return it to what it was
+    //    }
+
+    //    // After a dash, go some fraction of your initial speed defined by postDash speed reduction
+    //    // but go no slower than minimum post dashVelocity
+    //    // and no greater than the mid-dash velocity
+    //    // hopefully this feels good
+    //    Vector3 newReducedVelocity = (Mathf.Max(Mathf.Min(stats.postDashSpeedReduction * startVelocity.magnitude, stats.midDashSpeed), stats.getDashLaunchSpeed()) * dashDirection);
+    //    _rbody.velocity = newReducedVelocity;
+
+    //    yield return null;
+    //}
+
+
     public IEnumerator DashSlam()
-    /** This dash logic is just a prototype of what i though would be cool. Feel free to comment it out or change it 
-     * -Ben
-     **/
     {
-        //trigger on ability use effects
-        //Debug.Log("Triggering Ability Use Effects");
-        buffManager.TriggerOnAbilityEffects(gameObject);
-
-        float oldGroundDrag = groundDrag; // save old drag
+        // Save current values
+        float oldGroundDrag = groundDrag;
         float oldAirDrag = airDrag;
-        airDrag = 0; // kill air drag
-        groundDrag = 0; // kill ground drag
+        airDrag = 0;
+        groundDrag = 0;
 
-        MovementState prevMoveState = movementState; // save previous move state
-        movementState = MovementState.dashing;       // start dashing
-        float dashTime = stats.dashDuration;               //start dash timer
-        Vector3 startVelocity = _rbody.velocity;     // save starting velocity
-        _rbody.velocity = Vector3.zero;              //kill velocity
+        // Important: Store but don't immediately change movement state
+        MovementState prevMoveState = movementState;
+
+        float dashTime = stats.dashDuration;
+        Vector3 startVelocity = _rbody.velocity;
+        _rbody.velocity = Vector3.zero;
         Vector3 dashDirection = cam.transform.forward;
         camScript.DashZoom();
+
+        // Add a flag to indicate dashing is active
+        bool isDashing = true;
+
+        // Temporarily disable state changes
+        //inputPaused = true;  // If you have this flag to disable input
+
+        // Explicitly set movement state and override StateHandler during dash
+        movementState = MovementState.dashing;
         _rbody.useGravity = false;
 
-        
-        // as long as the time hasn't run out and the player hasnt caused another movement state (by grappling or hitting a wall/floor)
-        while (movementState == MovementState.dashing && dashTime > 0f)
+        while (isDashing && dashTime > 0f)
         {
+            // Force the movement state to stay as dashing regardless of ground state
+            movementState = MovementState.dashing;
+
             groundDrag = airDrag;
-            _rbody.velocity = stats.midDashSpeed * dashDirection; //dash in the direction of the camera
+            _rbody.velocity = stats.midDashSpeed * dashDirection;
             dashTime -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
+
+        // Reset everything
         groundDrag = oldGroundDrag;
         airDrag = oldAirDrag;
         camScript.ResetCameraEffects(false);
         _rbody.useGravity = true;
+        //inputPaused = false;  // Re-enable input if you used this
 
-        if (movementState == MovementState.dashing) //as long as the player didnt start a new movment state
+        // Determine current actual state (grounded check)
+        // This prevents the dash from setting the state back to a potentially outdated previous state
+        if (grounded)
         {
-            movementState = prevMoveState; //return it to what it was
+            movementState = MovementState.running;
+        }
+        else
+        {
+            movementState = MovementState.freefall;
         }
 
-        // After a dash, go some fraction of your initial speed defined by postDash speed reduction
-        // but go no slower than minimum post dashVelocity
-        // and no greater than the mid-dash velocity
-        // hopefully this feels good
+        // Apply post-dash velocity
         Vector3 newReducedVelocity = (Mathf.Max(Mathf.Min(stats.postDashSpeedReduction * startVelocity.magnitude, stats.midDashSpeed), stats.getDashLaunchSpeed()) * dashDirection);
         _rbody.velocity = newReducedVelocity;
 
         yield return null;
     }
-
     #endregion
 
 
