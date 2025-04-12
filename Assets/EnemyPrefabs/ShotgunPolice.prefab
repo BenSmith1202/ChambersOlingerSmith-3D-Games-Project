@@ -235,9 +235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 1
-  creditCost: 25
+  creditCost: 30
   minStage: 0
-  isFlyer: 1
+  isFlyer: 0
   isRanged: 1
   innerSpawnRadius: 25
   outerSpawnRadius: 70
@@ -311,10 +311,10 @@ MonoBehaviour:
   attackRange: 28
   bulletPrefab: {fileID: 1428169793132554328, guid: fc385602fa82d4548ab772bbc2866e92, type: 3}
   bulletSpawnPoint: {fileID: 4168408399395784840}
-  minBullets: 4
-  maxBullets: 8
-  positionSpread: 1.2
-  angleSpread: 12
+  minBullets: 5
+  maxBullets: 9
+  positionSpread: 1.3
+  angleSpread: 5
   shootSound: {fileID: 0}
   shootEffect: {fileID: 0}
 --- !u!1001 &4390100924255397251

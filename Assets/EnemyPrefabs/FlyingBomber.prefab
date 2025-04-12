@@ -25,7 +25,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2632805842569010398
 Transform:
   m_ObjectHideFlags: 0
@@ -36,8 +36,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.7106664, y: 9.8550625, z: 143.00497}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.22, y: 1.22, z: 1.22}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5427375241243162295}
   m_Father: {fileID: 0}
@@ -176,10 +176,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 1
-  creditCost: 25
+  creditCost: 24
   minStage: 0
   isFlyer: 1
-  isRanged: 1
+  isRanged: 0
   innerSpawnRadius: 25
   outerSpawnRadius: 70
 --- !u!114 &3329023560644336045
@@ -448,7 +448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8387972763873514906, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
