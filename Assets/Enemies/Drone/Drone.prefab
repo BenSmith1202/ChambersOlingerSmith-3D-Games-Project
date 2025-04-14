@@ -259,7 +259,7 @@ MonoBehaviour:
   creditCost: 16
   minStage: 0
   isFlyer: 1
-  isRanged: 1
+  isRanged: 0
   innerSpawnRadius: 25
   outerSpawnRadius: 70
 --- !u!114 &3291618896911646827
