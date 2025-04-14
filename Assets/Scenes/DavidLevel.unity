@@ -7388,21 +7388,13 @@ MonoBehaviour:
   - {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
   - {fileID: 7799675103629853881, guid: c75bfdeff461e6a4383bbd377d40caec, type: 3}
   - {fileID: 8163377873766788565, guid: 991555920892ed741a2666ef0b065f8f, type: 3}
-  player: {fileID: 931609901}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 128
   currentCredits: 0
   creditMultiplier: 2
   difficultyCoefficient: 1
   minSpawnInterval: 5
   maxSpawnInterval: 10
   maxEnemies: 100
-  offset: 3.5
   EscapeCreditIncreaseCoefficient: 4
-  EscapeSpawnIntervalCoefficient: 3
-  maxAttempts: 15
-  spawnOffset2: 1.5
 --- !u!4 &311453048
 Transform:
   m_ObjectHideFlags: 0
@@ -44065,11 +44057,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 215892271920807305, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
   m_PrefabInstance: {fileID: 931609899}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &931609901 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1209897574916602287, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
-  m_PrefabInstance: {fileID: 931609899}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &931609902 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 450200701898310750, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
@@ -48727,6 +48714,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3394850192212735312, guid: 97e822a5ddc320c4882255300e34492a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766286067667948383, guid: 97e822a5ddc320c4882255300e34492a, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -76002,8 +75993,14 @@ MonoBehaviour:
   isPlaytimePaused: 0
   timePerDifficultyIncrease: 5
   timeSinceLastDifficultyIncrease: 0
-  gameOverDelay: 3
   numTimeIncreaseEachTime: 7
+  gameOverDelay: 3
+  slowdownDuration: 2
+  targetTimeScale: 0.1
+  speedUpDuration: 1
+  pauseMenu: {fileID: 0}
+  itemWindowScript: {fileID: 0}
+  isTimeSlowed: 0
 --- !u!4 &1764405189
 Transform:
   m_ObjectHideFlags: 0
@@ -79569,6 +79566,10 @@ PrefabInstance:
     - target: {fileID: 6892641085136227858, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7734892365251391019, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
+      propertyPath: colorLevels
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 8654784005577945313, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
       propertyPath: player
