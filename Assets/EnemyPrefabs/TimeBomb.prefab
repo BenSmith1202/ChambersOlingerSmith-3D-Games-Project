@@ -5975,9 +5975,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 12
+  currentHP: 9
   clipSize: 0
-  baseMaxHP: 12
+  baseMaxHP: 9
   baseRegen: 0
   baseSpeed: 60
   baseJumpForce: 30
