@@ -169,9 +169,9 @@ GameObject:
   - component: {fileID: 2236466852899915445}
   - component: {fileID: 4432552831896052622}
   - component: {fileID: 3619846137606292158}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LASER
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

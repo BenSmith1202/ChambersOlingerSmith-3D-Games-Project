@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  desiredHeight: 7
+  desiredHeight: 5
   awarenessDistance: 40
   tooCloseDistance: 15
   deathExplosion: {fileID: 2515118805058980736, guid: 3dbaed66e8a6a4d4eb54b88d8963a561, type: 3}
