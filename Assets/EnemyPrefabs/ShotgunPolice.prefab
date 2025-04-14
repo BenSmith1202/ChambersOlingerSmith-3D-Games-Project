@@ -306,8 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc70e9523f78edd4cb838297150f71f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 1
-  attackWindup: 3
+  attackCooldown: 1.5
+  attackWindup: 1
   attackRange: 28
   bulletPrefab: {fileID: 1428169793132554328, guid: fc385602fa82d4548ab772bbc2866e92, type: 3}
   bulletSpawnPoint: {fileID: 4168408399395784840}
