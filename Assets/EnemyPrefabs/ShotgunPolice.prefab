@@ -234,8 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 1
-  creditCost: 30
+  weight: 2
+  creditCost: 25
   minStage: 0
   isFlyer: 0
   isRanged: 1

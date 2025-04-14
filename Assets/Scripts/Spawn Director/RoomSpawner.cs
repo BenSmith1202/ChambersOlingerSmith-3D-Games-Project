@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,12 +12,36 @@ public class RoomSpawner : MonoBehaviour
     public float spawnRadiusCheck = 1f;
     public LayerMask obstacleLayers;
 
+    [Tooltip("Credits to spend on initial room spawn")]
+    public float StartingCredits = 0f; // NEW: Added starting credits variable
+
     private List<SpawnCard> localSpawnCards = new List<SpawnCard>();
     private List<GameObject> activeMonsters = new List<GameObject>();
 
     void Start()
     {
         InitializeLocalSpawnCards();
+
+
+        StartCoroutine(DelayedStart());
+    }
+
+
+
+    private IEnumerator DelayedStart()
+    {
+        yield return null; // Waits one frame, allowing all Start methods to complete
+
+        // NEW: Initial spawn if starting credits > 0
+        if (StartingCredits > 0f)
+        {
+            SpawnDirector director = GameObject.FindWithTag("SpawnDirector")?.GetComponent<SpawnDirector>();
+            if (director != null)
+            {
+                AttemptSpawns(director, StartingCredits);
+            }
+        }
+        // Your code here runs after all other Start methods
     }
 
     void InitializeLocalSpawnCards()
@@ -33,6 +58,7 @@ public class RoomSpawner : MonoBehaviour
     /// </summary>
     public float AttemptSpawns(SpawnDirector director, float availableCredits)
     {
+        print("SPAWNING");
         if (localSpawnCards.Count == 0) return 0f;
 
         float creditsSpent = 0f;
