@@ -8809,9 +8809,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 22
+  currentHP: 18
   clipSize: 0
-  baseMaxHP: 22
+  baseMaxHP: 18
   baseRegen: 0
   baseSpeed: 8
   baseJumpForce: 0
