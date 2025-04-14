@@ -19,7 +19,7 @@ public class SwitchScript : MonoBehaviour
     {
         linkedDoor = door.GetComponent<gateScript>();
         stats = gameObject.GetComponent<EntityStats>();
-        leverAnim = GetComponentInChildren<Animator>();
+        leverAnim = GetComponent<Animator>();
 
         // Get the AudioSource component
         audioSource = GetComponent<AudioSource>();

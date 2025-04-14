@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 0.9
-  creditCost: 16
+  creditCost: 18
   minStage: 0
   isFlyer: 1
   isRanged: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
   deathExplosion: {fileID: 2515118805058980736, guid: 3dbaed66e8a6a4d4eb54b88d8963a561, type: 3}
   laser: {fileID: 0}
   droneBulletPrefab: {fileID: 1671159810974329337, guid: 7f1cd11ceccb5ee44bd7c8e3979a9e2c, type: 3}
-  shootDelay: 0.1
+  shootDelay: 0.13
 --- !u!114 &5964090296251258794
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 2683741776299057161}
   - component: {fileID: 4299523954692747447}
   - component: {fileID: 6378845440148311971}
+  - component: {fileID: -6946837551894693743}
   m_Layer: 0
   m_Name: FireBall
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,11 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449317a9c005324428fbcbc0f65c1ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 8.5
-  initialAngle: 30
-  gravity: 6
+  baseSpeed: 10
+  initialAngle: 40
+  gravity: 4
   lifetime: 10
-  damage: 1
+  damage: 5
   explosionPrefab: {fileID: 2515118805058980736, guid: b35268c6ce1ab32449284796ac017c6b, type: 3}
   impactSound: {fileID: 8300000, guid: 0ef9239978d01944fbb57190f27ce3f0, type: 3}
 --- !u!54 &6378845440148311971
@@ -153,3 +154,53 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-6946837551894693743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8070876866141798818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2769da43178852e4b9a47cf1ec48d024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDead: 0
+  currentHP: 1
+  clipSize: 0
+  baseMaxHP: 1
+  baseRegen: 0
+  baseSpeed: 0
+  baseJumpForce: 0
+  baseAttackDelay: 0
+  baseDamage: 0
+  baseCritChance: 0
+  baseRange: 100
+  baseKB: 0
+  baseReloadTime: 0
+  baseAttackRange: 0
+  regenDelay: 3
+  crouchSpeed: 0
+  wallrunForce: 0
+  maxWallTime: 0
+  wallrunSpeed: 0
+  grappleRange: 0
+  baseGrappleCooldownTime: 0
+  grappleForce: 0
+  grappleStretch: 0
+  grappleReelSpeed: 0
+  grappleYankPercentDistance: 0
+  swingSpeed: 0
+  maxSwingVelocity: 0
+  baseDashCooldownTime: 0
+  dashDuration: 0
+  midDashSpeed: 0
+  postDashSpeedReduction: 0
+  dashLaunchSpeed: 0
+  buffManager: {fileID: 0}
+  healthBarScript: {fileID: 0}
+  damageNumbers: {fileID: 0}
+  levelUpHealth: 35
+  levelUpDamage: 3
+  levelUpRegen: 0

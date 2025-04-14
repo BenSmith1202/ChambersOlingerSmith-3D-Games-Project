@@ -36,6 +36,8 @@ public class FireballProjectile : MonoBehaviour
     private float currentVerticalSpeed;
     private float horizontalSpeed;
 
+    private EntityStats entity;
+
     /// <summary>
     /// Initializes the arc trajectory
     /// </summary>
@@ -59,6 +61,8 @@ public class FireballProjectile : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         if (lifetime > 0) Destroy(gameObject, lifetime);
+
+        entity = gameObject.GetComponent<EntityStats>();
     }
 
     /// <summary>
@@ -66,6 +70,12 @@ public class FireballProjectile : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        if (entity.currentHP <= 0)
+        {
+            Explode();
+        }
+
+
         // Apply gravity
         currentVerticalSpeed -= gravity * Time.deltaTime;
 
@@ -112,6 +122,12 @@ public class FireballProjectile : MonoBehaviour
             }
         }
 
+        Explode();
+    }
+
+
+    private void Explode()
+    {
         // Spawn explosion if prefab exists
         if (explosionPrefab != null)
         {
@@ -126,7 +142,6 @@ public class FireballProjectile : MonoBehaviour
 
         Destroy(gameObject);
     }
-
 
 
 
