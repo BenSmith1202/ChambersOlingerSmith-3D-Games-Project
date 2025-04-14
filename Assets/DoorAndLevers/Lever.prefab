@@ -330,7 +330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3823539818430002690}
   m_Layer: 0
-  m_Name: Lever
+  m_Name: LEVER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -403,15 +403,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3893158482416031536, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.15929195
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 3893158482416031536, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.41973448
+      value: 0.34255013
       objectReference: {fileID: 0}
     - target: {fileID: 3893158482416031536, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.15929195
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 3893158482416031536, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: m_LocalPosition.x

@@ -583,7 +583,7 @@ MonoBehaviour:
   baseMaxHP: 100
   baseRegen: 1
   baseSpeed: 7.5
-  baseJumpForce: 13
+  baseJumpForce: 14
   baseAttackDelay: 0.6
   baseDamage: 10
   baseCritChance: 0.01
