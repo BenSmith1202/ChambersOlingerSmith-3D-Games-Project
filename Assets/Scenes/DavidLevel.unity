@@ -48716,10 +48716,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8766286067667948383, guid: 97e822a5ddc320c4882255300e34492a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -79495,18 +79491,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 316690868183378613, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.3
-      objectReference: {fileID: 0}
     - target: {fileID: 1124666152421719127, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
       propertyPath: cameraPosition
       value: 
       objectReference: {fileID: 931609900}
-    - target: {fileID: 1218082273660765300, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3074861286257551119, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.5
@@ -79553,7 +79541,7 @@ PrefabInstance:
       objectReference: {fileID: 1746148175}
     - target: {fileID: 3546258177304561652, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
       propertyPath: m_VersionIndex
-      value: 10091
+      value: 10097
       objectReference: {fileID: 0}
     - target: {fileID: 4597608197757371365, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
       propertyPath: m_Mesh
@@ -79563,14 +79551,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraHolder
       objectReference: {fileID: 0}
-    - target: {fileID: 6892641085136227858, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7734892365251391019, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
-      propertyPath: colorLevels
-      value: 31
-      objectReference: {fileID: 0}
     - target: {fileID: 8654784005577945313, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
       propertyPath: player
       value: 
@@ -79579,18 +79559,6 @@ PrefabInstance:
       propertyPath: orientation
       value: 
       objectReference: {fileID: 931609902}
-    - target: {fileID: 8654784005577945313, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
-      propertyPath: sensitivityX
-      value: 0.31
-      objectReference: {fileID: 0}
-    - target: {fileID: 8654784005577945313, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
-      propertyPath: sensitivityY
-      value: 0.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 9128802039894877216, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
-      propertyPath: near clip plane
-      value: 0.25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
