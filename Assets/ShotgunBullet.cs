@@ -69,6 +69,11 @@ public class ShotgunBullet : MonoBehaviour
             collision.gameObject.GetComponent<EntityStats>().TakeHit(bulletAttack);
         }
 
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+        }
+
         // Destroy on any collision
         Destroy(gameObject);
     }

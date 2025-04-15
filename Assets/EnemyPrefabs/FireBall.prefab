@@ -120,13 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449317a9c005324428fbcbc0f65c1ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 10
-  initialAngle: 40
-  gravity: 4
+  speed: 7
   lifetime: 10
-  damage: 5
+  damage: 0
   explosionPrefab: {fileID: 2515118805058980736, guid: b35268c6ce1ab32449284796ac017c6b, type: 3}
-  impactSound: {fileID: 8300000, guid: 0ef9239978d01944fbb57190f27ce3f0, type: 3}
+  impactSound: {fileID: 0}
 --- !u!54 &6378845440148311971
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -146,7 +144,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0

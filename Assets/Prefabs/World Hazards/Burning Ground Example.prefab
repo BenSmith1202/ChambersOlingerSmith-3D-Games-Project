@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3404841975217068303}
   - component: {fileID: 13996497904157871}
   - component: {fileID: 3579507568593760112}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Burning Ground Example
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -181,6 +181,10 @@ PrefabInstance:
     - target: {fileID: 9149259647802431442, guid: 82fd1b6251eedeb469f016a23e866f02, type: 3}
       propertyPath: m_Name
       value: ExampleWorldHazard (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149259647802431442, guid: 82fd1b6251eedeb469f016a23e866f02, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
