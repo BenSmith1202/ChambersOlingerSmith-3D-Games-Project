@@ -5,17 +5,23 @@ using UnityEngine;
 public class WorldHazardScript : MonoBehaviour
 {
     [Header("Hazard Settings")]
+    public bool applyOnEntry = true; // Apply debuff on entry
     [SerializeField] private float lifetime = 10f; // Set to <=0 for infinite
     [SerializeField] private float debuffRefreshRate = 2f; // Time between debuff applications
     [SerializeField] private GameObject debuffToApply; // The debuff prefab to apply
     [SerializeField] private float procCoeff = 0f; // Chance of onhit effects triggering
     [SerializeField] private int damage = 0; // Base damage of the hazard (if applicable)
-    [SerializeField] private float knockback = 0f; // Knockback amount (if applicable)
 
     [Header("Effects")]
     [SerializeField] private ParticleSystem hazardParticles;
     [SerializeField] private AudioSource hazardSound; // Using AudioSource for looping
     [SerializeField] private float soundVolume = 1f;
+
+    [Header("Knockback Settings")]
+    [SerializeField] private float knockback = 0f; // Knockback amount (if applicable)
+    [SerializeField] private float knockbackRadius = 5f; // Radius for knockback effect
+    [SerializeField] private float knockbackVerticalBias = 0f; // Vertical bias for knockback
+
 
     [Header("Owner")]
     public GameObject owner; // Optional: who created this hazard?
@@ -76,7 +82,7 @@ public class WorldHazardScript : MonoBehaviour
     {
         foreach (GameObject entity in entitiesInHazard)
         {
-            if (entity == null) continue; // Skip if entity was destroyed
+            if (entity == null || (entity.GetInstanceID() == owner.GetInstanceID())) continue; // Skip if entity was destroyed or if entity is the owner.
 
             BuffManager targetBuffManager = entity.GetComponent<BuffManager>();
             EntityStats targetStats = entity.GetComponent<EntityStats>();
@@ -106,7 +112,10 @@ public class WorldHazardScript : MonoBehaviour
 
                 // Apply debuff
                 targetStats.TakeHit(debuffAttack);
+
             }
+
+            ApplyKnockback(entity); // Apply knockback if applicable
         }
     }
 
@@ -133,7 +142,7 @@ public class WorldHazardScript : MonoBehaviour
         BuffManager targetBuffManager = entity.GetComponent<BuffManager>();
         EntityStats targetStats = entity.GetComponent<EntityStats>();
 
-        if (targetStats != null)
+        if (targetStats != null && applyOnEntry && (entity.GetInstanceID() != owner.GetInstanceID()))
         {
             Attack debuffAttack = new Attack(owner, damage, critChance, knockback, procCoeff);
             if (debuffToApply != null) debuffAttack.debuffsToApply.Add(debuffToApply);
@@ -149,4 +158,12 @@ public class WorldHazardScript : MonoBehaviour
         if (hazardSound != null) hazardSound.Stop();
         Destroy(gameObject);
     }
+    private void ApplyKnockback(GameObject target)
+    {
+        Rigidbody rb = target.GetComponent<Rigidbody>();
+        if (rb == null || rb.isKinematic) return;
+
+        rb.AddExplosionForce(knockback, transform.position, knockbackRadius, knockbackVerticalBias, ForceMode.Impulse);
+    }
+
 }

@@ -13,7 +13,7 @@ public class GeneralExplosionScript : MonoBehaviour
     [Header("Explosion Settings")]
     [SerializeField] float duration; //time until object is destroyed
     [SerializeField] float delay; //time into the coroutine before the explosion happens
-    [SerializeField] float radius; // radius of the explosion
+    [SerializeField] float damageRadius; // radius of the explosion
     public int damage; // base damage of the explosion
 
     [Header("Explosion Proc Options")]
@@ -21,6 +21,7 @@ public class GeneralExplosionScript : MonoBehaviour
     [SerializeField] GameObject onHitDebuff; //the debuff to apply on hit
 
     [Header("Explosion Knockback Options")]
+    [SerializeField] float knockbackRadius; // radius of the explosion
     [SerializeField] float knockback;
     [SerializeField] float knockbackVerticalBias;
 
@@ -72,7 +73,7 @@ public class GeneralExplosionScript : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
 
-        Collider[] hitEntities = Physics.OverlapSphere(transform.position, radius);
+        Collider[] hitEntities = Physics.OverlapSphere(transform.position, damageRadius);
 
         foreach (Collider c in hitEntities)
         {
@@ -126,7 +127,7 @@ public class GeneralExplosionScript : MonoBehaviour
         //DAMAGE FALLOFF CALCULATIONS
         int damageDealt = 0;
         // Check if target is outside explosion radius
-        if (dist > radius)
+        if (dist > damageRadius)
         {
             damageDealt = 0;  // No damage beyond the radius
         }
@@ -139,7 +140,7 @@ public class GeneralExplosionScript : MonoBehaviour
         else
         {
             // Calculate normalized distance (0-1) between falloffStartRad and radius
-            float falloffRange = radius - falloffStartRad;
+            float falloffRange = damageRadius - falloffStartRad;
             float normalizedDist = (dist - falloffStartRad) / falloffRange;
 
             // Lerp between full damage and minimum damage
@@ -153,7 +154,7 @@ public class GeneralExplosionScript : MonoBehaviour
         Rigidbody rb = target.GetComponent<Rigidbody>();
         if (rb == null || rb.isKinematic) return;
 
-        rb.AddExplosionForce(knockback, transform.position, radius, knockbackVerticalBias, ForceMode.Impulse);
+        rb.AddExplosionForce(knockback, transform.position, knockbackRadius, knockbackVerticalBias, ForceMode.Impulse);
     }
 
 }
