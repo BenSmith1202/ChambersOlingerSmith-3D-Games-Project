@@ -134,23 +134,30 @@ public class EntityStats : MonoBehaviour
         //If the attak is lethal, trigger OnKill effects
         if (atk.damage >= currentHP)
         {
-            BuffManager attackerBuffManager = atk.owner.GetComponent<BuffManager>();
-            if (attackerBuffManager != null)
+            if (atk.owner != null)
             {
-                attackerBuffManager.TriggerOnKillEffects(gameObject, atk);
+                BuffManager attackerBuffManager = atk.owner.GetComponent<BuffManager>();
+                if (attackerBuffManager != null)
+                {
+                    attackerBuffManager.TriggerOnKillEffects(gameObject, atk);
+                }
+            }
+            
+        }
+
+        if (atk.debuffsToApply != null)
+        {
+            // apply each debuff
+            foreach (var buffObject in atk.debuffsToApply)
+            {
+                buffManager.AddBuff(buffObject);
             }
         }
-
-
-        // apply each debuff
-        foreach (var buffObject in atk.debuffsToApply)
-        {
-            buffManager.AddBuff(buffObject);
-        }
+        
 
         InflictDamage(atk.damage);
 
-        //TODI: apply knockback
+       
     }
     #endregion
 
