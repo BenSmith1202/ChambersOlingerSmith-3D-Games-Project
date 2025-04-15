@@ -4873,6 +4873,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lever_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 3358423117103697216, guid: a0164d9c476080e449c72cf58e7709ab, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8582481657540049107, guid: a0164d9c476080e449c72cf58e7709ab, type: 3}
       propertyPath: door
       value: 
@@ -9653,6 +9657,7 @@ MonoBehaviour:
   obstacleLayers:
     serializedVersion: 2
     m_Bits: 0
+  StartingCredits: 0
 --- !u!4 &420975076
 Transform:
   m_ObjectHideFlags: 0
@@ -10129,6 +10134,7 @@ MonoBehaviour:
   obstacleLayers:
     serializedVersion: 2
     m_Bits: 0
+  StartingCredits: 0
 --- !u!43 &440604156
 Mesh:
   m_ObjectHideFlags: 0
@@ -34651,6 +34657,7 @@ MonoBehaviour:
   obstacleLayers:
     serializedVersion: 2
     m_Bits: 0
+  StartingCredits: 0
 --- !u!4 &1525390645
 Transform:
   m_ObjectHideFlags: 0
@@ -40825,6 +40832,10 @@ PrefabInstance:
     - target: {fileID: 2575938327731363396, guid: a0164d9c476080e449c72cf58e7709ab, type: 3}
       propertyPath: m_Name
       value: Lever_Prefab (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3358423117103697216, guid: a0164d9c476080e449c72cf58e7709ab, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8582481657540049107, guid: a0164d9c476080e449c72cf58e7709ab, type: 3}
       propertyPath: door
