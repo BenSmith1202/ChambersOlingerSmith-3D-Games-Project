@@ -17987,6 +17987,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &1485494213 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7224566286326271806, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+  m_PrefabInstance: {fileID: 6995945999462967484}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1512249983
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26172,6 +26177,95 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8733445889653307662, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
   m_PrefabInstance: {fileID: 3502042287882236250}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6995945999462967484
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2616844510381959456, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: m_Name
+      value: SchockWaver
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224566286326271806, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224566286326271806, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224566286326271806, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224566286326271806, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224566286326271806, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224566286326271806, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224566286326271806, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224566286326271806, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224566286326271806, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224566286326271806, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8918239447746011167, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: ringDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8918239447746011167, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: ringLifetime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8918239447746011167, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: ringsPerWave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8918239447746011167, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: ringMaxRadius
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8918239447746011167, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: randomizeOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8918239447746011167, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: ringExpansionSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8918239447746011167, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: spawnPositions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8918239447746011167, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
+      propertyPath: spawnPositions.Array.data[0]
+      value: 
+      objectReference: {fileID: 1485494213}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea970d825068ed94c9ca772b196d6b30, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -26184,3 +26278,4 @@ SceneRoots:
   - {fileID: 1723401838}
   - {fileID: 935229268}
   - {fileID: 1227480551}
+  - {fileID: 6995945999462967484}
