@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /// <summary>
 /// A floating enemy that moves in circular patterns and shoots fireballs at the player.
 /// Modified version that only moves upward to adjust height, never downward.
@@ -18,6 +17,8 @@ public class FloatingFireMage : MonoBehaviour
     public float floatHeight = 3f;
     [Tooltip("How quickly the enemy adjusts height upward")]
     public float heightAdjustSpeed = 2f;
+    [Tooltip("Minimum distance to maintain from ceilings")]
+    public float ceilingClearance = 2f; // NEW: Added ceiling clearance parameter
 
     [Header("Combat Settings")]
     [Tooltip("Time between fireball attacks")]
@@ -45,6 +46,7 @@ public class FloatingFireMage : MonoBehaviour
     private AudioSource audioSource;
     private EntityStats stats;
     private float currentHeight; // Track height separately
+    private float maxAllowedHeight; // NEW: Tracks maximum allowed height based on ceiling
 
     /// <summary>
     /// Initializes references and sets up starting position
@@ -61,6 +63,7 @@ public class FloatingFireMage : MonoBehaviour
 
         attackTimer = attackCooldown; // Start ready to attack
         currentHeight = transform.position.y; // Initialize height
+        maxAllowedHeight = float.MaxValue; // NEW: Initialize with very high value
     }
 
     /// <summary>
@@ -84,6 +87,17 @@ public class FloatingFireMage : MonoBehaviour
     {
         if (player == null) return;
 
+        // NEW: Check for ceilings above
+        RaycastHit ceilingHit;
+        if (Physics.Raycast(transform.position, Vector3.up, out ceilingHit, ceilingClearance))
+        {
+            maxAllowedHeight = ceilingHit.point.y - ceilingClearance;
+        }
+        else
+        {
+            maxAllowedHeight = float.MaxValue; // Reset if no ceiling detected
+        }
+
         // Circular movement
         angle += circleSpeed * Time.fixedDeltaTime;
         Vector3 targetPosition = circleCenter + new Vector3(
@@ -93,19 +107,21 @@ public class FloatingFireMage : MonoBehaviour
         );
 
         // Height adjustment - only moves upward if needed
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, floatHeight * 2f))
+        RaycastHit groundHit;
+        if (Physics.Raycast(transform.position, Vector3.down, out groundHit, floatHeight * 2f))
         {
-            float desiredHeight = hit.point.y + floatHeight;
+            float desiredHeight = groundHit.point.y + floatHeight;
 
-            // Only adjust height if we're below desired height
-            if (currentHeight < desiredHeight)
+            // Only adjust height if we're below desired height AND below max allowed height
+            if (currentHeight < desiredHeight && currentHeight < maxAllowedHeight)
             {
-                currentHeight = Mathf.Lerp(currentHeight, desiredHeight, heightAdjustSpeed * Time.fixedDeltaTime);
+                currentHeight = Mathf.Lerp(currentHeight, Mathf.Min(desiredHeight, maxAllowedHeight),
+                    heightAdjustSpeed * Time.fixedDeltaTime);
             }
         }
 
-        targetPosition.y = currentHeight;
+        // Clamp height to never exceed ceiling clearance
+        targetPosition.y = Mathf.Min(currentHeight, maxAllowedHeight);
 
         // Apply movement
         transform.position = targetPosition;
@@ -126,11 +142,6 @@ public class FloatingFireMage : MonoBehaviour
             attackTimer = attackCooldown;
         }
     }
-
-
-
-
-
 
     /// <summary>
     /// Coroutine that handles the attack windup and firing
@@ -153,36 +164,14 @@ public class FloatingFireMage : MonoBehaviour
         // Spawn fireball if prefab exists
         if (fireballPrefab != null && fireballSpawnPoint != null)
         {
-            Vector3 toPlayer = (player.transform.position - fireballSpawnPoint.position);
-            float distance = toPlayer.magnitude;
+            // Calculate direction to player (including vertical aiming)
+            Vector3 fireDirection = (player.transform.position - fireballSpawnPoint.position).normalized;
 
-            // Calculate initial launch angle (slightly upward)
-            Vector3 horizontalDirection = new Vector3(toPlayer.x, 0, toPlayer.z).normalized;
-            float verticalAngle = Mathf.Clamp(distance * 0.1f, 5f, 45f); // Dynamic angle based on distance
-
-            // Create fireball with arc trajectory
-            GameObject fireball = Instantiate(
-                fireballPrefab,
-                fireballSpawnPoint.position,
-                Quaternion.LookRotation(toPlayer)
-            );
-
-            // Initialize arc trajectory
-            FireballProjectile projectile = fireball.GetComponent<FireballProjectile>();
-            if (projectile != null)
-            {
-                projectile.InitializeArc(
-                    horizontalDirection,
-                    verticalAngle,
-                    distance
-                );
-            }
+            // Create fireball with proper rotation to face player
+            Quaternion fireRotation = Quaternion.LookRotation(fireDirection);
+            Instantiate(fireballPrefab, fireballSpawnPoint.position, fireRotation);
         }
     }
-
-
-
-
 
     /// <summary>
     /// Handles enemy death and notifies spawn system

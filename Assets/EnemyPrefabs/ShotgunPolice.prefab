@@ -308,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCooldown: 1.5
   attackWindup: 1
-  attackRange: 28
+  attackRange: 45
   bulletPrefab: {fileID: 1428169793132554328, guid: fc385602fa82d4548ab772bbc2866e92, type: 3}
   bulletSpawnPoint: {fileID: 4168408399395784840}
   minBullets: 5

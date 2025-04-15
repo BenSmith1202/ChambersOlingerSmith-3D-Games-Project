@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 3456444347840565026}
   - component: {fileID: 7407985755922516468}
   - component: {fileID: -2654750690308878642}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: FlyingBomber
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -346,11 +346,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circleRadius: 2.8
   circleSpeed: 0.7
-  floatHeight: 6
+  floatHeight: 8
   heightAdjustSpeed: 1
-  attackCooldown: 2
-  attackWindup: 2.5
-  attackRange: 35
+  ceilingClearance: 3.5
+  attackCooldown: 2.2
+  attackWindup: 1
+  attackRange: 40
   fireballPrefab: {fileID: 8070876866141798818, guid: 317fcb0759f16b747a06ec8fa4a53d4d, type: 3}
   fireballSpawnPoint: {fileID: 2632805842569010398}
   shootSound: {fileID: 8300000, guid: 20c291dc9f6f5fa4aadefe3e3bb0d476, type: 3}
