@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2299594008830536080}
   - component: {fileID: 6084019432236489318}
   - component: {fileID: 4096972274177575281}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shelf1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 629
+  m_VersionIndex: 635
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -365,9 +365,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8628576758914757155}
     m_Modifications:
+    - target: {fileID: 1316799352546960, guid: 9fc36df6c286ca14d8f14a5310be6c78, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1928753549183166, guid: 9fc36df6c286ca14d8f14a5310be6c78, type: 3}
       propertyPath: m_Name
       value: Vase_Hydria (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1928753549183166, guid: 9fc36df6c286ca14d8f14a5310be6c78, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4400385367350492, guid: 9fc36df6c286ca14d8f14a5310be6c78, type: 3}
       propertyPath: m_LocalScale.x
@@ -443,9 +451,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8628576758914757155}
     m_Modifications:
+    - target: {fileID: 1316799352546960, guid: 9fc36df6c286ca14d8f14a5310be6c78, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1928753549183166, guid: 9fc36df6c286ca14d8f14a5310be6c78, type: 3}
       propertyPath: m_Name
       value: Vase_Hydria
+      objectReference: {fileID: 0}
+    - target: {fileID: 1928753549183166, guid: 9fc36df6c286ca14d8f14a5310be6c78, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4400385367350492, guid: 9fc36df6c286ca14d8f14a5310be6c78, type: 3}
       propertyPath: m_LocalScale.x
@@ -521,9 +537,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8628576758914757155}
     m_Modifications:
+    - target: {fileID: 1463504124209114, guid: 30a3561e72e42d045a72040495368d04, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1739541281279610, guid: 30a3561e72e42d045a72040495368d04, type: 3}
       propertyPath: m_Name
       value: Vase_Amphora
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739541281279610, guid: 30a3561e72e42d045a72040495368d04, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4857655974557594, guid: 30a3561e72e42d045a72040495368d04, type: 3}
       propertyPath: m_LocalScale.x
@@ -602,6 +626,14 @@ PrefabInstance:
     - target: {fileID: 1650199890616408, guid: 15eeb30f457f3da4e9514031c235f7ac, type: 3}
       propertyPath: m_Name
       value: Vase_VoluteKrater
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650199890616408, guid: 15eeb30f457f3da4e9514031c235f7ac, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743938723583570, guid: 15eeb30f457f3da4e9514031c235f7ac, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4464237075027044, guid: 15eeb30f457f3da4e9514031c235f7ac, type: 3}
       propertyPath: m_LocalScale.x
