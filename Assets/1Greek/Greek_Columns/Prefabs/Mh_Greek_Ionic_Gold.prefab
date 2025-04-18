@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5927080491030789676}
   - component: {fileID: 8477409491243584230}
   - component: {fileID: 7005441129156115288}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mh_Greek_Ionic_Gold
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
