@@ -11389,7 +11389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &935229268
 Transform:
   m_ObjectHideFlags: 0
@@ -13719,6 +13719,14 @@ PrefabInstance:
     - target: {fileID: 3394850192212735312, guid: 97e822a5ddc320c4882255300e34492a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813197910659293684, guid: 97e822a5ddc320c4882255300e34492a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 317.11713
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813197910659293684, guid: 97e822a5ddc320c4882255300e34492a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 80.720764
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17025,8 +17033,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.8742138, g: 0.8644939, b: 0.54707086, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1.81
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
