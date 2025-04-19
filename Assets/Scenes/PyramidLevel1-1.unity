@@ -22043,6 +22043,9 @@ MonoBehaviour:
   timePerDifficultyIncrease: 5
   timeSinceLastDifficultyIncrease: 0
   numTimeIncreaseEachTime: 7
+  timeSinceLastEnemyLevelUp: 0
+  timePerEnemyLevelUp: 60
+  enemyLevel: 0
   gameOverDelay: 3
   slowdownDuration: 2
   targetTimeScale: 0.1
