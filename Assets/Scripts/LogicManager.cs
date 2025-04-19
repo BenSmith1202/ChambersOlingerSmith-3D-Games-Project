@@ -22,6 +22,9 @@ public class LogicManager : MonoBehaviour
     public float timePerDifficultyIncrease = 300f; // Time (in seconds) before difficulty increases
     public float timeSinceLastDifficultyIncrease = 0f; // Tracks time since last difficulty increase
     public int numTimeIncreaseEachTime;
+    public float timeSinceLastEnemyLevelUp = 0f; // Tracks time since last enemy level up
+    public float timePerEnemyLevelUp = 60f; // Time (in seconds) before enemy level increases
+    public int enemyLevel = 0;
 
     [Header("Game Over")]
     public float gameOverDelay = 3f; // Time to wait before loading the game over screen
@@ -77,6 +80,7 @@ public class LogicManager : MonoBehaviour
             {
                 playtime += Time.deltaTime; // Increment playtime
                 timeSinceLastDifficultyIncrease += Time.deltaTime;
+                timeSinceLastEnemyLevelUp += Time.deltaTime; // Increment time since last enemy level up
             }
             yield return null; // Wait for the next frame
         }
@@ -184,7 +188,11 @@ public class LogicManager : MonoBehaviour
                 IncreaseDifficulty();
                 timeSinceLastDifficultyIncrease = 0f; // Reset the timer
                 timePerDifficultyIncrease += numTimeIncreaseEachTime;
-               // print("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHh");
+            }
+            if (timeSinceLastEnemyLevelUp >= timePerEnemyLevelUp)
+            {
+                IncreaseEnemyLevel();
+                timeSinceLastEnemyLevelUp = 0f; // Reset the timer
             }
             yield return null; // Wait for the next frame
         }
@@ -194,7 +202,14 @@ public class LogicManager : MonoBehaviour
     private void IncreaseDifficulty()
     {
         difficultyLevel++;
-        Debug.Log("Difficulty increased to level " + difficultyLevel);
+        Debug.Log("Difficulty Level increased to level " + difficultyLevel);
+        
+    }
+
+    private void IncreaseEnemyLevel()
+    {
+        Debug.Log("Enemy Level increased to level " + enemyLevel);
+        enemyLevel++; // Increase enemy level
     }
 
 
@@ -244,17 +259,16 @@ public class LogicManager : MonoBehaviour
 
 
 
+    
 
 
 
 
+//GameOver
+#region
 
-
-    //GameOver
-    #region
-
-    // Handle game over
-    public void GameOver()
+// Handle game over
+public void GameOver()
     {
         Debug.Log("Game Over!");
         PausePlaytime(); // Pause playtime tracking
