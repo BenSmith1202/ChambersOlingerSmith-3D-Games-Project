@@ -11,6 +11,7 @@ public class EntityStats : MonoBehaviour
     public bool isDead;
     public int currentHP;
     public int clipSize; //does not really need a multiplier lol
+    public int level;
 
 
     //stats and modifiers initialized here
@@ -93,6 +94,7 @@ public class EntityStats : MonoBehaviour
     public BuffManager buffManager;
     public HealthBarScript healthBarScript;
     public DamageNumbers damageNumbers;
+    LogicManager logic;
 
 
     private LootPool loot;
@@ -100,8 +102,10 @@ public class EntityStats : MonoBehaviour
 
     private void Start()
     {
+
         loot = gameObject.GetComponent<LootPool>();
 
+        logic = GameObject.FindGameObjectWithTag("LogicManager").GetComponent<LogicManager>();
         buffManager = GetComponent<BuffManager>();
         InitializeHealthBar();
 
@@ -110,6 +114,8 @@ public class EntityStats : MonoBehaviour
 
         SetMaxHP(baseMaxHP);
         SetHP(baseMaxHP);
+
+        
     }
 
     private void Update()
@@ -121,6 +127,14 @@ public class EntityStats : MonoBehaviour
         } else
         {
             regenCountdown += Time.deltaTime;
+        }
+
+        if (!gameObject.CompareTag("Player")) //if i am an enemy
+        {
+            if (level < logic.enemyLevel)
+            {
+                LevelUp(logic.enemyLevel - level);
+            }
         }
     }
 
@@ -373,16 +387,20 @@ public class EntityStats : MonoBehaviour
     // LEVEL UP
     #region Leveling Up
     [Header("Level Scaling")]
-    public int levelUpHealth = 35;
+    public int levelUpHealth = 15;
     public int levelUpDamage = 3;
     public float levelUpRegen = 0f;
     public void LevelUp(int amountOfLevels)
     {
         for (int i = 0; i < amountOfLevels; i++)
         {
+            level++;
             baseDamage += levelUpDamage;
             baseMaxHP += levelUpHealth;
+            SetMaxHP(getMaxHP()); //update the health bar
+            Heal(levelUpHealth); //heal for the amount gained
             baseRegen += levelUpRegen;
+
         }
     }
     #endregion

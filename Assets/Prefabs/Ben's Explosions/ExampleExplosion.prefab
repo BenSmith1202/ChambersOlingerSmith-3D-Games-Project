@@ -29,7 +29,8 @@ Transform:
   m_LocalPosition: {x: -14.49, y: -0.44, z: -28.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 102133752714243215}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2076757393509933065
@@ -44,18 +45,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046ce594a5256bf468b0f9d9dfbeb313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionParticles: {fileID: 4812654242934190924, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+  owner: {fileID: 0}
+  friendlyFire: 0
+  damage: 30
+  knockback: 30
+  procCoefficient: 0
+  statusEffectPrefab: {fileID: 0}
+  activationDelay: 0
+  duration: 5
+  particleLifetime: 8
+  damageRadius: 10
+  knockbackRadius: 30
+  knockbackVerticalBias: 0.57
+  fullDamageRadius: 1
+  minFalloffPercent: 0.2
+  explosionParticles: {fileID: 3105995746517144619}
   explosionSound: {fileID: 8300000, guid: 610042f1d8c081d49bfd959210fcae3c, type: 3}
   soundVolume: 1
-  duration: 5
-  delay: 0
-  damageRadius: 10
-  damage: 30
-  procCoeff: 0
-  onHitDebuff: {fileID: 0}
-  knockbackRadius: 30
-  knockback: 60
-  knockbackVerticalBias: 1
-  falloffMinPercent: 0.1
-  falloffStartRad: 3
-  owner: {fileID: 0}
+--- !u!1001 &7625523418763962215
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5673538476869731223}
+    m_Modifications:
+    - target: {fileID: 7143070308271594953, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+      propertyPath: m_Name
+      value: TestExplosionEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546228946061560808, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546228946061560808, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546228946061560808, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546228946061560808, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546228946061560808, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546228946061560808, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546228946061560808, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546228946061560808, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546228946061560808, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546228946061560808, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+--- !u!4 &102133752714243215 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7546228946061560808, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+  m_PrefabInstance: {fileID: 7625523418763962215}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3105995746517144619 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4812654242934190924, guid: cb458ed40863f864a9d39f322c45c1c6, type: 3}
+  m_PrefabInstance: {fileID: 7625523418763962215}
+  m_PrefabAsset: {fileID: 0}
