@@ -6,106 +6,116 @@ using UnityEngine;
 
 
 /// <summary>
-/// Handles behavior of arcing fireball projectiles with ballistic trajectory
+/// Projectile fired by DragonBomber with configurable behavior
 /// </summary>
 public class FireballProjectile : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [Tooltip("Speed the fireball travels")]
+    [Tooltip("Initial speed of fireball")]
     public float speed = 10f;
-    [Tooltip("Lifetime in seconds before auto-destruct")]
-    public float lifetime = 5f;
+    [Tooltip("Acceleration per second")]
+    public float acceleration = 2f;
+    [Tooltip("Maximum lifetime before auto-destruct")]
+    public float maxLifetime = 5f;
+    [Tooltip("Rotation speed for visual effect")]
+    public float visualRotationSpeed = 90f;
 
     [Header("Impact Settings")]
-    [Tooltip("Damage dealt to player on hit")]
-    public int damage = 20;
-    [Tooltip("Explosion prefab to spawn on impact")]
-    public GameObject explosionPrefab;
-    [Tooltip("Sound played on impact")]
+    [Tooltip("Damage dealt on impact")]
+    public int damage = 15;
+    [Tooltip("Radius for splash damage")]
+    public float splashRadius = 2f;
+    [Tooltip("Knockback force on direct hit")]
+    public float knockback = 5f;
+    [Tooltip("Prefab to spawn on impact")]
+    public GameObject explosionEffect;
+    [Tooltip("Sound to play on impact")]
     public AudioClip impactSound;
 
-    // Private variables
-    private float spawnTime;
-    private AudioSource audioSource;
-    private Vector3 movementDirection; // Stores initial firing direction
+    private Vector3 movementDirection;
+    private float currentSpeed;
+    private float lifetimeTimer;
 
     /// <summary>
-    /// Initializes the projectile and sets destruction timer
+    /// Initialize fireball with movement direction
     /// </summary>
-    private void Start()
+    public void Initialize(Vector3 direction)
     {
-        spawnTime = Time.time;
-        audioSource = GetComponent<AudioSource>();
-        movementDirection = transform.forward; // Store initial facing direction
+        movementDirection = direction.normalized;
+        currentSpeed = speed;
+        lifetimeTimer = maxLifetime;
+        transform.rotation = Quaternion.LookRotation(movementDirection);
     }
 
-    /// <summary>
-    /// Moves the projectile in its initial direction each frame
-    /// </summary>
     private void Update()
     {
-        // Move in the initial fired direction
-        transform.position += movementDirection * speed * Time.deltaTime;
+        // Movement
+        currentSpeed += acceleration * Time.deltaTime;
+        transform.position += movementDirection * currentSpeed * Time.deltaTime;
 
-        // Destroy after lifetime expires
-        if (Time.time - spawnTime >= lifetime)
+        // Visual rotation
+        transform.Rotate(Vector3.right, visualRotationSpeed * Time.deltaTime);
+
+        // Lifetime check
+        lifetimeTimer -= Time.deltaTime;
+        if (lifetimeTimer <= 0)
         {
             Destroy(gameObject);
         }
     }
 
-
-
-
-
+   
     private void OnCollisionEnter(Collision collision)
     {
+        // Only explode on player or ground
         if (collision.gameObject.CompareTag("Player"))
         {
-            
-
-            Explode();
+            CreateImpactEffects();
+            Destroy(gameObject);
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            
+            CreateImpactEffects();
+            Destroy(gameObject);
         }
-        else
-        {
-            Explode();
-        }
-        
+
+
     }
 
-
-
-    public void Explode()
+    /// <summary>
+    /// Handles damage application to player
+    /// </summary>
+    private void DealDamage(GameObject player)
     {
-        // Spawn explosion if prefab exists
-        if (explosionPrefab != null)
+        EntityStats playerStats = player.GetComponent<EntityStats>();
+        if (playerStats != null)
         {
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            Attack fireballAttack = new Attack(
+                null, // No owner
+                damage,
+                0f, // No crit
+                knockback,
+                1f // Full proc coefficient
+            );
+            playerStats.TakeHit(fireballAttack);
+        }
+    }
+
+    /// <summary>
+    /// Creates visual and audio impact effects
+    /// </summary>
+    private void CreateImpactEffects()
+    {
+        if (explosionEffect != null)
+        {
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
         }
 
-        // Play sound if available
-        if (impactSound != null && audioSource != null)
+        if (impactSound != null)
         {
             AudioSource.PlayClipAtPoint(impactSound, transform.position);
         }
-
-        Destroy(gameObject);
     }
-
-
-
-
-
 }
-
-
-
-
-
-
-
