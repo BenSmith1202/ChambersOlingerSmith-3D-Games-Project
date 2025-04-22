@@ -120,10 +120,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449317a9c005324428fbcbc0f65c1ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  lifetime: 10
+  speed: 3
+  acceleration: 6
+  maxLifetime: 10
+  visualRotationSpeed: 90
   damage: 0
-  explosionPrefab: {fileID: 2515118805058980736, guid: b35268c6ce1ab32449284796ac017c6b, type: 3}
+  splashRadius: 0
+  knockback: 0
+  explosionEffect: {fileID: 4900119757339342222, guid: 2591186da31c7a7488a34627bd95cf41, type: 3}
   impactSound: {fileID: 0}
 --- !u!54 &6378845440148311971
 Rigidbody:
@@ -167,6 +171,7 @@ MonoBehaviour:
   isDead: 0
   currentHP: 1
   clipSize: 0
+  level: 0
   baseMaxHP: 1
   baseRegen: 0
   baseSpeed: 0
