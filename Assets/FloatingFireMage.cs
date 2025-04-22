@@ -48,11 +48,17 @@ public class FloatingFireMage : MonoBehaviour
     private float currentHeight; // Track height separately
     private float maxAllowedHeight; // NEW: Tracks maximum allowed height based on ceiling
 
+    private Animator animator;
+
+
     /// <summary>
     /// Initializes references and sets up starting position
     /// </summary>
     private void Start()
     {
+        //animator = GetComponent<Animator>();
+
+
         player = GameObject.FindGameObjectWithTag("Player");
         audioSource = GetComponent<AudioSource>();
         stats = GetComponent<EntityStats>();
@@ -87,7 +93,7 @@ public class FloatingFireMage : MonoBehaviour
     {
         if (player == null) return;
 
-        // NEW: Check for ceilings above
+        //Check for ceilings above
         RaycastHit ceilingHit;
         if (Physics.Raycast(transform.position, Vector3.up, out ceilingHit, ceilingClearance))
         {
@@ -143,6 +149,13 @@ public class FloatingFireMage : MonoBehaviour
         }
     }
 
+
+
+
+
+
+
+
     /// <summary>
     /// Coroutine that handles the attack windup and firing
     /// </summary>
@@ -161,6 +174,8 @@ public class FloatingFireMage : MonoBehaviour
             shootEffect.Play();
         }
 
+       // animator.SetBool("IsShooting", true);
+
         // Spawn fireball if prefab exists
         if (fireballPrefab != null && fireballSpawnPoint != null)
         {
@@ -171,6 +186,9 @@ public class FloatingFireMage : MonoBehaviour
             Quaternion fireRotation = Quaternion.LookRotation(fireDirection);
             Instantiate(fireballPrefab, fireballSpawnPoint.position, fireRotation);
         }
+
+       // animator.SetBool("IsShooting", false);
+
     }
 
     /// <summary>
