@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1955628814760440492}
   - component: {fileID: 6340891200255480958}
   - component: {fileID: 8923383703609074423}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DOOR
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -129,6 +129,7 @@ MonoBehaviour:
   isDead: 0
   currentHP: 45
   clipSize: 0
+  level: 0
   baseMaxHP: 45
   baseRegen: 0
   baseSpeed: 0
@@ -223,6 +224,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthCanvas (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2680396221775628784, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2785081280831407875, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: offset.x
       value: -0.68
@@ -234,6 +239,10 @@ PrefabInstance:
     - target: {fileID: 2785081280831407875, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: offset.z
       value: 2.181053
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592002137713371821, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3893158482416031536, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: m_Pivot.x
@@ -314,6 +323,10 @@ PrefabInstance:
     - target: {fileID: 3893158482416031536, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209100143893992687, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8387972763873514906, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: m_AnchorMax.y
