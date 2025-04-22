@@ -37,7 +37,6 @@ public class RockProjectile : MonoBehaviour
 
     private void Update()
     {
-        if (hasCollided) return;
 
         // Move in throw direction (only if not waiting)
         transform.position += direction * speed * Time.deltaTime;
@@ -48,7 +47,6 @@ public class RockProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (hasCollided) return;
         hasCollided = true;
 
         // Damage player if hit
@@ -66,16 +64,19 @@ public class RockProjectile : MonoBehaviour
                 );
                 playerStats.TakeHit(rockAttack);
             }
+
+
+            // Spawn impact effect
+            if (impactParticles != null)
+            {
+                Instantiate(impactParticles, transform.position, Quaternion.identity);
+            }
+
+            Destroy(gameObject);
+
         }
 
-        // Spawn impact effect
-        if (impactParticles != null)
-        {
-            Instantiate(impactParticles, transform.position, Quaternion.identity);
-        }
 
-        Destroy(gameObject);
 
-        
     }
 }

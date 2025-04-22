@@ -61,7 +61,7 @@ MonoBehaviour:
   minFalloffPercent: 0.2
   explosionParticles: {fileID: 3105995746517144619}
   explosionSound: {fileID: 8300000, guid: 610042f1d8c081d49bfd959210fcae3c, type: 3}
-  soundVolume: 1
+  soundVolume: 0.47
 --- !u!1001 &7625523418763962215
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -56,7 +56,7 @@ public class FloatingFireMage : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
 
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -174,7 +174,7 @@ public class FloatingFireMage : MonoBehaviour
             shootEffect.Play();
         }
 
-        animator.SetBool("IsShooting", true);
+       // animator.SetBool("IsShooting", true);
 
         // Spawn fireball if prefab exists
         if (fireballPrefab != null && fireballSpawnPoint != null)
@@ -187,7 +187,7 @@ public class FloatingFireMage : MonoBehaviour
             Instantiate(fireballPrefab, fireballSpawnPoint.position, fireRotation);
         }
 
-        animator.SetBool("IsShooting", false);
+       // animator.SetBool("IsShooting", false);
 
     }
 

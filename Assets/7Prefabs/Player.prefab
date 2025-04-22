@@ -358,7 +358,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -580,6 +580,7 @@ MonoBehaviour:
   isDead: 0
   currentHP: 100
   clipSize: 12
+  level: 0
   baseMaxHP: 100
   baseRegen: 1
   baseSpeed: 7.5
