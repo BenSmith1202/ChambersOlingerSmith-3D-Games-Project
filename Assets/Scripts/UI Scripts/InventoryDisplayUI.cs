@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using System;
 
 public class InventoryDisplayUI : MonoBehaviour
 {
@@ -23,7 +24,15 @@ public class InventoryDisplayUI : MonoBehaviour
 
     private void Start()
     {
-        logicManager = GameObject.FindWithTag("LogicManager").GetComponent<LogicManager>();
+        try
+        {
+            logicManager = GameObject.FindWithTag("LogicManager").GetComponent<LogicManager>();
+        }
+        catch(Exception e)
+        {
+            logicManager = null;
+        }
+
         cam = GameObject.FindWithTag("MainCamera").GetComponent<CameraControllerScript>();
         itemDisplayPanel.GetComponent<HorizontalLayoutGroup>().spacing = spaceBetweenItems;
         // Find the player's BuffManager
@@ -42,12 +51,12 @@ public class InventoryDisplayUI : MonoBehaviour
     {
         
         // Toggle display with TAB key
-        if (Input.GetKeyDown(toggleKey) && !logicManager.isTimeSlowed)
+        if (logicManager != null && Input.GetKeyDown(toggleKey) && !logicManager.isTimeSlowed)
         { 
             
             ShowItemDisplay();
         }
-        else if (Input.GetKeyUp(toggleKey) && !logicManager.isTimeSlowed)
+        else if (logicManager != null && Input.GetKeyUp(toggleKey) && !logicManager.isTimeSlowed)
         {
             
             HideItemDisplay();
@@ -68,7 +77,7 @@ public class InventoryDisplayUI : MonoBehaviour
         ItemTooltipSystem.HideTooltip();
         
         //only return look control if the item window isnt currently locking the screen
-        if (!logicManager.isTimeSlowed)
+        if (logicManager != null && !logicManager.isTimeSlowed)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class PausingScript : MonoBehaviour
 {
@@ -9,7 +10,14 @@ public class PausingScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        logicManager = GameObject.FindWithTag("LogicManager").GetComponent<LogicManager>();
+        try
+        {
+            logicManager = GameObject.FindWithTag("LogicManager").GetComponent<LogicManager>();
+        }
+        catch(Exception e)
+        {
+            logicManager = null;
+        }
     }
 
     // Update is called once per frame
@@ -20,6 +28,9 @@ public class PausingScript : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        logicManager.PauseGame(true);
+        if(logicManager != null)
+        {
+            logicManager.PauseGame(true);
+        }
     }
 }

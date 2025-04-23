@@ -8910,6 +8910,7 @@ MonoBehaviour:
   - {fileID: 8163377873766788565, guid: 991555920892ed741a2666ef0b065f8f, type: 3}
   - {fileID: 5508037273528051597, guid: 0d75b37d614e2c34cbbccff17da2be7e, type: 3}
   - {fileID: 8280528058844212006, guid: 126953aad6d032a4a99a9858aa83a9e8, type: 3}
+  - {fileID: 3416802967669394864, guid: 3163b4d795efa634a9fa85c0f76810c3, type: 3}
   currentCredits: 0
   creditMultiplier: 0.65
   difficultyCoefficient: 1

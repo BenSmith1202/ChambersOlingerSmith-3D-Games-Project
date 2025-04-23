@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class EntityStats : MonoBehaviour
 {
@@ -105,7 +106,14 @@ public class EntityStats : MonoBehaviour
 
         loot = gameObject.GetComponent<LootPool>();
 
-        logic = GameObject.FindGameObjectWithTag("LogicManager").GetComponent<LogicManager>();
+        try
+        {
+            logic = GameObject.FindGameObjectWithTag("LogicManager").GetComponent<LogicManager>();
+        }
+        catch(Exception e)
+        {
+            logic = null;
+        }
         buffManager = GetComponent<BuffManager>();
         InitializeHealthBar();
 
@@ -131,7 +139,7 @@ public class EntityStats : MonoBehaviour
 
         if (!gameObject.CompareTag("Player")) //if i am an enemy
         {
-            if (level < logic.enemyLevel)
+            if (logic != null && level < logic.enemyLevel)
             {
                 LevelUp(logic.enemyLevel - level);
             }
