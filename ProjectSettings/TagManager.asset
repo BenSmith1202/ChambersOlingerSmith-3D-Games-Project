@@ -13,6 +13,7 @@ TagManager:
   - PlayerHealthBar
   - ItemWindow
   - ExitPortal
+  - InventoryDisplay
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Post Proc
   - 
   - 
   - 
