@@ -369,6 +369,7 @@ MonoBehaviour:
   isDead: 0
   currentHP: 23
   clipSize: 0
+  level: 0
   baseMaxHP: 23
   baseRegen: 0
   baseSpeed: 0
@@ -401,6 +402,7 @@ MonoBehaviour:
   buffManager: {fileID: 5332481264666035398}
   healthBarScript: {fileID: 1825654146651327523}
   damageNumbers: {fileID: 6080258138700533617}
+  damageSound: {fileID: 8300000, guid: 5135340ae6a965043913911d2bc9879b, type: 3}
   levelUpHealth: 35
   levelUpDamage: 3
   levelUpRegen: 0
@@ -497,9 +499,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 40
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -532,7 +534,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
