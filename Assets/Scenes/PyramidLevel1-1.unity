@@ -1043,7 +1043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: flyingEnemySpawns.Array.data[1]
@@ -1128,7 +1128,7 @@ PrefabInstance:
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 5508037273528051597, guid: 0d75b37d614e2c34cbbccff17da2be7e, type: 3}
+      objectReference: {fileID: 3416802967669394864, guid: 3163b4d795efa634a9fa85c0f76810c3, type: 3}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.data[1]
       value: 
@@ -8905,12 +8905,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefabs:
-  - {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
-  - {fileID: 7799675103629853881, guid: c75bfdeff461e6a4383bbd377d40caec, type: 3}
-  - {fileID: 8163377873766788565, guid: 991555920892ed741a2666ef0b065f8f, type: 3}
-  - {fileID: 5508037273528051597, guid: 0d75b37d614e2c34cbbccff17da2be7e, type: 3}
-  - {fileID: 8280528058844212006, guid: 126953aad6d032a4a99a9858aa83a9e8, type: 3}
   - {fileID: 3416802967669394864, guid: 3163b4d795efa634a9fa85c0f76810c3, type: 3}
+  - {fileID: 1458391615630120, guid: 6d18ca3ac0d2ecd4aa99a8099af486bb, type: 3}
+  - {fileID: 1928244954057134, guid: 4efdc095f88074e53a4f28617077b108, type: 3}
+  - {fileID: 170346, guid: 1bdc882f4d4f7344f85fcc8561694a5b, type: 3}
+  - {fileID: 132742, guid: a3e7850e56f7e2d4a8cb9e150f10c835, type: 3}
+  - {fileID: 8163377873766788565, guid: 991555920892ed741a2666ef0b065f8f, type: 3}
+  - {fileID: 8753619234690991416, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
+  - {fileID: 7799675103629853881, guid: c75bfdeff461e6a4383bbd377d40caec, type: 3}
+  - {fileID: 1067925524328404, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
+  - {fileID: 1809608444686199728, guid: 7bf828c37609c8c4683387fba8cc015f, type: 3}
+  - {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
   currentCredits: 0
   creditMultiplier: 0.65
   difficultyCoefficient: 1
@@ -17093,13 +17098,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357319922}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0379176, y: -0.46132654, z: 0.8862001, w: 0.019738654}
+  m_LocalRotation: {x: -0.37704024, y: -0.41795695, z: 0.80288786, w: -0.19627473}
   m_LocalPosition: {x: -41.78161, y: 50.809185, z: -286.1646}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2142693780}
-  m_LocalEulerAnglesHint: {x: 125, y: -175.1, z: 0}
+  m_LocalEulerAnglesHint: {x: 125, y: -230.31, z: 0}
 --- !u!1001 &1403745895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17126,7 +17131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: flyingEnemySpawns.Array.data[1]
@@ -17199,7 +17204,7 @@ PrefabInstance:
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 5508037273528051597, guid: 0d75b37d614e2c34cbbccff17da2be7e, type: 3}
+      objectReference: {fileID: 3416802967669394864, guid: 3163b4d795efa634a9fa85c0f76810c3, type: 3}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.data[1]
       value: 
@@ -20377,11 +20382,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefabs:
-  - {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
+  - {fileID: 3416802967669394864, guid: 3163b4d795efa634a9fa85c0f76810c3, type: 3}
+  - {fileID: 1458391615630120, guid: 6d18ca3ac0d2ecd4aa99a8099af486bb, type: 3}
+  - {fileID: 1928244954057134, guid: 4efdc095f88074e53a4f28617077b108, type: 3}
+  - {fileID: 170346, guid: 1bdc882f4d4f7344f85fcc8561694a5b, type: 3}
+  - {fileID: 132742, guid: a3e7850e56f7e2d4a8cb9e150f10c835, type: 3}
+  - {fileID: 8753619234690991416, guid: e812c04705f47d645beb13e90ec0ff93, type: 3}
   - {fileID: 7799675103629853881, guid: c75bfdeff461e6a4383bbd377d40caec, type: 3}
-  - {fileID: 8163377873766788565, guid: 991555920892ed741a2666ef0b065f8f, type: 3}
-  - {fileID: 5508037273528051597, guid: 0d75b37d614e2c34cbbccff17da2be7e, type: 3}
-  - {fileID: 8280528058844212006, guid: 126953aad6d032a4a99a9858aa83a9e8, type: 3}
+  - {fileID: 1067925524328404, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
+  - {fileID: 1809608444686199728, guid: 7bf828c37609c8c4683387fba8cc015f, type: 3}
+  - {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
   currentCredits: 0
   creditMultiplier: 0.5
   difficultyCoefficient: 1
@@ -25857,7 +25867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: flyingEnemySpawns.Array.data[1]
@@ -25886,7 +25896,7 @@ PrefabInstance:
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 7799675103629853881, guid: c75bfdeff461e6a4383bbd377d40caec, type: 3}
+      objectReference: {fileID: 3416802967669394864, guid: 3163b4d795efa634a9fa85c0f76810c3, type: 3}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.data[1]
       value: 
