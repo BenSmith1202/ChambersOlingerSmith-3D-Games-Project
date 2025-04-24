@@ -208,6 +208,7 @@ MonoBehaviour:
   isDead: 0
   currentHP: 16
   clipSize: 0
+  level: 0
   baseMaxHP: 16
   baseRegen: 0
   baseSpeed: 5
@@ -240,6 +241,7 @@ MonoBehaviour:
   buffManager: {fileID: 3291618896911646827}
   healthBarScript: {fileID: 9108117369406678212}
   damageNumbers: {fileID: 4547302361580328945}
+  damageSound: {fileID: 8300000, guid: 6ea79773d35b5074fb91bb798df0937d, type: 3}
   levelUpHealth: 35
   levelUpDamage: 3
   levelUpRegen: 0

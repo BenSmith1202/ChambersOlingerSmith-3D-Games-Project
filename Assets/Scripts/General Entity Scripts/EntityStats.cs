@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+[RequireComponent(typeof(AudioSource))]
 public class EntityStats : MonoBehaviour
 {
     [Header("Entity Stats")]
@@ -95,7 +96,9 @@ public class EntityStats : MonoBehaviour
     public BuffManager buffManager;
     public HealthBarScript healthBarScript;
     public DamageNumbers damageNumbers;
+    [SerializeField] AudioClip damageSound;
     LogicManager logic;
+    AudioSource audSource;
 
 
     private LootPool loot;
@@ -103,6 +106,7 @@ public class EntityStats : MonoBehaviour
 
     private void Start()
     {
+        audSource = GetComponent<AudioSource>();
 
         loot = gameObject.GetComponent<LootPool>();
 
@@ -153,6 +157,11 @@ public class EntityStats : MonoBehaviour
     // and correctly modifies any relevant health bar object 
     public void TakeHit(Attack atk)
     {
+        if(audSource != null)
+        {
+            audSource.PlayOneShot(damageSound);
+        }
+
         //If the attak is lethal, trigger OnKill effects
         if (atk.damage >= currentHP)
         {
