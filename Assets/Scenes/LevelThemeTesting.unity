@@ -39575,6 +39575,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DragonWeird
       objectReference: {fileID: 0}
+    - target: {fileID: 101568, guid: 53bf2f539687bc844947390cbf740d93, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 401494, guid: 53bf2f539687bc844947390cbf740d93, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 52.731815
