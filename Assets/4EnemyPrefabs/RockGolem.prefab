@@ -83,6 +83,7 @@ GameObject:
   - component: {fileID: 6226244230395423526}
   - component: {fileID: 8439286903578729986}
   - component: {fileID: 2516020049522639328}
+  - component: {fileID: -3229886287919014193}
   m_Layer: 4
   m_Name: RockGolem
   m_TagString: Enemy
@@ -433,6 +434,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-3229886287919014193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067925524328404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 4
+  rotationSpeed: 360
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 7179967002594194639}
+  spawnSound: {fileID: 8300000, guid: 7ef83908166db3242a6c3f84801f9fce, type: 3}
 --- !u!1 &1088256926929212
 GameObject:
   m_ObjectHideFlags: 0
