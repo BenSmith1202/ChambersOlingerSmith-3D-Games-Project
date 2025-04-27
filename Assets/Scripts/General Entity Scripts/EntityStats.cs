@@ -97,6 +97,8 @@ public class EntityStats : MonoBehaviour
     public HealthBarScript healthBarScript;
     public DamageNumbers damageNumbers;
     [SerializeField] AudioClip damageSound;
+    [SerializeField] bool showDeathAnim;
+    [SerializeField] GameObject deathAnim;
     LogicManager logic;
     AudioSource audSource;
 
@@ -310,6 +312,10 @@ public class EntityStats : MonoBehaviour
             if(loot != null)
             {
                 loot.AttemptLootDrop();
+            }
+            if(showDeathAnim && deathAnim != null)
+            {
+                Instantiate(deathAnim, transform.position, Quaternion.identity);
             }
             isDead = true;
         }

@@ -1259,6 +1259,8 @@ MonoBehaviour:
   healthBarScript: {fileID: 6325600520745701608}
   damageNumbers: {fileID: 0}
   damageSound: {fileID: 8300000, guid: 859534031d689c748bb129756d2a1dd6, type: 3}
+  showDeathAnim: 1
+  deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
   levelUpHealth: 35
   levelUpDamage: 3
   levelUpRegen: 0
