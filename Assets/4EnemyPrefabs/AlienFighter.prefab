@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 3053077915181996022}
   - component: {fileID: 2786545498719203011}
   - component: {fileID: 6210453948975261474}
+  - component: {fileID: 4384261392915549196}
   m_Layer: 0
   m_Name: AlienFighter
   m_TagString: Enemy
@@ -384,6 +385,24 @@ MonoBehaviour:
   fireTorpedoPrefab: {fileID: 1906374043378120, guid: 1d1e849dafc470f4c9e544f852eee83d, type: 3}
   torpedoSpawnPoint: {fileID: 4154595508381948}
   torpedoSpreadAngle: 15
+--- !u!114 &4384261392915549196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458391615630120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 1.5
+  rotationSpeed: 360
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 6210453948975261474}
+  spawnSound: {fileID: 8300000, guid: faf5e3d2c51c6b44a9fec9c10495be87, type: 3}
 --- !u!1001 &5639788879661297115
 PrefabInstance:
   m_ObjectHideFlags: 0

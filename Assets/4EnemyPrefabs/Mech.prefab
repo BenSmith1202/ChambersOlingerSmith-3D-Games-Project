@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 2725543971248313094}
   - component: {fileID: 125979472995090669}
   - component: {fileID: 4659238367738494660}
+  - component: {fileID: -6311274612962385780}
   m_Layer: 0
   m_Name: Mech
   m_TagString: Enemy
@@ -364,6 +365,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-6311274612962385780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3416802967669394864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 3
+  rotationSpeed: 360
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 125979472995090669}
+  spawnSound: {fileID: 8300000, guid: 7ef83908166db3242a6c3f84801f9fce, type: 3}
 --- !u!1 &4279264665031150857
 GameObject:
   m_ObjectHideFlags: 0

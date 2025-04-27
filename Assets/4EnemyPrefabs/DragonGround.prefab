@@ -1163,6 +1163,7 @@ GameObject:
   - component: {fileID: 6050197306691991599}
   - component: {fileID: 8512636090921864766}
   - component: {fileID: 8980819191795472186}
+  - component: {fileID: 3480518632181460239}
   m_Layer: 4
   m_Name: DragonGround
   m_TagString: Enemy
@@ -1506,6 +1507,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3480518632181460239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 3
+  rotationSpeed: 360
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 7167481361725885508}
+  spawnSound: {fileID: 8300000, guid: 7ef83908166db3242a6c3f84801f9fce, type: 3}
+  extraHeightForSpawnParticles: 2
+  debugging: 0
 --- !u!1 &133434
 GameObject:
   m_ObjectHideFlags: 0

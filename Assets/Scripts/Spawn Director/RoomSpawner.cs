@@ -120,6 +120,10 @@ public class RoomSpawner : MonoBehaviour
             monster.transform.position = spawnPoint.position;
             monster.transform.rotation = spawnPoint.rotation;
             monster.SetActive(true);
+            if (monster.GetComponent<SpawnInScript>())
+            {
+                monster.GetComponent<SpawnInScript>().StartSpawnSequence();
+            }
             activeMonsters.Add(monster);
         }
         else

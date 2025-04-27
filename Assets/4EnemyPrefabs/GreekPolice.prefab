@@ -5404,6 +5404,7 @@ GameObject:
   - component: {fileID: 6207093690108347539}
   - component: {fileID: 9027721532199137798}
   - component: {fileID: 779538108912621210}
+  - component: {fileID: 7610403234046866739}
   m_Layer: 0
   m_Name: GreekPolice
   m_TagString: Enemy
@@ -5757,6 +5758,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7610403234046866739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362338532239191871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 1.5
+  rotationSpeed: 360
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 6207093690108347539}
+  spawnSound: {fileID: 8300000, guid: faf5e3d2c51c6b44a9fec9c10495be87, type: 3}
 --- !u!1 &1371256240291543713
 GameObject:
   m_ObjectHideFlags: 0
