@@ -478,6 +478,8 @@ MonoBehaviour:
   healthBarScript: {fileID: 7215770135165882690}
   damageNumbers: {fileID: 0}
   damageSound: {fileID: 8300000, guid: d54b26e575fd39a429a44fa269a668a4, type: 3}
+  showDeathAnim: 1
+  deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
   levelUpHealth: 35
   levelUpDamage: 3
   levelUpRegen: 0
@@ -688,6 +690,8 @@ MonoBehaviour:
   behaviorsToDisableDuringSpawn:
   - {fileID: 4180582553175909499}
   spawnSound: {fileID: 8300000, guid: a921d419e64f5344f889a2931ca3ec24, type: 3}
+  extraHeightForSpawnParticles: 0
+  debugging: 0
 --- !u!1 &1933460375180758
 GameObject:
   m_ObjectHideFlags: 0
