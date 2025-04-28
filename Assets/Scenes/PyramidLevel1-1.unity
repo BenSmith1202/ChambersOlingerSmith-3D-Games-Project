@@ -1043,7 +1043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: flyingEnemySpawns.Array.data[1]
@@ -1173,6 +1173,10 @@ PrefabInstance:
       propertyPath: localMonsterPrefabs.Array.data[11]
       value: 
       objectReference: {fileID: 6249786534638669007, guid: 912eb84de7fa7e74b81f56b52a0afcf1, type: 3}
+    - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
+      propertyPath: localMonsterPrefabs.Array.data[12]
+      value: 
+      objectReference: {fileID: 7131516988016007927, guid: 0af8ba083c445d14896eeda896fd048c, type: 3}
     - target: {fileID: 4955401060864700808, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: m_Name
       value: RoomSpawner
@@ -8944,6 +8948,7 @@ MonoBehaviour:
   - {fileID: 1067925524328404, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
   - {fileID: 1809608444686199728, guid: 7bf828c37609c8c4683387fba8cc015f, type: 3}
   - {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
+  - {fileID: 7131516988016007927, guid: 0af8ba083c445d14896eeda896fd048c, type: 3}
   currentCredits: 0
   creditMultiplier: 0.65
   difficultyCoefficient: 1
@@ -8960,7 +8965,7 @@ Transform:
   m_GameObject: {fileID: 744801099}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.358986, y: -1.3193141, z: -102.03871}
+  m_LocalPosition: {x: -8.358986, y: -2, z: -102.03871}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17159,7 +17164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: flyingEnemySpawns.Array.data[1]
@@ -17277,6 +17282,10 @@ PrefabInstance:
       propertyPath: localMonsterPrefabs.Array.data[11]
       value: 
       objectReference: {fileID: 6249786534638669007, guid: 912eb84de7fa7e74b81f56b52a0afcf1, type: 3}
+    - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
+      propertyPath: localMonsterPrefabs.Array.data[12]
+      value: 
+      objectReference: {fileID: 7131516988016007927, guid: 0af8ba083c445d14896eeda896fd048c, type: 3}
     - target: {fileID: 4955401060864700808, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: m_Name
       value: RoomSpawner
@@ -20456,6 +20465,7 @@ MonoBehaviour:
   - {fileID: 1067925524328404, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
   - {fileID: 1809608444686199728, guid: 7bf828c37609c8c4683387fba8cc015f, type: 3}
   - {fileID: 5336151141367865900, guid: d3fde87b1bb63ed4da3ddf51002774d8, type: 3}
+  - {fileID: 7131516988016007927, guid: 0af8ba083c445d14896eeda896fd048c, type: 3}
   currentCredits: 0
   creditMultiplier: 0.5
   difficultyCoefficient: 1
@@ -20472,7 +20482,7 @@ Transform:
   m_GameObject: {fileID: 1681340740}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.358986, y: -1.3193141, z: -102.03871}
+  m_LocalPosition: {x: -8.358986, y: -2, z: -102.03871}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25931,7 +25941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: localMonsterPrefabs.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: flyingEnemySpawns.Array.data[1]
@@ -26005,6 +26015,10 @@ PrefabInstance:
       propertyPath: localMonsterPrefabs.Array.data[11]
       value: 
       objectReference: {fileID: 6249786534638669007, guid: 912eb84de7fa7e74b81f56b52a0afcf1, type: 3}
+    - target: {fileID: 2391502385785259104, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
+      propertyPath: localMonsterPrefabs.Array.data[12]
+      value: 
+      objectReference: {fileID: 7131516988016007927, guid: 0af8ba083c445d14896eeda896fd048c, type: 3}
     - target: {fileID: 4955401060864700808, guid: b925e8d660efd3c4080e9451dc5f02e0, type: 3}
       propertyPath: m_Name
       value: RoomSpawner
