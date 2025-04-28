@@ -630,6 +630,9 @@ MonoBehaviour:
   timePerDifficultyIncrease: 5
   timeSinceLastDifficultyIncrease: 0
   numTimeIncreaseEachTime: 7
+  timeSinceLastEnemyLevelUp: 0
+  timePerEnemyLevelUp: 60
+  enemyLevel: 0
   gameOverDelay: 3
   slowdownDuration: 2
   targetTimeScale: 0.1
@@ -1657,6 +1660,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 89.9, y: -28.973, z: 2.234}
+--- !u!1001 &448439688
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1180228218004803225, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: maxBounces
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134579944998473761, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.0802867
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134579944998473761, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7499995
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134579944998473761, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 30.650969
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134579944998473761, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9848078
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134579944998473761, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.17364825
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134579944998473761, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134579944998473761, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134579944998473761, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134579944998473761, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134579944998473761, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994827613026175618, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: maxBounces
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951707515886995428, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: m_Name
+      value: RotatingLaser Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032934188421730103, guid: 26483c479c38ec745afee782e237afc2, type: 3}
+      propertyPath: rotationSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 26483c479c38ec745afee782e237afc2, type: 3}
 --- !u!1 &493563937
 GameObject:
   m_ObjectHideFlags: 0
@@ -12210,3 +12282,4 @@ SceneRoots:
   - {fileID: 952741129}
   - {fileID: 272557219}
   - {fileID: 182111879}
+  - {fileID: 448439688}
