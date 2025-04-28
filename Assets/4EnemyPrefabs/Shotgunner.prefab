@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 8436706212606397843}
   - component: {fileID: 2507919683429167088}
   - component: {fileID: 496995545828742512}
+  - component: {fileID: 4858451390615716623}
   m_Layer: 0
   m_Name: Shotgunner
   m_TagString: Enemy
@@ -744,6 +745,8 @@ MonoBehaviour:
   healthBarScript: {fileID: 2444744992521824376}
   damageNumbers: {fileID: 113072268402630856}
   damageSound: {fileID: 8300000, guid: b1e90a2ea4fd4db45b8c01e9c2997ee2, type: 3}
+  showDeathAnim: 1
+  deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
   levelUpHealth: 35
   levelUpDamage: 3
   levelUpRegen: 0
@@ -938,6 +941,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4858451390615716623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809608444686199728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 1.5
+  rotationSpeed: 360
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 2507919683429167088}
+  spawnSound: {fileID: 8300000, guid: faf5e3d2c51c6b44a9fec9c10495be87, type: 3}
+  extraHeightForSpawnParticles: 0
+  debugging: 0
 --- !u!1 &1854000014070434901
 GameObject:
   m_ObjectHideFlags: 0

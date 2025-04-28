@@ -8692,6 +8692,7 @@ GameObject:
   - component: {fileID: 1142737465254858358}
   - component: {fileID: -1327113750644742347}
   - component: {fileID: 1220328173856286997}
+  - component: {fileID: 4590380779415755626}
   m_Layer: 0
   m_Name: Police
   m_TagString: Enemy
@@ -8846,6 +8847,8 @@ MonoBehaviour:
   healthBarScript: {fileID: 247960275721171407}
   damageNumbers: {fileID: 7143408101704081279}
   damageSound: {fileID: 8300000, guid: b1e90a2ea4fd4db45b8c01e9c2997ee2, type: 3}
+  showDeathAnim: 1
+  deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
   levelUpHealth: 35
   levelUpDamage: 3
   levelUpRegen: 0
@@ -9043,6 +9046,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4590380779415755626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799675103629853881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 2
+  rotationSpeed: 1000
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 1142737465254858358}
+  spawnSound: {fileID: 8300000, guid: faf5e3d2c51c6b44a9fec9c10495be87, type: 3}
+  extraHeightForSpawnParticles: 0
+  debugging: 0
 --- !u!1 &7961428532479356117
 GameObject:
   m_ObjectHideFlags: 0

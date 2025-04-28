@@ -303,6 +303,7 @@ GameObject:
   - component: {fileID: 2451679249779731621}
   - component: {fileID: 2142565075012925588}
   - component: {fileID: 7976734763095176054}
+  - component: {fileID: -459161378168271407}
   m_Layer: 0
   m_Name: turret
   m_TagString: Enemy
@@ -403,6 +404,8 @@ MonoBehaviour:
   healthBarScript: {fileID: 1825654146651327523}
   damageNumbers: {fileID: 6080258138700533617}
   damageSound: {fileID: 8300000, guid: 5135340ae6a965043913911d2bc9879b, type: 3}
+  showDeathAnim: 1
+  deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
   levelUpHealth: 35
   levelUpDamage: 3
   levelUpRegen: 0
@@ -622,6 +625,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9, y: 1.58, z: 1.86}
   m_Center: {x: 0, y: 0.68, z: 0}
+--- !u!114 &-459161378168271407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6249786534638669007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 1
+  rotationSpeed: 360
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 837134509847783412}
+  spawnSound: {fileID: 8300000, guid: a921d419e64f5344f889a2931ca3ec24, type: 3}
+  extraHeightForSpawnParticles: 0
+  debugging: 0
 --- !u!1 &6409758647486028939
 GameObject:
   m_ObjectHideFlags: 0

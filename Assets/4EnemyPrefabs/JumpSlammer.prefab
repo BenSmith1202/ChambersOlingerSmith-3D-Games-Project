@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7924464189318299160}
   - component: {fileID: 3675058433980004599}
   - component: {fileID: 1316331600835273595}
+  - component: {fileID: 8837923956186952098}
   m_Layer: 4
   m_Name: JumpSlammer
   m_TagString: Enemy
@@ -150,6 +151,8 @@ MonoBehaviour:
   healthBarScript: {fileID: 3734340651294067296}
   damageNumbers: {fileID: 0}
   damageSound: {fileID: 8300000, guid: e7d99aeb1b4e0304caa6b5180393848c, type: 3}
+  showDeathAnim: 1
+  deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
   levelUpHealth: 35
   levelUpDamage: 3
   levelUpRegen: 0
@@ -344,6 +347,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8837923956186952098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8753619234690991416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 3
+  rotationSpeed: 360
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 7622916286430153425}
+  spawnSound: {fileID: 8300000, guid: 7ef83908166db3242a6c3f84801f9fce, type: 3}
+  extraHeightForSpawnParticles: 2
+  debugging: 0
 --- !u!1001 &4214147781850518962
 PrefabInstance:
   m_ObjectHideFlags: 0
