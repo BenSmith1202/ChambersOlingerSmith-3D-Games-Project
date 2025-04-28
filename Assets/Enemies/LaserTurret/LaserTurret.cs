@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LaserTurret : MonoBehaviour
 {
+    [SerializeField] GameObject sparks;
+
     [SerializeField] GameObject nozzle;
     [SerializeField] float rotateSpeed;
 
@@ -13,6 +15,8 @@ public class LaserTurret : MonoBehaviour
     // Debug positions
     private Vector3 laserOrigin;
     private Vector3 laserEndPoint;
+
+    GameObject currSparks;
 
     bool canDamage = true;
 
@@ -30,6 +34,9 @@ public class LaserTurret : MonoBehaviour
         {
             Debug.LogError("LineRenderer component not found!");
         }
+
+        currSparks = Instantiate(sparks);
+        currSparks.transform.SetParent(gameObject.transform);
 
         StartCoroutine(Rotate());
     }
@@ -87,11 +94,15 @@ public class LaserTurret : MonoBehaviour
                     Invoke("ResetDamage", 0.3f);
                 }
             }
+
+            currSparks.transform.position = laserEndPoint;
         }
         else
         {
             // Nothing hit, extend to maximum range
             laserEndPoint = laserOrigin + nozzle.transform.up * es.getAttackRange();
+
+            currSparks.transform.position = laserEndPoint;
             lineRenderer.SetPosition(1, laserEndPoint);
         }
     }
