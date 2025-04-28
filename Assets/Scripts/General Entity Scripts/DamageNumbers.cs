@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class DamageNumbers : MonoBehaviour
 {
+    [SerializeField] Vector3 addedOffset;
 
     [SerializeField] GameObject dmgCanvas;
     public bool showDamage;
@@ -37,7 +38,7 @@ public class DamageNumbers : MonoBehaviour
                 }
 
                 //print("Offset: " + tallPoint);
-                damageNumberCanvas.GetComponent<UpdatePosition>().offset = new Vector3(0, tallPoint * 1.5f, 0);
+                damageNumberCanvas.GetComponent<UpdatePosition>().offset = new Vector3(0, tallPoint * 1.5f, 0) + addedOffset;
             }
             else
             {
