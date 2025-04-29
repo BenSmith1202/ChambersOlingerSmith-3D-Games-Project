@@ -210,7 +210,7 @@ public class WorldHazardScript : MonoBehaviour
 
 
     // --- Friendly Fire Logic (Identical to Explosion Script) ---
-    bool ShouldAffectTarget(EntityStats targetStats)
+    public bool ShouldAffectTarget(EntityStats targetStats)
     {
         if (friendlyFire)
         {

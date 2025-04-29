@@ -204,7 +204,7 @@ public class GeneralExplosionScript : MonoBehaviour
     }
 
     // --- Friendly Fire Logic ---
-    bool ShouldAffectTarget(EntityStats targetStats)
+    public bool ShouldAffectTarget(EntityStats targetStats)
     {
         if (friendlyFire)
         {
