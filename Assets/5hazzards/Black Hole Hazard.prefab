@@ -28375,13 +28375,13 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5.11
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7904558515978291490
 MonoBehaviour:
@@ -28395,8 +28395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982dfa370ab2a2d4ba81be5af207f10d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5.5
-  pullForce: 100
+  radius: 8
+  pullForce: 150
   affectedLayers:
     serializedVersion: 2
     m_Bits: 4294967295

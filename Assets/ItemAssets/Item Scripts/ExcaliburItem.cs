@@ -20,7 +20,11 @@ public class ExcaliburItem : ItemInstance
         EntityStats targetStats = target.GetComponent<EntityStats>();
         //play sound?
         targetStats.InflictDamage(Mathf.FloorToInt(targetStats.getMaxHP() * trueDamagePercent));
-        Instantiate(excaliburEffectPrefab, target.transform.position, Quaternion.identity);
+
+        Vector3 spawnPos = target.transform.position;
+        spawnPos = target.transform.position + (myself.transform.position + new Vector3(0, 1, 0) - target.transform.position).normalized;
+
+        Instantiate(excaliburEffectPrefab, spawnPos, Quaternion.identity, target.transform);
 
     }
 

@@ -14274,8 +14274,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3312931289909787470}
-  - component: {fileID: 8881680681194222949}
   - component: {fileID: 6464764658701297223}
+  - component: {fileID: 3249411167163002839}
   m_Layer: 0
   m_Name: Holy Pillar Hazard
   m_TagString: Untagged
@@ -14304,27 +14304,6 @@ Transform:
   - {fileID: 7729675606102443256}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8881680681194222949
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6203195315193269878}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.72
-  m_Center: {x: 0.24, y: 0, z: -0.29}
 --- !u!114 &6464764658701297223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14351,6 +14330,29 @@ MonoBehaviour:
   hazardParticles: {fileID: 0}
   hazardSound: {fileID: 0}
   soundVolume: 0.5
+--- !u!136 &3249411167163002839
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6203195315193269878}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.11
+  m_Height: 7.15
+  m_Direction: 1
+  m_Center: {x: 0, y: 3.82, z: 0}
 --- !u!1 &7108539831158482950
 GameObject:
   m_ObjectHideFlags: 0

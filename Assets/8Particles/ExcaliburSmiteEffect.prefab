@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4802998613388768963}
   - component: {fileID: 5454139247492380439}
   - component: {fileID: 7888777578175119147}
+  - component: {fileID: 5790886836918813326}
   m_Layer: 0
   m_Name: ExcaliburSmiteEffect
   m_TagString: Untagged
@@ -49,7 +50,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -117,7 +118,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.4
+      scalar: 0.3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -288,8 +289,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.2
+      scalar: 1.2
+      minScalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1053,6 +1054,15 @@ ParticleSystem:
           weightedMode: 0
           inWeight: 0
           outWeight: 0.12547815
+        - serializedVersion: 3
+          time: 0.13369521
+          value: 0.8190661
+          inSlope: -0.07125641
+          outSlope: -0.07125641
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.30886582
         - serializedVersion: 3
           time: 1
           value: 0.05230713
@@ -4889,6 +4899,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5790886836918813326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097607890447416763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c73de81730afb48a26793f5d4b1977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seconds: 1
 --- !u!1 &7473998408269372955
 GameObject:
   m_ObjectHideFlags: 0
@@ -4937,7 +4960,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -5005,7 +5028,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.4
+      scalar: 0.3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5935,17 +5958,26 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0
           value: 0
-          inSlope: 0.5434512
-          outSlope: 0.5434512
+          inSlope: 4.5119696
+          outSlope: 4.5119696
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0.22647278
+          outWeight: 0.12547815
+        - serializedVersion: 3
+          time: 0.13369521
+          value: 0.8190661
+          inSlope: -0.07125641
+          outSlope: -0.07125641
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.30886582
         - serializedVersion: 3
           time: 1
           value: 0.05230713
-          inSlope: -5.6629806
-          outSlope: -5.6629806
+          inSlope: -3.6932461
+          outSlope: -3.6932461
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.1124714

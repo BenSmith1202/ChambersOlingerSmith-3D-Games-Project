@@ -20,7 +20,11 @@ public class HealthBarScript : MonoBehaviour
     {
         //I removed this line of code and manually set the slider because other code would run in start before getting the slider and would try to call slider methods
         //healthBarSlider = GetComponent<Slider>();
-        vignetteScript = vignetteImage.GetComponent<VignetteScript>();
+        if (vignetteImage != null)
+        {
+            vignetteScript = vignetteImage.GetComponent<VignetteScript>();
+
+        }
     }
 
     public void SetHP(int hp)
