@@ -18,15 +18,12 @@ public class MissleExplosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("Somone is uin my trugger");
         if(canDamage)
         {
             canDamage = false;
-            print("can damage");
             Attack attack = new Attack(gameObject, 15, 0, 3, 0);
             if (other.GetComponent<EntityStats>())
             {
-                print("dealing damage");
                 other.GetComponent<EntityStats>().TakeHit(attack);
             }
         }

@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 5964090296251258794}
   - component: {fileID: 2033190025452143311}
   - component: {fileID: 4352359275524664274}
+  - component: {fileID: 1419417702597211970}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Enemy
@@ -208,6 +209,7 @@ MonoBehaviour:
   isDead: 0
   currentHP: 16
   clipSize: 0
+  level: 0
   baseMaxHP: 16
   baseRegen: 0
   baseSpeed: 5
@@ -240,6 +242,7 @@ MonoBehaviour:
   buffManager: {fileID: 3291618896911646827}
   healthBarScript: {fileID: 9108117369406678212}
   damageNumbers: {fileID: 4547302361580328945}
+  damageSound: {fileID: 8300000, guid: 6ea79773d35b5074fb91bb798df0937d, type: 3}
   levelUpHealth: 35
   levelUpDamage: 3
   levelUpRegen: 0
@@ -479,6 +482,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1419417702597211970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8163377873766788565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 1
+  rotationSpeed: 360
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 7327552135198639936}
+  spawnSound: {fileID: 8300000, guid: faf5e3d2c51c6b44a9fec9c10495be87, type: 3}
 --- !u!1001 &3137406117259608796
 PrefabInstance:
   m_ObjectHideFlags: 0
