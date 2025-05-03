@@ -20,7 +20,7 @@ public class BurningDebuff : BuffInstance
             Debug.LogWarning("There is an Orphaned Buff!");
             Destroy(gameObject);
         }
-        stats = bmanager.stats;
+        stats = bmanager.myStats;
     }
 
     public override void OnApply()

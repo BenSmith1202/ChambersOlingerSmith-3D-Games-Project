@@ -9,6 +9,7 @@ public class BolgBarbScript : MonoBehaviour
 
     [Header("Stats")]
     public float speed = 20f; // How fast the projectile moves
+    public int damage = 10; // Base damage of the projectile
 
     [Header("Collision")]
     [Tooltip("Layers this projectile can collide with.")]
@@ -93,12 +94,12 @@ public class BolgBarbScript : MonoBehaviour
         if (targetStats != null && ownerStats != null && targetStats != ownerStats)
         {
             // Calculate damage/crit locally
-            int calculatedDamage = ownerStats.getDamage() / 2; // Ensure method names match EntityStats
+            
             float calculatedCritChance = ownerStats.getCritChance(); // Ensure method names match EntityStats
 
             // Create the attack data structure
             // Consider if Attack needs owner GameObject or just owner stats/ID
-            Attack barbHit = new Attack(owner, calculatedDamage, calculatedCritChance, 0, 0.1f); // Adjust params as needed
+            Attack barbHit = new Attack(owner, damage, calculatedCritChance, 0, 0.1f); // Adjust params as needed
 
             // Trigger OnHit effects (Check if BuffManager exists)
             BuffManager ownerBuffManager = owner.GetComponent<BuffManager>();

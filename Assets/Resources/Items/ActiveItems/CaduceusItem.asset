@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81fa4a43e848ece49bf0597c877e9ae5, type: 3}
-  m_Name: HPOnAbility
+  m_Name: CaduceusItem
   m_EditorClassIdentifier: 
-  itemName: Dash Heal
-  description: Heal 20% of your max health when you Dash.
-  icon: {fileID: 21300000, guid: 284a18b20705f1b43a2b198391afee53, type: 3}
+  itemName: Caduceus
+  description: Heal for 10% of your max health when you dash.
+  icon: {fileID: 21300000, guid: 9b50aad2279848b46b55c777b559a4b0, type: 3}
   rarityIndex: 2
-  healPercent: 0.2
+  healPercent: 0.1
+  healEffectPrefab: {fileID: 4160234373240912695, guid: c19d79b225ec62940aaa4ed065af6c39, type: 3}

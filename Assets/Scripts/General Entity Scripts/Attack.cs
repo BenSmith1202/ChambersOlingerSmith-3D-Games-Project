@@ -38,11 +38,11 @@ public class Attack
         this.critChance = critChance;
         this.knockback = knockback;
         this.procCoef = procCoeff; //multiplies ALL "chance to trigger" item effects. 
-        checkCrit();
+        //checkCrit();
     }
 
     //called at the end of an onHit trigger to apply the crit after all other effects have been applied
-    public void checkCrit()
+    public void checkCrit(GameObject target)
     {
         while (critChance > 0) //while theres a chance for a crit to happen
         {
@@ -56,6 +56,10 @@ public class Attack
                 Debug.Log("CRIT!!! LEVEL: " + critLevel);
                 critChance -= 1f; //if crit chance is over 100%, subtract 100% to get chance for a hyper-crit
                 // TODO: in the future, some kind of feedback for hyper-crits would be nice
+
+                // trigger on crit effects
+                owner.GetComponent<BuffManager>().TriggerOnCritEffects(target, this);
+
             }
             else
             {

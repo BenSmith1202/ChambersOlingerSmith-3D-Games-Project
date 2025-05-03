@@ -5,7 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BuffManager : MonoBehaviour
 {
-    public EntityStats stats;
+    public EntityStats myStats;
 
     // Lists for each trigger category
     public List<ItemInstance> allItems = new List<ItemInstance>();
@@ -14,15 +14,18 @@ public class BuffManager : MonoBehaviour
     public List<ItemInstance> onKillEffects = new List<ItemInstance>();
     public List<ItemInstance> onAbilityEffects = new List<ItemInstance>();
     public List<ItemInstance> onHPEffects = new List<ItemInstance>();
+    public List<ItemInstance> onCritEffects = new List<ItemInstance>();
     //public List<ItemInstance> constantEffects = new List<ItemInstance>();
 
 
     //Buffs list
     public List<BuffInstance> buffs = new List<BuffInstance>();
 
+    public ItemInstance consumedItem;
+
     private void Awake()
     {
-        stats = GetComponent<EntityStats>();
+        myStats = GetComponent<EntityStats>();
     }
 
     //Update method and buff management
@@ -112,49 +115,59 @@ public class BuffManager : MonoBehaviour
             case TriggerType.OnHP:
                 onHPEffects.Add(item);
                 break;
+            case TriggerType.OnCrit:
+                onCritEffects.Add(item);
+                break;
 
                 // Add other cases
         }
 
         // Call OnAcquire to apply initial effects
-        item.OnAcquire(stats);
+        item.OnAcquire(myStats);
     }
 
-    public void RemoveItem(ItemInstance ItemInstance)
+    public void RemoveItem(ItemInstance itemInstance)
     {
-        if (!allItems.Contains(ItemInstance))
+        if (!allItems.Contains(itemInstance))
         {
             Debug.LogWarning("Item not found in inventory");
             return;
         }
+        if (itemInstance == consumedItem) //dont double consume items. Reset at end of iteration
+        {
+            return;
+        }
 
         //Remove from main list
-        allItems.Remove(ItemInstance);
+        allItems.Remove(itemInstance);
 
         // Remove from appropriate category list
-        switch (ItemInstance.TriggerCategory)
+        switch (itemInstance.TriggerCategory)
         {
             case TriggerType.StatBoost:
-                statBoosts.Remove(ItemInstance);
+                statBoosts.Remove(itemInstance);
                 break;
             case TriggerType.OnHit:
-                onHitEffects.Remove(ItemInstance);
+                onHitEffects.Remove(itemInstance);
                 break;
             case TriggerType.OnKill:
-                onHitEffects.Remove(ItemInstance);
+                onKillEffects.Remove(itemInstance);
                 break;
             case TriggerType.OnAbilityUse:
-                onHitEffects.Remove(ItemInstance);
+                onAbilityEffects.Remove(itemInstance);
                 break;
             case TriggerType.OnHP:
-                onHitEffects.Remove(ItemInstance);
+                onHPEffects.Remove(itemInstance);
+                break;
+            case TriggerType.OnCrit:
+                onCritEffects.Remove(itemInstance);
                 break;
 
-            // hopefully these removals dont happen if there's no item in the list because these should be perfectly synced with the main item list.
+                // hopefully these removals dont happen if there's no item in the list because these should be perfectly synced with the main item list.
         }
 
         // Call OnRemove to de-apply initial effects
-        ItemInstance.OnRemove(stats);
+        itemInstance.OnRemove(myStats);
     }
 #endregion
 
@@ -169,7 +182,7 @@ public class BuffManager : MonoBehaviour
         foreach (var item in onHitEffects)
         {
             if (atk.blacklist.Contains(item)) continue; //skip this item if it's blacklisted
-            item.OnTrigger(stats, context);
+            item.OnTrigger(myStats, context);
         }
     }
 
@@ -181,7 +194,7 @@ public class BuffManager : MonoBehaviour
         foreach (var item in onKillEffects)
         {
             if (atk.blacklist.Contains(item)) continue; //skip this item if it's blacklisted
-            item.OnTrigger(stats, context);
+            item.OnTrigger(myStats, context);
         }
     }
 
@@ -192,7 +205,7 @@ public class BuffManager : MonoBehaviour
         var context = new TriggerContext { myself = myself};
         foreach (var item in onAbilityEffects)
         {
-            item.OnTrigger(stats, context);
+            item.OnTrigger(myStats, context);
         }
     }
 
@@ -203,11 +216,24 @@ public class BuffManager : MonoBehaviour
         var context = new TriggerContext { myself = myself};
         foreach (var item in onHPEffects)
         {
-            item.OnTrigger(stats, context);
+            if (item == consumedItem) continue; //skip this item if it's blacklisted
+            item.OnTrigger(myStats, context);
+        }
+        consumedItem = null; //reset consumed item at the end of the iteration
+    }
+
+    //Triggered whenever an attack crits on an enemy
+    public void TriggerOnCritEffects(GameObject target, Attack atk) //TODO: may need some more parameters
+    {
+        var context = new TriggerContext { target = target, atk = atk };
+        foreach (var item in onCritEffects)
+        {
+            if (atk.blacklist.Contains(item)) continue; //skip this item if it's blacklisted
+            item.OnTrigger(myStats, context);
         }
     }
 
-#endregion
+    #endregion
 
 
     // print formatted list of items in each of the above lists
@@ -241,6 +267,12 @@ public class BuffManager : MonoBehaviour
 
         print("\nOn HP Effects:");
         foreach (var item in onHPEffects)
+        {
+            print(item.itemName);
+        }
+
+        print("\nOn Crit Effects:");
+        foreach (var item in onCritEffects)
         {
             print(item.itemName);
         }
