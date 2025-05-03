@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
 /// <summary>
 /// Enemy that walks toward player and performs jumping slams
 /// </summary>
@@ -17,6 +14,8 @@ public class JumpSlammer : MonoBehaviour
     public bool yAxisOnly = true;
     [Tooltip("How often to update player position (seconds)")]
     public float playerUpdateInterval = 0.2f;
+    [Tooltip("Maximum distance to activate behavior cycles")]
+    public float activationRange = 15f;
 
     [Header("Movement Settings")]
     [Tooltip("Walking speed when approaching player")]
@@ -64,7 +63,6 @@ public class JumpSlammer : MonoBehaviour
     private float currentGravity;
     private bool shouldWalk = false;
 
-
     private EntityStats stats;
 
     private void Start()
@@ -101,7 +99,6 @@ public class JumpSlammer : MonoBehaviour
     private void Update()
     {
         if (player == null) return;
-
 
         if (stats.isDead)
         {
@@ -191,7 +188,8 @@ public class JumpSlammer : MonoBehaviour
             {
                 float distance = Vector3.Distance(transform.position, lastPlayerPosition);
 
-                if (!isPerformingAction && isGrounded)
+                // Only activate if player is within range
+                if (distance <= activationRange && !isPerformingAction && isGrounded)
                 {
                     if (distance <= maxJumpDistance && distance >= minJumpDistance)
                     {
@@ -255,9 +253,7 @@ public class JumpSlammer : MonoBehaviour
         isGrounded = false;
         rb.velocity = jumpVelocity;
 
-
         yield return new WaitForSeconds(0.5f);
-
 
         // Wait until landing
         while (!isGrounded)
@@ -269,7 +265,6 @@ public class JumpSlammer : MonoBehaviour
         OnLand();
         isPerformingAction = false;
     }
-
 
     public float groundCheckDistance;
     private void CheckGrounded()
@@ -289,7 +284,6 @@ public class JumpSlammer : MonoBehaviour
 
     private void OnLand()
     {
-
         rb.velocity = new Vector3(0, rb.velocity.y, 0);
 
         // Shockwave attack
@@ -314,6 +308,11 @@ public class JumpSlammer : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        // Draw activation range
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, activationRange);
+
+        // Original gizmos
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, minJumpDistance);
         Gizmos.DrawWireSphere(transform.position, maxJumpDistance);

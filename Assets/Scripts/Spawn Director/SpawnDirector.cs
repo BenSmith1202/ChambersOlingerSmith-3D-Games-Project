@@ -58,12 +58,13 @@ public class SpawnDirector : MonoBehaviour
         }
     }
 
+    public int poolSizes = 50;
     void InitializeObjectPools()
     {
         foreach (GameObject prefab in monsterPrefabs)
         {
             Queue<GameObject> pool = new Queue<GameObject>();
-            for (int j = 0; j < 200; j++)
+            for (int j = 0; j < poolSizes; j++)
             {
                 GameObject monster = Instantiate(prefab);
                 monster.SetActive(false);

@@ -58,15 +58,16 @@ MonoBehaviour:
   rotationSpeed: 180
   yAxisOnly: 1
   playerUpdateInterval: 0.01
-  walkSpeed: 2
-  walkStopDistance: 5
+  activationRange: 24.4
+  walkSpeed: 5
+  walkStopDistance: 12.3
   jumpHeight: 7
-  maxJumpDistance: 25
-  minJumpDistance: 2
+  maxJumpDistance: 21.7
+  minJumpDistance: 7.24
   jumpDelay: 0.1
-  ceilingClearance: 1
+  ceilingClearance: 1.4
   jumpCooldown: 3.4
-  gravityScale: 0.6
+  gravityScale: 0.75
   groundMask:
     serializedVersion: 2
     m_Bits: 128
@@ -115,10 +116,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 73
+  currentHP: 58
   clipSize: 0
   level: 0
-  baseMaxHP: 73
+  baseMaxHP: 58
   baseRegen: 0
   baseSpeed: 5
   baseJumpForce: 0
@@ -153,7 +154,7 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: e7d99aeb1b4e0304caa6b5180393848c, type: 3}
   showDeathAnim: 1
   deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
-  levelUpHealth: 35
+  levelUpHealth: 5
   levelUpDamage: 3
   levelUpRegen: 0
 --- !u!114 &3866303334726225156
@@ -168,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 1.5
+  weight: 2.2
   creditCost: 45
   minStage: 0
   isFlyer: 0
@@ -207,6 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a1a1f7248159247a0ffa7ba240b402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addedOffset: {x: 0, y: 0, z: 0}
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
   showDamage: 1
   canvasScript: {fileID: 0}
@@ -226,8 +228,8 @@ MonoBehaviour:
   rarePickup: {fileID: 8762643131521024311, guid: cc2bece9588a69b479dd6e6379944730, type: 3}
   legendaryPickup: {fileID: 444668434626985569, guid: c26ff3b520b99824391dc92d89e0422f, type: 3}
   commonDropChance: 0.15
-  rareDropChance: 0.05
-  legendaryDropChance: 0.002
+  rareDropChance: 0.1
+  legendaryDropChance: 0.02
 --- !u!136 &3675058433980004599
 CapsuleCollider:
   m_ObjectHideFlags: 0

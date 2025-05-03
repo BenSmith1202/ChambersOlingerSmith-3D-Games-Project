@@ -53,6 +53,7 @@ public class RoomSpawner : MonoBehaviour
         }
     }
 
+    public float CreditMultiplyer = 1;
     /// <summary>
     /// Attempts to spawn monsters and returns total credits spent
     /// </summary>
@@ -60,6 +61,8 @@ public class RoomSpawner : MonoBehaviour
     {
         print("SPAWNING");
         if (localSpawnCards.Count == 0) return 0f;
+
+        availableCredits = availableCredits * CreditMultiplyer;
 
         float creditsSpent = 0f;
         SpawnCard selectedCard = SelectSpawnCard(availableCredits);
