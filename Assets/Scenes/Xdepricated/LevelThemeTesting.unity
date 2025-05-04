@@ -11739,6 +11739,7 @@ MonoBehaviour:
   minSpawnInterval: 12
   maxSpawnInterval: 19
   maxEnemies: 100
+  poolSizes: 50
   EscapeCreditIncreaseCoefficient: 2.5
 --- !u!1001 &214354957
 PrefabInstance:
@@ -32634,6 +32635,7 @@ MonoBehaviour:
   minSpawnInterval: 6
   maxSpawnInterval: 10
   maxEnemies: 100
+  poolSizes: 50
   EscapeCreditIncreaseCoefficient: 2.5
 --- !u!4 &1141181705 stripped
 Transform:

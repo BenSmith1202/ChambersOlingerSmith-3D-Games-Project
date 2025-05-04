@@ -100,8 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 100
   impactParticles: {fileID: 0}
-  damage: 15
-  knockback: 0
+  damage: 25
+  knockback: 10
   launchDelay: 1.2
 --- !u!65 &-1189080578531220748
 BoxCollider:
