@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Matter Condenser", menuName = "Items/OnKill/MatterCondenser")]
 public class MatterCondenserItem : ItemInstance
 {
-    public float chance = 0.1f; // 10% chance to trigger
+    public float chance = 0.04f; // 4% chance to trigger
     public GameObject blackHolePrefab; // The black hole prefab to spawn
 
     public override TriggerType TriggerCategory => TriggerType.OnKill;
@@ -18,7 +18,7 @@ public class MatterCondenserItem : ItemInstance
             //get a reference to the lethal attack
             Attack atk = context.atk;
 
-            if (atk.critLevel > 1) // On hypercrit
+            if (atk.critLevel > 0) // On hypercrit
             {
                 //make black hole
                 WorldHazardScript whs = Instantiate(blackHolePrefab, context.target.transform.position, Quaternion.identity).GetComponent<WorldHazardScript>();
