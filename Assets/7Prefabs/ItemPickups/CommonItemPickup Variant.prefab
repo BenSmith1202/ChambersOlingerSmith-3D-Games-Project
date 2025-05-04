@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 348092507880787437, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356579354691713803, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3088635806796069575, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.2
@@ -76,9 +84,21 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3953854765599000619, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6543882653180244048, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
       propertyPath: m_Name
       value: CommonItemPickup Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543882653180244048, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057079713547910162, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
