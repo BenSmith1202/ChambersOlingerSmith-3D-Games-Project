@@ -2386,8 +2386,9 @@ GameObject:
   - component: {fileID: 7007328908606838110}
   - component: {fileID: 9133735720752230166}
   - component: {fileID: 2882363963866301216}
+  - component: {fileID: 1314647916500757915}
   m_Layer: 4
-  m_Name: Spine2
+  m_Name: ScriptHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2425,10 +2426,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 73
+  currentHP: 65
   clipSize: 0
   level: 0
-  baseMaxHP: 73
+  baseMaxHP: 65
   baseRegen: 0
   baseSpeed: 5
   baseJumpForce: 0
@@ -2461,7 +2462,9 @@ MonoBehaviour:
   healthBarScript: {fileID: 7663708968933392400}
   damageNumbers: {fileID: 0}
   damageSound: {fileID: 0}
-  levelUpHealth: 35
+  showDeathAnim: 0
+  deathAnim: {fileID: 0}
+  levelUpHealth: 5
   levelUpDamage: 3
   levelUpRegen: 0
 --- !u!114 &748548435929076961
@@ -2496,6 +2499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a1a1f7248159247a0ffa7ba240b402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addedOffset: {x: 0, y: 0, z: 0}
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
   showDamage: 1
   canvasScript: {fileID: 0}
@@ -2514,9 +2518,9 @@ MonoBehaviour:
   commonPickup: {fileID: 651290665991317019, guid: 03246238f195a90438eb18cf434d93e9, type: 3}
   rarePickup: {fileID: 8762643131521024311, guid: cc2bece9588a69b479dd6e6379944730, type: 3}
   legendaryPickup: {fileID: 444668434626985569, guid: c26ff3b520b99824391dc92d89e0422f, type: 3}
-  commonDropChance: 0.15
-  rareDropChance: 0.05
-  legendaryDropChance: 0.002
+  commonDropChance: 0.1
+  rareDropChance: 0.1
+  legendaryDropChance: 0.03
 --- !u!136 &9133735720752230166
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2536,8 +2540,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 197
-  m_Height: 716.1
+  m_Radius: 271.84
+  m_Height: 765.1
   m_Direction: 0
   m_Center: {x: 46.8, y: 27.92, z: 0}
 --- !u!82 &2882363963866301216
@@ -2636,6 +2640,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &1314647916500757915
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179070}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &180676
 GameObject:
   m_ObjectHideFlags: 0

@@ -533,10 +533,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 73
+  currentHP: 39
   clipSize: 0
   level: 0
-  baseMaxHP: 73
+  baseMaxHP: 39
   baseRegen: 0
   baseSpeed: 5
   baseJumpForce: 0
@@ -569,7 +569,9 @@ MonoBehaviour:
   healthBarScript: {fileID: 3508328221455107940}
   damageNumbers: {fileID: 0}
   damageSound: {fileID: 8300000, guid: e7d99aeb1b4e0304caa6b5180393848c, type: 3}
-  levelUpHealth: 35
+  showDeathAnim: 0
+  deathAnim: {fileID: 0}
+  levelUpHealth: 5
   levelUpDamage: 3
   levelUpRegen: 0
 --- !u!114 &4797142136788478701
@@ -604,6 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a1a1f7248159247a0ffa7ba240b402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addedOffset: {x: 0, y: 0, z: 0}
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
   showDamage: 1
   canvasScript: {fileID: 0}
@@ -1746,7 +1749,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
+  m_LocalScale: {x: 0.48, y: 0.48, z: 0.48}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 405264}
@@ -1805,8 +1808,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d4e3c05c6b4e74395d9545f89f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleRadius: 4
-  circleSpeed: 30
+  circleRadius: 1
+  circleSpeed: 20
   circleCenter: {fileID: 430508}
   rotationSpeed: 180
   attackRange: 30
