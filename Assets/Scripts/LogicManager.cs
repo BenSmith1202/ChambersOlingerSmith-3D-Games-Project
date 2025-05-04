@@ -162,16 +162,17 @@ public class LogicManager : MonoBehaviour
     // Smoothly transitions timeScale from `start` to `end` over `duration` seconds
     private IEnumerator SmoothTimeScale(float start, float end, float duration)
     {
-        float elapsed = 0f;
+        //smooth time scale
+        //float elapsed = 0f;
 
-        while (elapsed < duration)
-        {
-            elapsed += Time.unscaledDeltaTime; // Use unscaledDeltaTime since Time.timeScale is changing
-            float t = Mathf.Clamp01(elapsed / duration);
-            Time.timeScale = Mathf.Lerp(start, end, t);
-            yield return null;
-        }
-
+        //while (elapsed < duration)
+        //{
+        //    elapsed += Time.unscaledDeltaTime; // Use unscaledDeltaTime since Time.timeScale is changing
+        //    float t = Mathf.Clamp01(elapsed / duration);
+        //    Time.timeScale = Mathf.Lerp(start, end, t);
+        //    yield return null;
+        //}
+        yield return null;
         Time.timeScale = end; // Ensure exact target
     }
 
@@ -236,6 +237,7 @@ public class LogicManager : MonoBehaviour
         {
             isTimeSlowed = true;
             Time.timeScale = 0f; // Pause the game
+            Debug.Log("ENABLING PAUSE MENU");
             pauseMenu.SetActive(true); // Show the pause menu
             PausePlaytime(); // Pause playtime tracking
             ItemTooltipSystem.HideTooltip(); // Hide any active tooltips

@@ -21,12 +21,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Glass
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 5afd93719a37df84c833b1d09237e09d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _ALPHAPREMULTIPLY_ON
+  m_ValidKeywords: []
   m_InvalidKeywords:
+  - _ALPHAPREMULTIPLY_ON
   - _BLENDMODE_ALPHA
   - _BLENDMODE_PRESERVE_SPECULAR_LIGHTING
   - _DOUBLESIDED_ON
@@ -37,9 +37,8 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - DistortionVectors
   - MOTIONVECTORS
@@ -126,6 +125,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: caded6071e974054cb795ba0073e431f, type: 3}
+        m_Scale: {x: 1.77, y: 0.08}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex1:
+        m_Texture: {fileID: 2800000, guid: db44265097ad9224a847d01483f3504c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex2:
+        m_Texture: {fileID: 2800000, guid: 39a00f3a4d887cc448b5d165b19938eb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -181,6 +192,7 @@ Material:
     - _AlphaDstBlend: 10
     - _AlphaSrcBlend: 1
     - _Anisotropy: 0
+    - _BaseAlpha: 0.389
     - _BlendMode: 0
     - _BumpScale: 1
     - _CoatMask: 0
@@ -225,6 +237,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _GlowIntensity: 0.39
     - _HeightAmplitude: 0.02
     - _HeightCenter: 0.5
     - _HeightMapParametrization: 0
@@ -242,6 +255,10 @@ Material:
     - _MaterialID: 5
     - _Metallic: 0.273
     - _Mode: 3
+    - _NoiseScale: 1
+    - _NoiseScale1: 1
+    - _NoiseScale2: 1.2
+    - _NoiseStrength: 0.53
     - _NormalMapSpace: 0
     - _NormalScale: 1
     - _OcclusionStrength: 1
@@ -253,6 +270,9 @@ Material:
     - _Parallax: 0.02
     - _ReceivesSSR: 1
     - _RefractionModel: 0
+    - _RippleAmplitude: 0.726
+    - _RippleFrequency: 28.29
+    - _RippleSpeed: 4
     - _SSRefractionProjectionModel: 0
     - _Smoothness: 1
     - _SmoothnessRemapMax: 1
@@ -301,14 +321,18 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.7877358, g: 1, b: 0.79361117, a: 0.13333334}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0, g: 1, b: 0.73530555, a: 0.3882353}
+    - _Color: {r: 0, g: 1, b: 0.6894622, a: 1}
+    - _Color2: {r: 1, g: 0.10950938, b: 0, a: 1}
     - _DiffusionProfileAsset: {r: -1.2688478e-14, g: 2.7301362e-36, b: -1.8548957e+11, a: 1.3911643e+15}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
+    - _GlowColor: {r: 0, g: 1, b: 0.96201396, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _NoiseScrollSpeed1: {r: 2.82, g: 0.05, b: 0, a: 0}
+    - _NoiseScrollSpeed2: {r: -0.05, g: 0.08, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}

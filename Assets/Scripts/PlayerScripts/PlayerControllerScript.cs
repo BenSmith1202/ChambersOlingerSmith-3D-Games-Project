@@ -148,7 +148,7 @@ public class PlayerControllerScript : MonoBehaviour
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, currentGrapplePoint);
         }
-
+        DebugSpawnItemCheck(); // Debugging tool to spawn items
     }
 
 
@@ -720,7 +720,32 @@ public class PlayerControllerScript : MonoBehaviour
     #region Utilities
     //UTILITIES
 
-
+    void DebugSpawnItemCheck()
+    {
+        //hold I and press a number key to spawn an item
+        if (Input.GetKey(KeyCode.I))
+        {
+            Debug.Log("Cheating in an item");
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                ItemWindowScript iws = GameObject.Find("ItemWindow").GetComponent<ItemWindowScript>();
+                if (iws != null)
+                    iws.OpenWindow(0);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                ItemWindowScript iws = GameObject.Find("ItemWindow").GetComponent<ItemWindowScript>();
+                if (iws != null)
+                    iws.OpenWindow(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                ItemWindowScript iws = GameObject.Find("ItemWindow").GetComponent<ItemWindowScript>();
+                if (iws != null)
+                    iws.OpenWindow(2);
+            }
+        }
+    }
     Vector3 RemovePositiveParallelComponent(Vector3 vectorIn, Vector3 referenceVector)
     /**Takes a vector input and a reference vector, and returns the input vector minus any positive 
      ** parallel component to the reference vector.**/

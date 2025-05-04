@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4955401060864700808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8733445889653307662}
+  - component: {fileID: 2391502385785259104}
+  m_Layer: 0
+  m_Name: RoomSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8733445889653307662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4955401060864700808}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 32.235825, y: -27.78769, z: -32.653275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2391502385785259104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4955401060864700808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6041ff605ea948042b8cdbbcc4bc6b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localMonsterPrefabs:
+  - {fileID: 4079421868862436628, guid: 3b64c90f998d20440ae0b0e33311d494, type: 3}
+  - {fileID: 1809608444686199728, guid: 7bf828c37609c8c4683387fba8cc015f, type: 3}
+  - {fileID: 1156691210283872481, guid: 2906e12328d5fe141b0773a7b4d92f57, type: 3}
+  flyingEnemySpawns: []
+  rangedEnemySpawns: []
+  groundedEnemySpawns: []
+  spawnRadiusCheck: 1
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  StartingCredits: 50
+  CreditMultiplyer: 1

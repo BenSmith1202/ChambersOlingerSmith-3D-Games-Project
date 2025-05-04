@@ -94,5 +94,13 @@ Assets/Scenes/DavidLevel/Lightmap-7_comp_dir.png
 Assets/Scenes/DavidLevel/ReflectionProbe-0.exr
 Assets/Scenes/DavidLevel/ReflectionProbe-0.exr.meta
 *.zip
-Assets/GabrielAguiarProductions.meta
+*.lighting.meta
 Assets/FlexibleCelShader/Example/Example SceneSettings.lighting.meta
+Assets/1Greek/Discobolos/CB Discobolus Statue/Textures/idk.lighting.meta
+Assets/1Greek/JuliusCaesarBust/Scenes/testSceneSettings.lighting.meta
+Assets/3Space/Sci Fi Pack/Scenes/DemoSceneSettings.lighting.meta
+Assets/GUNS/Scenes/Settings/WeaponsLite.lighting.meta
+Assets/LowPoly Fantasy Monsters Pack Ver1.0_Demo/Environment/Scene/Demo_GoblinSettings.lighting.meta
+Assets/LowPoly Fantasy Monsters Pack Ver1.0_Demo/Environment/Scene/Demo_HobgoblinSettings.lighting.meta
+Assets/LowPoly Fantasy Monsters Pack Ver1.0_Demo/Environment/Scene/Demo_TrollSettings.lighting.meta
+Assets/LowPoly Fantasy Monsters Pack Ver1.0_Demo/Environment/Scene/Demo_WolfSettings.lighting.meta

@@ -14674,10 +14674,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3852366264569316947}
     m_Modifications:
-    - target: {fileID: 672573039437294747, guid: d8e5fba2cc927a641ac3e0ee75c6f5c2, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2b789e34161ee0d4eb2dd315a2eaa97b, type: 2}
     - target: {fileID: 6362014550397166601, guid: d8e5fba2cc927a641ac3e0ee75c6f5c2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -14718,14 +14714,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6362014550397166601, guid: d8e5fba2cc927a641ac3e0ee75c6f5c2, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6926930684462059884, guid: d8e5fba2cc927a641ac3e0ee75c6f5c2, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2b789e34161ee0d4eb2dd315a2eaa97b, type: 2}
     - target: {fileID: 9062569163630238098, guid: d8e5fba2cc927a641ac3e0ee75c6f5c2, type: 3}
       propertyPath: m_Name
       value: Clock
