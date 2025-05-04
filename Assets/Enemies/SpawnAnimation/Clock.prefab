@@ -351,3 +351,4 @@ MonoBehaviour:
   tick: {fileID: 8904962881080438122, guid: 10ce3cd3fa6250a49839c51dc4777885, type: 3}
   distanceToCenter: 1
   numberOfTicks: 12
+  sizeMultiplier: 2
