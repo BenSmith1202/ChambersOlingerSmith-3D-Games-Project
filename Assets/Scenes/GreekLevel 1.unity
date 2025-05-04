@@ -35,7 +35,7 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 1
+  m_ReflectionIntensity: 0.7
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
@@ -41029,7 +41029,7 @@ PrefabInstance:
       objectReference: {fileID: 1881588683}
     - target: {fileID: 3546258177304561652, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
       propertyPath: m_VersionIndex
-      value: 10100
+      value: 10106
       objectReference: {fileID: 0}
     - target: {fileID: 4314907684656178583, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
       propertyPath: m_Enabled
