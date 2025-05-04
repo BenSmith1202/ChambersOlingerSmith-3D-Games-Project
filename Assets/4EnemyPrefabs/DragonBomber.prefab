@@ -548,6 +548,7 @@ MonoBehaviour:
   baseReloadTime: 0
   baseAttackRange: 0
   regenDelay: 3
+  extraJumps: 0
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
@@ -586,14 +587,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  myStats: {fileID: 0}
   allItems: []
   statBoosts: []
   onHitEffects: []
   onKillEffects: []
   onAbilityEffects: []
   onHPEffects: []
+  onCritEffects: []
   buffs: []
+  consumedItem: {fileID: 0}
 --- !u!114 &3930789196203573819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1790,10 +1793,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 1.5
-  creditCost: 45
+  creditCost: 32
   minStage: 0
-  isFlyer: 0
-  isRanged: 1
+  isFlyer: 1
+  isRanged: 0
   innerSpawnRadius: 25
   outerSpawnRadius: 70
 --- !u!114 &5148357803560106531

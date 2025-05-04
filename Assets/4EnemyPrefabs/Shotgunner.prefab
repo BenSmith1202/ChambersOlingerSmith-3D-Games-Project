@@ -609,7 +609,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.3909552, y: 0.0000009536743, z: 1.4136553}
-  m_LocalScale: {x: 2.2, y: 2.2, z: 2.2}
+  m_LocalScale: {x: 2.8, y: 2.8, z: 2.8}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 399315391697171148}
@@ -665,7 +665,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 20
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -686,14 +686,14 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 20
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
-  m_Height: 1.8
+  m_Radius: 0.5
+  m_Height: 1.9
   m_Direction: 1
   m_Center: {x: 0, y: -0.05, z: 0}
 --- !u!114 &4521421256116247072
@@ -724,6 +724,7 @@ MonoBehaviour:
   baseReloadTime: 0
   baseAttackRange: 2
   regenDelay: 3
+  extraJumps: 0
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
@@ -762,8 +763,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 0.5
-  creditCost: 15
+  weight: 0.8
+  creditCost: 25
   minStage: 0
   isFlyer: 0
   isRanged: 1
@@ -781,14 +782,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  myStats: {fileID: 0}
   allItems: []
   statBoosts: []
   onHitEffects: []
   onKillEffects: []
   onAbilityEffects: []
   onHPEffects: []
+  onCritEffects: []
   buffs: []
+  consumedItem: {fileID: 0}
 --- !u!114 &113072268402630856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -817,15 +820,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc70e9523f78edd4cb838297150f71f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 1.5
+  attackCooldown: 2
   attackWindup: 1
   attackRange: 45
   bulletPrefab: {fileID: 1428169793132554328, guid: fc385602fa82d4548ab772bbc2866e92, type: 3}
   bulletSpawnPoint: {fileID: 6689014107279301883}
-  minBullets: 6
+  minBullets: 8
   maxBullets: 11
   positionSpread: 1
-  angleSpread: 7
+  angleSpread: 4
   shootSound: {fileID: 0}
   shootEffect: {fileID: 0}
 --- !u!82 &496995545828742512
