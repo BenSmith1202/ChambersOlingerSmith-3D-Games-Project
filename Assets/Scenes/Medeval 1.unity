@@ -96,7 +96,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: c5ed15b000e0222489748311e65ef838, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: a1dcd8e87b7ade84a812e9c2dd0dd2e4, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: f5ad2f31e0e3ffd40b000b70ae0c9748, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -4756,7 +4756,7 @@ MonoBehaviour:
   minSpawnInterval: 16
   maxSpawnInterval: 26
   maxEnemies: 100
-  poolSizes: 30
+  poolSizes: 20
   EscapeCreditIncreaseCoefficient: 2.5
 --- !u!43 &168392575
 Mesh:
@@ -6010,68 +6010,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 215892271920807305, guid: 597ce843fcf218c4ca6fa713daf7d7c3, type: 3}
   m_PrefabInstance: {fileID: 248953410}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &249179733
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 285571889}
-    m_Modifications:
-    - target: {fileID: 6954256521928776247, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-      propertyPath: m_Name
-      value: Armory
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766927988258652301, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -23.959414
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766927988258652301, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -26.79159
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766927988258652301, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -49.186493
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766927988258652301, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766927988258652301, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766927988258652301, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766927988258652301, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766927988258652301, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766927988258652301, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766927988258652301, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
---- !u!4 &249179734 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7766927988258652301, guid: 5a79bea05157377428e8baa280fa62f6, type: 3}
-  m_PrefabInstance: {fileID: 249179733}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &258840228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6287,7 +6225,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 249179734}
   - {fileID: 361330589}
   - {fileID: 1354016335}
   - {fileID: 1581842336}
@@ -24754,7 +24691,7 @@ MonoBehaviour:
   minSpawnInterval: 8
   maxSpawnInterval: 14
   maxEnemies: 100
-  poolSizes: 40
+  poolSizes: 30
   EscapeCreditIncreaseCoefficient: 2.5
 --- !u!1001 &1133868324
 PrefabInstance:
