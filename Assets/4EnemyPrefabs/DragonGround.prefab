@@ -1223,10 +1223,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 73
+  currentHP: 46
   clipSize: 0
   level: 0
-  baseMaxHP: 73
+  baseMaxHP: 46
   baseRegen: 0
   baseSpeed: 5
   baseJumpForce: 0
@@ -1261,8 +1261,8 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: 859534031d689c748bb129756d2a1dd6, type: 3}
   showDeathAnim: 1
   deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
-  levelUpHealth: 35
-  levelUpDamage: 3
+  levelUpHealth: 5
+  levelUpDamage: 5
   levelUpRegen: 0
 --- !u!114 &3912009836138803570
 MonoBehaviour:
@@ -1297,7 +1297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 1.5
-  creditCost: 45
+  creditCost: 36
   minStage: 0
   isFlyer: 0
   isRanged: 0
@@ -1315,6 +1315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a1a1f7248159247a0ffa7ba240b402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addedOffset: {x: 0, y: 0, z: 0}
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
   showDamage: 1
   canvasScript: {fileID: 0}
@@ -1333,9 +1334,9 @@ MonoBehaviour:
   commonPickup: {fileID: 651290665991317019, guid: 03246238f195a90438eb18cf434d93e9, type: 3}
   rarePickup: {fileID: 8762643131521024311, guid: cc2bece9588a69b479dd6e6379944730, type: 3}
   legendaryPickup: {fileID: 444668434626985569, guid: c26ff3b520b99824391dc92d89e0422f, type: 3}
-  commonDropChance: 0.15
-  rareDropChance: 0.05
-  legendaryDropChance: 0.002
+  commonDropChance: 0.12
+  rareDropChance: 0.1
+  legendaryDropChance: 0.03
 --- !u!114 &7167481361725885508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1349,7 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 180
-  chargeRange: 25
+  chargeRange: 32
   chargeCooldown: 5
   chargeWindupTime: 3
   chargeStartDelay: 3.4

@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localMonsterPrefabs:
-  - {fileID: 1362338532239191871, guid: 89c23b6a4821b214bae8ab185cf8d2f1, type: 3}
   - {fileID: 4079421868862436628, guid: 3b64c90f998d20440ae0b0e33311d494, type: 3}
   - {fileID: 1809608444686199728, guid: 7bf828c37609c8c4683387fba8cc015f, type: 3}
+  - {fileID: 1156691210283872481, guid: 2906e12328d5fe141b0773a7b4d92f57, type: 3}
   flyingEnemySpawns: []
   rangedEnemySpawns: []
   groundedEnemySpawns: []

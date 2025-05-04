@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 816887198884757675}
   - component: {fileID: 8962126977105753932}
   m_Layer: 0
-  m_Name: Napalm 1
+  m_Name: Firebreath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
