@@ -4840,8 +4840,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e630fd38508074b4a83016e50ce7b91d, type: 2}
-  - {fileID: 2100000, guid: e630fd38508074b4a83016e50ce7b91d, type: 2}
+  - {fileID: 2100000, guid: 2b789e34161ee0d4eb2dd315a2eaa97b, type: 2}
+  - {fileID: 2100000, guid: 2b789e34161ee0d4eb2dd315a2eaa97b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9671,7 +9671,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e630fd38508074b4a83016e50ce7b91d, type: 2}
+  - {fileID: 2100000, guid: 2b789e34161ee0d4eb2dd315a2eaa97b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14712,10 +14712,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6362014550397166601, guid: d8e5fba2cc927a641ac3e0ee75c6f5c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6362014550397166601, guid: d8e5fba2cc927a641ac3e0ee75c6f5c2, type: 3}
-      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9062569163630238098, guid: d8e5fba2cc927a641ac3e0ee75c6f5c2, type: 3}
