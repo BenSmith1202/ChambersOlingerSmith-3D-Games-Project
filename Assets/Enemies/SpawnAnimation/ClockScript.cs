@@ -7,6 +7,7 @@ public class ClockScript : MonoBehaviour
     [SerializeField] GameObject tick;
     [SerializeField] float distanceToCenter = 1;
     [SerializeField] int numberOfTicks = 12;
+    [SerializeField] float sizeMultiplier = 1;
 
     Vector3 offset;
 
@@ -35,7 +36,7 @@ public class ClockScript : MonoBehaviour
 
     public void SetSize(float val)
     {
-        transform.localScale = transform.localScale * val;
-        distanceToCenter = val;
+        transform.localScale = transform.localScale * val * sizeMultiplier;
+        distanceToCenter = val * sizeMultiplier;
     }
 }
