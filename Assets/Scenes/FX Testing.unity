@@ -4305,6 +4305,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1776744433810115557, guid: 0c1f742bcf04def4daad784b4940ed8a, type: 3}
+      propertyPath: lowHealthThreshold
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138245158810513782, guid: 0c1f742bcf04def4daad784b4940ed8a, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317513326803524200, guid: 0c1f742bcf04def4daad784b4940ed8a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2984380499060621865, guid: 0c1f742bcf04def4daad784b4940ed8a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 960
@@ -4352,7 +4364,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2317513326803524200, guid: 0c1f742bcf04def4daad784b4940ed8a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1811188105}
   m_SourcePrefab: {fileID: 100100000, guid: 0c1f742bcf04def4daad784b4940ed8a, type: 3}
 --- !u!1 &1069066901
 GameObject:
@@ -7648,6 +7663,25 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 937a992e136d7fa42bc4f41ebd05be31, type: 3}
+--- !u!1 &1811188101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2317513326803524200, guid: 0c1f742bcf04def4daad784b4940ed8a, type: 3}
+  m_PrefabInstance: {fileID: 1061915037}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1811188105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811188101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c929b4f3f9d2be41b5995b1422482d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransparency: 0
+  lerpSpeed: 2
 --- !u!1 &1811800769
 GameObject:
   m_ObjectHideFlags: 0

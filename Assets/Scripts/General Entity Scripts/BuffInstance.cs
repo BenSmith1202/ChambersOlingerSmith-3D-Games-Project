@@ -25,7 +25,7 @@ public abstract class BuffInstance : MonoBehaviour
             Debug.LogWarning("Orphaned Buff!");
             Destroy(gameObject);
         }
-        stats = bmanager.stats;
+        stats = bmanager.myStats;
 
     }
 
