@@ -588,10 +588,10 @@ GameObject:
   - component: {fileID: 480073561873842243}
   - component: {fileID: 3310726164295775459}
   - component: {fileID: 113072268402630856}
-  - component: {fileID: 8436706212606397843}
   - component: {fileID: 2507919683429167088}
   - component: {fileID: 496995545828742512}
   - component: {fileID: 4858451390615716623}
+  - component: {fileID: 4588893240731654992}
   m_Layer: 0
   m_Name: Shotgunner
   m_TagString: Enemy
@@ -609,7 +609,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.3909552, y: 0.0000009536743, z: 1.4136553}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.2, y: 2.2, z: 2.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 399315391697171148}
@@ -709,10 +709,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 55
+  currentHP: 38
   clipSize: 0
   level: 0
-  baseMaxHP: 55
+  baseMaxHP: 38
   baseRegen: 0
   baseSpeed: 8
   baseJumpForce: 0
@@ -747,7 +747,7 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: b1e90a2ea4fd4db45b8c01e9c2997ee2, type: 3}
   showDeathAnim: 1
   deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
-  levelUpHealth: 35
+  levelUpHealth: 5
   levelUpDamage: 3
   levelUpRegen: 0
 --- !u!114 &480073561873842243
@@ -766,7 +766,7 @@ MonoBehaviour:
   creditCost: 15
   minStage: 0
   isFlyer: 0
-  isRanged: 0
+  isRanged: 1
   innerSpawnRadius: 18
   outerSpawnRadius: 70
 --- !u!114 &3310726164295775459
@@ -801,27 +801,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a1a1f7248159247a0ffa7ba240b402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addedOffset: {x: 0, y: 0, z: 0}
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
   showDamage: 0
   canvasScript: {fileID: 0}
---- !u!114 &8436706212606397843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809608444686199728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b2ff0ae6cdafc04aa8606ae25e490f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  commonPickup: {fileID: 651290665991317019, guid: 03246238f195a90438eb18cf434d93e9, type: 3}
-  rarePickup: {fileID: 8762643131521024311, guid: cc2bece9588a69b479dd6e6379944730, type: 3}
-  legendaryPickup: {fileID: 444668434626985569, guid: c26ff3b520b99824391dc92d89e0422f, type: 3}
-  commonDropChance: 0.13
-  rareDropChance: 0.06
-  legendaryDropChance: 0.01
 --- !u!114 &2507919683429167088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,10 +822,10 @@ MonoBehaviour:
   attackRange: 45
   bulletPrefab: {fileID: 1428169793132554328, guid: fc385602fa82d4548ab772bbc2866e92, type: 3}
   bulletSpawnPoint: {fileID: 6689014107279301883}
-  minBullets: 5
-  maxBullets: 9
-  positionSpread: 1.3
-  angleSpread: 5
+  minBullets: 6
+  maxBullets: 11
+  positionSpread: 1
+  angleSpread: 7
   shootSound: {fileID: 0}
   shootEffect: {fileID: 0}
 --- !u!82 &496995545828742512
@@ -961,6 +944,24 @@ MonoBehaviour:
   spawnSound: {fileID: 8300000, guid: faf5e3d2c51c6b44a9fec9c10495be87, type: 3}
   extraHeightForSpawnParticles: 0
   debugging: 0
+--- !u!114 &4588893240731654992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809608444686199728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b2ff0ae6cdafc04aa8606ae25e490f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commonPickup: {fileID: 651290665991317019, guid: 03246238f195a90438eb18cf434d93e9, type: 3}
+  rarePickup: {fileID: 8762643131521024311, guid: cc2bece9588a69b479dd6e6379944730, type: 3}
+  legendaryPickup: {fileID: 444668434626985569, guid: c26ff3b520b99824391dc92d89e0422f, type: 3}
+  commonDropChance: 0.19
+  rareDropChance: 0.05
+  legendaryDropChance: 0.005
 --- !u!1 &1854000014070434901
 GameObject:
   m_ObjectHideFlags: 0
@@ -9256,15 +9257,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6559362985659250037, guid: 260ff1508afea5241b6511d8fbe92201, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.4
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 6559362985659250037, guid: 260ff1508afea5241b6511d8fbe92201, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: 6559362985659250037, guid: 260ff1508afea5241b6511d8fbe92201, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6559362985659250037, guid: 260ff1508afea5241b6511d8fbe92201, type: 3}
       propertyPath: m_LocalRotation.x

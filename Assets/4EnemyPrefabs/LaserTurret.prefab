@@ -350,7 +350,7 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: 6ea79773d35b5074fb91bb798df0937d, type: 3}
   showDeathAnim: 1
   deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
-  levelUpHealth: 10
+  levelUpHealth: 5
   levelUpDamage: 3
   levelUpRegen: 0
 --- !u!114 &2870349052749531213
@@ -368,7 +368,7 @@ MonoBehaviour:
   weight: 1
   creditCost: 16
   minStage: 0
-  isFlyer: 1
+  isFlyer: 0
   isRanged: 0
   innerSpawnRadius: 25
   outerSpawnRadius: 70

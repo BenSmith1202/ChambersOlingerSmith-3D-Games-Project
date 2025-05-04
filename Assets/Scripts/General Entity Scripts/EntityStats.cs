@@ -413,7 +413,7 @@ public class EntityStats : MonoBehaviour
     // LEVEL UP
     #region Leveling Up
     [Header("Level Scaling")]
-    public int levelUpHealth = 15;
+    public int levelUpHealth = 5;
     public int levelUpDamage = 3;
     public float levelUpRegen = 0f;
     public void LevelUp(int amountOfLevels)
