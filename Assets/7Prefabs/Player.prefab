@@ -278,7 +278,19 @@ MonoBehaviour:
     m_ActionId: 45dbdae1-da1c-48b2-bc7b-0697f52df1a6
     m_ActionName: MainMap/Reload[/Keyboard/r]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7193935576231406905}
+        m_TargetAssemblyTypeName: PausingScript, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 356ac775-8cc4-4315-9f25-122c8586d762
     m_ActionName: MainMap/Pause[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
@@ -594,6 +606,7 @@ MonoBehaviour:
   baseReloadTime: 1.5
   baseAttackRange: 0
   regenDelay: 2
+  extraJumps: 0
   crouchSpeed: 3
   wallrunForce: 4
   maxWallTime: 1.5
@@ -614,6 +627,9 @@ MonoBehaviour:
   buffManager: {fileID: 0}
   healthBarScript: {fileID: 0}
   damageNumbers: {fileID: 0}
+  damageSound: {fileID: 0}
+  showDeathAnim: 0
+  deathAnim: {fileID: 0}
   levelUpHealth: 35
   levelUpDamage: 3
   levelUpRegen: 0.3
@@ -629,14 +645,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  myStats: {fileID: 0}
   allItems: []
   statBoosts: []
   onHitEffects: []
   onKillEffects: []
   onAbilityEffects: []
   onHPEffects: []
+  onCritEffects: []
   buffs: []
+  consumedItem: {fileID: 0}
 --- !u!114 &1360714789371395468
 MonoBehaviour:
   m_ObjectHideFlags: 0
