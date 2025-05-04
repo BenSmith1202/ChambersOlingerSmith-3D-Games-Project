@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +21,11 @@ public class MenuManagerScript : MonoBehaviour
 
     public void StartGame()
     {
+        //delete player save
+        if (System.IO.File.Exists(Application.persistentDataPath + "/playerSave.json"))
+        {
+            System.IO.File.Delete(Application.persistentDataPath + "/playerSave.json");
+        }
         SceneManager.LoadScene(1);
     }
 

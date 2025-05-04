@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 531cb7b4ce56a1a41afc3993ff4b69ed, type: 3}
+  m_Name: GaeBolgItem
+  m_EditorClassIdentifier: 
+  itemName: The Gae Bolg
+  description: Change to create a wave of barbs on kills with critical hits.
+  icon: {fileID: 21300000, guid: 72bcbc479c2c625428583a5a014034d0, type: 3}
+  rarityIndex: 2
+  barbPrefab: {fileID: 8019311286716991791, guid: 286b68fcf015fd84a8cac6374fe494da, type: 3}
+  chance: 0.1
+  radius: 6
+  barbNumber: 24
+  barbSpeed: 18
+  barbDamage: 0.3

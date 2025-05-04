@@ -46,7 +46,8 @@ public abstract class ItemInstance : ScriptableObject
     OnHit,
     OnKill,
     OnAbilityUse,
-    OnHP
+    OnHP,
+    OnCrit
     //, Constant //PLEASE Avoid implementing constantly triggered effects!
 }
 

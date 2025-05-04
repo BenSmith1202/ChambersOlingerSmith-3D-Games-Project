@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb67306f6e850094dafdaf2c11523fd7, type: 3}
+  m_Name: Excalibur
+  m_EditorClassIdentifier: 
+  itemName: Excalibur
+  description: Attacks deal True damage equal to 5% of a foe's max health.
+  icon: {fileID: 21300000, guid: 958d617eb2e34d44db517221a7fa928e, type: 3}
+  rarityIndex: 2
+  trueDamagePercent: 0.05
+  excaliburEffectPrefab: {fileID: 1097607890447416763, guid: 2b632a7c3c99c3549a7a04c55284bb46, type: 3}

@@ -43,6 +43,7 @@ public class EntityStats : MonoBehaviour
     // grouped here for convienience
     #region Player Ability Exlusive Stats
     [Header("Player Specific Stats")]
+    public int extraJumps; // Number of extra jumps the player can perform
     public float crouchSpeed;   // Speed during crouching
     public float wallrunForce;  // effectively wall run speed
     public float maxWallTime;   // Maximum time in seconds that a player can run on walls before touching the ground
@@ -163,6 +164,8 @@ public class EntityStats : MonoBehaviour
         {
             audSource.PlayOneShot(damageSound);
         }
+
+        atk.checkCrit(gameObject); //check for crits before applying damage
 
         //If the attak is lethal, trigger OnKill effects
         if (atk.damage >= currentHP)

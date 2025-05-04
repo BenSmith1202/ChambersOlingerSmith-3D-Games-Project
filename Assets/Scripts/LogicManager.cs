@@ -94,6 +94,7 @@ public class LogicManager : MonoBehaviour
         Debug.Log("Playtime paused.");
     }
 
+
     // Resume the playtime counter
     public void ResumePlaytime()
     {
@@ -101,11 +102,13 @@ public class LogicManager : MonoBehaviour
         Debug.Log("Playtime resumed.");
     }
 
+
     // Get the total playtime in seconds
     public float GetPlaytime()
     {
         return playtime;
     }
+
 
     // Format playtime into a readable string (HH:MM:SS)
     public string GetFormattedPlaytime()
@@ -119,7 +122,16 @@ public class LogicManager : MonoBehaviour
     // Increase the current stage
     public void AdvanceStage()
     {
+        difficultyLevel = 0;
+        //enemyLevel = enemyLevel;
         currentStage++;
+        // Save the player's state to a file (if applicable)
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            player.GetComponent<PlayerSavingScript>().SavePlayerToFile();
+        }
+            
         Debug.Log("Advanced to stage " + currentStage);
         //SceneManager.LoadScene(currentStage + 1);
     }
@@ -287,6 +299,13 @@ public void GameOver()
     private IEnumerator LoadGameOverScreen()
     {
         yield return new WaitForSeconds(gameOverDelay);
+        //delete player save if one exists
+        //
+        if (System.IO.File.Exists(Application.persistentDataPath + "/playerSave.json"))
+        {
+            System.IO.File.Delete(Application.persistentDataPath + "/playerSave.json");
+        }
+            
         SceneManager.LoadScene("GameOverScene"); // Replace with your game over scene name
     }
     #endregion

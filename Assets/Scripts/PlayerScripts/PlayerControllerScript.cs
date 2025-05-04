@@ -22,9 +22,10 @@ public class PlayerControllerScript : MonoBehaviour
 
     [Header("Jumping")]
 
-  
+    
     public float jumpDelay;     // Delay between consecutive jumps
     bool readyToJump = true;    // Whether the player can jump again
+    int jumpsLeft; //how many jumps are left
 
 
     [Header("Slope Movement")]
@@ -160,6 +161,7 @@ public class PlayerControllerScript : MonoBehaviour
         {
             //Debug.Log("GROUNDED");
             _rbody.drag = groundDrag;   // Apply ground drag
+            jumpsLeft = stats.extraJumps; // Reset jumps left when grounded
         }
         else
         {
@@ -393,8 +395,13 @@ public class PlayerControllerScript : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && readyToJump && (grounded || movementState == MovementState.wallrunning) && !inputPaused)
-        {
+        if (context.started && readyToJump && (grounded || movementState == MovementState.wallrunning || jumpsLeft > 0) && !inputPaused)
+        { 
+            if (jumpsLeft > 0)
+            {
+                jumpsLeft--;
+            }
+            
             PlayerJump();  // Perform jump
             readyToJump = false;  // Prevent immediate consecutive jumps
             Invoke(nameof(ResetJump), jumpDelay);  // Reset jump after a delay
@@ -646,6 +653,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     public IEnumerator DashSlam()
     {
+        buffManager.TriggerOnAbilityEffects(gameObject);
         // Save current values
         float oldGroundDrag = groundDrag;
         float oldAirDrag = airDrag;

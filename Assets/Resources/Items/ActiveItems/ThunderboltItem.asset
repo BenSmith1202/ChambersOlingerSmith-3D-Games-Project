@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9751b0e8b3e5fd64d82e86a1becb5697, type: 3}
+  m_Name: ThunderboltItem
+  m_EditorClassIdentifier: 
+  itemName: The Thunderbolt
+  description: Chance to summon chain lightning.
+  icon: {fileID: 21300000, guid: 4f70988510baa6f4ca632b9fb271c8c0, type: 3}
+  rarityIndex: 2
+  chance: 0.5
+  boltFalloff: 0.8
+  maxBounces: 3
+  maxBounceDistance: 5
+  chainLightningPrefab: {fileID: 3647300133346153181, guid: 0cb39dbca6730ff4a9bce1b122a2bf4f, type: 3}
