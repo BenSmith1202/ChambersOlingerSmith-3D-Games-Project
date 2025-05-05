@@ -17,6 +17,13 @@ public class DifficultyCounterScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        difText.text = "Difficulty: " + logicManager.enemyLevel.ToString("F1");
+        if (logicManager.objectiveComplete)
+        {
+            difText.text = "Difficulty: ESCAPE!";
+        } else
+        {
+            difText.text = "Difficulty: " + logicManager.enemyLevel.ToString("F1");
+        }
+        
     }
 }

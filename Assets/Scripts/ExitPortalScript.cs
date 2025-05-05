@@ -22,6 +22,7 @@ public class ExitPortalScript : MonoBehaviour
     {
         if (logicManager.objectiveComplete && collision.gameObject.GetComponent<PlayerControllerScript>() != null)
         {
+            collision.gameObject.GetComponent<EntityStats>()?.LevelUp(1);
             LevelManager.Instance.LoadNextLevel();
         }
 

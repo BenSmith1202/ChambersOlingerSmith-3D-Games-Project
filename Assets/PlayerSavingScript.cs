@@ -71,12 +71,11 @@ public class PlayerSavingScript : MonoBehaviour
         if (!System.IO.File.Exists(Application.persistentDataPath + "/playerSave.json"))
         {
             Debug.Log("No save file found.");
-            if (playerStats != null)
-                playerStats.level = 0; // Set level to 0 if no save file exists
-            return;
         }
         //clearing
-        playerStats.level = 0;
+        if (playerStats != null)
+            playerStats.level = 0; // Set level to 0 if no save file exists
+        return;
         List<ItemInstance> toRemove = new List<ItemInstance>();
         foreach (var item in buffManager.allItems)
         {
