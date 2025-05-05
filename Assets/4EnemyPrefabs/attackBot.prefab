@@ -373,6 +373,7 @@ GameObject:
   - component: {fileID: 5203999998671909684}
   - component: {fileID: 2552227203192382929}
   - component: {fileID: -2412078583629568784}
+  - component: {fileID: 4217536644719746656}
   m_Layer: 4
   m_Name: attackBot
   m_TagString: Enemy
@@ -442,10 +443,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 61
+  currentHP: 58
   clipSize: 0
   level: 0
-  baseMaxHP: 61
+  baseMaxHP: 58
   baseRegen: 0
   baseSpeed: 5
   baseJumpForce: 0
@@ -457,6 +458,7 @@ MonoBehaviour:
   baseReloadTime: 0
   baseAttackRange: 0
   regenDelay: 3
+  extraJumps: 0
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
@@ -480,7 +482,7 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: d54b26e575fd39a429a44fa269a668a4, type: 3}
   showDeathAnim: 1
   deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
-  levelUpHealth: 35
+  levelUpHealth: 5
   levelUpDamage: 3
   levelUpRegen: 0
 --- !u!114 &3808993717235810380
@@ -496,7 +498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 1.5
-  creditCost: 40
+  creditCost: 29
   minStage: 0
   isFlyer: 0
   isRanged: 1
@@ -514,14 +516,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  myStats: {fileID: 0}
   allItems: []
   statBoosts: []
   onHitEffects: []
   onKillEffects: []
   onAbilityEffects: []
   onHPEffects: []
+  onCritEffects: []
   buffs: []
+  consumedItem: {fileID: 0}
 --- !u!114 &7180074571393685663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,6 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a1a1f7248159247a0ffa7ba240b402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addedOffset: {x: 0, y: 0, z: 0}
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
   showDamage: 1
   canvasScript: {fileID: 0}
@@ -552,9 +557,9 @@ MonoBehaviour:
   commonPickup: {fileID: 651290665991317019, guid: 03246238f195a90438eb18cf434d93e9, type: 3}
   rarePickup: {fileID: 8762643131521024311, guid: cc2bece9588a69b479dd6e6379944730, type: 3}
   legendaryPickup: {fileID: 444668434626985569, guid: c26ff3b520b99824391dc92d89e0422f, type: 3}
-  commonDropChance: 0.15
-  rareDropChance: 0.05
-  legendaryDropChance: 0.002
+  commonDropChance: 0.1
+  rareDropChance: 0.1
+  legendaryDropChance: 0.03
 --- !u!65 &5203999998671909684
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -692,6 +697,33 @@ MonoBehaviour:
   spawnSound: {fileID: 8300000, guid: a921d419e64f5344f889a2931ca3ec24, type: 3}
   extraHeightForSpawnParticles: 0
   debugging: 0
+--- !u!54 &4217536644719746656
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928244954057134}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1933460375180758
 GameObject:
   m_ObjectHideFlags: 0

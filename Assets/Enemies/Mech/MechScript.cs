@@ -1,131 +1,182 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
+/// <summary>
+/// Mech enemy that maintains distance while firing missiles at player
+/// </summary>
 public class MechScript : MonoBehaviour
 {
-    GameObject player;
-    Rigidbody rb;
-    MeshRenderer mr;
-    EntityStats es;
+    [Header("Player Tracking")]
+    [Tooltip("How fast the mech rotates to face player (degrees/sec)")]
+    public float rotationSpeed = 30f;
+    [Tooltip("Only rotate on Y axis (for grounded enemies)")]
+    public bool yAxisOnly = true;
+    [Tooltip("How often to update player position (seconds)")]
+    public float playerUpdateInterval = 0.2f;
 
-    [SerializeField] GameObject missle;
+    [Header("Combat Settings")]
+    [Tooltip("Range at which mech becomes active")]
+    public float activationRange = 30f;
+    [Tooltip("Ideal distance to maintain from player")]
+    public float desiredDistance = 25f;
+    [Tooltip("Buffer distance around ideal distance")]
+    public float distanceBuffer = 1f;
+    [Tooltip("Base time between missile volleys")]
+    public float fireRate = 3f;
+    [Tooltip("Random variation added to fire rate")]
+    public float fireRateVariation = 1f;
+    [Tooltip("Delay between missiles in same volley")]
+    public float missileDelay = 0.5f;
+    [Tooltip("Random variation added to missile delay")]
+    public float missileDelayVariation = 0.3f;
+    [Tooltip("Rotation threshold to start firing (degrees)")]
+    public float firingAngleThreshold = 10f;
 
-    [SerializeField] Transform missleLaunchSpot;
-    [SerializeField] Transform missleLaunchSpot2;
+    [Header("References")]
+    [Tooltip("Missile prefab to spawn")]
+    public GameObject missilePrefab;
+    [Tooltip("Primary missile spawn point")]
+    public Transform missileLaunchSpot;
+    [Tooltip("Secondary missile spawn point")]
+    public Transform missileLaunchSpot2;
+    [Tooltip("Explosion effect on death")]
+    public GameObject explosionEffect;
 
-    [SerializeField] GameObject explosion;
-
-    [SerializeField] float visibilityDistance;
-    [SerializeField] int rotateSpeed = 30;
-    [SerializeField] float desiredDistanceToPlayer = 25;
-
-    float nextFireTime = 0;
-
-    SpawnDirector spawnDirector;
+    private GameObject player;
+    private Rigidbody rb;
+    private EntityStats stats;
+    private float nextFireTime = 0;
+    private SpawnDirector spawnDirector;
+    private Vector3 lastPlayerPosition;
 
     private void Start()
     {
-        if (GameObject.FindWithTag("SpawnDirector"))
-        {
-            spawnDirector = GameObject.FindWithTag("SpawnDirector").GetComponent<SpawnDirector>();
-        }
-
-        es = GetComponent<EntityStats>();
-        mr = GetComponent<MeshRenderer>();
+        spawnDirector = GameObject.FindWithTag("SpawnDirector")?.GetComponent<SpawnDirector>();
+        stats = GetComponent<EntityStats>();
         rb = GetComponent<Rigidbody>();
-        player = GameObject.Find("Player");
+        player = GameObject.FindWithTag("Player");
+        StartCoroutine(UpdatePlayerPositionRoutine());
         StartCoroutine(Behavior());
     }
 
     private void FixedUpdate()
     {
-        if (es != null && es.isDead)
+        if (stats != null && stats.isDead)
         {
             Die();
         }
     }
 
-    IEnumerator Behavior()
+    private IEnumerator UpdatePlayerPositionRoutine()
     {
-        while(true)
+        while (true)
         {
-            if(GetDistanceToPlayer() < visibilityDistance)
+            if (player != null)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, GetRotationToPlayer(), rotateSpeed * Time.deltaTime);
+                lastPlayerPosition = player.transform.position;
+            }
+            yield return new WaitForSeconds(playerUpdateInterval);
+        }
+    }
 
-                //print("Y Rot: " + transform.rotation.y + " | Desired Y Rot: " + GetRotationToPlayer().y + " | Their Difference: " + Mathf.Abs(transform.rotation.y - GetRotationToPlayer().y));
+    private IEnumerator Behavior()
+    {
+        while (true)
+        {
+            if (GetDistanceToPlayer() < activationRange)
+            {
+                // Smooth rotation to face player
+                Quaternion targetRotation = Quaternion.LookRotation(GetXZDirectionToPlayer());
+                transform.rotation = Quaternion.RotateTowards(
+                    transform.rotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime
+                );
 
-                if(Mathf.Abs(transform.rotation.y - GetRotationToPlayer().y) < 0.2f) //if we're facing player (with forgiveness threshold)
+                // Check if facing player enough to fire
+                float angleToPlayer = Quaternion.Angle(transform.rotation, targetRotation);
+                bool canFire = angleToPlayer < firingAngleThreshold;
+
+                // Movement based on distance
+                float currentDistance = GetDistanceToPlayer();
+                if (canFire)
                 {
-                    if(GetDistanceToPlayer() > desiredDistanceToPlayer)
+                    if (currentDistance > desiredDistance + distanceBuffer)
                     {
-                        rb.velocity = new Vector3(transform.forward.normalized.x * es.getSpeed(), rb.velocity.y, transform.forward.normalized.z * es.getSpeed());
+                        rb.velocity = transform.forward * stats.getSpeed();
                     }
-                    else if(GetDistanceToPlayer() + 1 < desiredDistanceToPlayer)
+                    else if (currentDistance < desiredDistance - distanceBuffer)
                     {
-                        //print("else is happeneing");
-                        rb.velocity = new Vector3(-transform.forward.normalized.x * es.getSpeed(), rb.velocity.y, -transform.forward.normalized.z * es.getSpeed());
+                        rb.velocity = -transform.forward * stats.getSpeed();
+                    }
+                    else
+                    {
+                        rb.velocity = Vector3.zero;
                     }
 
-                    if(nextFireTime < Time.time)
+                    // Firing logic
+                    if (nextFireTime < Time.time)
                     {
-                        FireMissle();
+                        FireMissile();
                     }
                 }
                 else
                 {
-                    rb.velocity = Vector3.Slerp(rb.velocity, new Vector3(0, rb.velocity.y, 0), 1);
+                    rb.velocity = Vector3.zero;
                 }
-            }
-            else
-            {
-
             }
             yield return null;
         }
     }
 
-    void FireMissle()
+    private void FireMissile()
     {
-        nextFireTime = Time.time + es.getAtkDelay() + Random.Range(0f, 1f);
-        Instantiate(missle, missleLaunchSpot.position, GetRotationToPlayer());
-        Invoke("FireOtherMissle", Random.Range(0.2f, 0.8f));
+        nextFireTime = Time.time + fireRate + Random.Range(0f, fireRateVariation);
+        Instantiate(missilePrefab, missileLaunchSpot.position, GetRotationToPlayer());
+        Invoke("FireSecondaryMissile", missileDelay + Random.Range(0f, missileDelayVariation));
     }
 
-    void FireOtherMissle()
+    private void FireSecondaryMissile()
     {
-        Instantiate(missle, missleLaunchSpot2.position, GetRotationToPlayer());
+        Instantiate(missilePrefab, missileLaunchSpot2.position, GetRotationToPlayer());
     }
 
-    float GetDistanceToPlayer()
+    private float GetDistanceToPlayer()
     {
-        return Vector3.Distance(transform.position, player.transform.position);
+        return Vector3.Distance(transform.position, lastPlayerPosition);
     }
 
-    Quaternion GetRotationToPlayer()
+    private Quaternion GetRotationToPlayer()
     {
-        return Quaternion.LookRotation(GetXZDirectionToPlayer(), Vector3.up);
+        return Quaternion.LookRotation(GetXZDirectionToPlayer());
     }
 
-    Vector3 GetXZDirectionToPlayer()
+    private Vector3 GetXZDirectionToPlayer()
     {
-        Vector3 dir = (player.transform.position - transform.position).normalized;
-
-        return new Vector3(dir.x, 0, dir.z);
+        Vector3 direction = (lastPlayerPosition - transform.position).normalized;
+        if (yAxisOnly) direction.y = 0;
+        return direction;
     }
 
-    public void Die()
+    private void Die()
     {
-        Instantiate(explosion, transform.position, Quaternion.identity);
+        Instantiate(explosionEffect, transform.position, Quaternion.identity);
         if (spawnDirector != null)
         {
             spawnDirector.RegisterKill(gameObject, 3);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Draw activation range
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, activationRange);
+
+        // Draw ideal distance range
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, desiredDistance);
     }
 }
