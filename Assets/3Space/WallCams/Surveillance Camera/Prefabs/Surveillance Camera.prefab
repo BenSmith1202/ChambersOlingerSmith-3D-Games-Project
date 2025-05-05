@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7485506455812329928}
   - component: {fileID: 1676885769755485269}
   - component: {fileID: 7219620217207124847}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,9 +156,9 @@ GameObject:
   - component: {fileID: 2617812101501673147}
   - component: {fileID: 686574528823362247}
   - component: {fileID: 7889437279654332269}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Surveillance Camera
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 8524648021195866234}
   - component: {fileID: 7766357206704048310}
   - component: {fileID: 6029573209934542699}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
