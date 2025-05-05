@@ -22,7 +22,6 @@ public class RelicObjectiveScript : MonoBehaviour
             logicManager.objectiveComplete = true;
             Debug.Log("MacGuffin obtained!");
 
-            logicManager.IncreaseEnemyLevel();
 
             // Trigger all room spawners
             TriggerAllRoomSpawners();

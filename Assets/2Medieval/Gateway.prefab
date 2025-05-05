@@ -808,6 +808,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3249710138558436996, guid: 91e22e6df65a90b45a5046a49bdd1183, type: 3}
+      propertyPath: levelUpHealth
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

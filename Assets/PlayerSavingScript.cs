@@ -73,9 +73,12 @@ public class PlayerSavingScript : MonoBehaviour
             Debug.Log("No save file found.");
         }
         //clearing
-        if (playerStats != null)
-            playerStats.level = 0; // Set level to 0 if no save file exists
-        return;
+        if (playerStats == null)
+        {
+            //playerStats.level = 0; // Set level to 0 if no save file exists
+            return;
+        }
+            
         List<ItemInstance> toRemove = new List<ItemInstance>();
         foreach (var item in buffManager.allItems)
         {
@@ -96,6 +99,8 @@ public class PlayerSavingScript : MonoBehaviour
             buffManager.AddItem(item);
         }
 
+        print("AHHHHH PLAYER LEVEL IS:");
+        print(playerStats.level);
         //level up
         playerStats.LevelUp(save.level); //level up to the level in the save file
 

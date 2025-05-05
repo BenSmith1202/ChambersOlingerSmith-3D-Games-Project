@@ -178,8 +178,8 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: d54b26e575fd39a429a44fa269a668a4, type: 3}
   showDeathAnim: 0
   deathAnim: {fileID: 0}
-  levelUpHealth: 5
-  levelUpDamage: 3
+  levelUpHealth: 8
+  levelUpDamage: 4
   levelUpRegen: 0
 --- !u!114 &6751525242651205219
 MonoBehaviour:
@@ -254,8 +254,8 @@ MonoBehaviour:
   rarePickup: {fileID: 8762643131521024311, guid: cc2bece9588a69b479dd6e6379944730, type: 3}
   legendaryPickup: {fileID: 444668434626985569, guid: c26ff3b520b99824391dc92d89e0422f, type: 3}
   commonDropChance: 0.1
-  rareDropChance: 0.1
-  legendaryDropChance: 0.03
+  rareDropChance: 0.135
+  legendaryDropChance: 0.02
 --- !u!114 &125979472995090669
 MonoBehaviour:
   m_ObjectHideFlags: 0

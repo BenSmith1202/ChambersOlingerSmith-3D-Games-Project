@@ -1708,13 +1708,13 @@ MonoBehaviour:
   - {fileID: 1928244954057134, guid: 4efdc095f88074e53a4f28617077b108, type: 3}
   - {fileID: 1458391615630120, guid: 6d18ca3ac0d2ecd4aa99a8099af486bb, type: 3}
   currentCredits: 0
-  creditMultiplier: 0.8
+  creditMultiplier: 1
   difficultyCoefficient: 1
   minSpawnInterval: 16
   maxSpawnInterval: 26
   maxEnemies: 100
   poolSizes: 20
-  EscapeCreditIncreaseCoefficient: 1.5
+  EscapeCreditIncreaseCoefficient: 2
 --- !u!1001 &170326462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4371,7 +4371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &375066215
 Transform:
   m_ObjectHideFlags: 0
@@ -5611,7 +5611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6027fc3eb461a44387089ceab2efe79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditMultiplier: 1
+  creditMultiplier: 1.3
 --- !u!65 &498290881
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9521,7 +9521,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.5168703, g: 0.8331604, b: 0.91823894, a: 1}
-  m_Intensity: 0.06
+  m_Intensity: 0.08
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -11314,10 +11314,6 @@ PrefabInstance:
       propertyPath: cameraPosition
       value: 
       objectReference: {fileID: 248953413}
-    - target: {fileID: 1218082273660765300, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3074861286257551119, guid: 16b2ec1a19f44e4498bfa9f7fea72c66, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.7347757
@@ -13350,13 +13346,13 @@ MonoBehaviour:
   - {fileID: 1928244954057134, guid: 4efdc095f88074e53a4f28617077b108, type: 3}
   - {fileID: 1458391615630120, guid: 6d18ca3ac0d2ecd4aa99a8099af486bb, type: 3}
   currentCredits: 0
-  creditMultiplier: 1
+  creditMultiplier: 1.2
   difficultyCoefficient: 1
   minSpawnInterval: 8
   maxSpawnInterval: 14
   maxEnemies: 100
   poolSizes: 30
-  EscapeCreditIncreaseCoefficient: 2
+  EscapeCreditIncreaseCoefficient: 1.5
 --- !u!1 &1134116934
 GameObject:
   m_ObjectHideFlags: 0

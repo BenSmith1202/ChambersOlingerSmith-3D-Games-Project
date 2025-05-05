@@ -717,7 +717,7 @@ MonoBehaviour:
   damageSound: {fileID: 0}
   showDeathAnim: 0
   deathAnim: {fileID: 0}
-  levelUpHealth: 5
+  levelUpHealth: 2
   levelUpDamage: 3
   levelUpRegen: 0
 --- !u!114 &497718592275163288
