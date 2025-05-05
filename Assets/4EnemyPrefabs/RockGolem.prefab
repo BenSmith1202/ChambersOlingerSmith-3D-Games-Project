@@ -194,6 +194,7 @@ MonoBehaviour:
   baseReloadTime: 0
   baseAttackRange: 0
   regenDelay: 3
+  extraJumps: 0
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
@@ -251,14 +252,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  myStats: {fileID: 0}
   allItems: []
   statBoosts: []
   onHitEffects: []
   onKillEffects: []
   onAbilityEffects: []
   onHPEffects: []
+  onCritEffects: []
   buffs: []
+  consumedItem: {fileID: 0}
 --- !u!114 &6435543687191196523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +356,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.41
   m_Pitch: 1
   Loop: 0
   Mute: 0
