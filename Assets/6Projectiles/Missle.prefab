@@ -5228,9 +5228,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 6155863922665829492, guid: 4f3ebdea565d940489fc133f8a35ceef, type: 3}
   initialSpeed: 0
-  maxSpeed: 20
-  acceleration: 35
+  maxSpeed: 14
+  acceleration: 15
   turnSpeed: 0.05
   fuelTime: 2
   particles: {fileID: 5485232018621060920}
-  missleEndsFuelSound: {fileID: 8300000, guid: c9ee1480c9176644bac60ced59ebb36e, type: 3}

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 2786545498719203011}
   - component: {fileID: 6210453948975261474}
   - component: {fileID: 4384261392915549196}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: AlienFighter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8665991219934673643}
@@ -107,10 +107,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 55
+  currentHP: 63
   clipSize: 0
   level: 0
-  baseMaxHP: 55
+  baseMaxHP: 63
   baseRegen: 0
   baseSpeed: 5
   baseJumpForce: 0
@@ -122,6 +122,7 @@ MonoBehaviour:
   baseReloadTime: 0
   baseAttackRange: 0
   regenDelay: 3
+  extraJumps: 0
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
@@ -145,7 +146,7 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: 6ea79773d35b5074fb91bb798df0937d, type: 3}
   showDeathAnim: 1
   deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
-  levelUpHealth: 35
+  levelUpHealth: 5
   levelUpDamage: 3
   levelUpRegen: 0
 --- !u!114 &4340742221287616145
@@ -160,8 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 1.5
-  creditCost: 23
+  weight: 2
+  creditCost: 34
   minStage: 0
   isFlyer: 1
   isRanged: 0
@@ -179,14 +180,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  myStats: {fileID: 0}
   allItems: []
   statBoosts: []
   onHitEffects: []
   onKillEffects: []
   onAbilityEffects: []
   onHPEffects: []
+  onCritEffects: []
   buffs: []
+  consumedItem: {fileID: 0}
 --- !u!114 &4939051005105332574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a1a1f7248159247a0ffa7ba240b402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addedOffset: {x: 0, y: 0, z: 0}
   dmgCanvas: {fileID: 2583985077653713364, guid: 190a5b9014b023b4eacb14b127fcc0ed, type: 3}
   showDamage: 1
   canvasScript: {fileID: 0}
@@ -218,8 +222,8 @@ MonoBehaviour:
   rarePickup: {fileID: 8762643131521024311, guid: cc2bece9588a69b479dd6e6379944730, type: 3}
   legendaryPickup: {fileID: 444668434626985569, guid: c26ff3b520b99824391dc92d89e0422f, type: 3}
   commonDropChance: 0.15
-  rareDropChance: 0.05
-  legendaryDropChance: 0.002
+  rareDropChance: 0.1
+  legendaryDropChance: 0.02
 --- !u!65 &312869195814683941
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -233,7 +237,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -260,7 +264,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -378,15 +382,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 4
   moveDuration: 1
-  minActionDelay: 3
-  maxActionDelay: 5
+  minActionDelay: 2
+  maxActionDelay: 3
   hoverSpeed: 0.5
   hoverAmount: 0.3
-  attackRange: 40
+  attackRange: 30
   torpedoPrefab: {fileID: 1528543826248096, guid: 0eb1dc9b0d8505f45a18313076e1e653, type: 3}
   fireTorpedoPrefab: {fileID: 1906374043378120, guid: 1d1e849dafc470f4c9e544f852eee83d, type: 3}
   torpedoSpawnPoint: {fileID: 4154595508381948}
-  torpedoSpreadAngle: 15
+  torpedoSpreadAngle: 17
 --- !u!114 &4384261392915549196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,9 +423,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthCanvas (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2680396221775628784, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
+      propertyPath: m_Layer
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2785081280831407875, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: offset.y
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592002137713371821, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
+      propertyPath: m_Layer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3893158482416031536, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: m_Pivot.x
@@ -514,6 +526,10 @@ PrefabInstance:
     - target: {fileID: 3893158482416031536, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209100143893992687, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
+      propertyPath: m_Layer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8387972763873514906, guid: a3a0ce6c0b5ce2349b256a2332b4a44b, type: 3}
       propertyPath: m_AnchorMax.y

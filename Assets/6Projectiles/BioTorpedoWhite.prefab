@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2892468519929744437}
   - component: {fileID: 6579021123308400142}
   - component: {fileID: -7425079740489332869}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: BioTorpedoWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,9 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951a58f9882b55641a699986a195dc8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 11
   lifetime: 15
-  explosionPrefab: {fileID: 4900119757339342222, guid: 2591186da31c7a7488a34627bd95cf41, type: 3}
+  explosionPrefab: {fileID: 6155863922665829492, guid: 4f3ebdea565d940489fc133f8a35ceef, type: 3}
   napalmPrefab: {fileID: 0}
   impactSound: {fileID: 0}
 --- !u!65 &6579021123308400142
@@ -117,7 +117,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -144,7 +144,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -163,6 +163,14 @@ PrefabInstance:
     - target: {fileID: 2520773539833196738, guid: a2d39339dabbeee4bbb6fb181a466d0a, type: 3}
       propertyPath: m_Name
       value: RocketTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520773539833196738, guid: a2d39339dabbeee4bbb6fb181a466d0a, type: 3}
+      propertyPath: m_Layer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6376299123491271932, guid: a2d39339dabbeee4bbb6fb181a466d0a, type: 3}
+      propertyPath: m_Layer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7662050723514161979, guid: a2d39339dabbeee4bbb6fb181a466d0a, type: 3}
       propertyPath: m_LocalPosition.x
