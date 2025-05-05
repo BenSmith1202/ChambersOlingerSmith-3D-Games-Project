@@ -21,7 +21,7 @@ public class InventoryDisplayUI : MonoBehaviour
     private Dictionary<string, ItemDisplay> activeItemDisplays = new Dictionary<string, ItemDisplay>();
     public CameraControllerScript cam;
     LogicManager logicManager;
-
+    public GameObject pauseMenu; //FOR LOGIC MANAGER
     private void Start()
     {
         try
