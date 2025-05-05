@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; // Required for SceneManager events
+using System.IO; // Required for File operations
 
 public class LogicManager : MonoBehaviour
 {
@@ -50,12 +51,14 @@ public class LogicManager : MonoBehaviour
     [SerializeField] private float speedUpDuration = 1f;
 
     [Header("UI References (Assigned in Inspector or found)")]
-    [SerializeField] GameObject pauseMenu; // Assign in Inspector
+    // [SerializeField] GameObject pauseMenu; // Now found dynamically via InventoryDisplayUI
     [SerializeField] ItemWindowScript itemWindowScript; // Assign in inspector if possible
-    [SerializeField] GameObject player; // Found dynamically
+    // [SerializeField] GameObject player; // Now found dynamically
 
     // Found dynamically after scene load
     InventoryDisplayUI inventoryDisplayUI;
+    GameObject pauseMenu; // Reference fetched from InventoryDisplayUI
+    GameObject player; // Reference fetched dynamically
     CameraControllerScript playerCameraController; // Example: Cache camera controller
 
     // --- Private State ---
@@ -216,11 +219,8 @@ public class LogicManager : MonoBehaviour
         // Invoke and clear the queued actions
         InvokeQueuedActions();
 
-        // Ensure correct initial game state for the level
-        EnsureCorrectLevelStartState();
-
-        playtime = 0f; // Reset playtime for the new level
-        objectiveComplete = false; // Reset objective state
+        // Ensure correct initial game state for the level (Resets playtime/objective)
+        EnsureCorrectLevelStartState(); // <-- Resets happen inside here
 
     }
 
@@ -262,9 +262,25 @@ public class LogicManager : MonoBehaviour
     private void FindSceneReferences(string sceneName)
     {
         inventoryDisplayUI = GameObject.FindGameObjectWithTag("InventoryDisplay")?.GetComponent<InventoryDisplayUI>();
-        if (inventoryDisplayUI == null) Debug.LogWarning($"InventoryDisplayUI not found in scene {sceneName}. Check tag and component.");
+        if (inventoryDisplayUI == null)
+        {
+            Debug.LogWarning($"InventoryDisplayUI not found in scene {sceneName}. Check tag and component.");
+            pauseMenu = null; // Can't find pause menu if InventoryDisplayUI is missing
+        }
+        else
+        {
+            // Assuming InventoryDisplayUI has a public reference to the pause menu GameObject
+            pauseMenu = inventoryDisplayUI.pauseMenu;
+            if (pauseMenu == null)
+            {
+                Debug.LogWarning($"PauseMenu reference is null on InventoryDisplayUI in scene {sceneName}.");
+            }
+            else
+            {
+                pauseMenu.SetActive(false); // Ensure pause menu starts inactive
+            }
+        }
 
-        pauseMenu = inventoryDisplayUI.pauseMenu;
 
         player = GameObject.FindGameObjectWithTag("Player"); // Find dynamically
         if (player == null) Debug.LogWarning($"Player object not found in scene {sceneName}. Check tag.");
@@ -281,12 +297,14 @@ public class LogicManager : MonoBehaviour
     {
         if (player != null)
         {
-            player.GetComponent<EntityStats>().LevelUp(1);
+            
+            
+
             PlayerSavingScript savingScript = player.GetComponent<PlayerSavingScript>();
             if (savingScript != null)
             {
-                savingScript.LoadPlayer();
-                Debug.Log("Player state loaded.");
+                savingScript.LoadPlayer(); // This should handle setting the level based on save data
+                // Debug.Log("Player state loaded by PlayerSavingScript."); // Log moved to LoadPlayer()
             }
             else
             {
@@ -327,9 +345,17 @@ public class LogicManager : MonoBehaviour
 
     /// <summary>
     /// Sets the initial TimeScale and Cursor state for a playable level.
+    /// Also resets level-specific state like playtime and objectives.
     /// </summary>
     private void EnsureCorrectLevelStartState()
     {
+        // --- Reset Level-Specific State ---
+        playtime = 0f;
+        objectiveComplete = false;
+        // ADDED LOG: Check if resets are happening
+        Debug.Log($"EnsureCorrectLevelStartState: Playtime reset to {playtime}, ObjectiveComplete reset to {objectiveComplete}");
+
+        // --- Set TimeScale and Cursor ---
         bool isGamePausedByUser = pauseMenu != null && pauseMenu.activeSelf; // Check if pause menu was somehow active
         bool isItemWindowOpen = itemWindowScript != null && itemWindowScript.isOpen;
 
@@ -421,6 +447,10 @@ public class LogicManager : MonoBehaviour
     private IEnumerator CountPlaytime()
     {
         Debug.Log("Playtime counting started/resumed.");
+        // Wait until the end of the frame to start counting,
+        // allowing EnsureCorrectLevelStartState to set playtime to 0 first.
+        yield return new WaitForEndOfFrame();
+
         while (true)
         {
             // Use unscaledDeltaTime if playtime should advance even when Time.timeScale is 0 (paused)
@@ -441,6 +471,9 @@ public class LogicManager : MonoBehaviour
     private IEnumerator CheckDifficultyIncrease()
     {
         Debug.Log("Difficulty checking started/resumed.");
+        // Wait until the end of the frame? Might not be necessary for difficulty.
+        // yield return new WaitForEndOfFrame();
+
         while (true)
         {
             if (!isPlaytimePaused && !isLogicPausedForLoading) // Check flags
@@ -500,7 +533,7 @@ public class LogicManager : MonoBehaviour
         Debug.Log("Difficulty Level increased to level " + difficultyLevel);
     }
 
-    public void IncreaseEnemyLevel()
+    public void IncreaseEnemyLevel() // Made public as it was before
     {
         enemyLevel++; // Increase enemy level
         Debug.Log("Enemy Level increased to level " + enemyLevel);
