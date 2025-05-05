@@ -1238,6 +1238,7 @@ MonoBehaviour:
   baseReloadTime: 0
   baseAttackRange: 0
   regenDelay: 3
+  extraJumps: 0
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
@@ -1276,14 +1277,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  myStats: {fileID: 0}
   allItems: []
   statBoosts: []
   onHitEffects: []
   onKillEffects: []
   onAbilityEffects: []
   onHPEffects: []
+  onCritEffects: []
   buffs: []
+  consumedItem: {fileID: 0}
 --- !u!114 &4125319852927126416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1296,8 +1299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 1.5
-  creditCost: 36
+  weight: 1.8
+  creditCost: 30
   minStage: 0
   isFlyer: 0
   isRanged: 0
@@ -1350,13 +1353,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 180
-  chargeRange: 32
+  chargeRange: 30
   chargeCooldown: 5
   chargeWindupTime: 3
   chargeStartDelay: 3.4
   chargeDuration: 0.74
-  chargeSpeed: 30
-  chargeDamage: 20
+  chargeSpeed: 37
+  chargeDamage: 23
   knockback: 0
   damageCooldown: 0.5
   wallCheckDistance: 5

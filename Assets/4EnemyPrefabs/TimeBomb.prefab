@@ -180,6 +180,9 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
+  vignetteImage: {fileID: 0}
+  vignetteScript: {fileID: 0}
+  lowHealthThreshold: 0.3
 --- !u!114 &4863475837191999765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5994,6 +5997,7 @@ MonoBehaviour:
   baseReloadTime: 1
   baseAttackRange: 0
   regenDelay: 3
+  extraJumps: 0
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
@@ -6032,8 +6036,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 0.8
-  creditCost: 8
+  weight: 0.35
+  creditCost: 5
   minStage: 0
   isFlyer: 0
   isRanged: 0
@@ -6051,14 +6055,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  myStats: {fileID: 0}
   allItems: []
   statBoosts: []
   onHitEffects: []
   onKillEffects: []
   onAbilityEffects: []
   onHPEffects: []
+  onCritEffects: []
   buffs: []
+  consumedItem: {fileID: 0}
 --- !u!114 &-6648205672862305287
 MonoBehaviour:
   m_ObjectHideFlags: 0

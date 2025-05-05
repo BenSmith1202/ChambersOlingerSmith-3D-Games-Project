@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8244134562855559256}
   - component: {fileID: 1771329507057000007}
   - component: {fileID: 8861525330371317041}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CoreLight (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4838,6 +4838,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 348092507880787437, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356579354691713803, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3088635806796069575, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.52640915
@@ -4922,6 +4930,10 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.minColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3953854765599000619, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5878969489351179712, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
       propertyPath: RotationModule.curve.scalar
       value: 1.5707963
@@ -4953,6 +4965,10 @@ PrefabInstance:
     - target: {fileID: 6543882653180244048, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
       propertyPath: m_Name
       value: LegendaryItemPickup Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543882653180244048, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7465917366926224892, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
       propertyPath: rarity
@@ -4993,6 +5009,10 @@ PrefabInstance:
     - target: {fileID: 7871277758576576453, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057079713547910162, guid: 2ba00f84a6ac52740adbecc09349d4bf, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

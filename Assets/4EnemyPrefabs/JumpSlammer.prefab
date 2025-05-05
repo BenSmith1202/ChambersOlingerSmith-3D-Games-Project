@@ -95,7 +95,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1044
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   baseReloadTime: 0
   baseAttackRange: 0
   regenDelay: 3
+  extraJumps: 0
   crouchSpeed: 0
   wallrunForce: 0
   maxWallTime: 0
@@ -188,14 +189,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904a2cca710ecdf49832605cc50b1f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  myStats: {fileID: 0}
   allItems: []
   statBoosts: []
   onHitEffects: []
   onKillEffects: []
   onAbilityEffects: []
   onHPEffects: []
+  onCritEffects: []
   buffs: []
+  consumedItem: {fileID: 0}
 --- !u!114 &4394678216794884603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +246,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 20
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
