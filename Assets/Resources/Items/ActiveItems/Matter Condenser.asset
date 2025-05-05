@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Matter Condenser
   m_EditorClassIdentifier: 
   itemName: X-13 Matter Condenser
-  description: Hypercrits have a small chance to create a singularity.
+  description: Kills with critical hits have a small chance to create a singularity.
   icon: {fileID: 21300000, guid: 46c9d6914e5c2934686601a4fae5be61, type: 3}
   rarityIndex: 2
   chance: 0.1

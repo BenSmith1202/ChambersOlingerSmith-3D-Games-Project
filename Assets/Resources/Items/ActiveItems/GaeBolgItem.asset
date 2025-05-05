@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GaeBolgItem
   m_EditorClassIdentifier: 
   itemName: The Gae Bolg
-  description: Change to create a wave of barbs on kills with critical hits.
+  description: Chance to create a wave of deadly barbs on kill.
   icon: {fileID: 21300000, guid: 72bcbc479c2c625428583a5a014034d0, type: 3}
   rarityIndex: 2
   barbPrefab: {fileID: 8019311286716991791, guid: 286b68fcf015fd84a8cac6374fe494da, type: 3}
-  chance: 0.1
+  chance: 0.06
   radius: 6
-  barbNumber: 24
-  barbSpeed: 18
-  barbDamage: 0.3
+  barbNumber: 30
+  barbSpeed: 22
+  barbDamage: 0.4
