@@ -8866,7 +8866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 0.7
-  creditCost: 14
+  creditCost: 16
   minStage: 0
   isFlyer: 0
   isRanged: 0

@@ -219,7 +219,7 @@ public class LogicManager : MonoBehaviour
         
     }
 
-    private void IncreaseEnemyLevel()
+    public void IncreaseEnemyLevel()
     {
         Debug.Log("Enemy Level increased to level " + enemyLevel);
         enemyLevel++; // Increase enemy level

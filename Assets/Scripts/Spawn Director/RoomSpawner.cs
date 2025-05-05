@@ -11,6 +11,8 @@ public class RoomSpawner : MonoBehaviour
     public Transform[] groundedEnemySpawns;
     public float spawnRadiusCheck = 1f;
     public LayerMask obstacleLayers;
+    [Tooltip("Maximum random X/Z offset applied to spawn positions")]
+    public float spawnPositionOffset = 1f;
 
     [Tooltip("Credits to spend on initial room spawn")]
     public float StartingCredits = 0f; // NEW: Added starting credits variable
@@ -21,12 +23,8 @@ public class RoomSpawner : MonoBehaviour
     void Start()
     {
         InitializeLocalSpawnCards();
-
-
         StartCoroutine(DelayedStart());
     }
-
-
 
     private IEnumerator DelayedStart()
     {
@@ -41,7 +39,6 @@ public class RoomSpawner : MonoBehaviour
                 AttemptSpawns(director, StartingCredits);
             }
         }
-        // Your code here runs after all other Start methods
     }
 
     void InitializeLocalSpawnCards()
@@ -120,9 +117,17 @@ public class RoomSpawner : MonoBehaviour
         Transform spawnPoint = GetValidSpawnPoint(card);
         if (spawnPoint != null)
         {
-            monster.transform.position = spawnPoint.position;
+            // Apply random X/Z offset
+            Vector3 offset = new Vector3(
+                Random.Range(-spawnPositionOffset, spawnPositionOffset),
+                0,
+                Random.Range(-spawnPositionOffset, spawnPositionOffset)
+            );
+
+            monster.transform.position = spawnPoint.position + offset;
             monster.transform.rotation = spawnPoint.rotation;
             monster.SetActive(true);
+
             if (monster.GetComponent<SpawnInScript>())
             {
                 monster.GetComponent<SpawnInScript>().StartSpawnSequence();
