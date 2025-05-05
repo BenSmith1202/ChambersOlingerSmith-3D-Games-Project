@@ -107,10 +107,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 63
+  currentHP: 53
   clipSize: 0
   level: 0
-  baseMaxHP: 63
+  baseMaxHP: 53
   baseRegen: 0
   baseSpeed: 5
   baseJumpForce: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 2
-  creditCost: 34
+  creditCost: 48
   minStage: 0
   isFlyer: 1
   isRanged: 0
