@@ -221,6 +221,7 @@ public class LogicManager : MonoBehaviour
 
         playtime = 0f; // Reset playtime for the new level
         objectiveComplete = false; // Reset objective state
+
     }
 
     /// <summary>
@@ -280,6 +281,7 @@ public class LogicManager : MonoBehaviour
     {
         if (player != null)
         {
+            player.GetComponent<EntityStats>().LevelUp(1);
             PlayerSavingScript savingScript = player.GetComponent<PlayerSavingScript>();
             if (savingScript != null)
             {

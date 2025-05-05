@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: FractureItem
   m_EditorClassIdentifier: 
   itemName: Fracture
-  description: +100% damage to enemies at high health
+  description: +50% damage to enemies at high health
   icon: {fileID: 21300000, guid: da123ae3722a41a418c497c555003407, type: 3}
-  rarityIndex: 1
-  hpThreshold: 0.9
-  damageMod: 1
+  rarityIndex: 0
+  hpThreshold: 0.8
+  damageMod: 0.5
