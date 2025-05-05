@@ -18,7 +18,7 @@ public class MatterCondenserItem : ItemInstance
             //get a reference to the lethal attack
             Attack atk = context.atk;
 
-            if (atk.critLevel > 0) // On hypercrit
+            if (atk.critLevel > 0) // On crit
             {
                 //make black hole
                 WorldHazardScript whs = Instantiate(blackHolePrefab, context.target.transform.position, Quaternion.identity).GetComponent<WorldHazardScript>();

@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c95769892781044b9443c27502e48ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specificSceneOptional: 
 --- !u!4 &679568080
 Transform:
   m_ObjectHideFlags: 0
@@ -735,7 +736,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 679568079}
         m_TargetAssemblyTypeName: MenuManagerScript, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: StartGameFlow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
