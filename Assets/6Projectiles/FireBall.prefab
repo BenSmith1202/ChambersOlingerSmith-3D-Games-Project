@@ -14615,7 +14615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449317a9c005324428fbcbc0f65c1ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 4
   acceleration: 2
   maxLifetime: 10
   visualRotationSpeed: 90
@@ -14624,6 +14624,7 @@ MonoBehaviour:
   knockback: 0
   explosionEffect: {fileID: 6155863922665829492, guid: 4f3ebdea565d940489fc133f8a35ceef, type: 3}
   impactSound: {fileID: 0}
+  napalm: {fileID: 2813904454664348024, guid: 2d78de7e96390e1478c86a62fc43a4b6, type: 3}
 --- !u!54 &6378845440148311971
 Rigidbody:
   m_ObjectHideFlags: 0

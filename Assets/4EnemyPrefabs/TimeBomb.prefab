@@ -5879,6 +5879,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b69ab7dc4a09f094885bf950a65c44c3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4083704130210723998}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b69ab7dc4a09f094885bf950a65c44c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3023450864214718720}
   m_SourcePrefab: {fileID: 100100000, guid: b69ab7dc4a09f094885bf950a65c44c3, type: 3}
 --- !u!4 &4703448632437160086 stripped
 Transform:
@@ -6095,7 +6098,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.41
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6179,3 +6182,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3023450864214718720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5336151141367865900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 2
+  rotationSpeed: 1000
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 3272328292643009390}
+  spawnSound: {fileID: 8300000, guid: faf5e3d2c51c6b44a9fec9c10495be87, type: 3}
+  extraHeightForSpawnParticles: 0
+  debugging: 0

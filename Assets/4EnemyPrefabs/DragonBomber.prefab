@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 5373989189808400271}
   - component: {fileID: 6679949510062819975}
   - component: {fileID: 8499643988321964999}
+  - component: {fileID: 1668229108917178912}
   m_Layer: 4
   m_Name: Root_Pelvis
   m_TagString: Enemy
@@ -569,7 +570,7 @@ MonoBehaviour:
   buffManager: {fileID: 0}
   healthBarScript: {fileID: 3508328221455107940}
   damageNumbers: {fileID: 0}
-  damageSound: {fileID: 8300000, guid: e7d99aeb1b4e0304caa6b5180393848c, type: 3}
+  damageSound: {fileID: 8300000, guid: 859534031d689c748bb129756d2a1dd6, type: 3}
   showDeathAnim: 0
   deathAnim: {fileID: 0}
   levelUpHealth: 5
@@ -748,6 +749,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1668229108917178912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c51c0e00c562964aafb415427b22962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAnimationDuration: 3
+  rotationSpeed: 360
+  spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
+  behaviorsToDisableDuringSpawn:
+  - {fileID: 5148357803560106531}
+  spawnSound: {fileID: 8300000, guid: 7ef83908166db3242a6c3f84801f9fce, type: 3}
+  extraHeightForSpawnParticles: 2
+  debugging: 0
 --- !u!1 &123864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1752,7 +1773,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.48, y: 0.48, z: 0.48}
+  m_LocalScale: {x: 0.54, y: 0.54, z: 0.54}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 405264}
@@ -1815,12 +1836,12 @@ MonoBehaviour:
   circleSpeed: 20
   circleCenter: {fileID: 430508}
   rotationSpeed: 180
-  attackRange: 45
-  attackInterval: 1.77
-  attackWindup: 0.9
+  attackRange: 38
+  attackInterval: 3.5
+  attackWindup: 1
   fireballCount: 1
   fireballDelay: 0.3
-  fireballSpawnOffset: {x: 0, y: 5, z: 1}
+  fireballSpawnOffset: {x: 0, y: 4, z: 0.5}
   fireballPrefab: {fileID: 8070876866141798818, guid: 317fcb0759f16b747a06ec8fa4a53d4d, type: 3}
   animator: {fileID: 9520220}
 --- !u!82 &-7253131018627777017
@@ -1835,7 +1856,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.41
   m_Pitch: 1
   Loop: 0
   Mute: 0
