@@ -1811,13 +1811,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d4e3c05c6b4e74395d9545f89f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleRadius: 1
+  circleRadius: 0.7
   circleSpeed: 20
   circleCenter: {fileID: 430508}
   rotationSpeed: 180
-  attackRange: 30
-  attackInterval: 3.5
-  attackWindup: 1
+  attackRange: 45
+  attackInterval: 1.77
+  attackWindup: 0.9
   fireballCount: 1
   fireballDelay: 0.3
   fireballSpawnOffset: {x: 0, y: 5, z: 1}

@@ -55,5 +55,5 @@ MonoBehaviour:
   obstacleLayers:
     serializedVersion: 2
     m_Bits: 0
-  StartingCredits: 50
+  StartingCredits: 65
   CreditMultiplyer: 1

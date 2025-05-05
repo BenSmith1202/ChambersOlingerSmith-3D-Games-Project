@@ -14616,13 +14616,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  acceleration: 6
+  acceleration: 2
   maxLifetime: 10
   visualRotationSpeed: 90
   damage: 0
   splashRadius: 0
   knockback: 0
-  explosionEffect: {fileID: 4900119757339342222, guid: 2591186da31c7a7488a34627bd95cf41, type: 3}
+  explosionEffect: {fileID: 6155863922665829492, guid: 4f3ebdea565d940489fc133f8a35ceef, type: 3}
   impactSound: {fileID: 0}
 --- !u!54 &6378845440148311971
 Rigidbody:
