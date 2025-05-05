@@ -892,10 +892,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 18
+  currentHP: 14
   clipSize: 0
   level: 0
-  baseMaxHP: 18
+  baseMaxHP: 14
   baseRegen: 0
   baseSpeed: 8
   baseJumpForce: 0
@@ -946,8 +946,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90932e683232e440bdd4011fe63fa07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 1
-  creditCost: 10
+  weight: 0.4
+  creditCost: 28
   minStage: 0
   isFlyer: 0
   isRanged: 0

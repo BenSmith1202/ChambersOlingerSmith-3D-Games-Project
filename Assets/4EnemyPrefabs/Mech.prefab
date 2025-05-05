@@ -178,8 +178,8 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: d54b26e575fd39a429a44fa269a668a4, type: 3}
   showDeathAnim: 0
   deathAnim: {fileID: 0}
-  levelUpHealth: 5
-  levelUpDamage: 3
+  levelUpHealth: 8
+  levelUpDamage: 4
   levelUpRegen: 0
 --- !u!114 &6751525242651205219
 MonoBehaviour:
