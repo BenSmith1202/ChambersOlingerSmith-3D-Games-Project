@@ -12,12 +12,18 @@ EditorBuildSettings:
     path: Assets/Scenes/IntroSlide.unity
     guid: 4262ed927aa394d4b8dce56596cfcdb3
   - enabled: 1
-    path: Assets/Scenes/DavidLevel.unity
-    guid: d93ec6292a13d2a45a00e681fc4e1715
+    path: Assets/Scenes/WinScreen.unity
+    guid: 52a1c386f4fcfb1499e073330d8ff3d1
   - enabled: 1
     path: Assets/Scenes/DeathScreen.unity
     guid: 56484e816525e4541a825bac57bd5605
   - enabled: 1
-    path: Assets/Scenes/WinScreen.unity
-    guid: 52a1c386f4fcfb1499e073330d8ff3d1
+    path: Assets/Scenes/Medeval 1.unity
+    guid: 3fbe8e9ed2c4d894fa74b317b45eb2ca
+  - enabled: 1
+    path: Assets/Scenes/Greek 1.unity
+    guid: 28e7f3e048fba224dacde6981c17eb25
+  - enabled: 1
+    path: Assets/Scenes/LoadingScreen.unity
+    guid: 52d60c5fdb4e62a4ea75212f64410b78
   m_configObjects: {}

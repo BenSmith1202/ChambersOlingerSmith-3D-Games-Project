@@ -26,7 +26,7 @@ public class MenuManagerScript : MonoBehaviour
         {
             System.IO.File.Delete(Application.persistentDataPath + "/playerSave.json");
         }
-        SceneManager.LoadScene(1);
+        LevelManager.Instance.StartGame();
     }
 
     public void NextScene()
