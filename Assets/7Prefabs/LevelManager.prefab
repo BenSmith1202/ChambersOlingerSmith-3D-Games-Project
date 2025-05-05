@@ -52,4 +52,7 @@ MonoBehaviour:
   - worldName: Medieval
     levelSceneNames:
     - XXXMedeval 1
+  - worldName: Space
+    levelSceneNames:
+    - Space 1
   completionSceneName: WinScreen
