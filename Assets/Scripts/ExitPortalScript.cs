@@ -22,7 +22,7 @@ public class ExitPortalScript : MonoBehaviour
     {
         if (logicManager.objectiveComplete && collision.gameObject.GetComponent<PlayerControllerScript>() != null)
         {
-            SceneManager.LoadScene("WinScreen");
+            LevelManager.Instance.LoadNextLevel();
         }
 
     }

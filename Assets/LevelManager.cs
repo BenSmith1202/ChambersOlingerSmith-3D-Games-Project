@@ -89,6 +89,8 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void LoadNextLevel()
     {
+        GameObject.FindWithTag("Player")?.GetComponent<PlayerSavingScript>()?.SavePlayerToFile();
+        
         string sceneToLoad = GetNextLevelSceneName();
 
         if (!string.IsNullOrEmpty(sceneToLoad))

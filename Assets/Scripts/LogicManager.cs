@@ -28,16 +28,20 @@ public class LogicManager : MonoBehaviour
     public bool isPlaytimePaused = false; // Controls the playtime coroutine
 
     [Header("Difficulty Scaling")]
-    public float timePerDifficultyIncrease = 300f;
+    public float timePerDifficultyIncrease = 300f; // Initial value
+    private float initialTimePerDifficultyIncrease; // Store the initial value
     public float timeSinceLastDifficultyIncrease = 0f;
     public int numTimeIncreaseEachTime;
     public float timeSinceLastEnemyLevelUp = 0f;
-    public float timePerEnemyLevelUp = 60f;
+    public float timePerEnemyLevelUp = 60f; // Initial value
+    private float initialTimePerEnemyLevelUp; // Store the initial value
     public int enemyLevel = 0;
 
     [Header("Game Over")]
     public float gameOverDelay = 3f;
     public string gameOverSceneName = "GameOverScene"; // Make scene name configurable
+    public string winScreenSceneName = "WinScreen"; // Make scene name configurable
+    public string titleScreenSceneName = "Title"; // Make scene name configurable
 
     [Header("Time Scale Settings")]
     // Durations are no longer used for instant change, but kept for potential future use
@@ -46,15 +50,15 @@ public class LogicManager : MonoBehaviour
     [SerializeField] private float speedUpDuration = 1f;
 
     [Header("UI References (Assigned in Inspector or found)")]
-    [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject pauseMenu; // Assign in Inspector
     [SerializeField] ItemWindowScript itemWindowScript; // Assign in inspector if possible
+    [SerializeField] GameObject player; // Found dynamically
 
     // Found dynamically after scene load
     InventoryDisplayUI inventoryDisplayUI;
     CameraControllerScript playerCameraController; // Example: Cache camera controller
 
     // --- Private State ---
-    // private Coroutine currentTimeCoroutine; // No longer needed for instant change
     private Coroutine playtimeCoroutine; // Store reference to stop/start
     private Coroutine difficultyCoroutine; // Store reference to stop/start
     public bool isTimeSlowed = false;
@@ -70,6 +74,10 @@ public class LogicManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // Store initial difficulty values for reset
+            initialTimePerDifficultyIncrease = timePerDifficultyIncrease;
+            initialTimePerEnemyLevelUp = timePerEnemyLevelUp;
         }
         else
         {
@@ -88,22 +96,15 @@ public class LogicManager : MonoBehaviour
     {
         // Unsubscribe when this object is disabled or destroyed to prevent memory leaks
         SceneManager.sceneLoaded -= HandleSceneLoaded;
-
-        // Optional: Reset time scale if the manager is destroyed unexpectedly
-        // if (Instance == this) // Only reset if this *is* the singleton instance
-        // {
-        //     Time.timeScale = 1f;
-        // }
     }
 
     private void Start()
     {
-        // Start persistent coroutines only once
-        // These might be paused/resumed during loading via Pause/ResumeLogicForLoading
+        // Start persistent coroutines initially. HandleSceneLoaded will stop them
+        // immediately if the first scene is a utility scene like the Title screen.
         StartPersistentCoroutines();
-
-        // Note: Finding scene-specific objects like InventoryDisplayUI is now done
-        // in HandleSceneLoaded after a relevant scene loads.
+        // Ensure logic starts paused if the very first scene should be ignored
+        // We'll rely on HandleSceneLoaded to manage this correctly after the first scene load.
     }
 
     // --- Public Methods ---
@@ -129,18 +130,8 @@ public class LogicManager : MonoBehaviour
     {
         isLogicPausedForLoading = true;
         isPlaytimePaused = true; // Explicitly pause playtime counter
-        // Stop coroutines that shouldn't run during loading or rely on Time.deltaTime heavily
-        // Check if coroutines exist before stopping
-        if (playtimeCoroutine != null)
-        {
-            StopCoroutine(playtimeCoroutine);
-            playtimeCoroutine = null; // Clear reference
-        }
-        if (difficultyCoroutine != null)
-        {
-            StopCoroutine(difficultyCoroutine);
-            difficultyCoroutine = null; // Clear reference
-        }
+        // Stop coroutines and clear references so they can be restarted later
+        StopPersistentCoroutines();
         // Add any other logic pausing needed
         Debug.Log("LogicManager paused for loading.");
     }
@@ -152,7 +143,6 @@ public class LogicManager : MonoBehaviour
     {
         isLogicPausedForLoading = false;
         // Resume playtime ONLY if the game wasn't paused by the player beforehand
-        // You might need more sophisticated state management for pause states
         bool isGamePausedByUser = pauseMenu != null && pauseMenu.activeSelf;
         bool isItemWindowOpen = itemWindowScript != null && itemWindowScript.isOpen;
 
@@ -165,8 +155,11 @@ public class LogicManager : MonoBehaviour
             isPlaytimePaused = true; // Ensure playtime remains paused if game UI is open
         }
 
-        // Restart coroutines
-        StartPersistentCoroutines();
+        // Restart coroutines only if logic isn't paused
+        if (!isLogicPausedForLoading)
+        {
+            StartPersistentCoroutines();
+        }
         Debug.Log("LogicManager resumed after loading.");
     }
 
@@ -181,68 +174,129 @@ public class LogicManager : MonoBehaviour
         Debug.Log($"Scene loaded: {scene.name} (Mode: {mode})");
 
         // --- Step 1: Check if it's a scene where logic should be paused/ignored ---
+        string loadingSceneName = GetLoadingSceneName();
+        bool isUtilityScene = IsUtilityScene(scene, loadingSceneName);
 
-        string loadingSceneName = "";
-        if (LevelManager.Instance != null)
+        if (isUtilityScene)
         {
-            // Ensure LevelManager has a public way to get the loading screen name
-            // Example: public string LoadingSceneName => loadingScreenSceneName;
-            loadingSceneName = LevelManager.Instance.loadingScreenSceneName;
-        }
-        else
-        {
-            // Only log warning if this is not the very first scene load potentially
-            if (Time.frameCount > 1) // Avoid warning on initial game launch before LevelManager might exist
+            Debug.Log($"Utility scene loaded ({scene.name}). Stopping persistent coroutines and pausing logic.");
+            isLogicPausedForLoading = true; // Use this flag to prevent accidental resumption
+            isPlaytimePaused = true; // Ensure playtime counter is paused
+
+            // Explicitly STOP the coroutines when entering these scenes,
+            // even if Start() just began them.
+            StopPersistentCoroutines();
+
+            // Reset relevant game state when returning to the Title screen
+            if (scene.name == titleScreenSceneName) // Use variable for title screen name
             {
-                Debug.LogWarning("HandleSceneLoaded: LevelManager instance not found. Cannot check for loading screen.");
+                ResetGameStateForNewRun();
             }
-            // Assume it's not the loading screen if LevelManager isn't found yet
-        }
 
+            // Ensure correct cursor state and time scale for menus/utility scenes
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
-        // Ignore the loading screen itself and potentially other scenes like Main Menu
-        // Ensure loadingSceneName is not empty before comparing
-        if ((!string.IsNullOrEmpty(loadingSceneName) && scene.name == loadingSceneName) || scene.name == "MainMenu") // Add other non-level scenes if needed
-        {
-            Debug.Log($"Ignoring scene load event for utility scene: {scene.name}");
-            // Ensure logic remains paused if we just loaded the loading screen
-            if (!string.IsNullOrEmpty(loadingSceneName) && scene.name == loadingSceneName)
-            {
-                isLogicPausedForLoading = true; // Ensure it stays paused
-                isPlaytimePaused = true;
-                // Ensure coroutines are stopped if they somehow restarted
-                if (playtimeCoroutine != null) { StopCoroutine(playtimeCoroutine); playtimeCoroutine = null; }
-                if (difficultyCoroutine != null) { StopCoroutine(difficultyCoroutine); difficultyCoroutine = null; }
-            }
             return; // Do nothing further for these scenes
         }
 
         // --- Step 2: It's a playable level scene - Resume Logic & Run Setup ---
-
         Debug.Log($"Running setup for level: {scene.name}");
 
-        // Resume core logic now that the level is loaded
+        // Resume core logic now that the level is loaded (restarts coroutines)
         ResumeLogicAfterLoading();
 
-        // Find essential scene-specific references ONLY now
-        // Use null-conditional operator ?. for safer access
+        // Find essential scene-specific references
+        FindSceneReferences(scene.name);
+
+        // Load player state *after* finding player object
+        LoadPlayerState();
+
+        // Invoke and clear the queued actions
+        InvokeQueuedActions();
+
+        // Ensure correct initial game state for the level
+        EnsureCorrectLevelStartState();
+    }
+
+    /// <summary>
+    /// Gets the loading screen scene name from LevelManager safely.
+    /// </summary>
+    private string GetLoadingSceneName()
+    {
+        LevelManager levelManagerInstance = LevelManager.Instance;
+        if (levelManagerInstance != null)
+        {
+            // Ensure LevelManager has a public way to get the loading screen name
+            // Example: public string LoadingSceneName => loadingScreenSceneName;
+            return levelManagerInstance.loadingScreenSceneName; // Access the field directly if public/internal, or use property
+        }
+        else if (Time.frameCount > 1) // Avoid warning on initial game launch
+        {
+            Debug.LogWarning("GetLoadingSceneName: LevelManager instance not found.");
+        }
+        return ""; // Return empty if not found
+    }
+
+    /// <summary>
+    /// Checks if the loaded scene is a utility scene where game logic shouldn't run.
+    /// </summary>
+    private bool IsUtilityScene(Scene scene, string loadingSceneName)
+    {
+        // Add all scene names that are *not* playable levels
+        return scene.name == titleScreenSceneName ||
+               scene.name == "IntroSlide" || // Your specific intro scene name
+               scene.name == winScreenSceneName ||
+               scene.name == gameOverSceneName || // Using the variable name
+               (!string.IsNullOrEmpty(loadingSceneName) && scene.name == loadingSceneName);
+    }
+
+    /// <summary>
+    /// Finds references to objects specific to the current scene.
+    /// </summary>
+    private void FindSceneReferences(string sceneName)
+    {
         inventoryDisplayUI = GameObject.FindGameObjectWithTag("InventoryDisplay")?.GetComponent<InventoryDisplayUI>();
-        if (inventoryDisplayUI == null) Debug.LogWarning($"InventoryDisplayUI not found in scene {scene.name}. Check tag and component.");
+        if (inventoryDisplayUI == null) Debug.LogWarning($"InventoryDisplayUI not found in scene {sceneName}. Check tag and component.");
 
-        // Example: Find player camera controller
-        GameObject playerCamObj = GameObject.FindGameObjectWithTag("MainCamera"); // Or however you find it
-        if (playerCamObj != null)
+        pauseMenu = inventoryDisplayUI.pauseMenu;
+
+        player = GameObject.FindGameObjectWithTag("Player"); // Find dynamically
+        if (player == null) Debug.LogWarning($"Player object not found in scene {sceneName}. Check tag.");
+
+        // Find camera controller if needed (example)
+        // GameObject playerCamObj = GameObject.FindGameObjectWithTag("MainCamera");
+        // if (playerCamObj != null) playerCameraController = playerCamObj.GetComponent<CameraControllerScript>();
+    }
+
+    /// <summary>
+    /// Loads the player state if the player object is found.
+    /// </summary>
+    private void LoadPlayerState()
+    {
+        if (player != null)
         {
-            playerCameraController = playerCamObj.GetComponent<CameraControllerScript>();
-            if (playerCameraController == null) Debug.LogWarning($"CameraControllerScript component not found on MainCamera in scene {scene.name}.");
+            PlayerSavingScript savingScript = player.GetComponent<PlayerSavingScript>();
+            if (savingScript != null)
+            {
+                savingScript.LoadPlayer();
+                Debug.Log("Player state loaded.");
+            }
+            else
+            {
+                Debug.LogWarning("Player found, but PlayerSavingScript component is missing. Cannot load state.");
+            }
         }
-        else
-        {
-            Debug.LogWarning($"MainCamera object not found in scene {scene.name}. Check tag.");
-        }
+        // No warning if player is null here, FindSceneReferences already warned.
+    }
 
 
-        // --- Step 3: Invoke and clear the queued actions ---
+    /// <summary>
+    /// Invokes and clears actions queued for the next level load.
+    /// </summary>
+    private void InvokeQueuedActions()
+    {
         if (OnNextLevelLoaded != null)
         {
             Debug.Log("Invoking OnNextLevelLoaded actions...");
@@ -256,8 +310,7 @@ public class LogicManager : MonoBehaviour
             }
             finally
             {
-                // Clear the event listeners *after* invoking, even if errors occurred
-                OnNextLevelLoaded = null;
+                OnNextLevelLoaded = null; // Clear the event listeners
                 Debug.Log("Cleared OnNextLevelLoaded actions.");
             }
         }
@@ -265,29 +318,60 @@ public class LogicManager : MonoBehaviour
         {
             Debug.Log("No actions queued for OnNextLevelLoaded.");
         }
+    }
 
-        // --- Step 4: Ensure correct initial game state for the level ---
-        bool isGamePausedByUser = pauseMenu != null && pauseMenu.activeSelf;
+    /// <summary>
+    /// Sets the initial TimeScale and Cursor state for a playable level.
+    /// </summary>
+    private void EnsureCorrectLevelStartState()
+    {
+        bool isGamePausedByUser = pauseMenu != null && pauseMenu.activeSelf; // Check if pause menu was somehow active
         bool isItemWindowOpen = itemWindowScript != null && itemWindowScript.isOpen;
 
-        // Only reset time scale and cursor if the game is not supposed to be paused
+        // Only set to playing state if not intentionally paused or in slow-mo
         if (!isTimeSlowed && !isGamePausedByUser && !isItemWindowOpen)
         {
             Time.timeScale = 1f;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            // Example: Re-enable camera control if needed
-            // if (playerCameraController != null) playerCameraController.camLock = false;
         }
         else if (isGamePausedByUser || isItemWindowOpen)
         {
-            // If loading into a state that should be paused (e.g., returning to game with pause menu open)
-            Time.timeScale = 0f; // Ensure time is paused
+            // If loading into a state that should be paused
+            Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            // if (playerCameraController != null) playerCameraController.camLock = true;
         }
-        // If isTimeSlowed is true, StartTimeSlowdown would have already set the timescale.
+        else if (isTimeSlowed)
+        {
+            // If loading into slow-mo state
+            Time.timeScale = targetTimeScale;
+            Cursor.lockState = CursorLockMode.Locked; // Usually locked during gameplay
+            Cursor.visible = false;
+        }
+    }
+
+    /// <summary>
+    /// Resets game state variables for starting a new run from the title screen.
+    /// </summary>
+    private void ResetGameStateForNewRun()
+    {
+        Debug.Log("Resetting game state for new run.");
+        playtime = 0f;
+        timeSinceLastDifficultyIncrease = 0f;
+        timeSinceLastEnemyLevelUp = 0f;
+        difficultyLevel = 1; // Reset to base difficulty
+        enemyLevel = 0; // Reset enemy level
+        currentStage = 1; // Reset stage
+        objectiveComplete = false;
+        isTimeSlowed = false; // Ensure time isn't slowed
+
+        // Reset difficulty timers to initial values
+        timePerDifficultyIncrease = initialTimePerDifficultyIncrease;
+        timePerEnemyLevelUp = initialTimePerEnemyLevelUp;
+
+        // Clear any queued actions from a previous run
+        OnNextLevelLoaded = null;
     }
 
 
@@ -295,14 +379,36 @@ public class LogicManager : MonoBehaviour
 
     private void StartPersistentCoroutines()
     {
-        // Start or restart coroutines if they aren't already running
-        if (playtimeCoroutine == null)
+        // Only start if logic is not paused and they aren't already running
+        if (!isLogicPausedForLoading)
         {
-            playtimeCoroutine = StartCoroutine(CountPlaytime());
+            if (playtimeCoroutine == null)
+            {
+                playtimeCoroutine = StartCoroutine(CountPlaytime());
+            }
+            if (difficultyCoroutine == null)
+            {
+                difficultyCoroutine = StartCoroutine(CheckDifficultyIncrease());
+            }
         }
-        if (difficultyCoroutine == null)
+    }
+
+    /// <summary>
+    /// Stops the persistent coroutines and clears their references.
+    /// </summary>
+    private void StopPersistentCoroutines()
+    {
+        if (playtimeCoroutine != null)
         {
-            difficultyCoroutine = StartCoroutine(CheckDifficultyIncrease());
+            StopCoroutine(playtimeCoroutine);
+            playtimeCoroutine = null;
+            Debug.Log("Playtime counting stopped.");
+        }
+        if (difficultyCoroutine != null)
+        {
+            StopCoroutine(difficultyCoroutine);
+            difficultyCoroutine = null;
+            Debug.Log("Difficulty checking stopped.");
         }
     }
 
@@ -350,31 +456,6 @@ public class LogicManager : MonoBehaviour
         }
     }
 
-    // SmoothTimeScale coroutine is no longer used for instant changes
-    /*
-    private IEnumerator SmoothTimeScale(float start, float end, float duration)
-    {
-        // Ensure duration is positive to avoid division by zero
-        if (duration <= 0)
-        {
-            Time.timeScale = end;
-            yield break; // Exit if duration is invalid
-        }
-
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            // Use unscaledDeltaTime because Time.timeScale is being changed
-            elapsed += Time.unscaledDeltaTime;
-            float t = Mathf.Clamp01(elapsed / duration); // Calculate interpolation factor
-            Time.timeScale = Mathf.Lerp(start, end, t); // Apply the interpolated time scale
-            yield return null; // Wait for the next frame
-        }
-        Time.timeScale = end; // Ensure the final value is set precisely
-        // currentTimeCoroutine = null; // Clear the coroutine reference
-    }
-    */
-
 
     // --- Time Control ---
     #region Time Control
@@ -393,8 +474,6 @@ public class LogicManager : MonoBehaviour
     public void StartTimeSlowdown()
     {
         isTimeSlowed = true; // Set the flag to indicate time is slowed
-        // Stop any previous time scale coroutine if it was somehow running (safety check)
-        // if (currentTimeCoroutine != null) StopCoroutine(currentTimeCoroutine);
         Time.timeScale = targetTimeScale; // Set time scale instantly
         Debug.Log($"Time slowed instantly to: {targetTimeScale}");
     }
@@ -403,8 +482,6 @@ public class LogicManager : MonoBehaviour
     public void StartTimeSpeedUp()
     {
         isTimeSlowed = false; // Reset the flag
-        // Stop any previous time scale coroutine if it was somehow running (safety check)
-        // if (currentTimeCoroutine != null) StopCoroutine(currentTimeCoroutine);
         Time.timeScale = 1f; // Set time scale instantly back to normal
         Debug.Log("Time restored instantly to normal (1.0)");
     }
@@ -426,7 +503,6 @@ public class LogicManager : MonoBehaviour
     #endregion
 
     // --- Pause Menu Logic ---
-    // Consider refactoring this into a dedicated UIManager or Game State Manager later
     #region Pause
     public void PauseGame(bool pause)
     {
@@ -442,7 +518,7 @@ public class LogicManager : MonoBehaviour
             Time.timeScale = 0f; // Hard pause
             PausePlaytime(); // Pause playtime tracking
 
-            if (pauseMenu != null) pauseMenu.SetActive(true); else Debug.LogWarning("Pause Menu reference not set!");
+            if (pauseMenu != null) pauseMenu.SetActive(true); else Debug.LogWarning("Pause Menu reference not set or found!");
             // Ensure inventoryDisplayUI reference is valid before using
             if (inventoryDisplayUI != null) inventoryDisplayUI.ShowItemDisplay(); else Debug.LogWarning("InventoryDisplayUI reference not set in PauseGame!");
             ItemTooltipSystem.HideTooltip(); // Assuming static access
@@ -450,8 +526,6 @@ public class LogicManager : MonoBehaviour
             // Unlock cursor for menu interaction
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            // Lock camera if applicable
-            // if (playerCameraController != null) playerCameraController.camLock = true;
             Debug.Log("Game Paused.");
         }
         else // Unpausing
@@ -484,8 +558,6 @@ public class LogicManager : MonoBehaviour
                 // Relock cursor
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                // Unlock camera if applicable
-                // if (playerCameraController != null) playerCameraController.camLock = false;
             }
             else
             {
@@ -504,47 +576,62 @@ public class LogicManager : MonoBehaviour
         Debug.Log("Game Over!");
         PausePlaytime();
         isLogicPausedForLoading = true; // Stop updates
+        StopPersistentCoroutines(); // Stop playtime/difficulty counting
         StopMusic(); // Placeholder
-        // Consider stopping other game systems here (e.g., player input, enemy AI)
 
         // Ensure time stops completely on game over
         Time.timeScale = 0f;
 
-        StartCoroutine(LoadGameOverScreen());
+        StartCoroutine(LoadGameOverScreen(gameOverSceneName)); // Pass the specific scene name
     }
+
+    // --- Win Condition ---
+    public void WinGame() // Example method to call when player wins
+    {
+        Debug.Log("You Win!");
+        PausePlaytime();
+        isLogicPausedForLoading = true; // Stop updates
+        StopPersistentCoroutines(); // Stop playtime/difficulty counting
+        StopMusic(); // Placeholder
+
+        // Ensure time stops completely on win
+        Time.timeScale = 0f;
+
+        StartCoroutine(LoadGameOverScreen(winScreenSceneName)); // Load the win screen
+    }
+
 
     private void StopMusic() { Debug.Log("Music stopped."); /* Add music logic */ }
 
-    private IEnumerator LoadGameOverScreen()
+    private IEnumerator LoadGameOverScreen(string sceneToLoad) // Takes scene name as parameter
     {
-        // Use Realtime delay as Time.timeScale is 0
+        // Use Realtime delay as Time.timeScale might be 0
         yield return new WaitForSecondsRealtime(gameOverDelay);
 
-        // Delete save file
-        string savePath = System.IO.Path.Combine(Application.persistentDataPath, "playerSave.json");
-        try
+        // Delete save file only on actual game over (death), not on win
+        if (sceneToLoad == gameOverSceneName)
         {
-            if (System.IO.File.Exists(savePath))
+            string savePath = System.IO.Path.Combine(Application.persistentDataPath, "playerSave.json");
+            try
             {
-                System.IO.File.Delete(savePath);
-                Debug.Log("Deleted player save file.");
+                if (System.IO.File.Exists(savePath))
+                {
+                    System.IO.File.Delete(savePath);
+                    Debug.Log("Deleted player save file.");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Error deleting save file at {savePath}: {e.Message}");
             }
         }
-        catch (Exception e)
-        {
-            Debug.LogError($"Error deleting save file at {savePath}: {e.Message}");
-        }
-
-        // Reset singleton state before leaving? Generally not recommended unless
-        // you have a specific reason and handle re-initialization carefully.
-        // Instance = null;
 
         // IMPORTANT: Reset time scale *before* loading the next scene,
-        // otherwise the GameOverScene might start with Time.timeScale = 0.
+        // otherwise the next scene might start with Time.timeScale = 0.
         Time.timeScale = 1f;
 
-        // Load the game over scene
-        SceneManager.LoadScene(gameOverSceneName);
+        // Load the specified scene (Game Over or Win Screen)
+        SceneManager.LoadScene(sceneToLoad);
     }
     #endregion
 
@@ -553,19 +640,17 @@ public class LogicManager : MonoBehaviour
     public void AdvanceStage()
     {
         // Pause logic during the transition
-        PauseLogicForLoading(); // Use the same pause mechanism
+        PauseLogicForLoading(); // Stops coroutines
 
-        // Reset difficulty for the new stage? Seems intended.
+        // Reset difficulty for the new stage
         difficultyLevel = 1; // Reset difficulty level
         timeSinceLastDifficultyIncrease = 0f; // Reset timer for next increase
-        // Keep enemy level? Or reset? Depends on design.
-        // enemyLevel = 0; // Optional: Reset enemy level too
-
         currentStage++;
         Debug.Log("Advanced to stage " + currentStage);
 
         // Save player state *before* loading next level
-        GameObject player = GameObject.FindWithTag("Player");
+        // Ensure player reference is still valid (might be destroyed/recreated)
+        player = GameObject.FindGameObjectWithTag("Player"); // Re-find just in case
         if (player != null)
         {
             PlayerSavingScript savingScript = player.GetComponent<PlayerSavingScript>();

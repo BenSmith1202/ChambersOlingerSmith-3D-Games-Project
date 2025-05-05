@@ -1890,7 +1890,7 @@ GameObject:
   - component: {fileID: 858727098911865833}
   m_Layer: 5
   m_Name: PauseMenu
-  m_TagString: Untagged
+  m_TagString: PauseMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2095,6 +2095,7 @@ MonoBehaviour:
   spaceBetweenItems: 17
   toggleKey: 9
   cam: {fileID: 0}
+  pauseMenu: {fileID: 8766286067667948383}
 --- !u!1001 &2527552539571905613
 PrefabInstance:
   m_ObjectHideFlags: 0
