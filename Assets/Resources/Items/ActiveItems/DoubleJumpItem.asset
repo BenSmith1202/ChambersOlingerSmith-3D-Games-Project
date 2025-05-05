@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: Double-Jump
   description: You know what this does. +1 jump.
   icon: {fileID: 21300000, guid: 9d60baedadeb38841984687ebc7fd14a, type: 3}
-  rarityIndex: 1
+  rarityIndex: 0
   numJumpsToAdd: 1

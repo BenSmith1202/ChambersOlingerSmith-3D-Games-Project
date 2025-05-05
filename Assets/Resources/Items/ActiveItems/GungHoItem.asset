@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GungHoItem
   m_EditorClassIdentifier: 
   itemName: Gung-Ho
-  description: +50% damage while sliding
+  description: +30% damage while sliding
   icon: {fileID: 21300000, guid: 1414e763f6e49c54a84bb844bc254f0f, type: 3}
   rarityIndex: 1
-  damageMult: 2
+  damageMult: 1.3

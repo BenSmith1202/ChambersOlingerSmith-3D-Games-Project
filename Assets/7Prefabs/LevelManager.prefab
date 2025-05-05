@@ -51,7 +51,7 @@ MonoBehaviour:
     - Greek 1
   - worldName: Medieval
     levelSceneNames:
-    - XXXMedeval 1
+    - Medeval 1
   - worldName: Space
     levelSceneNames:
     - Space 1

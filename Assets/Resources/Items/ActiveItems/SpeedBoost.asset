@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpeedBoost
   m_EditorClassIdentifier: 
   itemName: Speed Boost
-  description: +20% to movement speed
+  description: +17% to movement speed
   icon: {fileID: 21300000, guid: cbb93b8ad56a7104fac3f6e891b333b5, type: 3}
   rarityIndex: 0
-  speedBoost: 0.2
+  speedBoost: 0.17

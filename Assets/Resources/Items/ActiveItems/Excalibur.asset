@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Excalibur
   m_EditorClassIdentifier: 
   itemName: Excalibur
-  description: Attacks deal True damage equal to 5% of a foe's max health.
+  description: Attacks deal True damage equal to 10% of a foe's max health.
   icon: {fileID: 21300000, guid: 958d617eb2e34d44db517221a7fa928e, type: 3}
   rarityIndex: 2
-  trueDamagePercent: 0.05
+  trueDamagePercent: 0.1
   excaliburEffectPrefab: {fileID: 1097607890447416763, guid: 2b632a7c3c99c3549a7a04c55284bb46, type: 3}
