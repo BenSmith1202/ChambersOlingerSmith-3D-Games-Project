@@ -52,8 +52,17 @@ MonoBehaviour:
   timePerDifficultyIncrease: 5
   timeSinceLastDifficultyIncrease: 0
   numTimeIncreaseEachTime: 7
+  timeSinceLastEnemyLevelUp: 0
+  timePerEnemyLevelUp: 60
+  enemyLevel: 0
   gameOverDelay: 3
+  gameOverSceneName: DeathScreen
+  winScreenSceneName: WinScreen
+  titleScreenSceneName: Title
   slowdownDuration: 0.25
   targetTimeScale: 0
   speedUpDuration: 0.2
+  pauseMenu: {fileID: 0}
+  itemWindowScript: {fileID: 0}
+  player: {fileID: 0}
   isTimeSlowed: 0

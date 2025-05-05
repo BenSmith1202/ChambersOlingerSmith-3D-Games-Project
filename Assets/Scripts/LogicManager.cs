@@ -218,6 +218,9 @@ public class LogicManager : MonoBehaviour
 
         // Ensure correct initial game state for the level
         EnsureCorrectLevelStartState();
+
+        playtime = 0f; // Reset playtime for the new level
+        objectiveComplete = false; // Reset objective state
     }
 
     /// <summary>
