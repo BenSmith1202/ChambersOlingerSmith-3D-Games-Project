@@ -103,6 +103,7 @@ public class FireballProjectile : MonoBehaviour
         }
     }
 
+    public GameObject napalm;
     /// <summary>
     /// Creates visual and audio impact effects
     /// </summary>
@@ -111,6 +112,11 @@ public class FireballProjectile : MonoBehaviour
         if (explosionEffect != null)
         {
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        }
+
+        if (napalm != null)
+        {
+            Instantiate(napalm, transform.position, Quaternion.identity);
         }
 
         if (impactSound != null)

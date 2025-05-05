@@ -1223,10 +1223,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 46
+  currentHP: 54
   clipSize: 0
   level: 0
-  baseMaxHP: 46
+  baseMaxHP: 54
   baseRegen: 0
   baseSpeed: 5
   baseJumpForce: 0
@@ -1262,8 +1262,8 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: 859534031d689c748bb129756d2a1dd6, type: 3}
   showDeathAnim: 1
   deathAnim: {fileID: 5855275079233178848, guid: e1bfdc718c4fbb84a90931edd10e7255, type: 3}
-  levelUpHealth: 5
-  levelUpDamage: 5
+  levelUpHealth: 10
+  levelUpDamage: 8
   levelUpRegen: 0
 --- !u!114 &3912009836138803570
 MonoBehaviour:
@@ -1353,12 +1353,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 180
-  chargeRange: 30
+  chargeRange: 35
   chargeCooldown: 5
-  chargeWindupTime: 3
+  chargeWindupTime: 2.9
   chargeStartDelay: 3.4
   chargeDuration: 0.74
-  chargeSpeed: 37
+  chargeSpeed: 40
   chargeDamage: 23
   knockback: 0
   damageCooldown: 0.5
@@ -1429,7 +1429,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.41
   m_Pitch: 1
   Loop: 0
   Mute: 0

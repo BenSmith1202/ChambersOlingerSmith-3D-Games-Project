@@ -284,7 +284,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.8
+  m_Volume: 0.41
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -408,7 +408,7 @@ MonoBehaviour:
   spawnParticles: {fileID: 1007907148039650277, guid: f14cea81fc841f041bd604b6ef74946c, type: 3}
   behaviorsToDisableDuringSpawn:
   - {fileID: 6210453948975261474}
-  spawnSound: {fileID: 8300000, guid: faf5e3d2c51c6b44a9fec9c10495be87, type: 3}
+  spawnSound: {fileID: 8300000, guid: a921d419e64f5344f889a2931ca3ec24, type: 3}
   extraHeightForSpawnParticles: 0
   debugging: 0
 --- !u!1001 &5639788879661297115
